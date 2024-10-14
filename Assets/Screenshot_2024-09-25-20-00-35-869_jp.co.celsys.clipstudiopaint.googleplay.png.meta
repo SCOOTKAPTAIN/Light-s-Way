@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Screenshot_2024-09-25-20-00-35-869_jp.co.celsys.clipstudiopaint.googleplay_0: -2534703083134777320
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
