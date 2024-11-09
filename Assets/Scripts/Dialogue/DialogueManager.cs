@@ -141,7 +141,7 @@ public class DialogueManager : MonoBehaviour
 
         // reset portrait, layout, and speaker
         displayNameText.text = "???";
-        layoutAnimator.Play("right");
+        layoutAnimator.Play("add");
 
         ContinueStory();
     }
@@ -382,16 +382,16 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // public Ink.Runtime.Object GetVariableState(string variableName) 
-    // {
-    //     Ink.Runtime.Object variableValue = null;
-    //     dialogueVariables.variables.TryGetValue(variableName, out variableValue);
-    //     if (variableValue == null) 
-    //     {
-    //         Debug.LogWarning("Ink Variable was found to be null: " + variableName);
-    //     }
-    //     return variableValue;
-    // }
+    public Ink.Runtime.Object GetVariableState(string variableName) 
+    {
+        Ink.Runtime.Object variableValue = null;
+        dialogueVariables.variables.TryGetValue(variableName, out variableValue);
+        if (variableValue == null) 
+        {
+            Debug.LogWarning("Ink Variable was found to be null: " + variableName);
+        }
+        return variableValue;
+    }
 
     // This method will get called anytime the application exits.
     // Depending on your game, you may want to save variable state in other places.

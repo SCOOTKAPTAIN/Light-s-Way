@@ -7,12 +7,12 @@ public class InkExternalFunctions
 {
     public void Bind(Story story, Animator emoteAnimator)
     {
-        story.BindExternalFunction("playEmote", (string emoteName) => PlayEmote(emoteName, emoteAnimator));
+      //  story.BindExternalFunction("playEmote", (string emoteName) => PlayEmote(emoteName, emoteAnimator));
     }
 
     public void Unbind(Story story) 
     {
-        story.UnbindExternalFunction("playEmote");
+      //  story.UnbindExternalFunction("playEmote");
     }
 
     public void PlayEmote(string emoteName, Animator emoteAnimator)
