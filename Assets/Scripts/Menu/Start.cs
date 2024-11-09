@@ -1,90 +1,93 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
-public class MainMenuController : MonoBehaviour
+public class TitleScreenSequence : MonoBehaviour
 {
-    public GameObject menuUI;    // The main menu UI to show after the animation
-    public Image screenImage;    // The image to zoom and pan on
-    private bool isAnimationSkipped = false;
+    public Image blackScreen;          
+    public Image whiteFlashScreen;     
+    public Image girlImage;            
+    public Image gameTitleImage;       
+    public Image backgroundImage;      
+    public GameObject menu;            
 
-    void Start()
+    public Animator blackscreen;
+
+    public float fadeDuration = 1.5f;  
+    public float delayBetweenFades = 1f;
+    public float shineDuration = 0.5f;
+
+    private bool isSequenceSkipped = false;  // Variable to track if the sequence is skipped
+
+    private void Start()
     {
-        // Initially hide the menu UI
-        menuUI.SetActive(false);
-        
-        // Start the animation
-        StartCoroutine(PlayIntroAnimation());
+        SetInitialVisibility();
+        StartCoroutine(PlayTitleScreenSequence());
     }
 
-    IEnumerator PlayIntroAnimation()
+    private void Update()
     {
-        // Example of an animation loop: zoom in and pan on the image
-        float duration = 5.0f;  // Adjust as necessary
-        float elapsedTime = 0f;
-
-        Vector3 initialScale = screenImage.transform.localScale;
-        Vector3 targetScale = new Vector3(1.5f, 1.5f, 1.5f);  // Example zoom
-        Vector3 initialPosition = screenImage.transform.localPosition;
-        Vector3 targetPosition = new Vector3(0, 50, 0);  // Example panning position
-
-        while (elapsedTime < duration && !isAnimationSkipped)
+        // Check for mouse click (left button or touch)
+        if (Input.GetMouseButtonDown(0) && !isSequenceSkipped)
         {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / duration;
+            SkipSequence();
+        }
+    }
 
-            // Update the scale and position (smooth transition)
-            screenImage.transform.localScale = Vector3.Lerp(initialScale, targetScale, t);
-            screenImage.transform.localPosition = Vector3.Lerp(initialPosition, targetPosition, t);
+    private void SetInitialVisibility()
+    {
+        blackScreen.color = new Color(0, 0, 0, 1);
+        girlImage.color = new Color(1, 1, 1, 0);
+        gameTitleImage.color = new Color(1, 1, 1, 0);
+        backgroundImage.color = new Color(1, 1, 1, 0);
+        menu.SetActive(false);
+        whiteFlashScreen.color = new Color(1, 1, 1, 0);
+    }
 
-            // Detect skip input (mouse click or key press)
-            if (Input.GetMouseButtonDown(0) || Input.anyKeyDown)
-            {
-                isAnimationSkipped = true;
-                break;  // Exit the loop immediately
-            }
+    private IEnumerator PlayTitleScreenSequence()
+    {
+        blackscreen.Play("startsequenceblack");
 
+        yield return new WaitForSeconds(delayBetweenFades);
+        yield return FadeImage(girlImage, fadeDuration, true);
+        yield return new WaitForSeconds(delayBetweenFades);
+        yield return FadeImage(gameTitleImage, fadeDuration, true);
+        yield return new WaitForSeconds(delayBetweenFades);
+        yield return FadeImage(backgroundImage, fadeDuration, true);
+
+        menu.SetActive(true); // Show the menu
+    }
+
+    private IEnumerator FadeImage(Image img, float duration, bool fadeIn)
+    {
+        float timer = 0f;
+        Color startColor = img.color;
+        Color endColor = fadeIn ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
+
+        while (timer < duration)
+        {
+            if (isSequenceSkipped) yield break;  // Stop fading if sequence is skipped
+            timer += Time.deltaTime;
+            img.color = Color.Lerp(startColor, endColor, timer / duration);
             yield return null;
         }
 
-        // Flash effect (optional)
-        if (!isAnimationSkipped)
-        {
-            yield return StartCoroutine(PlayFlashEffect());
-        }
-
-        // Show the menu
-        ShowMainMenu();
+        img.color = endColor;
     }
 
-    IEnumerator PlayFlashEffect()
+    private void SkipSequence()
     {
-        // Implement a simple flash effect
-        float flashDuration = 0.5f; // Duration of the flash
-        float elapsedTime = 0f;
-        Color initialColor = screenImage.color;
-        Color flashColor = Color.white;
+        isSequenceSkipped = true;  // Mark that the sequence was skipped
 
-        while (elapsedTime < flashDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / flashDuration;
+        // Stop all ongoing coroutines
+        StopAllCoroutines();
 
-            // Example flash effect (fading to white and back)
-            screenImage.color = Color.Lerp(initialColor, flashColor, Mathf.PingPong(t * 2, 1));
+        // Instantly show all the elements
+        blackScreen.color = new Color(0, 0, 0, 0);  // Make black screen fully transparent
+        girlImage.color = new Color(1, 1, 1, 1);    // Make girl image fully visible
+        gameTitleImage.color = new Color(1, 1, 1, 1); // Make game title fully visible
+        backgroundImage.color = new Color(1, 1, 1, 1); // Make background fully visible
 
-            yield return null;
-        }
-
-        // Return to normal color
-        screenImage.color = initialColor;
-    }
-
-    void ShowMainMenu()
-    {
-        // Enable the main menu UI
-        menuUI.SetActive(true);
-
-       
+        menu.SetActive(true); // Show the menu
     }
 }

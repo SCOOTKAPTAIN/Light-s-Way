@@ -1,4 +1,6 @@
--> main
+INCLUDE ../globals.ink
+
+{ start_choice == "": -> main | -> already_chose }
 
 === main ===
 Which number do you pick?
@@ -10,5 +12,10 @@ Which number do you pick?
        -> chosen("3")
        
 === chosen(number) ===
+~ start_choice = number
 You picked {number}.
+-> END
+
+=== already_chose ===
+You already chose {start_choice}!
 -> END

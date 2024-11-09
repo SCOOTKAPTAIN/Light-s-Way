@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button playButton;
     [SerializeField] private Button Options;
     [SerializeField] private Button Quit;
+    [SerializeField] private AudioSource audioSource; 
     public void PlayGame()
     {
         playButton.interactable = false;
@@ -30,6 +31,7 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator PlayPress()
    {
+    audioSource.Stop();
     FlashScreen.Play("White");
     yield return new WaitForSeconds(3);
     FlashScreen.Play("Black");

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayDialoueTesting : MonoBehaviour
+public class PlayDialogueTesting : MonoBehaviour
 {
 
     [Header("Ink JSON")]
@@ -12,8 +12,6 @@ public class PlayDialoueTesting : MonoBehaviour
      private void Start()
      {
        DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-       
-
      }
 
 
