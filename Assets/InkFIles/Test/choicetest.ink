@@ -15,7 +15,17 @@ Which number do you pick?
 === chosen(number) ===
 ~ start_choice = number
 You picked {number}.
--> main
+"..."
+"Hmm..."
+Oh hello.
+It seems that you have done choosing the number.
+Let's see...
+Picked {start_choice} eh? A good pick.
+Well now, can't have you waiting any longer eh?
+The test is done. Everything went well. Good job programmer!
+-> END
+
+
 
 === already_chose ===
 You already chose {start_choice}!

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
+using UnityEditor.Timeline.Actions;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -24,13 +25,18 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
 
-    [Header("Audio")]
-    [SerializeField] private DialogueAudioInfoSO defaultAudioInfo;
-    [SerializeField] private DialogueAudioInfoSO[] audioInfos;
-    [SerializeField] private bool makePredictable;
-    private DialogueAudioInfoSO currentAudioInfo;
-    private Dictionary<string, DialogueAudioInfoSO> audioInfoDictionary;
-    private AudioSource audioSource;
+     [Header("Audio")]
+     [SerializeField] private AudioClip dialogueTypingSound;
+     [SerializeField] private bool stopAudioSource;
+     
+    // [SerializeField] private DialogueAudioInfoSO defaultAudioInfo;
+    // [SerializeField] private DialogueAudioInfoSO[] audioInfos;
+    // [SerializeField] private bool makePredictable;
+    // private DialogueAudioInfoSO currentAudioInfo;
+    // private Dictionary<string, DialogueAudioInfoSO> audioInfoDictionary;
+    
+     private AudioSource audioSource;
+
 
     private Story currentStory;
     public bool dialogueIsPlaying { get; private set; }
@@ -44,6 +50,9 @@ public class DialogueManager : MonoBehaviour
     private const string SPEAKER_TAG = "speaker";
     private const string LAYOUT_TAG = "layout";
     private const string AUDIO_TAG = "audio";
+    private bool canSkip = false;
+
+    private bool submitSkip;
 
     private DialogueVariables dialogueVariables;
     private InkExternalFunctions inkExternalFunctions;
@@ -60,7 +69,7 @@ public class DialogueManager : MonoBehaviour
         inkExternalFunctions = new InkExternalFunctions();
 
         audioSource = this.gameObject.AddComponent<AudioSource>();
-        currentAudioInfo = defaultAudioInfo;
+      //  currentAudioInfo = defaultAudioInfo;
     }
 
     public static DialogueManager GetInstance() 
@@ -85,35 +94,39 @@ public class DialogueManager : MonoBehaviour
             index++;
         }
 
-        InitializeAudioInfoDictionary();
+        //InitializeAudioInfoDictionary();
     }
 
-    private void InitializeAudioInfoDictionary() 
-    {
-        audioInfoDictionary = new Dictionary<string, DialogueAudioInfoSO>();
-        audioInfoDictionary.Add(defaultAudioInfo.id, defaultAudioInfo);
-        foreach (DialogueAudioInfoSO audioInfo in audioInfos) 
-        {
-            audioInfoDictionary.Add(audioInfo.id, audioInfo);
-        }
-    }
+    // private void InitializeAudioInfoDictionary() 
+    // {
+    //     audioInfoDictionary = new Dictionary<string, DialogueAudioInfoSO>();
+    //     audioInfoDictionary.Add(defaultAudioInfo.id, defaultAudioInfo);
+    //     foreach (DialogueAudioInfoSO audioInfo in audioInfos) 
+    //     {
+    //         audioInfoDictionary.Add(audioInfo.id, audioInfo);
+    //     }
+    // }
 
-    private void SetCurrentAudioInfo(string id) 
-    {
-        DialogueAudioInfoSO audioInfo = null;
-        audioInfoDictionary.TryGetValue(id, out audioInfo);
-        if (audioInfo != null) 
-        {
-            this.currentAudioInfo = audioInfo;
-        }
-        else 
-        {
-            Debug.LogWarning("Failed to find audio info for id: " + id);
-        }
-    }
+    // private void SetCurrentAudioInfo(string id) 
+    // {
+    //     DialogueAudioInfoSO audioInfo = null;
+    //     audioInfoDictionary.TryGetValue(id, out audioInfo);
+    //     if (audioInfo != null) 
+    //     {
+    //         this.currentAudioInfo = audioInfo;
+    //     }
+    //     else 
+    //     {
+    //         Debug.LogWarning("Failed to find audio info for id: " + id);
+    //     }
+    // }
 
     private void Update() 
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            submitSkip = true;
+        }
         // return right away if dialogue isn't playing
         if (!dialogueIsPlaying) 
         {
@@ -146,9 +159,16 @@ public class DialogueManager : MonoBehaviour
         ContinueStory();
     }
 
+    private IEnumerator CanSkip()
+    {
+        canSkip = false; //Making sure the variable is false.
+        yield return new WaitForSeconds(0.05f);
+        canSkip = true;
+    }
+
     private IEnumerator ExitDialogueMode() 
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.01f);
 
         dialogueVariables.StopListening(currentStory);
         inkExternalFunctions.Unbind(currentStory);
@@ -158,7 +178,7 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = "";
 
         // go back to default audio
-        SetCurrentAudioInfo(defaultAudioInfo.id);
+      //  SetCurrentAudioInfo(defaultAudioInfo.id);
     }
 
     private void ContinueStory() 
@@ -193,42 +213,32 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator DisplayLine(string line) 
     {
         // set the text to the full line, but set the visible characters to 0
-        dialogueText.text = line;
-        dialogueText.maxVisibleCharacters = 0;
-        // hide items while text is typing
+        dialogueText.text = "";
         continueIcon.SetActive(false);
         HideChoices();
+        submitSkip = false;
 
         canContinueToNextLine = false;
 
-        bool isAddingRichTextTag = false;
+        StartCoroutine(CanSkip());
 
         // display each letter one at a time
         foreach (char letter in line.ToCharArray())
         {
-            // if the submit button is pressed, finish up displaying the line right away
-            if (Input.GetMouseButtonDown(0)) 
+            if (canSkip && submitSkip)
             {
-                dialogueText.maxVisibleCharacters = line.Length;
+                submitSkip = false;
+                dialogueText.text = line;
                 break;
             }
 
-            // check for rich text tag, if found, add it without waiting
-            if (letter == '<' || isAddingRichTextTag) 
+            dialogueText.text += letter;
+            if (stopAudioSource)
             {
-                isAddingRichTextTag = true;
-                if (letter == '>')
-                {
-                    isAddingRichTextTag = false;
-                }
+                audioSource.Stop();
             }
-            // if not rich text, add the next letter and wait a small time
-            else 
-            {
-                PlayDialogueSound(dialogueText.maxVisibleCharacters, dialogueText.text[dialogueText.maxVisibleCharacters]);
-                dialogueText.maxVisibleCharacters++;
-                yield return new WaitForSeconds(typingSpeed);
-            }
+            audioSource.PlayOneShot(dialogueTypingSound);
+            yield return new WaitForSeconds(typingSpeed);
         }
 
         // actions to take after the entire line has finished displaying
@@ -236,62 +246,112 @@ public class DialogueManager : MonoBehaviour
         DisplayChoices();
 
         canContinueToNextLine = true;
+        canSkip = false;
     }
 
-    private void PlayDialogueSound(int currentDisplayedCharacterCount, char currentCharacter)
-    {
-        // set variables for the below based on our config
-        AudioClip[] dialogueTypingSoundClips = currentAudioInfo.dialogueTypingSoundClips;
-        int frequencyLevel = currentAudioInfo.frequencyLevel;
-        float minPitch = currentAudioInfo.minPitch;
-        float maxPitch = currentAudioInfo.maxPitch;
-        bool stopAudioSource = currentAudioInfo.stopAudioSource;
+    // private IEnumerator DisplayLine(string line) 
+    // {
+    //     // set the text to the full line, but set the visible characters to 0
+    //     dialogueText.text = line;
+    //     dialogueText.maxVisibleCharacters = 0;
+    //     // hide items while text is typing
+    //     continueIcon.SetActive(false);
+    //     HideChoices();
 
-        // play the sound based on the config
-        if (currentDisplayedCharacterCount % frequencyLevel == 0)
-        {
-            if (stopAudioSource) 
-            {
-                audioSource.Stop();
-            }
-            AudioClip soundClip = null;
-            // create predictable audio from hashing
-            if (makePredictable) 
-            {
-                int hashCode = currentCharacter.GetHashCode();
-                // sound clip
-                int predictableIndex = hashCode % dialogueTypingSoundClips.Length;
-                soundClip = dialogueTypingSoundClips[predictableIndex];
-                // pitch
-                int minPitchInt = (int) (minPitch * 100);
-                int maxPitchInt = (int) (maxPitch * 100);
-                int pitchRangeInt = maxPitchInt - minPitchInt;
-                // cannot divide by 0, so if there is no range then skip the selection
-                if (pitchRangeInt != 0) 
-                {
-                    int predictablePitchInt = (hashCode % pitchRangeInt) + minPitchInt;
-                    float predictablePitch = predictablePitchInt / 100f;
-                    audioSource.pitch = predictablePitch;
-                }
-                else 
-                {
-                    audioSource.pitch = minPitch;
-                }
-            }
-            // otherwise, randomize the audio
-            else 
-            {
-                // sound clip
-                int randomIndex = Random.Range(0, dialogueTypingSoundClips.Length);
-                soundClip = dialogueTypingSoundClips[randomIndex];
-                // pitch
-                audioSource.pitch = Random.Range(minPitch, maxPitch);
-            }
+    //     canContinueToNextLine = false;
+
+    //     bool isAddingRichTextTag = false;
+
+    //     // display each letter one at a time
+    //     foreach (char letter in line.ToCharArray())
+    //     {
+           
+    //         // if the submit button is pressed, finish up displaying the line right away
+    //         if (Input.GetMouseButtonDown(0)) 
+    //         {
+    //             dialogueText.maxVisibleCharacters = line.Length;
+    //             break;
+    //         }
+
+    //         // check for rich text tag, if found, add it without waiting
+    //         if (letter == '<' || isAddingRichTextTag) 
+    //         {
+    //             isAddingRichTextTag = true;
+    //             if (letter == '>')
+    //             {
+    //                 isAddingRichTextTag = false;
+    //             }
+    //         }
+    //         // if not rich text, add the next letter and wait a small time
+    //         else 
+    //         {
+    //             PlayDialogueSound(dialogueText.maxVisibleCharacters, dialogueText.text[dialogueText.maxVisibleCharacters]);
+    //             dialogueText.maxVisibleCharacters++;
+    //             yield return new WaitForSeconds(typingSpeed);
+    //         }
+    //     }
+
+    //     // actions to take after the entire line has finished displaying
+    //     continueIcon.SetActive(true);
+    //     DisplayChoices();
+
+    //     canContinueToNextLine = true;
+    // }
+
+    // private void PlayDialogueSound(int currentDisplayedCharacterCount, char currentCharacter)
+    // {
+    //     // set variables for the below based on our config
+    //     AudioClip[] dialogueTypingSoundClips = currentAudioInfo.dialogueTypingSoundClips;
+    //     int frequencyLevel = currentAudioInfo.frequencyLevel;
+    //     float minPitch = currentAudioInfo.minPitch;
+    //     float maxPitch = currentAudioInfo.maxPitch;
+    //     bool stopAudioSource = currentAudioInfo.stopAudioSource;
+
+    //     // play the sound based on the config
+    //     if (currentDisplayedCharacterCount % frequencyLevel == 0)
+    //     {
+    //         if (stopAudioSource) 
+    //         {
+    //             audioSource.Stop();
+    //         }
+    //         AudioClip soundClip = null;
+    //         // create predictable audio from hashing
+    //         if (makePredictable) 
+    //         {
+    //             int hashCode = currentCharacter.GetHashCode();
+    //             // sound clip
+    //             int predictableIndex = hashCode % dialogueTypingSoundClips.Length;
+    //             soundClip = dialogueTypingSoundClips[predictableIndex];
+    //             // pitch
+    //             int minPitchInt = (int) (minPitch * 100);
+    //             int maxPitchInt = (int) (maxPitch * 100);
+    //             int pitchRangeInt = maxPitchInt - minPitchInt;
+    //             // cannot divide by 0, so if there is no range then skip the selection
+    //             if (pitchRangeInt != 0) 
+    //             {
+    //                 int predictablePitchInt = (hashCode % pitchRangeInt) + minPitchInt;
+    //                 float predictablePitch = predictablePitchInt / 100f;
+    //                 audioSource.pitch = predictablePitch;
+    //             }
+    //             else 
+    //             {
+    //                 audioSource.pitch = minPitch;
+    //             }
+    //         }
+    //         // otherwise, randomize the audio
+    //         else 
+    //         {
+    //             // sound clip
+    //             int randomIndex = Random.Range(0, dialogueTypingSoundClips.Length);
+    //             soundClip = dialogueTypingSoundClips[randomIndex];
+    //             // pitch
+    //             audioSource.pitch = Random.Range(minPitch, maxPitch);
+    //         }
             
-            // play sound
-            audioSource.PlayOneShot(soundClip);
-        }
-    }
+    //         // play sound
+    //         audioSource.PlayOneShot(soundClip);
+    //     }
+    // }
 
     private void HideChoices() 
     {
@@ -325,7 +385,7 @@ public class DialogueManager : MonoBehaviour
                     layoutAnimator.Play(tagValue);
                     break;
                 case AUDIO_TAG: 
-                    SetCurrentAudioInfo(tagValue);
+                  //  SetCurrentAudioInfo(tagValue);
                     break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
@@ -395,9 +455,9 @@ public class DialogueManager : MonoBehaviour
 
     // This method will get called anytime the application exits.
     // Depending on your game, you may want to save variable state in other places.
-    public void OnApplicationQuit() 
-    {
-        dialogueVariables.SaveVariables();
-    }
+    // public void OnApplicationQuit() 
+    // {
+    //     dialogueVariables.SaveVariables();
+    // }
 
 }

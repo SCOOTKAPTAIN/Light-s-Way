@@ -250,9 +250,8 @@ MonoBehaviour:
   - {fileID: 977964749}
   - {fileID: 766106821}
   - {fileID: 280516802}
-  defaultAudioInfo: {fileID: 11400000, guid: 8931a7e7eccc20d4e9f0a1e26fe5cb13, type: 2}
-  audioInfos: []
-  makePredictable: 0
+  dialogueTypingSound: {fileID: 8300000, guid: dd7f5d552d257c940a80db507d318cfc, type: 3}
+  stopAudioSource: 1
 --- !u!1 &208699128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,7 +1054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03d43faba461bff419565e6e3a829172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkJSON: {fileID: 4900000, guid: 0f514e96d374a814c944677842cff6db, type: 3}
+  inkJSON: {fileID: 4900000, guid: 36fedd973d6fad04bbc3cd27747f4683, type: 3}
 --- !u!4 &902576053
 Transform:
   m_ObjectHideFlags: 0

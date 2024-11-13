@@ -18,4 +18,4 @@ MonoBehaviour:
   frequencyLevel: 2
   minPitch: 0.5
   maxPitch: 3
-  stopAudioSource: 1
+  stopAudioSource: 0
