@@ -49,7 +49,7 @@ public class DialogueManager : MonoBehaviour
 
     private const string SPEAKER_TAG = "speaker";
     private const string LAYOUT_TAG = "layout";
-    private const string AUDIO_TAG = "audio";
+    private const string TEXT_TAG = "text";
     private bool canSkip = false;
 
     private bool submitSkip;
@@ -69,6 +69,7 @@ public class DialogueManager : MonoBehaviour
         inkExternalFunctions = new InkExternalFunctions();
 
         audioSource = this.gameObject.AddComponent<AudioSource>();
+        audioSource.volume = 0.1f;
       //  currentAudioInfo = defaultAudioInfo;
     }
 
@@ -143,14 +144,15 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void EnterDialogueMode(TextAsset inkJSON) 
+    public void EnterDialogueMode(TextAsset inkJSON, Animator backgroundAnimator, Animator effectAnimator) 
     {
+
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
 
         dialogueVariables.StartListening(currentStory);
-       // inkExternalFunctions.Bind(currentStory, emoteAnimator);
+        inkExternalFunctions.Bind(currentStory, backgroundAnimator, effectAnimator);
 
         // reset portrait, layout, and speaker
         displayNameText.text = "???";
@@ -384,8 +386,14 @@ public class DialogueManager : MonoBehaviour
                 case LAYOUT_TAG:
                     layoutAnimator.Play(tagValue);
                     break;
-                case AUDIO_TAG: 
-                  //  SetCurrentAudioInfo(tagValue);
+                case TEXT_TAG: 
+                    if(tagValue == "left")
+                    {
+                        dialogueText.alignment = TextAlignmentOptions.TopLeft;
+                    } else if(tagValue == "center")
+                    {
+                        dialogueText.alignment = TextAlignmentOptions.Top;
+                    }
                     break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
@@ -397,6 +405,7 @@ public class DialogueManager : MonoBehaviour
     private void DisplayChoices() 
     {
         List<Choice> currentChoices = currentStory.currentChoices;
+        
 
         // defensive check to make sure our UI can support the number of choices coming in
         if (currentChoices.Count > choices.Length)

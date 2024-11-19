@@ -21,7 +21,13 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/MenuTest.unity
+    path: Assets/Scenes/DialogueScene.unity
     guid: bc5327e13ea31494292380f1e05a56e5
+  - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 48b31e58513d9de4e9a22db5716ff426
+  - enabled: 1
+    path: Assets/Scenes/MapScene.unity
+    guid: f40f4a6c1d59e7442a534fef3f1fadfa
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

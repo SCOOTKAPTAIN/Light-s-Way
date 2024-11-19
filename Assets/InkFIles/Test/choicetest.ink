@@ -1,10 +1,10 @@
 INCLUDE ../globals.ink
 
-
+~Background("Intro")
 { start_choice == "": -> main | -> already_chose }
 
 === main ===
-Which number do you pick?
+Which number do you pick? #layout:remove
      + [1]
        -> chosen("one")
      + [2]
@@ -15,7 +15,7 @@ Which number do you pick?
 === chosen(number) ===
 ~ start_choice = number
 You picked {number}.
-"..."
+"..."#layout:add #speaker:Narrator
 "Hmm..."
 Oh hello.
 It seems that you have done choosing the number.

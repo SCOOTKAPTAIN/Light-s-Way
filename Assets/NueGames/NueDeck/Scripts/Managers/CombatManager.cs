@@ -98,7 +98,9 @@ namespace NueGames.NueDeck.Scripts.Managers
                 case CombatStateType.AllyTurn:
 
                     OnAllyTurnStarted?.Invoke();
-                    
+                    if(!CurrentMainAlly){
+                        return;
+                    }
                     if (CurrentMainAlly.CharacterStats.IsStunned)
                     {
                         EndTurn();

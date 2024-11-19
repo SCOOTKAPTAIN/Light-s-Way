@@ -5,27 +5,63 @@ using Ink.Runtime;
 
 public class InkExternalFunctions
 {
-    public void Bind(Story story, Animator emoteAnimator)
+    public void Bind(Story story, Animator backgroundAnimator, Animator effectAnimator)
     {
-      //  story.BindExternalFunction("playEmote", (string emoteName) => PlayEmote(emoteName, emoteAnimator));
+      story.BindExternalFunction("Background", (string BgName) => Background(BgName, backgroundAnimator));
+      story.BindExternalFunction("Music", (string MName) => ChangeMusic(MName));
+     // story.BindExternalFunction("Flashback", (string state) => Flashback(state, FlashbackAnimator));
+      story.BindExternalFunction("SE", (string SEName) => PlaySE(SEName));
+      story.BindExternalFunction("Effect", (string EName) => Effect(EName, effectAnimator));
     }
 
     public void Unbind(Story story) 
     {
-      //  story.UnbindExternalFunction("playEmote");
+      story.UnbindExternalFunction("Background");
+      story.UnbindExternalFunction("Music");
+      //story.UnbindExternalFunction("Flashback");
+      story.UnbindExternalFunction("SE");
+      story.UnbindExternalFunction("Effect");
+      
     }
 
-    public void PlayEmote(string emoteName, Animator emoteAnimator)
+    public void Background(string BgName, Animator backgroundAnimator)
+      {
+        if( backgroundAnimator != null)
+        {
+          backgroundAnimator.Play(BgName);
+
+        }
+        else{
+          Debug.LogWarning("Background Error lol");
+        }
+    
+      }
+
+      public void ChangeMusic(string MName)
     {
-        if (emoteAnimator != null) 
-        {
-            emoteAnimator.Play(emoteName);
-        }
-        else 
-        {
-            Debug.LogWarning("Tried to play emote, but emote animator was "
-                + "not initialized when entering dialogue mode.");
-        }
+      if(MName == "stop")
+      {
+        DialogueAudioManager.instance.music_source.Stop();
+      }
+      else
+      {
+        DialogueAudioManager.instance.PlayMusic(MName);
+      }
     }
+
+    public void PlaySE(string SEName)
+    {
+     
+      DialogueAudioManager.instance.PlaySFX(SEName);
+    }
+
+     public void Effect(string state, Animator effectAnimator)
+    {
+      effectAnimator.Play(state);
+    }
+
+    
+
+    
     
 }

@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviour
     yield return new WaitForSeconds(3);
     FlashScreen.Play("Black");
     yield return new WaitForSeconds(4);
-    SceneManager.LoadScene("1- Map");
+    SceneManager.LoadScene("Intro");
         
 
     }

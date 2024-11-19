@@ -11,7 +11,7 @@ namespace Map
         public readonly Vector2Int point;
         public readonly List<Vector2Int> incoming = new List<Vector2Int>();
         public readonly List<Vector2Int> outgoing = new List<Vector2Int>();
-       // [JsonConverter(typeof(StringEnumConverter))]
+        //[JsonConverter(typeof(StringEnumConverter))]
         public readonly NodeType nodeType;
         public readonly string blueprintName;
         public Vector2 position;
