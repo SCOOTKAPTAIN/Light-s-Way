@@ -34,7 +34,7 @@ You reminisce about your aspiration. What kind of person you have dreamed of bec
 ~ dream_choice = job
 {dream_choice == "Scholar": Your yearning for knowledge has left you curious about everything, and you'll never rest until your understanding of the world is complete. (Start with +1 Action Point)}
 
-{dream_choice == "Adventurer": Your resolve has been sharpened by your spirit, making you confident in challenging all sorts of foes in your path. (Start with +5 Attack)}
+{dream_choice == "Adventurer": Your unwavering spirit and resolve makes you confident in challenging all sorts of foes in your path. (Start with +5 Attack)}
 
 
 {dream_choice == "Doctor": Your dedication to help people is a noble cause, though fixtated on healing others, you always find the time to take care of yourself. (Start with +25 Health)}
