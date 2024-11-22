@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using NueGames.NueDeck.Scripts.Utils;
 
 
 public class MainMenu : MonoBehaviour

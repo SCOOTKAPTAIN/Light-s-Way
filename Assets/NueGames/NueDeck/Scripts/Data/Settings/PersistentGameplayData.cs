@@ -18,12 +18,16 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private bool canUseCards;
         [SerializeField] private bool canSelectCards;
         [SerializeField] private bool isRandomHand;
+        
         [SerializeField] private List<AllyBase> allyList;
         [SerializeField] private int currentStageId;
         [SerializeField] private int currentEncounterId;
         [SerializeField] private bool isFinalEncounter;
         [SerializeField] private List<CardData> currentCardsList;
         [SerializeField] private List<AllyHealthData> allyHealthDataDataList;
+
+        // My Variables
+        [SerializeField] private int actnumber = 1;
 
         public PersistentGameplayData(GameplayData gameplayData)
         {
@@ -143,6 +147,13 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         {
             get => currentGold;
             set => currentGold = value;
+        }
+
+        public int ActNumber
+        {
+            get => actnumber;
+            set => actnumber = value;
+
         }
         
         #endregion

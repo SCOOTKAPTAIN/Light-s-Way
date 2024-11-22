@@ -5,6 +5,7 @@ using NueGames.NueDeck.ThirdParty.NueTooltip.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 namespace NueGames.NueDeck.Scripts.Utils
 {
     public class SceneChanger : MonoBehaviour
@@ -12,61 +13,81 @@ namespace NueGames.NueDeck.Scripts.Utils
         private GameManager GameManager => GameManager.Instance;
         private UIManager UIManager => UIManager.Instance;
         
+
         private enum SceneType
         {
             MainMenu,
             Map,
             Combat
         }
+
         public void OpenMainMenuScene()
         {
             StartCoroutine(DelaySceneChange(SceneType.MainMenu));
         }
-        private IEnumerator DelaySceneChange(SceneType type)
-        {
-            UIManager.SetCanvas(UIManager.Instance.InventoryCanvas,false,true);
-            yield return StartCoroutine(UIManager.Instance.Fade(true));
 
-            switch (type)
-            {
-                case SceneType.MainMenu:
-                    UIManager.ChangeScene(GameManager.SceneData.mainMenuSceneIndex);
-                    UIManager.SetCanvas(UIManager.CombatCanvas,false,true);
-                    UIManager.SetCanvas(UIManager.InformationCanvas,false,true);
-                    UIManager.SetCanvas(UIManager.RewardCanvas,false,true);
-                   
-                    GameManager.InitGameplayData();
-                    GameManager.SetInitalHand();
-                    break;
-                case SceneType.Map:
-                    UIManager.ChangeScene(GameManager.SceneData.mapSceneIndex);
-                    UIManager.SetCanvas(UIManager.CombatCanvas,false,true);
-                    UIManager.SetCanvas(UIManager.InformationCanvas,true,false);
-                    UIManager.SetCanvas(UIManager.RewardCanvas,false,true);
-                   
-                    break;
-                case SceneType.Combat:
-                    UIManager.ChangeScene(GameManager.SceneData.combatSceneIndex);
-                    UIManager.SetCanvas(UIManager.CombatCanvas,false,true);
-                    UIManager.SetCanvas(UIManager.InformationCanvas,true,false);
-                    UIManager.SetCanvas(UIManager.RewardCanvas,false,true);
-                    
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
+        private IEnumerator DelaySceneChange(SceneType type)
+{
+    // Save the current map if transitioning from the map scene
+    if (type == SceneType.Combat)
+    {
+        var mapManager = UnityEngine.Object.FindFirstObjectByType<Map.MapManager>();
+        if (mapManager != null)
+        {
+            mapManager.SaveMap();
         }
+        else
+        {
+            Debug.LogWarning("MapManager not found. Unable to save the map.");
+        }
+    }
+
+    // Proceed with existing UI and scene management logic
+    UIManager.SetCanvas(UIManager.Instance.InventoryCanvas, false, true);
+    yield return StartCoroutine(UIManager.Instance.Fade(true));
+
+    switch (type)
+    {
+        case SceneType.MainMenu:
+            UIManager.ChangeScene(GameManager.SceneData.mainMenuSceneIndex);
+            UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
+            UIManager.SetCanvas(UIManager.InformationCanvas, false, true);
+            UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
+            GameManager.InitGameplayData();
+            GameManager.SetInitalHand();
+            break;
+        case SceneType.Map:
+            DialogueAudioManager.instance.PlayMusic("Map_100_Light");
+            UIManager.ChangeScene(GameManager.SceneData.mapSceneIndex);
+            UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
+            UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
+            UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
+            break;
+        case SceneType.Combat:
+            DialogueAudioManager.instance.PlayMusic("battle");
+            UIManager.ChangeScene(GameManager.SceneData.combatSceneIndex);
+            UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
+            UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
+            UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
+            break;
+        default:
+            throw new ArgumentOutOfRangeException(nameof(type), type, null);
+    }
+}
+
+
         public void OpenMapScene()
         {
             StartCoroutine(DelaySceneChange(SceneType.Map));
         }
+
         public void OpenCombatScene()
         {
             StartCoroutine(DelaySceneChange(SceneType.Combat));
         }
+
         public void ChangeScene(int sceneId)
         {
-
             if (sceneId == GameManager.SceneData.mainMenuSceneIndex)
                 OpenMainMenuScene();
             else if (sceneId == GameManager.SceneData.mapSceneIndex)
@@ -75,9 +96,10 @@ namespace NueGames.NueDeck.Scripts.Utils
                 OpenCombatScene();
             else
                 SceneManager.LoadScene(sceneId);
-            
+
             TooltipManager.Instance.HideTooltip();
         }
+
         public void ExitApp()
         {
             GameManager.OnExitApp();
@@ -85,3 +107,4 @@ namespace NueGames.NueDeck.Scripts.Utils
         }
     }
 }
+

@@ -36,8 +36,8 @@ public class MyGameManager : MonoBehaviour
    
     void Update()
     {
-        currentGold = GameManager.Instance.PersistentGameplayData.CurrentGold;
-        maxHealth = GameManager.Instance.PersistentGameplayData.AllyList[0].AllyCharacterData.MaxHealth;
+       // currentGold = GameManager.Instance.PersistentGameplayData.CurrentGold;
+       // maxHealth = GameManager.Instance.PersistentGameplayData.AllyList[0].AllyCharacterData.MaxHealth;
         //currentHealth = GameManager.Instance.PersistentGameplayData.AllyList[0].AllyCharacterData.CurrentHealth;
         UIChange();
         

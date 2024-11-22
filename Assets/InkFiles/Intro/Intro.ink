@@ -4,9 +4,12 @@ INCLUDE ../globals.ink
 
 In a dark corridor, inside the cold interior of a house, you lie there, unable to move.
 
-Your house has been raided and at the cost of their lives, your family hid you away from them.
+A minute ago, a group of bandits barged into the house, killing and taking everything that's been here.
 
-Now all there's left is the darkness approaching to consume you.
+With the cost of their lives, your family has managed to hid you away from them.
+//Your house has been raided and at the cost of their lives, your family hid you away from them.
+
+But now all there's left is the darkness approaching to consume you.
 
 You've given up on life and the darkness looms ever closer, you've lost the will to stand up, only waiting for your inevitable death.
 
@@ -64,7 +67,7 @@ But you never did such things, because you..
 
 {reason_choice == "scared": You never went to start anything, you're too afraid to make a change, in your eyes, everything is fine the way it was. (Gain the opportunity to burn a card) }
 
-{reason_choice == "stay": Your family is struggling so you do what you can to provide, but now they are gone and although wealthy, these coins have lost their purpose. (Gain 200 extra Gold)}
+{reason_choice == "stay": Your family is struggling so you do what you can to provide, but now they are gone and although saved, these coins have lost their purpose. (Gain 200 extra Gold)}
 ->continue
 
 ===continue===

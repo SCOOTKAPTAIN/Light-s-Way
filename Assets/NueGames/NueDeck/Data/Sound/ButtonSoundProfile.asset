@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: ButtonSoundProfile
   m_EditorClassIdentifier: 
   audioType: 3
-  randomClipList: []
+  randomClipList:
+  - {fileID: 8300000, guid: 3640ec68d3378044e8e4b62abe8f5560, type: 3}
