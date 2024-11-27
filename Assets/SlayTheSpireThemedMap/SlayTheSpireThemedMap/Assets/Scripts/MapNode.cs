@@ -1,5 +1,6 @@
 ﻿using System;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -117,8 +118,48 @@ namespace Map
             }
         }
 
+        public void EncounterDetails()
+        {
+            MapView.Instance.NodeDetails.SetActive(true);
+            switch(Node.nodeType)
+            {
+                case NodeType.MinorEnemy:
+                MapView.Instance.NodeDescription.text = "Those who stand in your way—some fight for survival, while some simply do it for the thrill of it, all the cruel reasons that exist. It's up to you whether to face them or not.";
+                MapView.Instance.NodeTitle.text = "Battle";
+                break;
+
+                case NodeType.EliteEnemy:
+                MapView.Instance.NodeDescription.text = "Tested by the harsh reality of this world, they have molded themselves into something stronger. Tread carefully, for in their eyes, you're nothing more than an insignificant obstacle in their way.";
+                MapView.Instance.NodeTitle.text = "Mighty Foe";
+                break;
+
+                case NodeType.Store:
+                MapView.Instance.NodeDescription.text = "Neither a foe nor an ally, some people like to stay in the sidelines. Say what you want about him, but right now, he's the closest thing you got as a friend.";
+                MapView.Instance.NodeTitle.text = "Merchant";
+                break;
+
+                case NodeType.RestSite:
+                MapView.Instance.NodeDescription.text = "Though temporary, it's a safespace to shelter yourself from the dangers of the world. Make good use of it.";
+                MapView.Instance.NodeTitle.text = "Respite";
+                break;
+
+                case NodeType.Mystery:
+                MapView.Instance.NodeDescription.text = "The world is filled with surprises. Experience it with modesty.";
+                MapView.Instance.NodeTitle.text = "Encounter";
+                break;
+
+                case NodeType.Boss:
+                MapView.Instance.NodeDescription.text = "A heavy presence that blocks the path ahead. A relentless force, unyielding and merciless. They won't stand down. But neither will you.";
+                MapView.Instance.NodeTitle.text = "Dreadful Foe";
+                break;
+
+            }
+            
+        }
+
         public void OnPointerEnter(PointerEventData data)
         {
+            EncounterDetails();
             if (sr != null)
             {
                 sr.transform.DOKill();
@@ -134,6 +175,7 @@ namespace Map
 
         public void OnPointerExit(PointerEventData data)
         {
+            MapView.Instance.NodeDetails.SetActive(false);
             if (sr != null)
             {
                 sr.transform.DOKill();

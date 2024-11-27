@@ -8,12 +8,12 @@ public class UIButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickH
 
     private static AudioSource sharedAudioSource;
 
-    private void Awake()
+    private void Start()
     {
         // Find the AudioSource only once for all buttons
         if (sharedAudioSource == null)
         {
-            GameObject audioManager = GameObject.Find("UISound");
+            GameObject audioManager = GameObject.Find("SFXSource");
             if (audioManager != null)
             {
                 sharedAudioSource = audioManager.GetComponent<AudioSource>();

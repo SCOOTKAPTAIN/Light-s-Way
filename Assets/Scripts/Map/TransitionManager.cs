@@ -9,13 +9,16 @@ public class TransitionManager : MonoBehaviour
 
     //public int ActNumber = 1;
     public Animator transistionanimator;
-    public GameObject IntroCover;
+    
     void Start()
     {
         Debug.Log("initial value: " + GameManager.Instance.PersistentGameplayData.ActNumber);
-        if(GameManager.Instance.PersistentGameplayData.ActNumber == 1)
+        if(GameManager.Instance.PersistentGameplayData.ActNumber == 0)
         {
            StartCoroutine(Act1());
+        }else
+        {
+            PlayAct();
         }
 
         
@@ -42,25 +45,38 @@ public class TransitionManager : MonoBehaviour
 
     public void PlayAct()
     {
+
+        // 0 - start
+        // 1 - Act 1
+        // 2 - Act 1 Boss
+        // 3 - Act 2
+        // 4 - Act 2 Boss
+        // 5 - Act 3
+        // 6 - Act 3 Boss
+        // 7 - Act 4 
+        // 8 - Act 4 Boss
+        // 9 - Final Act
+        // 10 - Final Boss
         switch(GameManager.Instance.PersistentGameplayData.ActNumber)
         {
-            case 2:
+            case 3:
             transistionanimator.Play("Act2");
             break;
 
-            case 3:
+            case 5:
             transistionanimator.Play("Act3");
             break;
 
-            case 4:
+            case 7:
             transistionanimator.Play("Act4");
             break;
 
-            case 5:
+            case 9:
             transistionanimator.Play("Act5");
             break;
 
-
+            default:
+            break;
         }
 
     }

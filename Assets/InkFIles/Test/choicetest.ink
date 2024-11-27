@@ -1,7 +1,7 @@
 INCLUDE ../globals.ink
 
-~Background("Intro")
-{ start_choice == "": -> main | -> already_chose }
+
+{ dream_choice == "": -> main | -> already_chose }
 
 === main ===
 Which number do you pick? #layout:remove
@@ -13,14 +13,14 @@ Which number do you pick? #layout:remove
        -> chosen("three")
        
 === chosen(number) ===
-~ start_choice = number
+~ dream_choice = number
 You picked {number}.
 "..."#layout:add #speaker:Narrator
 "Hmm..."
 Oh hello.
 It seems that you have done choosing the number.
 Let's see...
-Picked {start_choice} eh? A good pick.
+Picked {dream_choice} eh? A good pick.
 Well now, can't have you waiting any longer eh?
 The test is done. Everything went well. Good job programmer!
 -> END
@@ -28,5 +28,5 @@ The test is done. Everything went well. Good job programmer!
 
 
 === already_chose ===
-You already chose {start_choice}!
+You already chose {dream_choice}!
 -> END

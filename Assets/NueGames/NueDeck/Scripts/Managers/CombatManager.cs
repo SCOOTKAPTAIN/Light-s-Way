@@ -208,6 +208,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         #region Private Methods
         private void BuildEnemies()
         {
+            EncounterManager.instance.EncounterSelector();
             CurrentEncounter = GameManager.EncounterData.GetEnemyEncounter(
                 GameManager.PersistentGameplayData.CurrentStageId,
                 GameManager.PersistentGameplayData.CurrentEncounterId,
@@ -266,7 +267,7 @@ namespace NueGames.NueDeck.Scripts.Managers
             else
             {
                 CurrentMainAlly.CharacterStats.ClearAllStatus();
-                GameManager.PersistentGameplayData.CurrentEncounterId++;
+                //GameManager.PersistentGameplayData.CurrentEncounterId++;
                 UIManager.CombatCanvas.gameObject.SetActive(false);
                 UIManager.RewardCanvas.gameObject.SetActive(true);
                 UIManager.RewardCanvas.PrepareCanvas();

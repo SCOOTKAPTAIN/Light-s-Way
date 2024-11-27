@@ -78,17 +78,33 @@ namespace NueGames.NueDeck.Scripts.Managers
         }
         public void NextEncounter()
         {
-            PersistentGameplayData.CurrentEncounterId++;
+            //PersistentGameplayData.CurrentEncounterId;
             if (PersistentGameplayData.CurrentEncounterId>=EncounterData.EnemyEncounterList[PersistentGameplayData.CurrentStageId].EnemyEncounterList.Count)
             {
                 PersistentGameplayData.CurrentEncounterId = Random.Range(0,
                     EncounterData.EnemyEncounterList[PersistentGameplayData.CurrentStageId].EnemyEncounterList.Count);
             }
         }
+
         public void OnExitApp()
         {
             
         }
+        #endregion
+
+
+        #region Light's way Stuff
+
+
+
+
+
+
+
+
+        
+
+
         #endregion
       
 

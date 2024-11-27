@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace Map
@@ -17,6 +18,11 @@ namespace Map
 
         public MapManager mapManager;
         public MapOrientation orientation;
+
+        [SerializeField] public TextMeshProUGUI NodeTitle;
+        [SerializeField] public TextMeshProUGUI NodeDescription;
+
+        public GameObject NodeDetails;
 
         [Tooltip(
             "List of all the MapConfig scriptable objects from the Assets folder that might be used to construct maps. " +

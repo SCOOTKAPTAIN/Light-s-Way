@@ -21,6 +21,7 @@ public class TitleScreenSequence : MonoBehaviour
 
     private void Start()
     {
+        DialogueAudioManager.instance.PlayMusic("intro");
         SetInitialVisibility();
         StartCoroutine(PlayTitleScreenSequence());
     }

@@ -26,19 +26,43 @@ public class DialogueAudioManager : MonoBehaviour
     {
         //PlayMusic("Theme"); // When game start play theme
     }
-    public void PlayMusic(string name) //Call this function from any script u want to add music
+
+    public void PlayMusic(string name) // Call this function to play music
+{
+    // Search for the audio in the array
+    Sound sound = Array.Find(music_sound, x => x.name == name); 
+    if (sound != null)
     {
-        Sound sound = Array.Find(music_sound, x => x.name == name); //Search audio from array
-        if (sound != null)
+        // Check if the music source is already playing the same clip
+        if (music_source.isPlaying && music_source.clip == sound.clip)
         {
-            music_source.clip = sound.clip;
-            music_source.Play();
+            Debug.Log("Music is already playing.");
+            return; // Do not restart the same clip
         }
-        else
-        {
-            Debug.Log("Music Not Found");
-        }
+
+        // Otherwise, play the new clip
+        music_source.clip = sound.clip;
+        music_source.Play();
     }
+    else
+    {
+        Debug.Log("Music Not Found");
+    }
+}
+
+    // public void PlayMusic(string name) //Call this function from any script u want to add music
+    // {
+    //     Sound sound = Array.Find(music_sound, x => x.name == name); //Search audio from array
+    //     if (sound != null)
+    //     {
+    //         music_source.clip = sound.clip;
+    //         music_source.Play();
+    //     }
+    //     else
+    //     {
+    //         Debug.Log("Music Not Found");
+    //     }
+    // }
     public void PlaySFX(string name) //Call this function from any script u want to add SFX
     {
         Sound sound = Array.Find(sfx_sound, x => x.name == name); //Search audio from array

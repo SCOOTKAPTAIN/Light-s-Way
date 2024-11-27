@@ -27,7 +27,8 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private List<AllyHealthData> allyHealthDataDataList;
 
         // My Variables
-        [SerializeField] private int actnumber = 1;
+        [SerializeField] private int actnumber = 0;
+        [SerializeField] public int light;
 
         public PersistentGameplayData(GameplayData gameplayData)
         {
@@ -153,6 +154,13 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         {
             get => actnumber;
             set => actnumber = value;
+
+        }
+
+        public int Light
+        {
+            get => light;
+            set => light = value;
 
         }
         

@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator PlayPress()
    {
-    audioSource.Stop();
+    DialogueAudioManager.instance.music_source.Stop();
     FlashScreen.Play("White");
     yield return new WaitForSeconds(3);
     FlashScreen.Play("Black");
