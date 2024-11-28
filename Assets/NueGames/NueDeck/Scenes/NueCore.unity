@@ -175,6 +175,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2388636854935074175, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
+      propertyPath: fader
+      value: 
+      objectReference: {fileID: 104441336}
+    - target: {fileID: 3268525075004148596, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8747015148421201700, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -861
@@ -184,6 +192,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
+--- !u!225 &104441336 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 3268525075004148596, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
+  m_PrefabInstance: {fileID: 104441335}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &185822258
 PrefabInstance:
   m_ObjectHideFlags: 0

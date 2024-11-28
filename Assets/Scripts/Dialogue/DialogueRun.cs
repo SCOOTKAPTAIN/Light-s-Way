@@ -26,13 +26,14 @@ public class DialogueRun : MonoBehaviour
     private int DialogueId = 0;
 
     private bool EndDialogue = false;
+
   
-    
+  
+   
 
     private void Start()
     {
         EndDialogue = false;
-       // DialogueAudioManager.instance.PlayMusic("clock");
         StartCoroutine(Flow());
     }
 
@@ -63,8 +64,10 @@ public class DialogueRun : MonoBehaviour
 
      IEnumerator BacktoMap()
     {
-        yield return new WaitForSeconds(0.1f);
-     OpenMapScene();
+        OpenMapScene();
+     yield return new WaitForSeconds(0.01f);
+     
+     
     }
 
 
