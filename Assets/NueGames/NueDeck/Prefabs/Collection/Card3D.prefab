@@ -112,6 +112,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3183657126472660410, guid: 3321e16e39e6b244d9190cf57c9df194, type: 3}
+    - target: {fileID: 418798690009545164, guid: 1f0d6da961667c54c92335a6cbca8ebc, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 627955334959083346, guid: 1f0d6da961667c54c92335a6cbca8ebc, type: 3}
       propertyPath: m_Name
       value: CardCanvas
@@ -219,7 +223,7 @@ PrefabInstance:
     - target: {fileID: 1793301912331936628, guid: 1f0d6da961667c54c92335a6cbca8ebc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1306988184310151341, guid: be98aea894062964296101dbe5ba1058, type: 3}
+      objectReference: {fileID: 21300000, guid: f29e25d1cc30ceb4292b111f6dd52708, type: 3}
     - target: {fileID: 1793301912331936628, guid: 1f0d6da961667c54c92335a6cbca8ebc, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -243,7 +247,7 @@ PrefabInstance:
     - target: {fileID: 1929272511784879221, guid: 1f0d6da961667c54c92335a6cbca8ebc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1306988184310151341, guid: be98aea894062964296101dbe5ba1058, type: 3}
+      objectReference: {fileID: 21300000, guid: 33e994aa1edc51c498fdb963f8935b47, type: 3}
     - target: {fileID: 2537049393190088368, guid: 1f0d6da961667c54c92335a6cbca8ebc, type: 3}
       propertyPath: m_fontSize
       value: 14.55
@@ -554,7 +558,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7623062831306847966, guid: 1f0d6da961667c54c92335a6cbca8ebc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7702578548364332170, guid: 1f0d6da961667c54c92335a6cbca8ebc, type: 3}
       propertyPath: m_IsActive

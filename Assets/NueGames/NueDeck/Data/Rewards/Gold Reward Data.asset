@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b334db8796c452484543bb144328230, type: 3}
   m_Name: Gold Reward Data
   m_EditorClassIdentifier: 
-  rewardSprite: {fileID: 4322673043527013044, guid: a707003c96586cc41b22ae32a9cdb636, type: 3}
+  rewardSprite: {fileID: 9009275649748190749, guid: fc912518309c4af40b2a6c9354ac21ff, type: 3}
   rewardDescription: Earn some gold
-  minGold: 10
+  minGold: 50
   maxGold: 100

@@ -15,6 +15,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button Options;
     [SerializeField] private Button Quit;
     [SerializeField] private AudioSource audioSource; 
+
+     private void Start() 
+     {
+        PlayerPrefs.DeleteKey("Map");
+        
+    }
     public void PlayGame()
     {
         playButton.interactable = false;

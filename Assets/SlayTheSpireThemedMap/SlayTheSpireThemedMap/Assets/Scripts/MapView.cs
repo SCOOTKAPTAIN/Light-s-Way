@@ -34,6 +34,8 @@ namespace Map
         [Header("Background Settings")]
         [Tooltip("If the background sprite is null, background will not be shown")]
         public Sprite background;
+
+        public GameObject backgroundPrefab;
         public Color32 backgroundColor = Color.white;
         public float xSize;
         public float yOffset;
@@ -111,21 +113,47 @@ namespace Map
         }
 
         protected virtual void CreateMapBackground(Map m)
-        {
-            if (background == null) return;
+{
+    if (backgroundPrefab == null) return;
 
-            GameObject backgroundObject = new GameObject("Background");
-            backgroundObject.transform.SetParent(mapParent.transform);
-            MapNode bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
-            float span = m.DistanceBetweenFirstAndLastLayers();
-            backgroundObject.transform.localPosition = new Vector3(bossNode.transform.localPosition.x, span / 2f, 0f);
-            backgroundObject.transform.localRotation = Quaternion.identity;
-            SpriteRenderer sr = backgroundObject.AddComponent<SpriteRenderer>();
-            sr.color = backgroundColor;
-            sr.drawMode = SpriteDrawMode.Sliced;
-            sr.sprite = background;
-            sr.size = new Vector2(xSize, span + yOffset * 2f);
-        }
+    // Instantiate the prefab
+    GameObject backgroundObject = Instantiate(backgroundPrefab, mapParent.transform);
+    MapNode bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
+    float span = m.DistanceBetweenFirstAndLastLayers();
+
+    // Position the background based on the map layout
+    backgroundObject.transform.localPosition = new Vector3(
+        bossNode.transform.localPosition.x,
+        span / 2f,
+        0f
+    );
+    backgroundObject.transform.localRotation = Quaternion.identity;
+
+    // If the prefab has a SpriteRenderer, update its color and size
+    SpriteRenderer sr = backgroundObject.GetComponent<SpriteRenderer>();
+    if (sr != null)
+    {
+        sr.color = backgroundColor;
+        sr.size = new Vector2(xSize, span + yOffset * 2f);
+    }
+}
+
+        // protected virtual void CreateMapBackground(Map m)
+        // {
+        //     if (background == null) return;
+
+        //     GameObject backgroundObject = new GameObject("Background");
+        //     backgroundObject.transform.SetParent(mapParent.transform);
+        //     MapNode bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
+        //     float span = m.DistanceBetweenFirstAndLastLayers();
+        //     backgroundObject.transform.localPosition = new Vector3(bossNode.transform.localPosition.x, span / 2f, 0f);
+        //     backgroundObject.transform.localRotation = Quaternion.identity;
+        //     SpriteRenderer sr = backgroundObject.AddComponent<SpriteRenderer>();
+        //     sr.color = backgroundColor;
+        //     sr.drawMode = SpriteDrawMode.Sliced;
+        //     sr.sprite = background;
+        //     sr.size = new Vector2(xSize, span + yOffset * 2f);
+        // }
 
         protected virtual void CreateMapParent()
         {

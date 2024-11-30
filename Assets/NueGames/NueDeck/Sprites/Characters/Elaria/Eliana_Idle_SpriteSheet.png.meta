@@ -1,0 +1,314 @@
+fileFormatVersion: 2
+guid: cd66bee6c01efa34f848c64d7bb8466b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2629809676517645954
+    second: Eliana_Idle_SpriteSheet_0
+  - first:
+      213: -3103514550413027323
+    second: Eliana_Idle_SpriteSheet_1
+  - first:
+      213: -2502601980730669740
+    second: Eliana_Idle_SpriteSheet_2
+  - first:
+      213: 3131294786054014393
+    second: Eliana_Idle_SpriteSheet_3
+  - first:
+      213: 6859134911999431469
+    second: Eliana_Idle_SpriteSheet_4
+  - first:
+      213: 4973951421957048715
+    second: Eliana_Idle_SpriteSheet_5
+  - first:
+      213: -8279804901782043237
+    second: Eliana_Idle_SpriteSheet_6
+  - first:
+      213: -3915059605674496706
+    second: Eliana_Idle_SpriteSheet_7
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 2000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Eliana_Idle_SpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 22
+        width: 1197
+        height: 1771
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28e18bba7f5fe7420800000000000000
+      internalID: 2629809676517645954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eliana_Idle_SpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 2264
+        y: 23
+        width: 1203
+        height: 1780
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5081063a5f91ee4d0800000000000000
+      internalID: -3103514550413027323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eliana_Idle_SpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 4162
+        y: 32
+        width: 1279
+        height: 1758
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4550c5402c8f44dd0800000000000000
+      internalID: -2502601980730669740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eliana_Idle_SpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 6097
+        y: 27
+        width: 1257
+        height: 1757
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b548c18408947b20800000000000000
+      internalID: 3131294786054014393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eliana_Idle_SpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 8042
+        y: 29
+        width: 1282
+        height: 1772
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d23d4387cda803f50800000000000000
+      internalID: 6859134911999431469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eliana_Idle_SpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 10041
+        y: 29
+        width: 1258
+        height: 1774
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b898cc31776070540800000000000000
+      internalID: 4973951421957048715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eliana_Idle_SpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 12133
+        y: 27
+        width: 1095
+        height: 1754
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b954eb36f49381d80800000000000000
+      internalID: -8279804901782043237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eliana_Idle_SpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 13995
+        y: 23
+        width: 1143
+        height: 1749
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3d6a41180aeaa9c0800000000000000
+      internalID: -3915059605674496706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Eliana_Idle_SpriteSheet_0: 2629809676517645954
+      Eliana_Idle_SpriteSheet_1: -3103514550413027323
+      Eliana_Idle_SpriteSheet_2: -2502601980730669740
+      Eliana_Idle_SpriteSheet_3: 3131294786054014393
+      Eliana_Idle_SpriteSheet_4: 6859134911999431469
+      Eliana_Idle_SpriteSheet_5: 4973951421957048715
+      Eliana_Idle_SpriteSheet_6: -8279804901782043237
+      Eliana_Idle_SpriteSheet_7: -3915059605674496706
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

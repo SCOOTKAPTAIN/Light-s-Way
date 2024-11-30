@@ -12,12 +12,15 @@ namespace Map
         public string bossNodeName;
         public string configName; // similar to the act name in Slay the Spire
 
-        public Map(string configName, string bossNodeName, List<Node> nodes, List<Vector2Int> path)
+        public bool movedOnSameLayer;
+
+        public Map(string configName, string bossNodeName, List<Node> nodes, List<Vector2Int> path, bool movedOnSameLayer)
         {
             this.configName = configName;
             this.bossNodeName = bossNodeName;
             this.nodes = nodes;
             this.path = path;
+            this.movedOnSameLayer = movedOnSameLayer;
         }
 
         public Node GetBossNode()

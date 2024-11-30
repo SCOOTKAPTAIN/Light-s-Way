@@ -179,6 +179,14 @@ PrefabInstance:
       propertyPath: fader
       value: 
       objectReference: {fileID: 104441336}
+    - target: {fileID: 2811288772856378748, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2811288772856378748, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3268525075004148596, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
       propertyPath: m_Alpha
       value: 0
@@ -186,6 +194,14 @@ PrefabInstance:
     - target: {fileID: 8747015148421201700, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -861
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802460623964272753, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802460623964272753, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -663,7 +679,7 @@ MonoBehaviour:
   - name: clock
     clip: {fileID: 8300000, guid: 56d28416a5f9be74186040a6802ac709, type: 3}
   - name: Map_100_Light
-    clip: {fileID: 8300000, guid: 1ff36074fb0c91c45b000eb2cb58484c, type: 3}
+    clip: {fileID: 8300000, guid: 6bf0e94b771d0274fa31a8ad36376d69, type: 3}
   - name: intro
     clip: {fileID: 8300000, guid: f3b15f7179875b6438754a56ef429361, type: 3}
   - name: battle
