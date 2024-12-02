@@ -1,8 +1,10 @@
 ﻿using System;
 using DG.Tweening;
+using NueGames.NueDeck.Scripts.Managers;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 namespace Map
@@ -19,6 +21,10 @@ namespace Map
 {
     public class MapNode : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
     {
+        public Transform spotlightRadius;
+        public float spotlightOuterRadius = 32f;
+
+        public Light2D spotlight;
         public SpriteRenderer sr;
         public Image image;
         public SpriteRenderer visitedCircle;
@@ -34,10 +40,32 @@ namespace Map
 
         private const float MaxClickDuration = 0.5f;
 
+        void Update()
+        {
+            
+            // Vector2 Mouseposistion = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            // if(IsPointerinSpotLightRange(Mouseposistion))
+            //     {
+            //         Debug.Log("mouse within light, currently in:" + Mouseposistion);
+            //     }
+            //     else
+            //     {
+            //        Debug.Log("mouse outside light, currently in:" + Mouseposistion);
+            //     }
+
+           
+            
+        }
+
         public void SetUp(Node node, NodeBlueprint blueprint)
         {
             Node = node;
             Blueprint = blueprint;
+            if (spotlight != null)
+            {
+                spotlight.enabled = false; // Turn off by default
+                //spotlight.color = MapView.Instance.visitedColor; // Example color configuration
+            }
             if (sr != null) sr.sprite = blueprint.sprite;
             if (image != null) image.sprite = blueprint.sprite;
             if (node.nodeType == NodeType.Boss) transform.localScale *= 1.5f;
@@ -59,6 +87,57 @@ namespace Map
             SetState(NodeStates.Locked);
         }
 
+        public void HighlightNode(bool highlight)
+        {
+            if (spotlight != null)
+            {
+                spotlight.enabled = highlight;
+            }
+        }
+
+        bool IsPointerinSpotLightRange(Vector2 pointerPosition)
+        {
+            Vector2 spotlightPosition = spotlight.transform.position;
+            float outerRadius = spotlight.pointLightOuterRadius;
+            float distance = Vector2.Distance(pointerPosition, spotlightPosition);
+            
+            return distance <= outerRadius;
+        }
+
+        public void LightState(int value)
+        {
+            switch(value)
+            {
+                case >= 90 and <= 100:
+                spotlightOuterRadius = 32f;
+                spotlight.pointLightInnerRadius = 16f; 
+                spotlight.pointLightOuterRadius = 32f;
+                break;
+                case >= 50 and <= 89:
+                spotlightOuterRadius = 20f;
+                spotlight.pointLightInnerRadius = 10f; 
+                spotlight.pointLightOuterRadius = 20f;
+                break;
+                case >= 10 and <= 49:
+                spotlightOuterRadius = 10f;
+                spotlight.pointLightInnerRadius = 5f; 
+                spotlight.pointLightOuterRadius = 10f;
+                break;
+                case >= 1 and <= 9:
+                spotlightOuterRadius = 9f;
+                spotlight.pointLightInnerRadius = 2f; 
+                spotlight.pointLightOuterRadius = 4f;
+                break;
+                case 0:
+                spotlightOuterRadius = 1.3f;
+                spotlight.pointLightInnerRadius = 0.6f; 
+                spotlight.pointLightOuterRadius = 1.3f;
+                break;
+
+            }
+
+        }
+
         public void SetState(NodeStates state)
         {
             if (visitedCircle != null) visitedCircle.gameObject.SetActive(false);
@@ -67,6 +146,11 @@ namespace Map
             switch (state)
             {
                 case NodeStates.Locked:
+                    LightState(GameManager.Instance.PersistentGameplayData.light);
+                     if(spotlight != null)
+                    {
+                        spotlight.enabled = false;
+                    }
                     if (sr != null)
                     {
                         sr.DOKill();
@@ -81,6 +165,12 @@ namespace Map
 
                     break;
                 case NodeStates.Visited:
+                    LightState(GameManager.Instance.PersistentGameplayData.light);
+                    if(spotlight != null)
+                    {
+                        spotlight.enabled = false;
+                    }
+
                     if (sr != null)
                     {
                         sr.DOKill();
@@ -98,6 +188,11 @@ namespace Map
                     break;
                 case NodeStates.Attainable:
                     // start pulsating from visited to locked color:
+                    LightState(GameManager.Instance.PersistentGameplayData.light);
+                    if(spotlight != null)
+                    {
+                        spotlight.enabled = true;
+                    }
                     if (sr != null)
                     {
                         sr.color = MapView.Instance.lockedColor;
@@ -120,7 +215,17 @@ namespace Map
 
         public void EncounterDetails()
         {
+            // Vector2 Mouseposistion = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            // if(IsPointerinSpotLightRange(Mouseposistion))
+            //     {
+            //         MapView.Instance.NodeDetails.SetActive(true);
+            //     }
+            //     else
+            //     {
+            //         MapView.Instance.NodeDetails.SetActive(false);
+            //     }
             MapView.Instance.NodeDetails.SetActive(true);
+
             switch(Node.nodeType)
             {
                 case NodeType.MinorEnemy:
@@ -159,6 +264,7 @@ namespace Map
 
         public void OnPointerEnter(PointerEventData data)
         {
+           // HighlightNode(true);
             EncounterDetails();
             if (sr != null)
             {
@@ -175,6 +281,7 @@ namespace Map
 
         public void OnPointerExit(PointerEventData data)
         {
+           // HighlightNode(false);
             MapView.Instance.NodeDetails.SetActive(false);
             if (sr != null)
             {

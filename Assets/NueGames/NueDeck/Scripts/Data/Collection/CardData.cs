@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using NueGames.NueDeck.Scripts.Data.Settings;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
 using NueGames.NueDeck.Scripts.NueExtentions;
@@ -163,7 +164,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
                 modifiedActionValueIndex = 0;
             
             var str = new StringBuilder();
-            var value = cardData.CardActionDataList[ModifiedActionValueIndex].ActionValue;
+            var value = cardData.CardActionDataList[ModifiedActionValueIndex].ActionValue + GameManager.Instance.PersistentGameplayData.proficiency;
             var modifer = 0;
             if (CombatManager)
             {

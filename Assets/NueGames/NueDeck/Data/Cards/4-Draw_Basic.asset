@@ -16,26 +16,19 @@ MonoBehaviour:
   cardName: Basic draw
   manaCost: 0
   cardSprite: {fileID: 21300000, guid: 6d79f0e0e016ca64592cdb3293bf37da, type: 3}
+  rarity: 0
   usableWithoutTarget: 1
+  exhaustAfterPlay: 0
   cardActionDataList:
   - cardActionType: 5
     actionTargetType: 1
     actionValue: 2
     actionDelay: 0
   cardDescriptionDataList:
-  - descriptionText: 'Draw '
+  - descriptionText: Draw 2
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
-  - descriptionText: 
-    enableOverrideColor: 0
-    overrideColor: {r: 0, g: 0, b: 0, a: 1}
-    useModifier: 1
     modifiedActionValueIndex: 0
     modiferStats: 0
     usePrefixOnModifiedValue: 0

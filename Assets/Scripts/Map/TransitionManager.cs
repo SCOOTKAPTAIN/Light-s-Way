@@ -37,7 +37,7 @@ public class TransitionManager : MonoBehaviour
     {
         transistionanimator.Play("Act1");
         yield return new WaitForSeconds(1);
-        DialogueAudioManager.instance.PlayMusic("Map_100_Light");
+        DialogueAudioManager.instance.DynamicMusic("map");
         UIManager.Instance.InformationCanvas.gameObject.SetActive(true);
         GameManager.Instance.PersistentGameplayData.ActNumber++;
         Debug.Log("before intro" + GameManager.Instance.PersistentGameplayData.ActNumber);

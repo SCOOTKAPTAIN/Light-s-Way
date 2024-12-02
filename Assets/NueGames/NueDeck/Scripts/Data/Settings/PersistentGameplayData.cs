@@ -27,8 +27,9 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private List<AllyHealthData> allyHealthDataDataList;
 
         // My Variables
-        [SerializeField] private int actnumber = 0;
+        [SerializeField] private int actnumber;
         [SerializeField] public int light;
+        [SerializeField] public int proficiency;
 
         public PersistentGameplayData(GameplayData gameplayData)
         {
@@ -69,6 +70,9 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             CurrentCardsList = new List<CardData>();
             IsFinalEncounter = false;
             allyHealthDataDataList = new List<AllyHealthData>();
+            proficiency = 1;
+            light = 100;
+            actnumber = 0;
         }
 
         #region Encapsulation
@@ -163,6 +167,13 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             set => light = value;
 
         }
+         public int Proficiency
+        {
+            get => proficiency;
+            set => proficiency = value;
+
+        }
+        
         
         #endregion
     }

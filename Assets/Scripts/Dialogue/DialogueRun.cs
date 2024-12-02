@@ -143,7 +143,7 @@ public class DialogueRun : MonoBehaviour
                    break;
                case SceneType.Map:
                    HideTooltipInfo(TooltipManager.Instance);
-                   DialogueAudioManager.instance.PlayMusic("Map_100_Light");
+                   DialogueAudioManager.instance.DynamicMusic("map");
                    UIManager.ChangeScene(GameManager.SceneData.mapSceneIndex);
                    UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
                    UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
@@ -151,7 +151,7 @@ public class DialogueRun : MonoBehaviour
                    break;
                case SceneType.Combat:
                    HideTooltipInfo(TooltipManager.Instance);
-                   DialogueAudioManager.instance.PlayMusic("battle");
+                   DialogueAudioManager.instance.DynamicMusic("battle");
                    UIManager.ChangeScene(GameManager.SceneData.combatSceneIndex);
                    UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
                    UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
@@ -161,7 +161,7 @@ public class DialogueRun : MonoBehaviour
                    HideTooltipInfo(TooltipManager.Instance);
                    UIManager.ChangeScene(GameManager.SceneData.dialogueSceneIndex);
                    UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
-                   UIManager.SetCanvas(UIManager.InformationCanvas, false, false);
+                   UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
                    UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
                    break;
                 

@@ -363,7 +363,7 @@ namespace Map
             lineConnections.Add(new LineConnection(lineRenderer, null, from, to));
         }
 
-        protected MapNode GetNode(Vector2Int p)
+        public MapNode GetNode(Vector2Int p)
         {
             return MapNodes.FirstOrDefault(n => n.Node.point.Equals(p));
         }

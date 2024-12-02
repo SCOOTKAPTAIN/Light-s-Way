@@ -678,12 +678,34 @@ MonoBehaviour:
   music_sound:
   - name: clock
     clip: {fileID: 8300000, guid: 56d28416a5f9be74186040a6802ac709, type: 3}
-  - name: Map_100_Light
-    clip: {fileID: 8300000, guid: 6bf0e94b771d0274fa31a8ad36376d69, type: 3}
+  - name: 100LightMap
+    clip: {fileID: 8300000, guid: 1ff36074fb0c91c45b000eb2cb58484c, type: 3}
   - name: intro
     clip: {fileID: 8300000, guid: f3b15f7179875b6438754a56ef429361, type: 3}
   - name: battle
     clip: {fileID: 8300000, guid: 58bc5476120d8814cab1e19de3e5a78a, type: 3}
+  - name: 89LightMap
+    clip: {fileID: 8300000, guid: 9b02cca0326262c4e9c1e9ae2436c397, type: 3}
+  - name: 49LightMap
+    clip: {fileID: 8300000, guid: dc8e541765feeac47b1aaccbd9fdaebe, type: 3}
+  - name: 24LightMap
+    clip: {fileID: 8300000, guid: 9ea93af8ce9363947a275dc011cf77a2, type: 3}
+  - name: 9LightMap
+    clip: {fileID: 8300000, guid: c92a6b02c6fa2044e919398b25c89b3f, type: 3}
+  - name: 0LightMap
+    clip: {fileID: 8300000, guid: ab4648e900ae1c84cb74ebc48cbb0342, type: 3}
+  - name: 100LightBattle
+    clip: {fileID: 8300000, guid: 58bc5476120d8814cab1e19de3e5a78a, type: 3}
+  - name: 89LightBattle
+    clip: {fileID: 8300000, guid: d3341732e36d4f94f8bf4e5e6e3f82fa, type: 3}
+  - name: 49LightBattle
+    clip: {fileID: 8300000, guid: f430307684d187c4ebaae07ac787b967, type: 3}
+  - name: 24LightBattle
+    clip: {fileID: 8300000, guid: 03c3102a285f41a4c878df13433213f8, type: 3}
+  - name: 9LightBattle
+    clip: {fileID: 8300000, guid: ce9106898616ef641a74f42b9b07f41f, type: 3}
+  - name: 0LightBattle
+    clip: {fileID: 8300000, guid: 1f4e721df0f03554f9b8b55dcc608bb9, type: 3}
   sfx_sound:
   - name: select
     clip: {fileID: 8300000, guid: 3640ec68d3378044e8e4b62abe8f5560, type: 3}

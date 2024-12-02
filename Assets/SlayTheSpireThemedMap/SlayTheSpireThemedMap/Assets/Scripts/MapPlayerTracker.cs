@@ -78,7 +78,7 @@ namespace Map
                    break;
                case SceneType.Map:
                    HideTooltipInfo(TooltipManager.Instance);
-                   DialogueAudioManager.instance.PlayMusic("Map_100_Light");
+                   DialogueAudioManager.instance.DynamicMusic("map");
                    UIManager.ChangeScene(GameManager.SceneData.mapSceneIndex);
                    UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
                    UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
@@ -86,7 +86,7 @@ namespace Map
                    break;
                case SceneType.Combat:
                    HideTooltipInfo(TooltipManager.Instance);
-                   DialogueAudioManager.instance.PlayMusic("battle");
+                  // DialogueAudioManager.instance.DynamicMusic("battle");
                    UIManager.ChangeScene(GameManager.SceneData.combatSceneIndex);
                    UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
                    UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
@@ -96,7 +96,7 @@ namespace Map
                    HideTooltipInfo(TooltipManager.Instance);
                    UIManager.ChangeScene(GameManager.SceneData.dialogueSceneIndex);
                    UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
-                   UIManager.SetCanvas(UIManager.InformationCanvas, false, false);
+                   UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
                    UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
                    break;
                 
@@ -162,6 +162,49 @@ namespace Map
         private void Awake()
         {
             Instance = this;
+        }
+
+        private void Update()
+        {
+            if (mapManager.CurrentMap.path.Count == 0)
+            {
+                return;
+            }
+            else
+            {
+            Vector2Int currentPoint = mapManager.CurrentMap.path[mapManager.CurrentMap.path.Count - 1];
+            MapNode currentnode = view.GetNode(currentPoint);
+            switch(GameManager.Instance.PersistentGameplayData.light)
+            {
+                case >= 90 and <= 100:
+                currentnode.spotlight.pointLightInnerRadius = 16f; 
+                currentnode.spotlight.pointLightOuterRadius = 32f;
+                break;
+                case >= 50 and <= 89:
+                currentnode.spotlight.pointLightInnerRadius = 10f; 
+                currentnode.spotlight.pointLightOuterRadius = 20f;
+                break;
+                case >= 10 and <= 49:
+                currentnode.spotlight.pointLightInnerRadius = 5f; 
+                currentnode.spotlight.pointLightOuterRadius = 10f;
+                break;
+                case >= 1 and <= 9:
+                currentnode.spotlight.pointLightInnerRadius = 2f; 
+                currentnode.spotlight.pointLightOuterRadius = 4f;
+                break;
+                case 0:
+                currentnode.spotlight.pointLightInnerRadius = 0.6f; 
+                currentnode.spotlight.pointLightOuterRadius = 1.3f;
+                break;
+
+            }
+
+            currentnode.spotlight.enabled = true;
+
+            }
+            
+
+
         }
 
         public void SelectNode(MapNode mapNode)
@@ -236,6 +279,7 @@ namespace Map
             {
                 case NodeType.MinorEnemy:
                 Debug.Log("Go to a normal battle!");
+                DialogueAudioManager.instance.DynamicMusic("battle");
                 MapPlayerTracker.Instance.OpenCombatScene();
                     break;
                 case NodeType.EliteEnemy:

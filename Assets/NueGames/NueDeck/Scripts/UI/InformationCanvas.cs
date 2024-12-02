@@ -12,12 +12,20 @@ namespace NueGames.NueDeck.Scripts.UI
         [SerializeField] private TextMeshProUGUI goldTextField;
         [SerializeField] private TextMeshProUGUI nameTextField;
         [SerializeField] private TextMeshProUGUI healthTextField;
+        [SerializeField] private TextMeshProUGUI actionPointField;
+        [SerializeField] private TextMeshProUGUI proficiencyField;
+        [SerializeField] private TextMeshProUGUI lightField;
 
         public GameObject RandomizedDeckObject => randomizedDeckObject;
         public TextMeshProUGUI RoomTextField => roomTextField;
         public TextMeshProUGUI GoldTextField => goldTextField;
         public TextMeshProUGUI NameTextField => nameTextField;
         public TextMeshProUGUI HealthTextField => healthTextField;
+        public TextMeshProUGUI ActionPointField => actionPointField;
+        public TextMeshProUGUI ProficiencyField => proficiencyField;
+        public TextMeshProUGUI LightField => lightField;
+
+
         
         
         #region Setup
@@ -33,7 +41,14 @@ namespace NueGames.NueDeck.Scripts.UI
 
         public void SetGoldText(int value)=>GoldTextField.text = $"{value}";
 
+        public void SetProficiencyText(int value)=>ProficiencyField.text = $"{value}";
+
+        public void SetActionPointText(int value)=>ActionPointField.text = $"{value}";
+        public void SetLightText(int value) => lightField.text = $"{value}";
+
         public void SetNameText(string name) => NameTextField.text = $"{name}";
+
+        
 
         public void SetHealthText(int currentHealth,int maxHealth) => HealthTextField.text = $"{currentHealth}/{maxHealth}";
 
@@ -44,6 +59,10 @@ namespace NueGames.NueDeck.Scripts.UI
             SetNameText(GameManager.GameplayData.DefaultName);
             SetRoomText(GameManager.PersistentGameplayData.CurrentEncounterId+1,GameManager.GameplayData.UseStageSystem,GameManager.PersistentGameplayData.CurrentStageId+1);
             UIManager.InformationCanvas.SetGoldText(GameManager.PersistentGameplayData.CurrentGold);
+            UIManager.InformationCanvas.SetProficiencyText(GameManager.PersistentGameplayData.proficiency);
+            UIManager.InformationCanvas.SetActionPointText(GameManager.PersistentGameplayData.MaxMana);
+            UIManager.InformationCanvas.SetLightText(GameManager.PersistentGameplayData.Light);
+
         }
         #endregion
         

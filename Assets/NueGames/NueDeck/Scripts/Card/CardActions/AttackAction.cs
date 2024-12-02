@@ -14,7 +14,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var targetCharacter = actionParameters.TargetCharacter;
             var selfCharacter = actionParameters.SelfCharacter;
             
-            var value = actionParameters.Value + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue; 
+            var value =  GameManager.PersistentGameplayData.proficiency + actionParameters.Value + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue; 
             
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value));
 

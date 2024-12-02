@@ -65,14 +65,14 @@ namespace NueGames.NueDeck.Scripts.Utils
                    GameManager.SetInitalHand();
                    break;
                case SceneType.Map:
-                   DialogueAudioManager.instance.PlayMusic("Map_100_Light");
+                   DialogueAudioManager.instance.DynamicMusic("map");
                    UIManager.ChangeScene(GameManager.SceneData.mapSceneIndex);
                    UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
                    UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
                    UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
                    break;
                case SceneType.Combat:
-                   DialogueAudioManager.instance.PlayMusic("battle");
+                   DialogueAudioManager.instance.DynamicMusic("battle");
                    UIManager.ChangeScene(GameManager.SceneData.combatSceneIndex);
                    UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
                    UIManager.SetCanvas(UIManager.InformationCanvas, true, false);

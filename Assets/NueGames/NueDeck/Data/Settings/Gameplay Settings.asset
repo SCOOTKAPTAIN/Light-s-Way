@@ -17,7 +17,7 @@ MonoBehaviour:
   initalAllyList:
   - {fileID: 2835035829204582327, guid: 6472d62dc90afc04db103b9a3f293860, type: 3}
   initalDeck: {fileID: 11400000, guid: 1f1db59d6dc1c1046b2ad72c336c615e, type: 2}
-  maxCardOnHand: 10
+  maxCardOnHand: 20
   allCardsList:
   - {fileID: 11400000, guid: 1e43cdb39f5836b44942f367125cadde, type: 2}
   - {fileID: 11400000, guid: 8f655889219afa649a967e88e37f98ec, type: 2}
@@ -29,7 +29,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5d6b018bf7dec554ba0a2eabfd89d3b1, type: 2}
   - {fileID: 11400000, guid: ffd3079242e164645ba9365c7c965def, type: 2}
   cardPrefab: {fileID: 2689473134106589740, guid: a9728682a56595f4989b8f224d934689, type: 3}
-  defaultName: Nue
+  defaultName: Elaria
   useStageSystem: 0
   isRandomHand: 0
   randomCardCount: 10

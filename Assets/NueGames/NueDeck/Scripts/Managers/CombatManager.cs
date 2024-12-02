@@ -85,8 +85,9 @@ namespace NueGames.NueDeck.Scripts.Managers
             CollectionManager.SetGameDeck();
            
             UIManager.CombatCanvas.gameObject.SetActive(true);
-            UIManager.InformationCanvas.gameObject.SetActive(false);
+            UIManager.InformationCanvas.gameObject.SetActive(true);
             CurrentCombatStateType = CombatStateType.AllyTurn;
+          //  CurrentMainAlly.CharacterStats.ApplyStatus(StatusType.Proficiency,GameManager.Instance.PersistentGameplayData.proficiency);
         }
         
         private void ExecuteCombatState(CombatStateType targetStateType)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NueGames.NueDeck.Scripts.Managers;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
@@ -25,6 +26,73 @@ public class DialogueAudioManager : MonoBehaviour
     private void Start()
     {
         //PlayMusic("Theme"); // When game start play theme
+    }
+
+    public void DynamicMusic(string type)
+    {
+        if(type == "battle")
+        {
+            switch(GameManager.Instance.PersistentGameplayData.light)
+            {
+                case >= 90 and <= 100:
+                PlayMusic("100LightBattle");
+                break;
+
+                case >= 50 and <= 89:
+                PlayMusic("89LightBattle");                
+                break;
+
+                case >= 25 and <= 49:
+                PlayMusic("49LightBattle");
+                break;
+
+                case >= 10 and <= 24:
+                PlayMusic("24LightBattle");
+                break;
+
+                case >= 1 and <= 9:
+                PlayMusic("9LightBattle");               
+                break;
+
+                case 0:
+                PlayMusic("0LightBattle");
+                
+                break;
+            }
+
+        }
+        else if(type == "map")
+        {
+            switch(GameManager.Instance.PersistentGameplayData.light)
+            {
+                case >= 90 and <= 100:
+                PlayMusic("100LightMap");
+                break;
+                
+                case >= 50 and <= 89:
+                PlayMusic("89LightMap");                
+                break;
+
+                case >= 25 and <= 49:
+                PlayMusic("49LightMap");
+                break;
+
+                case >= 10 and <= 24:
+                PlayMusic("24LightMap");
+                break;
+
+                case >= 1 and <= 9:
+                PlayMusic("9LightMap");               
+                break;
+
+                case 0:
+                PlayMusic("0LightMap");
+                
+                break;
+            }
+
+        }
+
     }
 
     public void PlayMusic(string name) // Call this function to play music
