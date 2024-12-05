@@ -1,32 +1,43 @@
 INCLUDE ../globals.ink
 
 
-{ dream_choice == "": -> main | -> already_chose }
-
-=== main ===
-Which number do you pick? #layout:remove
-     + [1]
-       -> chosen("one")
-     + [2]
-       -> chosen("two")
-     + [3]
-       -> chosen("three")
+What do you want? #layout:remove
+     + [Heal]
+       -> ProficiencyChange
+     + [More Health]
+       -> HealthChange
+     + [Gold]
+       -> GoldChange
        
-=== chosen(number) ===
-~ dream_choice = number
-You picked {number}.
-"..."#layout:add #speaker:Narrator
-"Hmm..."
-Oh hello.
-It seems that you have done choosing the number.
-Let's see...
-Picked {dream_choice} eh? A good pick.
-Well now, can't have you waiting any longer eh?
-The test is done. Everything went well. Good job programmer!
+
+=== ProficiencyChange ===
+You are healed.
+~Health(20)
 -> END
 
-
-
-=== already_chose ===
-You already chose {dream_choice}!
+=== HealthChange ===
+Your health is better now.
+~IntroMaxHealth(10)
 -> END
+
+=== GoldChange ===
+You are richer.
+~Gold(100)
+->END
+
+// === chosen(number) ===
+// ~ dream_choice = number
+// You picked {number}.
+// "..."#layout:add #speaker:Narrator
+// "Hmm..."
+// Oh hello.
+// It seems that you have done choosing the number.
+// Let's see...
+// Picked {dream_choice} eh? A good pick.
+// Well now, can't have you waiting any longer eh?
+// The test is done. Everything went well. Good job programmer!
+// -> END
+
+
+
+

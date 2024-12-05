@@ -31,7 +31,7 @@ public class variabletest : MonoBehaviour
 
     //GameManager.PersistentGameplayData.CurrentStageId = stageIdChanger;
 
-    //GameManager.PersistentGameplayData.ActNumber = ActChanger;
+    GameManager.PersistentGameplayData.ActNumber = ActChanger;
 
     GameManager.PersistentGameplayData.proficiency = ProficiencyChanger;
     GameManager.PersistentGameplayData.light = LightChanger;

@@ -24,7 +24,8 @@ namespace NueGames.NueDeck.Scripts.Utils
         {
             MainMenu,
             Map,
-            Combat
+            Combat,
+            Ending
         }
 
        
@@ -32,6 +33,11 @@ namespace NueGames.NueDeck.Scripts.Utils
         {
             
             StartCoroutine(DelaySceneChange(SceneType.MainMenu));
+        }
+
+        public void OpenDialogueScene()
+        {
+             StartCoroutine(DelaySceneChange(SceneType.Ending));
         }
 
         private IEnumerator DelaySceneChange(SceneType type)
@@ -76,6 +82,12 @@ namespace NueGames.NueDeck.Scripts.Utils
                    UIManager.ChangeScene(GameManager.SceneData.combatSceneIndex);
                    UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
                    UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
+                   UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
+                   break;
+               case SceneType.Ending:
+                   UIManager.ChangeScene(GameManager.SceneData.endingSceneIndex);
+                   UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
+                   UIManager.SetCanvas(UIManager.InformationCanvas, false, false);
                    UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
                    break;
                default:

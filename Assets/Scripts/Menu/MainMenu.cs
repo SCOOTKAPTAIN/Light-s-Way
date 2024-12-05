@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using NueGames.NueDeck.Scripts.Utils;
+using NueGames.NueDeck.Scripts.Managers;
 
 
 public class MainMenu : MonoBehaviour
@@ -18,6 +19,7 @@ public class MainMenu : MonoBehaviour
 
      private void Start() 
      {
+        GameManager.Instance.PersistentGameplayData.AllyList[0].AllyCharacterData.MaxHealth = 100;
         PlayerPrefs.DeleteKey("Map");
         
     }

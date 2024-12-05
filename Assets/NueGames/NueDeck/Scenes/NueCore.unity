@@ -426,7 +426,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -697,20 +697,30 @@ MonoBehaviour:
   - name: 100LightBattle
     clip: {fileID: 8300000, guid: 58bc5476120d8814cab1e19de3e5a78a, type: 3}
   - name: 89LightBattle
-    clip: {fileID: 8300000, guid: d3341732e36d4f94f8bf4e5e6e3f82fa, type: 3}
+    clip: {fileID: 8300000, guid: f2ee28c4c4278b94abcb3da4abbd8156, type: 3}
   - name: 49LightBattle
-    clip: {fileID: 8300000, guid: f430307684d187c4ebaae07ac787b967, type: 3}
+    clip: {fileID: 8300000, guid: d3341732e36d4f94f8bf4e5e6e3f82fa, type: 3}
   - name: 24LightBattle
     clip: {fileID: 8300000, guid: 03c3102a285f41a4c878df13433213f8, type: 3}
   - name: 9LightBattle
     clip: {fileID: 8300000, guid: ce9106898616ef641a74f42b9b07f41f, type: 3}
   - name: 0LightBattle
     clip: {fileID: 8300000, guid: 1f4e721df0f03554f9b8b55dcc608bb9, type: 3}
+  - name: ending
+    clip: {fileID: 8300000, guid: 62aa6ec719ef9cb43b892aa9f4a7e0cd, type: 3}
   sfx_sound:
   - name: select
     clip: {fileID: 8300000, guid: 3640ec68d3378044e8e4b62abe8f5560, type: 3}
   - name: startjourney
     clip: {fileID: 8300000, guid: 8f7af7be516106043914718e565d52ff, type: 3}
+  - name: enterbattle
+    clip: {fileID: 8300000, guid: c55cfdc7973f7d64bba1b24e59b5c231, type: 3}
+  - name: enterevent
+    clip: {fileID: 8300000, guid: 08f69fb9007036c448b7c0097fdb0689, type: 3}
+  - name: buy
+    clip: {fileID: 8300000, guid: 8625c66a3f8003a4f9505c80d347345d, type: 3}
+  - name: broke
+    clip: {fileID: 8300000, guid: bcc691d1ce3c67a4290668dd3ed9c271, type: 3}
   music_source: {fileID: 1005807859}
   sfx_source: {fileID: 2019502690}
 --- !u!4 &1891413829
@@ -805,7 +815,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -8,7 +8,7 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [SerializeField] protected string characterID;
         [SerializeField] protected string characterName;
         [SerializeField] [TextArea] protected string characterDescription;
-        [SerializeField] protected int maxHealth;
+        [SerializeField] public int maxHealth;
 
         public string CharacterID => characterID;
 
@@ -16,6 +16,12 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
 
         public string CharacterDescription => characterDescription;
 
-        public int MaxHealth => maxHealth;
+       // public int MaxHealth => maxHealth;
+
+       public int MaxHealth
+       {
+        get => maxHealth;
+        set => maxHealth = value;
+       }
     }
 }

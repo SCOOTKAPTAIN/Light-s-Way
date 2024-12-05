@@ -18,14 +18,20 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/DialogueScene.unity
-    guid: 4c96827aa35a73a4a8028e729ae8acc8
-  - enabled: 1
     path: Assets/Scenes/Intro.unity
     guid: 48b31e58513d9de4e9a22db5716ff426
   - enabled: 1
     path: Assets/Scenes/MapScene.unity
     guid: f40f4a6c1d59e7442a534fef3f1fadfa
+  - enabled: 1
+    path: Assets/Scenes/MerchantScene.unity
+    guid: f6ec526398437324aa91fc7ace3b4ee7
+  - enabled: 1
+    path: Assets/Scenes/DialogueScene.unity
+    guid: 00393fed0407b40429d344f26e2b7090
+  - enabled: 1
+    path: Assets/Scenes/EndingScene.unity
+    guid: d3e00441ff9fff64e929e24b4bdac2d9
   - enabled: 1
     path: Assets/NueGames/NueDeck/Scenes/NueCore.unity
     guid: 8730f6846a1505f4cbae9e87de5abdc9

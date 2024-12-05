@@ -33,7 +33,10 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
             else
             {
-                GameManager.PersistentGameplayData.SetAllyHealthData(AllyCharacterData.CharacterID,CharacterStats.CurrentHealth,CharacterStats.MaxHealth);
+                GameManager.PersistentGameplayData.SetAllyHealthData(
+                    AllyCharacterData.CharacterID,CharacterStats.CurrentHealth +
+                     GameManager.Instance.PersistentGameplayData.bonusMaxHealth,CharacterStats.MaxHealth
+                     + GameManager.Instance.PersistentGameplayData.bonusMaxHealth);
             }
             
             CharacterStats.OnDeath += OnDeath;

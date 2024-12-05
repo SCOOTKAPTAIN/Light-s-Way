@@ -34,6 +34,7 @@ public class DialogueRun : MonoBehaviour
     private void Start()
     {
         EndDialogue = false;
+       // DialogueProcessing();
         StartCoroutine(Flow());
     }
 
@@ -44,7 +45,11 @@ public class DialogueRun : MonoBehaviour
         {
             StartCoroutine(BacktoMap());
         }
+    }
 
+    public void DialogueProcessing()
+    {
+       
     }
 
 
@@ -64,8 +69,9 @@ public class DialogueRun : MonoBehaviour
 
      IEnumerator BacktoMap()
     {
-        OpenMapScene();
-     yield return new WaitForSeconds(0.01f);
+        
+     yield return new WaitForSeconds(1);
+     OpenMapScene();
      
      
     }

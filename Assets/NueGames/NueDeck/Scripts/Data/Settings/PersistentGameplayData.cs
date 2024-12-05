@@ -15,6 +15,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private int drawCount;
         [SerializeField] private int maxMana;
         [SerializeField] private int currentMana;
+        [SerializeField] private int lightLoss;
         [SerializeField] private bool canUseCards;
         [SerializeField] private bool canSelectCards;
         [SerializeField] private bool isRandomHand;
@@ -30,6 +31,9 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private int actnumber;
         [SerializeField] public int light;
         [SerializeField] public int proficiency;
+        [SerializeField] private bool ActAlreadyPlayed;
+
+        [SerializeField] private int BonusMaxHealth;
 
         public PersistentGameplayData(GameplayData gameplayData)
         {
@@ -73,7 +77,12 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             proficiency = 1;
             light = 100;
             actnumber = 0;
+            lightLoss = 2;
+            ActAlreadyPlayed = false;
+            BonusMaxHealth = 0;
         }
+
+       
 
         #region Encapsulation
 
@@ -172,6 +181,24 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             get => proficiency;
             set => proficiency = value;
 
+        }
+
+        public int LightLoss
+        {
+            get => lightLoss;
+            set => lightLoss = value;
+
+        }
+
+        public bool actalreadyplayed
+        {
+            get => ActAlreadyPlayed;
+            set => ActAlreadyPlayed = value;
+        }
+        public int bonusMaxHealth
+        {
+            get => BonusMaxHealth;
+            set => BonusMaxHealth = value;
         }
         
         

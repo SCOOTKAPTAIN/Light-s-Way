@@ -261,7 +261,7 @@ namespace NueGames.NueDeck.Scripts.Managers
             CollectionManager.ClearPiles();
             
            
-            if (GameManager.PersistentGameplayData.IsFinalEncounter)
+            if (GameManager.PersistentGameplayData.ActNumber == 11)
             {
                 UIManager.CombatCanvas.CombatWinPanel.SetActive(true);
             }

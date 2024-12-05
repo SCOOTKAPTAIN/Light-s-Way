@@ -37,10 +37,10 @@ You reminisce about your aspiration. What kind of person you have dreamed of bec
 ~ dream_choice = job
 {dream_choice == "Scholar": Your yearning for knowledge has left you curious about everything, and you'll never rest until your understanding of the world is complete. (Start with +1 Action Point)}
 
-{dream_choice == "Adventurer": Your unwavering spirit and resolve makes you confident in challenging all sorts of foes in your path. (Start with +5 Proficiency)}
+{dream_choice == "Adventurer": Your training has made you an expertise in all sorts of skills, you are well-prepared to face the outside world. (Start with +2 Proficiency)}
 
 
-{dream_choice == "Doctor": Your dedication to help people is a noble cause, though fixtated on healing others, you always find the time to take care of yourself. (Start with +50 Health)}
+{dream_choice == "Doctor": Your dedication to help people is a noble cause, though fixtated on healing others, you always find the time to take care of yourself. (Start with +50 Max Health)}
 ->never
 
 
@@ -63,11 +63,11 @@ But you never did such things, because you..
 ===why(reason)===
 ~reason_choice = reason
 
-{reason_choice == "found": You keep finding things far more interesting, and in the end, that dream of yours is nothing but a distant memory. (Gain an extra card draw) }
+{reason_choice == "found": You keep finding things far more interesting, and in the end, that dream of yours is nothing but a distant memory. (Draw a bonus card when starting a turn in combat.) }
 
-{reason_choice == "scared": You never went to start anything, you're too afraid to make a change, in your eyes, everything is fine the way it was. (Gain the opportunity to burn a card) }
+{reason_choice == "scared": You never went to start anything, you're too afraid to make a change, in your eyes, everything is fine the way it was. (Start with +1 Proficiency and + 25 Max Health but doubles natural Light loss.) }
 
-{reason_choice == "stay": Your family is struggling so you do what you can to provide, but now they are gone and although saved, these coins have lost their purpose. (Gain 200 extra Gold)}
+{reason_choice == "stay": Your family is struggling so you do what you can to provide, but now they are gone and although saved, these coins have lost their purpose. (Start with 200 extra Gold)}
 ->continue
 
 ===continue===
@@ -82,6 +82,7 @@ Are you certain those are your past?
    ->b
 
 ===b===
+~IntroConfirm()
 ...
 As you finished reminiscing your past, you close your eyes and prepare for your imminent death.
 ~Music("stop")

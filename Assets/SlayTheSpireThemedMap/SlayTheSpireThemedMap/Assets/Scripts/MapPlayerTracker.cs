@@ -32,7 +32,8 @@ namespace Map
             MainMenu,
             Map,
             Combat,
-            Dialogue
+            Dialogue,
+            Merchant
         }
 
         public virtual void HideTooltipInfo(TooltipManager tooltipManager)
@@ -99,6 +100,13 @@ namespace Map
                    UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
                    UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
                    break;
+                case SceneType.Merchant:
+                   HideTooltipInfo(TooltipManager.Instance);
+                   UIManager.ChangeScene(GameManager.SceneData.merchantSceneIndex);
+                   UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
+                   UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
+                   UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
+                   break;
                 
                default:
                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -108,6 +116,11 @@ namespace Map
         public void OpenDialogueScene()
         {
              StartCoroutine(DelaySceneChange(SceneType.Dialogue));
+        }
+
+         public void OpenMerchantScene()
+        {
+             StartCoroutine(DelaySceneChange(SceneType.Merchant));
         }
 
         public void OpenMapScene()
@@ -268,6 +281,16 @@ namespace Map
             DOTween.Sequence().AppendInterval(enterNodeDelay).OnComplete(() => EnterNode(mapNode));
         }
 
+        public void NaturalLightLoss()
+        {
+            GameManager.Instance.PersistentGameplayData.light -= GameManager.Instance.PersistentGameplayData.LightLoss;
+            if(GameManager.Instance.PersistentGameplayData.light < 0)
+            {
+                GameManager.Instance.PersistentGameplayData.light = 0;
+            }
+            UIManager.InformationCanvas.SetLightText(GameManager.Instance.PersistentGameplayData.light);
+        }
+
         private static void EnterNode(MapNode mapNode)
         {
             // we have access to blueprint name here as well
@@ -279,29 +302,47 @@ namespace Map
             {
                 case NodeType.MinorEnemy:
                 Debug.Log("Go to a normal battle!");
+                DialogueAudioManager.instance.PlaySFX("enterbattle");
                 DialogueAudioManager.instance.DynamicMusic("battle");
+
+                MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenCombatScene();
                     break;
                 case NodeType.EliteEnemy:
                 Debug.Log("Go to a dangerous battle!");
+                DialogueAudioManager.instance.PlaySFX("enterbattle");
+                DialogueAudioManager.instance.DynamicMusic("battle");
+
+                MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenCombatScene();
                     break;
                 case NodeType.RestSite:
                 Debug.Log("Go to a resting place.");
+                DialogueAudioManager.instance.PlaySFX("enterevent");
+                MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenDialogueScene();
                     break;
                 case NodeType.Treasure:
                     break;
                 case NodeType.Store:
                 Debug.Log("hmm shady merchant");
-                MapPlayerTracker.Instance.OpenDialogueScene();
+                DialogueAudioManager.instance.PlaySFX("enterevent");
+                MapPlayerTracker.Instance.NaturalLightLoss();
+                MapPlayerTracker.Instance.OpenMerchantScene();
                     break;
                 case NodeType.Boss:
                 Debug.Log("Go to a boss battle!");
+                GameManager.Instance.PersistentGameplayData.actalreadyplayed = false;
+                GameManager.Instance.PersistentGameplayData.ActNumber++;
+                DialogueAudioManager.instance.PlaySFX("enterbattle");
+                DialogueAudioManager.instance.DynamicMusic("battle");
+                MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenCombatScene();
                     break;
                 case NodeType.Mystery:
                 Debug.Log("Events happening!");
+                DialogueAudioManager.instance.PlaySFX("enterevent");
+                MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenDialogueScene();
                     break;
                 default:

@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encounterRandomlyAtStage: 0
   enemyEncounterList:
-  - name: Stage 1
+  - name: Act 1 Enemies
     stageId: 1
     bossEncounterList:
     - targetBackgroundType: 0
       enemyList:
-      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
-      - {fileID: 11400000, guid: ac6937a4cc8afb94cac0a1ffdf9f72e0, type: 2}
-      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+      - {fileID: 11400000, guid: ab4b1aaf78f9c8747a5708430c68f051, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
     enemyEncounterList:
     - targetBackgroundType: 0
       enemyList:
@@ -29,18 +29,18 @@ MonoBehaviour:
     - targetBackgroundType: 0
       enemyList:
       - {fileID: 11400000, guid: ab4b1aaf78f9c8747a5708430c68f051, type: 2}
-      - {fileID: 11400000, guid: ac6937a4cc8afb94cac0a1ffdf9f72e0, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
     - targetBackgroundType: 0
       enemyList:
       - {fileID: 11400000, guid: ab4b1aaf78f9c8747a5708430c68f051, type: 2}
-      - {fileID: 11400000, guid: ac6937a4cc8afb94cac0a1ffdf9f72e0, type: 2}
-      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
     - targetBackgroundType: 0
       enemyList:
-      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
-      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
-      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
-  - name: Stage 2
+      - {fileID: 11400000, guid: ab4b1aaf78f9c8747a5708430c68f051, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+  - name: Act 1 Bosses
     stageId: 2
     bossEncounterList:
     - targetBackgroundType: 0
@@ -65,3 +65,190 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
       - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
       - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+  - name: Act 2 Enemies
+    stageId: 3
+    bossEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+      - {fileID: 11400000, guid: ac6937a4cc8afb94cac0a1ffdf9f72e0, type: 2}
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+    enemyEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+  - name: Act 2 Bosses
+    stageId: 4
+    bossEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+      - {fileID: 11400000, guid: ac6937a4cc8afb94cac0a1ffdf9f72e0, type: 2}
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+    enemyEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+  - name: Act 3 Enemies
+    stageId: 5
+    bossEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+      - {fileID: 11400000, guid: ac6937a4cc8afb94cac0a1ffdf9f72e0, type: 2}
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+    enemyEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+  - name: Act 3 Bosses
+    stageId: 6
+    bossEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+      - {fileID: 11400000, guid: ac6937a4cc8afb94cac0a1ffdf9f72e0, type: 2}
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+    enemyEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+  - name: Act 4 Enemies
+    stageId: 7
+    bossEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+      - {fileID: 11400000, guid: ac6937a4cc8afb94cac0a1ffdf9f72e0, type: 2}
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+    enemyEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+  - name: Act 4 Bosses
+    stageId: 8
+    bossEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+      - {fileID: 11400000, guid: ac6937a4cc8afb94cac0a1ffdf9f72e0, type: 2}
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+    enemyEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+  - name: Final Act Enemies
+    stageId: 9
+    bossEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+      - {fileID: 11400000, guid: ac6937a4cc8afb94cac0a1ffdf9f72e0, type: 2}
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+    enemyEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+  - name: Final Act Boss
+    stageId: 10
+    bossEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+      - {fileID: 11400000, guid: ac6937a4cc8afb94cac0a1ffdf9f72e0, type: 2}
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}
+    enemyEncounterList:
+    - targetBackgroundType: 0
+      enemyList:
+      - {fileID: 11400000, guid: 2a3e3cac54ff7a84a81dc5f60d34fb2b, type: 2}

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Ink.Parsed;
 using NueGames.NueDeck.Scripts.Managers;
+using TMPro;
 using UnityEngine;
 
 
@@ -9,6 +11,9 @@ public class TransitionManager : MonoBehaviour
 
     //public int ActNumber = 1;
     public Animator transistionanimator;
+    public TextMeshProUGUI ActText;
+    public TextMeshProUGUI ActDescription;
+   
     
     void Start()
     {
@@ -18,7 +23,15 @@ public class TransitionManager : MonoBehaviour
            StartCoroutine(Act1());
         }else
         {
-            PlayAct();
+            if(GameManager.Instance.PersistentGameplayData.actalreadyplayed == true)
+            {
+                return;
+
+            }else
+            {
+                PlayAct();
+            }
+            
         }
 
         
@@ -60,19 +73,36 @@ public class TransitionManager : MonoBehaviour
         switch(GameManager.Instance.PersistentGameplayData.ActNumber)
         {
             case 3:
+           
+
+            ActText.text = "Chapter 2";
+            ActDescription.text = "\"The life of my past, all asunder. I shall not look back, for I must push forward.\"";
             transistionanimator.Play("Act2");
+            GameManager.Instance.PersistentGameplayData.actalreadyplayed = true;
             break;
 
             case 5:
+           
+            ActText.text = "Chapter 3";
+            ActDescription.text = "\"Echoes of sorrow sings in my ear, but I won't crumble, for even in the darkest night, a spark of hope shall bring me light.\"";
             transistionanimator.Play("Act3");
+            GameManager.Instance.PersistentGameplayData.actalreadyplayed = true;
             break;
 
             case 7:
+           
+            ActText.text = "Chapter 4";
+            ActDescription.text = "\"Countless thoughts flood my mind; my heart grows weary and teary, yet I shall cling to the shadow of hope.\"";
             transistionanimator.Play("Act4");
+            GameManager.Instance.PersistentGameplayData.actalreadyplayed = true;
             break;
 
             case 9:
+           
+            ActText.text = "Final Chapter";
+            ActDescription.text = "\"Through torment and darkness, I persist, now my journey draws near it's end, an end to wandering, an end to fear.\"";
             transistionanimator.Play("Act5");
+            GameManager.Instance.PersistentGameplayData.actalreadyplayed = true;
             break;
 
             default:

@@ -224,7 +224,11 @@ namespace Map
             //     {
             //         MapView.Instance.NodeDetails.SetActive(false);
             //     }
-            MapView.Instance.NodeDetails.SetActive(true);
+            if(GameManager.Instance.PersistentGameplayData.light < 49)
+            {
+                MapView.Instance.NodeDetails.SetActive(false);
+            }else
+            {MapView.Instance.NodeDetails.SetActive(true);}
 
             switch(Node.nodeType)
             {
