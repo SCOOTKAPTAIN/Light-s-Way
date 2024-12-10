@@ -47,8 +47,10 @@ public class InkExternalFunctions
 
     public void ChangeLight(int value)
     {
-      GameManager.Instance.PersistentGameplayData.light += value;
-      UIManager.Instance.InformationCanvas.SetLightText(GameManager.Instance.PersistentGameplayData.light);
+      GameManager.Instance.PersistentGameplayData.ChangeLight(value);
+
+      // GameManager.Instance.PersistentGameplayData.light += value;
+      // UIManager.Instance.InformationCanvas.SetLightText(GameManager.Instance.PersistentGameplayData.light);
     }
     public void ChangeHealth(int value)
     {

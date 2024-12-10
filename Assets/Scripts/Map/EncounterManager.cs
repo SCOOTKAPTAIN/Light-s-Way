@@ -44,59 +44,136 @@ public class EncounterManager : MonoBehaviour
         {
             case 1: // Act 1 Enemies
             GameManager.PersistentGameplayData.CurrentStageId = 1;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,3);
-            break;
-
-            case 2: // Act 1 Bosses
-            GameManager.PersistentGameplayData.CurrentStageId = 2;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,3);
-            GameManager.PersistentGameplayData.ActNumber++;
+           GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,1);
+           
             break;
 
             case 3:  // Act 2 Enemies
             GameManager.PersistentGameplayData.CurrentStageId = 3;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,3);
-
-            break;
-
-            case 4: // Act 2 Boss
-            GameManager.PersistentGameplayData.CurrentStageId = 4;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,3);
-            GameManager.PersistentGameplayData.ActNumber++;
+            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,1);
 
             break;
 
             case 5: // Act 3 Enemies
             GameManager.PersistentGameplayData.CurrentStageId = 5;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,3);
-            
-            break;
-
-            case 6: // Act 3 Bosses
-            GameManager.PersistentGameplayData.CurrentStageId = 6;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,3);
-            GameManager.PersistentGameplayData.ActNumber++;
+            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,2);
             
             break;
 
             case 7: // Act 4 Enemies
             GameManager.PersistentGameplayData.CurrentStageId = 7;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,3);
+            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,2);
+            
+            break;
+          
+            case 9: // Act 5 Enemies
+            GameManager.PersistentGameplayData.CurrentStageId = 9;
+            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,2);           
+            break;
+            default:
+             throw new System.ArgumentOutOfRangeException();
+        }
+
+    }
+
+    public void EliteEncounterSelector()
+    {
+        // Stage Values
+        // 0 - start
+        // 1 - Act 1
+        // 2 - Act 1 Boss
+        // 3 - Act 2
+        // 4 - Act 2 Boss
+        // 5 - Act 3
+        // 6 - Act 3 Boss
+        // 7 - Act 4 
+        // 8 - Act 4 Boss
+        // 9 - Final Act
+        // 10 - Final Boss
+        switch(GameManager.PersistentGameplayData.ActNumber)
+        {
+            case 1: // Act 1 Enemies
+            GameManager.PersistentGameplayData.CurrentStageId = 1;
+           GameManager.PersistentGameplayData.CurrentEncounterId = 2;
+           
+            break;
+
+            case 3:  // Act 2 Enemies
+            GameManager.PersistentGameplayData.CurrentStageId = 3;
+            GameManager.PersistentGameplayData.CurrentEncounterId = 2;
+
+            break;
+
+            case 5: // Act 3 Enemies
+            GameManager.PersistentGameplayData.CurrentStageId = 5;
+            GameManager.PersistentGameplayData.CurrentEncounterId = 3;
             
             break;
 
+            case 7: // Act 4 Enemies
+            GameManager.PersistentGameplayData.CurrentStageId = 7;
+            GameManager.PersistentGameplayData.CurrentEncounterId = 3;
+            
+            break;
+          
+            case 9: // Act 5 Enemies
+            GameManager.PersistentGameplayData.CurrentStageId = 9;
+            GameManager.PersistentGameplayData.CurrentEncounterId = 3;           
+            break;
+            default:
+             throw new System.ArgumentOutOfRangeException();
+        }
+
+    }
+
+    public void BossSelector()
+    {
+        // Stage Values
+        // 0 - start
+        // 1 - Act 1
+        // 2 - Act 1 Boss
+        // 3 - Act 2
+        // 4 - Act 2 Boss
+        // 5 - Act 3
+        // 6 - Act 3 Boss
+        // 7 - Act 4 
+        // 8 - Act 4 Boss
+        // 9 - Final Act
+        // 10 - Final Boss
+        switch(GameManager.PersistentGameplayData.ActNumber)
+        {
+            
+
+            case 2: // Act 1 Bosses
+            GameManager.PersistentGameplayData.CurrentStageId = 2;
+            GameManager.PersistentGameplayData.CurrentEncounterId = 0;
+            GameManager.PersistentGameplayData.ActNumber++;
+            break;
+          
+
+            case 4: // Act 2 Boss
+            GameManager.PersistentGameplayData.CurrentStageId = 4;
+            GameManager.PersistentGameplayData.CurrentEncounterId = 0;
+            GameManager.PersistentGameplayData.ActNumber++;
+
+            break;
+          
+
+            case 6: // Act 3 Bosses
+            GameManager.PersistentGameplayData.CurrentStageId = 6;
+            GameManager.PersistentGameplayData.CurrentEncounterId = 0;
+            GameManager.PersistentGameplayData.ActNumber++;
+            
+            break;
+          
+
             case 8: // Act 4 Bosses
             GameManager.PersistentGameplayData.CurrentStageId = 8;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,3);
+            GameManager.PersistentGameplayData.CurrentEncounterId = 0;
             GameManager.PersistentGameplayData.ActNumber++;
             
             break;
 
-            case 9: // Act 5 Enemies
-            GameManager.PersistentGameplayData.CurrentStageId = 9;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,3);
-            
-            break;
 
             case 10: // Act 5 Final Boss
             GameManager.PersistentGameplayData.CurrentStageId = 10;

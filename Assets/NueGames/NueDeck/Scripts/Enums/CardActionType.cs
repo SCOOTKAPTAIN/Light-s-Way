@@ -11,6 +11,12 @@
         EarnMana,
         LifeSteal,
         Stun,
-        Exhaust
+        Exhaust,
+        LightDamage,
+        LightManaDraw,
+        LightStun,
+        BlockDamage,
+        BlockMultiply,
+        AttackAndBlock
     }
 }

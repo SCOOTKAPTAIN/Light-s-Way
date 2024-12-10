@@ -28,6 +28,18 @@ public class DialogueAudioManager : MonoBehaviour
         //PlayMusic("Theme"); // When game start play theme
     }
 
+    public void BossMusic()
+    {
+        if(GameManager.Instance.PersistentGameplayData.ActNumber == 11)
+        {
+            PlayMusic("FinalBoss");
+            
+        }else
+        {
+            PlayMusic("ChapterBoss");
+        }
+    }
+
     public void DynamicMusic(string type)
     {
         if(type == "battle")

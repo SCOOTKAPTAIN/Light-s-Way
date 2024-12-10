@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: BlockSoundProfile
   m_EditorClassIdentifier: 
   audioType: 2
-  randomClipList: []
+  randomClipList:
+  - {fileID: 8300000, guid: 2f502a3139f3a954e95f1f28c0e4ed26, type: 3}

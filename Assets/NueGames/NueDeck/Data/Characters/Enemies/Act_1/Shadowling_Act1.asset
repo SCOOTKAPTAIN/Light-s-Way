@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
-  m_Name: Slime
+  m_Name: Shadowling_Act1
   m_EditorClassIdentifier: 
-  characterID: Slime
-  characterName: Slime
+  characterID: Shadowling
+  characterName: Shadowling
   characterDescription: 'Common Slime found all over the world.
 
     They''re more
     scared of you than anything.'
-  maxHealth: 5
-  enemyPrefab: {fileID: 243822687015991123, guid: 5d9c27c397f4ba442a38545a06118c36, type: 3}
+  maxHealth: 60
+  enemyPrefab: {fileID: 243822687015991123, guid: 8fd2219ea8dcc7e43b4a8c40bf922ba9, type: 3}
   followAbilityPattern: 0
   enemyAbilityList:
   - name: Attack Single
@@ -27,5 +27,12 @@ MonoBehaviour:
     hideActionValue: 0
     actionList:
     - actionType: 0
-      minActionValue: 2
-      maxActionValue: 5
+      minActionValue: 4
+      maxActionValue: 8
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+    hideActionValue: 0
+    actionList:
+    - actionType: 3
+      minActionValue: 5
+      maxActionValue: 6

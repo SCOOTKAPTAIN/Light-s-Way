@@ -3,21 +3,21 @@ INCLUDE ../globals.ink
 
 What do you want? #layout:remove
      + [Heal]
-       -> ProficiencyChange
-     + [More Health]
        -> HealthChange
+     + [Proficiency]
+       -> ProficiencyChange
      + [Gold]
        -> GoldChange
        
 
 === ProficiencyChange ===
-You are healed.
-~Health(20)
+You are more skilled.
+~Proficiency(2)
 -> END
 
 === HealthChange ===
 Your health is better now.
-~IntroMaxHealth(10)
+~MaxHealth(25)
 -> END
 
 === GoldChange ===

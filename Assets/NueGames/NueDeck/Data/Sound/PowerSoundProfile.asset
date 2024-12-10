@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: PowerSoundProfile
   m_EditorClassIdentifier: 
   audioType: 9
-  randomClipList: []
+  randomClipList:
+  - {fileID: 8300000, guid: 06ebe4d7ce95235408bb2c3497ab724d, type: 3}

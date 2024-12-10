@@ -35,7 +35,16 @@ public class DialogueRun : MonoBehaviour
     {
         EndDialogue = false;
        // DialogueProcessing();
+       if(GameManager.Instance.PersistentGameplayData.restevent == true)
+       {
+        StartCoroutine(Rest());
+        GameManager.Instance.PersistentGameplayData.restevent = false;
+       }else
+       {
         StartCoroutine(Flow());
+
+       }
+        
     }
 
 
@@ -50,6 +59,13 @@ public class DialogueRun : MonoBehaviour
     public void DialogueProcessing()
     {
        
+    }
+
+    IEnumerator Rest()
+    {
+        yield return new WaitForSeconds(1);
+       DialogueManager.GetInstance().EnterDialogueMode(DialogueList[1], backgroundAnimator, effectAnimator);
+       EndDialogue = true;
     }
 
 

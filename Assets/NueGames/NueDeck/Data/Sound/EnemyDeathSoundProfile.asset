@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: EnemyDeathSoundProfile
   m_EditorClassIdentifier: 
   audioType: 6
-  randomClipList: []
+  randomClipList:
+  - {fileID: 8300000, guid: 75b4f78dd6ce02b4ba9c8c08afc3906a, type: 3}

@@ -302,6 +302,8 @@ namespace Map
             {
                 case NodeType.MinorEnemy:
                 Debug.Log("Go to a normal battle!");
+                EncounterManager.instance.EncounterSelector();
+
                 DialogueAudioManager.instance.PlaySFX("enterbattle");
                 DialogueAudioManager.instance.DynamicMusic("battle");
 
@@ -310,6 +312,8 @@ namespace Map
                     break;
                 case NodeType.EliteEnemy:
                 Debug.Log("Go to a dangerous battle!");
+                EncounterManager.instance.EliteEncounterSelector();
+
                 DialogueAudioManager.instance.PlaySFX("enterbattle");
                 DialogueAudioManager.instance.DynamicMusic("battle");
 
@@ -321,6 +325,7 @@ namespace Map
                 DialogueAudioManager.instance.PlaySFX("enterevent");
                 MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenDialogueScene();
+                GameManager.Instance.PersistentGameplayData.restevent = true;
                     break;
                 case NodeType.Treasure:
                     break;
@@ -332,10 +337,12 @@ namespace Map
                     break;
                 case NodeType.Boss:
                 Debug.Log("Go to a boss battle!");
-                GameManager.Instance.PersistentGameplayData.actalreadyplayed = false;
                 GameManager.Instance.PersistentGameplayData.ActNumber++;
+                EncounterManager.instance.BossSelector();
+                GameManager.Instance.PersistentGameplayData.actalreadyplayed = false;
+                
                 DialogueAudioManager.instance.PlaySFX("enterbattle");
-                DialogueAudioManager.instance.DynamicMusic("battle");
+                DialogueAudioManager.instance.BossMusic();
                 MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenCombatScene();
                     break;

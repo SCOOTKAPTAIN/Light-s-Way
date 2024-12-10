@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6903f06e96c43789549f142f8956d64, type: 3}
   m_Name: 2-Attack_Fast
   m_EditorClassIdentifier: 
-  id: 2_attack_fast
-  cardName: Barrier Blast
-  manaCost: 0
-  cardSprite: {fileID: 5899738566330991365, guid: 6ff3458e296ea3649bd95a88360b1477, type: 3}
-  rarity: 0
+  id: 2_barrier_crash
+  cardName: Barrier Crash
+  manaCost: 1
+  cardSprite: {fileID: -6453784261893541868, guid: 33e80fbb51d92e247a5c6f495a66a2e7, type: 3}
+  rarity: 1
   usableWithoutTarget: 0
   exhaustAfterPlay: 0
   cardActionDataList:
-  - cardActionType: 0
+  - cardActionType: 13
     actionTargetType: 0
-    actionValue: 5
+    actionValue: 0
     actionDelay: 0
   cardDescriptionDataList:
-  - descriptionText: Deals damage based on block value. (
+  - descriptionText: Deals damage based on block value.
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -34,23 +34,5 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: 
-    enableOverrideColor: 1
-    overrideColor: {r: 1, g: 0.05835115, b: 0, a: 1}
-    useModifier: 1
-    modifiedActionValueIndex: 0
-    modiferStats: 1
-    usePrefixOnModifiedValue: 1
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 1
-  - descriptionText: ' damage.)'
-    enableOverrideColor: 0
-    overrideColor: {r: 0, g: 0, b: 0, a: 1}
-    useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
-  specialKeywordsList: 
+  specialKeywordsList: 00000000
   audioType: 0

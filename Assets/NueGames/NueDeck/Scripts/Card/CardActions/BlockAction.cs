@@ -16,7 +16,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (!newTarget) return;
             
             newTarget.CharacterStats.ApplyStatus(StatusType.Block,
-                Mathf.RoundToInt(actionParameters.Value + actionParameters.SelfCharacter.CharacterStats
+                Mathf.RoundToInt(actionParameters.Value + GameManager.PersistentGameplayData.proficiency + actionParameters.SelfCharacter.CharacterStats
                     .StatusDict[StatusType.Dexterity].StatusValue));
 
             if (FxManager != null) 

@@ -87,8 +87,10 @@ namespace NueGames.NueDeck.Scripts.Utils
                case SceneType.Ending:
                    UIManager.ChangeScene(GameManager.SceneData.endingSceneIndex);
                    UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
-                   UIManager.SetCanvas(UIManager.InformationCanvas, false, false);
+                   UIManager.SetCanvas(UIManager.InformationCanvas, false, true);
                    UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
+                   GameManager.InitGameplayData();
+                   GameManager.SetInitalHand();
                    break;
                default:
                    throw new ArgumentOutOfRangeException(nameof(type), type, null);

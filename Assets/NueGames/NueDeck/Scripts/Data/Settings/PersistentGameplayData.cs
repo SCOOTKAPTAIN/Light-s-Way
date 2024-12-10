@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Characters;
 using NueGames.NueDeck.Scripts.Data.Collection;
+using NueGames.NueDeck.Scripts.Managers;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Data.Settings
@@ -35,6 +36,8 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
 
         [SerializeField] private int BonusMaxHealth;
 
+       [SerializeField] public bool Restevent;
+
         public PersistentGameplayData(GameplayData gameplayData)
         {
             _gameplayData = gameplayData;
@@ -59,7 +62,21 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
                 allyHealthDataDataList.Add(newData);
             }
         } 
-        private void InitData()
+
+        public void ChangeLight(int value)
+        {
+            light += value;
+            if(light > 100)
+            {
+                light = 100;
+            }
+            if(light < 0)
+            {
+                light = 0;
+            }
+            UIManager.Instance.InformationCanvas.SetLightText(light);
+        }
+        public void InitData()
         {
             DrawCount = _gameplayData.DrawCount;
             MaxMana = _gameplayData.MaxMana;
@@ -199,6 +216,12 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         {
             get => BonusMaxHealth;
             set => BonusMaxHealth = value;
+        }
+
+         public bool restevent
+        {
+            get => Restevent;
+            set => Restevent = value;
         }
         
         

@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
-using UnityEditor.Timeline.Actions;
+//using UnityEditor.Timeline.Actions;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -124,7 +124,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update() 
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
         {
             submitSkip = true;
         }
@@ -142,6 +142,8 @@ public class DialogueManager : MonoBehaviour
         {
             ContinueStory();
         }
+
+        
     }
 
     public void EnterDialogueMode(TextAsset inkJSON, Animator backgroundAnimator, Animator effectAnimator) 

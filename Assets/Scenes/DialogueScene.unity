@@ -1131,6 +1131,7 @@ MonoBehaviour:
   FadeBox: {fileID: 1255142258}
   DialogueList:
   - {fileID: 4900000, guid: 0f514e96d374a814c944677842cff6db, type: 3}
+  - {fileID: 4900000, guid: bae0df4c1170a484ab53f08c662edf52, type: 3}
 --- !u!1 &912153330
 GameObject:
   m_ObjectHideFlags: 0

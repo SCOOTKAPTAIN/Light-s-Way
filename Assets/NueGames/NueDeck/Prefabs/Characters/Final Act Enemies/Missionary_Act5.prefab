@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 735061151}
   - component: {fileID: 735061152}
   m_Layer: 8
-  m_Name: Slime
+  m_Name: Missionary_Act5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 1
   textSpawnRoot: {fileID: 2463341200963954810}
-  enemyCharacterData: {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+  enemyCharacterData: {fileID: 11400000, guid: 9b5e165317b7c1c4db047561b3c7f542, type: 2}
   enemyCanvas: {fileID: 7422249267346903092}
   deathSoundProfileData: {fileID: 11400000, guid: 7e15e2a10065ab54c8eaf26154af0156, type: 2}
 --- !u!54 &735061151
@@ -114,7 +114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 243822687401075089}
   - component: {fileID: 243822687401075094}
-  - component: {fileID: 9179244176474924324}
+  - component: {fileID: 3658184224975876203}
   m_Layer: 8
   m_Name: p3_stand
   m_TagString: Untagged
@@ -130,13 +130,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243822687401075088}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.021, y: 0.182, z: 0}
-  m_LocalScale: {x: 0.03196, y: 0.03196, z: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.017, y: 0.536, z: 0}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 491162778199269420}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &243822687401075094
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7672704165797755649, guid: 64e755e076e47ce4cad356be961f5d22, type: 3}
+  m_Sprite: {fileID: 2037236547446156037, guid: 1ee52f7feaef9d14dbca4f1e0eb53d11, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -191,7 +191,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &9179244176474924324
+--- !u!95 &3658184224975876203
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -201,7 +201,7 @@ Animator:
   m_GameObject: {fileID: 243822687401075088}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 654df6af6c0a48e46baebf2b2722f61b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3004dd1c6b1f47b4db7e468006b68960, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -361,11 +361,15 @@ PrefabInstance:
     - target: {fileID: 2911335580396430737, guid: 4a531535fdf794e4893297aa72798b93, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 11400000, guid: ac2999d95bba5aa46b92e9c444264b8c, type: 2}
     - target: {fileID: 2911335580396430737, guid: 4a531535fdf794e4893297aa72798b93, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      objectReference: {fileID: 6178789319605395654, guid: ac2999d95bba5aa46b92e9c444264b8c, type: 2}
+    - target: {fileID: 2911335580396430737, guid: 4a531535fdf794e4893297aa72798b93, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4144906860905666486, guid: 4a531535fdf794e4893297aa72798b93, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -484,19 +488,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7142332272639297443, guid: 4a531535fdf794e4893297aa72798b93, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -34.6
+      value: -43.3
       objectReference: {fileID: 0}
     - target: {fileID: 7142332272639297443, guid: 4a531535fdf794e4893297aa72798b93, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -14.4
+      value: 25.3
       objectReference: {fileID: 0}
     - target: {fileID: 7202066850610586438, guid: 4a531535fdf794e4893297aa72798b93, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1.1
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7202066850610586438, guid: 4a531535fdf794e4893297aa72798b93, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 16.4
+      value: 86.2
       objectReference: {fileID: 0}
     - target: {fileID: 7717519892667723655, guid: 4a531535fdf794e4893297aa72798b93, type: 3}
       propertyPath: m_Layer

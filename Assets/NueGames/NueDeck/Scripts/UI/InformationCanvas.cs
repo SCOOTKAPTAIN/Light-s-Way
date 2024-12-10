@@ -50,6 +50,8 @@ namespace NueGames.NueDeck.Scripts.UI
 
         
 
+        
+
         public void SetHealthText(int currentHealth,int maxHealth) => HealthTextField.text = $"{currentHealth}/{maxHealth}";
 
         public override void ResetCanvas()

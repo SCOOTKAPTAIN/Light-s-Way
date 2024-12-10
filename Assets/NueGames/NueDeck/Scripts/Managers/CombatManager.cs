@@ -172,6 +172,12 @@ namespace NueGames.NueDeck.Scripts.Managers
             GameManager.PersistentGameplayData.CurrentMana += target;
             UIManager.CombatCanvas.SetPileTexts();
         }
+
+        public void RefillMana()
+        {
+            GameManager.PersistentGameplayData.CurrentMana = GameManager.PersistentGameplayData.MaxMana;
+            UIManager.CombatCanvas.SetPileTexts();
+        }
         public void HighlightCardTarget(ActionTargetType targetTypeTargetType)
         {
             switch (targetTypeTargetType)
@@ -209,11 +215,13 @@ namespace NueGames.NueDeck.Scripts.Managers
         #region Private Methods
         private void BuildEnemies()
         {
-            EncounterManager.instance.EncounterSelector();
+
+           // EncounterManager.instance.EncounterSelector();
             CurrentEncounter = GameManager.EncounterData.GetEnemyEncounter(
                 GameManager.PersistentGameplayData.CurrentStageId,
                 GameManager.PersistentGameplayData.CurrentEncounterId,
                 GameManager.PersistentGameplayData.IsFinalEncounter);
+            Debug.Log("Stage =" + GameManager.PersistentGameplayData.CurrentStageId + "Encounter ID = " + GameManager.PersistentGameplayData.CurrentEncounterId);
             
             var enemyList = CurrentEncounter.EnemyList;
             for (var i = 0; i < enemyList.Count; i++)

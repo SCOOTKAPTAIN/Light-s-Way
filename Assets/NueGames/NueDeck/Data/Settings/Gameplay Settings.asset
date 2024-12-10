@@ -20,14 +20,20 @@ MonoBehaviour:
   maxCardOnHand: 6
   allCardsList:
   - {fileID: 11400000, guid: 1e43cdb39f5836b44942f367125cadde, type: 2}
-  - {fileID: 11400000, guid: 8f655889219afa649a967e88e37f98ec, type: 2}
   - {fileID: 11400000, guid: e1783ca46b526944c969405b4c0a29ec, type: 2}
-  - {fileID: 11400000, guid: 7c3fef23d2fb177478906e53364bf7fc, type: 2}
-  - {fileID: 11400000, guid: 97392c824000e4049a6299b2cef0e84d, type: 2}
-  - {fileID: 11400000, guid: 9706119fd5cc9f34e90cb73be068200c, type: 2}
-  - {fileID: 11400000, guid: 1e5671bf6b0f90b428df809497a2f125, type: 2}
-  - {fileID: 11400000, guid: 5d6b018bf7dec554ba0a2eabfd89d3b1, type: 2}
-  - {fileID: 11400000, guid: ffd3079242e164645ba9365c7c965def, type: 2}
+  - {fileID: 11400000, guid: 7eca6c7f00c805d4887559e3872b7418, type: 2}
+  - {fileID: 11400000, guid: c43eeda5ada90014194a582938324f26, type: 2}
+  - {fileID: 11400000, guid: a3198e668ea9aeb409f6e21b0ef28bba, type: 2}
+  - {fileID: 11400000, guid: 212e35dcd1cb47942a7e2f4d45f55d10, type: 2}
+  - {fileID: 11400000, guid: ec282954ced7dcc4ebba1fc6b4a28e3e, type: 2}
+  - {fileID: 11400000, guid: c7f07edcc627f414caafb1bf363a75aa, type: 2}
+  - {fileID: 11400000, guid: 7c0346c1ea2628b4aabea815c44d7d83, type: 2}
+  - {fileID: 11400000, guid: c39724ac1b06e8c44a30eb4cd8a2b035, type: 2}
+  - {fileID: 11400000, guid: bd9832c34c7892f4ba7dfe23bfb91f5f, type: 2}
+  - {fileID: 11400000, guid: d1651bc5a177be54b9bf76e46c2a49dd, type: 2}
+  - {fileID: 11400000, guid: 43d63d96a90ea604b935f80163db0a3f, type: 2}
+  - {fileID: 11400000, guid: ce29eed32554adb4c91c7366000b15b1, type: 2}
+  - {fileID: 11400000, guid: 35f61991de8c05240a1aa946cb36a4d4, type: 2}
   cardPrefab: {fileID: 2689473134106589740, guid: a9728682a56595f4989b8f224d934689, type: 3}
   defaultName: Elaria
   useStageSystem: 0
