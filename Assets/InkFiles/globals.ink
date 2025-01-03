@@ -1,6 +1,7 @@
 VAR dream_choice = ""
 VAR reason_choice = ""
 
+// INCLUDE ../globals.ink
 
 
 

@@ -7,7 +7,7 @@ You have found a safespace, no harm can come to you here.#text:left #layout:remo
 What will you do?
    +[Hone Skills]
    ~(SE("select"))
-   ~Proficiency(5)
+   ~Proficiency(2)
    ->hone
    +[Rest]
    ~(SE("select"))

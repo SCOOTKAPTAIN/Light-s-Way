@@ -18,15 +18,15 @@ MonoBehaviour:
   cardSprite: {fileID: -5959206547455623358, guid: 1a7f3b0441d1bae4a9871db0b02c5ef5, type: 3}
   rarity: 2
   usableWithoutTarget: 1
-  exhaustAfterPlay: 0
+  exhaustAfterPlay: 1
   cardActionDataList:
   - cardActionType: 3
     actionTargetType: 1
-    actionValue: 3
+    actionValue: 5
     actionDelay: 0
   - cardActionType: 2
     actionTargetType: 1
-    actionValue: 3
+    actionValue: 5
     actionDelay: 0
   - cardActionType: 4
     actionTargetType: 1
@@ -51,7 +51,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 1
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 1
-  - descriptionText: ' Block and 3 Strength. Permanently increase Max HP by 1'
+  - descriptionText: ' Block and 5 Strength. Permanently increase Max HP by 1'
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -60,5 +60,14 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  specialKeywordsList: 
+  - descriptionText: . Exhaust.
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  specialKeywordsList: 0000000003000000
   audioType: 9

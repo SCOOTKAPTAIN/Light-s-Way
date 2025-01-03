@@ -1,4 +1,4 @@
-INCLUDE ../globals.ink
+ INCLUDE ../globals.ink
 ...  #text:center #layout:remove
 
 You reached it.
@@ -24,6 +24,7 @@ The sanctuary's gate lies in front of you, and soon it will open and grant you e
 You clutched your heart tightly and hold dearly the lantern in your hand.
 
 With a single tear in your eye, you walk forward, into the Sanctuary what you always dreamed of.
+~Background("ending2")
 
 ENDING - "Journey To Sanctuary"
 

@@ -6,5 +6,5 @@ AssetOrigin:
   productId: 221223
   packageName: Nue Deck - Roguelike Card Game Template
   packageVersion: 2.1.0
-  assetPath: Assets/NueGames/NueDeck/Scripts/Card/CardActions/LifeStealAction.cs
+  assetPath: Assets/NueGames/NueDeck/Scripts/Card/CardActions/AttackActions/LifeStealAction.cs
   uploadId: 527454
