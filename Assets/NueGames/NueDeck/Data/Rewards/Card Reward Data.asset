@@ -17,6 +17,7 @@ MonoBehaviour:
   rewardCardList:
   - {fileID: 11400000, guid: 1e43cdb39f5836b44942f367125cadde, type: 2}
   - {fileID: 11400000, guid: e1783ca46b526944c969405b4c0a29ec, type: 2}
+  - {fileID: 11400000, guid: 8f655889219afa649a967e88e37f98ec, type: 2}
   - {fileID: 11400000, guid: 212e35dcd1cb47942a7e2f4d45f55d10, type: 2}
   - {fileID: 11400000, guid: ec282954ced7dcc4ebba1fc6b4a28e3e, type: 2}
   - {fileID: 11400000, guid: c7f07edcc627f414caafb1bf363a75aa, type: 2}
@@ -27,4 +28,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43d63d96a90ea604b935f80163db0a3f, type: 2}
   - {fileID: 11400000, guid: ce29eed32554adb4c91c7366000b15b1, type: 2}
   - {fileID: 11400000, guid: 35f61991de8c05240a1aa946cb36a4d4, type: 2}
-  - {fileID: 11400000, guid: 8f655889219afa649a967e88e37f98ec, type: 2}

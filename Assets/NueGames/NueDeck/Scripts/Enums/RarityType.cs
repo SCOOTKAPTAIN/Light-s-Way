@@ -3,7 +3,8 @@
     public enum RarityType
     {
         Common,
+        Uncommon,
         Rare,
-        Legendary
+        Mystic
     }
 }

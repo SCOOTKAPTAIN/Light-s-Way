@@ -17,7 +17,7 @@ MonoBehaviour:
   initalAllyList:
   - {fileID: 2835035829204582327, guid: 6472d62dc90afc04db103b9a3f293860, type: 3}
   initalDeck: {fileID: 11400000, guid: 1f1db59d6dc1c1046b2ad72c336c615e, type: 2}
-  maxCardOnHand: 6
+  maxCardOnHand: 30
   allCardsList:
   - {fileID: 11400000, guid: 1e43cdb39f5836b44942f367125cadde, type: 2}
   - {fileID: 11400000, guid: e1783ca46b526944c969405b4c0a29ec, type: 2}
@@ -33,7 +33,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d1651bc5a177be54b9bf76e46c2a49dd, type: 2}
   - {fileID: 11400000, guid: 43d63d96a90ea604b935f80163db0a3f, type: 2}
   - {fileID: 11400000, guid: ce29eed32554adb4c91c7366000b15b1, type: 2}
-  - {fileID: 11400000, guid: 35f61991de8c05240a1aa946cb36a4d4, type: 2}
   cardPrefab: {fileID: 2689473134106589740, guid: a9728682a56595f4989b8f224d934689, type: 3}
   defaultName: Elaria
   useStageSystem: 0
