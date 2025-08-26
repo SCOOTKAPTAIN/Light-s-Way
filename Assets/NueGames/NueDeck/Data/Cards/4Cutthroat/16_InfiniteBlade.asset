@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 23_new_card_name
   cardName: Infinite Blade
   manaCost: 0
-  cardSprite: {fileID: -1464491602544491632, guid: 93cf6a7ef02738c4ebf0e44fe29bae5a, type: 3}
+  cardSprite: {fileID: 4874331460097436537, guid: 9d29224acabb7df4b9b60fb1afed43ab, type: 3}
   rarity: 2
   usableWithoutTarget: 0
   exhaustAfterPlay: 0
@@ -24,10 +24,7 @@ MonoBehaviour:
     actionTargetType: 0
     actionValue: 3
     actionDelay: 0
-  - cardActionType: 5
-    actionTargetType: 1
-    actionValue: 1
-    actionDelay: 0
+  removeAfterBattle: 0
   cardDescriptionDataList:
   - descriptionText: 'Deal '
     enableOverrideColor: 0
@@ -47,7 +44,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 1
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 1
-  - descriptionText: ' damage. Draw 1 Card.'
+  - descriptionText: ' damage.'
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0

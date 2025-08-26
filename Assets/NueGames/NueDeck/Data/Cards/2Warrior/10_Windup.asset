@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 17_new_card_name
   cardName: Wind Up
   manaCost: 0
-  cardSprite: {fileID: -3862250147736728429, guid: d05fb62b2edcf0b4f81c9be68905396d, type: 3}
+  cardSprite: {fileID: -2737228254202897641, guid: ca9dfd6ab35fdcb4a9b64ffc96c4a632, type: 3}
   rarity: 2
   usableWithoutTarget: 1
   exhaustAfterPlay: 0
@@ -28,6 +28,7 @@ MonoBehaviour:
     actionTargetType: 1
     actionValue: 1
     actionDelay: 0
+  removeAfterBattle: 0
   cardDescriptionDataList:
   - descriptionText: Increase strength by 1 and draw a card.
     enableOverrideColor: 0

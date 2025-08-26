@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 15_new_card_name
   cardName: Sword & Shield
   manaCost: 2
-  cardSprite: {fileID: -5721587435224261166, guid: 553652c66db0eff4bb5d845db7283887, type: 3}
+  cardSprite: {fileID: 9134418351265065708, guid: d6d5a2a344420ea46bdcf56885693a83, type: 3}
   rarity: 1
   usableWithoutTarget: 0
   exhaustAfterPlay: 0
@@ -24,6 +24,7 @@ MonoBehaviour:
     actionTargetType: 0
     actionValue: 6
     actionDelay: 0
+  removeAfterBattle: 0
   cardDescriptionDataList:
   - descriptionText: 'Deal '
     enableOverrideColor: 0

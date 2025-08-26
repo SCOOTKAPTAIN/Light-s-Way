@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 3_block_basic
   cardName: Guard
   manaCost: 1
-  cardSprite: {fileID: -5105503301555207847, guid: f79f297fcea37f4418031a5c40a8de37, type: 3}
+  cardSprite: {fileID: 2537882373423050008, guid: 6e4422e217a113540b6bc077bfb0a5d7, type: 3}
   rarity: 0
   usableWithoutTarget: 1
   exhaustAfterPlay: 0
@@ -24,6 +24,7 @@ MonoBehaviour:
     actionTargetType: 1
     actionValue: 5
     actionDelay: 0
+  removeAfterBattle: 0
   cardDescriptionDataList:
   - descriptionText: 'Gain '
     enableOverrideColor: 0

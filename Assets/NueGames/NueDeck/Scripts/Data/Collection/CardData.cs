@@ -23,6 +23,9 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         [SerializeField] private bool usableWithoutTarget;
         [SerializeField] private bool exhaustAfterPlay;
         [SerializeField] private List<CardActionData> cardActionDataList;
+        [SerializeField] private bool removeAfterBattle;
+       
+
         
         [Header("Description")]
         [SerializeField] private List<CardDescriptionData> cardDescriptionDataList;
@@ -45,9 +48,13 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         public RarityType Rarity => rarity;
 
         public bool ExhaustAfterPlay => exhaustAfterPlay;
+        public bool RemoveAfterBattle => removeAfterBattle;
+
+        
+
 
         #endregion
-        
+
         #region Methods
         public void UpdateDescription()
         {
@@ -59,7 +66,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
                     ? descriptionData.GetModifiedValue(this)
                     : descriptionData.GetDescription());
             }
-            
+
             MyDescription = str.ToString();
         }
         #endregion
@@ -73,6 +80,8 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         public void EditCardSprite(Sprite newSprite) => cardSprite = newSprite;
         public void EditUsableWithoutTarget(bool newStatus) => usableWithoutTarget = newStatus;
         public void EditExhaustAfterPlay(bool newStatus) => exhaustAfterPlay = newStatus;
+        public void EditRemoveAfterBattle(bool newStatus) => removeAfterBattle = newStatus;
+
         public void EditCardActionDataList(List<CardActionData> newCardActionDataList) =>
             cardActionDataList = newCardActionDataList;
         public void EditCardDescriptionDataList(List<CardDescriptionData> newCardDescriptionDataList) =>

@@ -31,7 +31,9 @@ namespace NueGames.NueDeck.Editor
         private Sprite CardSprite{ get; set; }
         private bool UsableWithoutTarget{ get; set; }
         private bool ExhaustAfterPlay{ get; set; }
-        private List<CardActionData> CardActionDataList{ get; set; }
+        private bool RemoveAfterBattle { get; set; }
+
+        private List<CardActionData> CardActionDataList { get; set; }
         private List<CardDescriptionData> CardDescriptionDataList{ get; set; }
         private List<SpecialKeywords> SpecialKeywordsList{ get; set; }
         private AudioActionType AudioType{ get; set; }
@@ -46,13 +48,15 @@ namespace NueGames.NueDeck.Editor
             CardSprite = SelectedCardData.CardSprite;
             UsableWithoutTarget = SelectedCardData.UsableWithoutTarget;
             ExhaustAfterPlay = SelectedCardData.ExhaustAfterPlay;
-            CardActionDataList = SelectedCardData.CardActionDataList.Count>0 ? new List<CardActionData>(SelectedCardData.CardActionDataList) : new List<CardActionData>();
-            CardDescriptionDataList = SelectedCardData.CardDescriptionDataList.Count>0 ? new List<CardDescriptionData>(SelectedCardData.CardDescriptionDataList) : new List<CardDescriptionData>();
-            SpecialKeywordsList = SelectedCardData.KeywordsList.Count>0 ? new List<SpecialKeywords>(SelectedCardData.KeywordsList) : new List<SpecialKeywords>();
+            CardActionDataList = SelectedCardData.CardActionDataList.Count > 0 ? new List<CardActionData>(SelectedCardData.CardActionDataList) : new List<CardActionData>();
+            CardDescriptionDataList = SelectedCardData.CardDescriptionDataList.Count > 0 ? new List<CardDescriptionData>(SelectedCardData.CardDescriptionDataList) : new List<CardDescriptionData>();
+            SpecialKeywordsList = SelectedCardData.KeywordsList.Count > 0 ? new List<SpecialKeywords>(SelectedCardData.KeywordsList) : new List<SpecialKeywords>();
             AudioType = SelectedCardData.AudioType;
             CardRarity = SelectedCardData.Rarity;
+            RemoveAfterBattle = SelectedCardData.RemoveAfterBattle;
+
         }
-        
+
         private void ClearCachedCardData()
         {
             CardId = String.Empty;
@@ -66,6 +70,8 @@ namespace NueGames.NueDeck.Editor
             SpecialKeywordsList?.Clear();
             AudioType = AudioActionType.Attack;
             CardRarity = RarityType.Common;
+            RemoveAfterBattle = false;
+
         }
         #endregion
         
@@ -246,6 +252,12 @@ namespace NueGames.NueDeck.Editor
         {
             ExhaustAfterPlay = EditorGUILayout.Toggle("Exhaust after play", ExhaustAfterPlay);
         }
+    
+        private void ChangeRemoveAfterBattle()
+        {
+            RemoveAfterBattle = EditorGUILayout.Toggle("Remove After Battle:", RemoveAfterBattle);
+        }
+
         
         private bool _isGeneralSettingsFolded;
         private Vector2 _generalSettingsScrollPos;
@@ -266,6 +278,7 @@ namespace NueGames.NueDeck.Editor
             ChangeRarity();
             ChangeUsableWithoutTarget();
             ChangeExhaustAfterPlay();
+            ChangeRemoveAfterBattle();
             ChangeAudioActionType();
             EditorGUILayout.EndVertical();
             GUILayout.Space(100);
@@ -510,6 +523,7 @@ namespace NueGames.NueDeck.Editor
             SelectedCardData.EditCardSprite(CardSprite);
             SelectedCardData.EditUsableWithoutTarget(UsableWithoutTarget);
             SelectedCardData.EditExhaustAfterPlay(ExhaustAfterPlay);
+            SelectedCardData.EditRemoveAfterBattle(RemoveAfterBattle);
             SelectedCardData.EditCardActionDataList(CardActionDataList);
             SelectedCardData.EditCardDescriptionDataList(CardDescriptionDataList);
             SelectedCardData.EditSpecialKeywordsList(SpecialKeywordsList);

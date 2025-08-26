@@ -257,18 +257,18 @@ namespace NueGames.NueDeck.Scripts.Managers
         private void WinCombat()
         {
             if (CurrentCombatStateType == CombatStateType.EndCombat) return;
-          
+
             CurrentCombatStateType = CombatStateType.EndCombat;
-           
+
             foreach (var allyBase in CurrentAlliesList)
             {
                 GameManager.PersistentGameplayData.SetAllyHealthData(allyBase.AllyCharacterData.CharacterID,
                     allyBase.CharacterStats.CurrentHealth, allyBase.CharacterStats.MaxHealth);
             }
-            
+
             CollectionManager.ClearPiles();
-            
-           
+
+
             if (GameManager.PersistentGameplayData.ActNumber == 11)
             {
                 UIManager.CombatCanvas.CombatWinPanel.SetActive(true);
@@ -283,6 +283,9 @@ namespace NueGames.NueDeck.Scripts.Managers
                 UIManager.RewardCanvas.BuildReward(RewardType.Gold);
                 UIManager.RewardCanvas.BuildReward(RewardType.Card);
             }
+
+            GameManager.PersistentGameplayData.CurrentCardsList.RemoveAll(card => card.RemoveAfterBattle);
+
            
         }
         #endregion

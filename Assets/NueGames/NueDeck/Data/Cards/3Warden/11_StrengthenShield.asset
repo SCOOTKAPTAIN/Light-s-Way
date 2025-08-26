@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 18_new_card_name
   cardName: Strengthen Shield
   manaCost: 1
-  cardSprite: {fileID: 5303727207495992212, guid: 39a86f123f634bd4baae931bef46dd3e, type: 3}
+  cardSprite: {fileID: -6149612097501874437, guid: 447a03cd564481446baab9f4fccd924f, type: 3}
   rarity: 2
   usableWithoutTarget: 1
   exhaustAfterPlay: 0
@@ -24,6 +24,7 @@ MonoBehaviour:
     actionTargetType: 1
     actionValue: 0
     actionDelay: 0
+  removeAfterBattle: 0
   cardDescriptionDataList:
   - descriptionText: Doubles Block value.
     enableOverrideColor: 0

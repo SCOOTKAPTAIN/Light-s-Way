@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 19_new_card_name
   cardName: Instant Barrier
   manaCost: 1
-  cardSprite: {fileID: 5303727207495992212, guid: 39a86f123f634bd4baae931bef46dd3e, type: 3}
+  cardSprite: {fileID: -9017226974990182766, guid: 259ffcfe7a64cbe4e843136d48d7624b, type: 3}
   rarity: 1
   usableWithoutTarget: 1
   exhaustAfterPlay: 1
@@ -24,6 +24,7 @@ MonoBehaviour:
     actionTargetType: 1
     actionValue: 20
     actionDelay: 0
+  removeAfterBattle: 0
   cardDescriptionDataList:
   - descriptionText: 'Gain '
     enableOverrideColor: 0

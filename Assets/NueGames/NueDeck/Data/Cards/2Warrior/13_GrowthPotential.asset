@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 13_GrowthPotential
   m_EditorClassIdentifier: 
   id: 20_new_card_name
-  cardName: Growth Potential
+  cardName: Goddess Embrace
   manaCost: 3
-  cardSprite: {fileID: -5959206547455623358, guid: 1a7f3b0441d1bae4a9871db0b02c5ef5, type: 3}
+  cardSprite: {fileID: 5971247815902415866, guid: c46aed8809d55e34096910c4feac4117, type: 3}
   rarity: 2
   usableWithoutTarget: 1
   exhaustAfterPlay: 1
@@ -32,6 +32,7 @@ MonoBehaviour:
     actionTargetType: 1
     actionValue: 1
     actionDelay: 0
+  removeAfterBattle: 0
   cardDescriptionDataList:
   - descriptionText: 'Gain '
     enableOverrideColor: 0

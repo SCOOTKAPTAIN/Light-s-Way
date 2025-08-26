@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 16_new_card_name
   cardName: Inner Strength
   manaCost: 1
-  cardSprite: {fileID: -5959206547455623358, guid: 1a7f3b0441d1bae4a9871db0b02c5ef5, type: 3}
+  cardSprite: {fileID: 1248923790587500904, guid: 0a047848c20a70a479a9f10520959f53, type: 3}
   rarity: 1
   usableWithoutTarget: 1
   exhaustAfterPlay: 1
@@ -24,6 +24,7 @@ MonoBehaviour:
     actionTargetType: 1
     actionValue: 5
     actionDelay: 0
+  removeAfterBattle: 0
   cardDescriptionDataList:
   - descriptionText: Increase strength by 5. Exhaust.
     enableOverrideColor: 0

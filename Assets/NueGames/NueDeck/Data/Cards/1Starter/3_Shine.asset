@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Shine
   cardName: Shine
   manaCost: 0
-  cardSprite: {fileID: 9120274773078298782, guid: c25be9b9ccabfe544b0ee206c669ecf8, type: 3}
+  cardSprite: {fileID: 2813274282232148420, guid: 1f00d8dc6df0a00499f7426aab7fa14a, type: 3}
   rarity: 2
   usableWithoutTarget: 0
   exhaustAfterPlay: 0
@@ -28,6 +28,7 @@ MonoBehaviour:
     actionTargetType: 1
     actionValue: 1
     actionDelay: 0
+  removeAfterBattle: 0
   cardDescriptionDataList:
   - descriptionText: 'Deal '
     enableOverrideColor: 0

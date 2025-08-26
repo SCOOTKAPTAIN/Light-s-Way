@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 22_new_card_name
   cardName: Saint's Prayer
   manaCost: 0
-  cardSprite: {fileID: 21300000, guid: f071ce71140638f469d6a10acc1a1b67, type: 3}
+  cardSprite: {fileID: -774693449436576581, guid: 91bca90f5a1fa6d44b453e7c43e8bb44, type: 3}
   rarity: 0
   usableWithoutTarget: 1
   exhaustAfterPlay: 0
@@ -26,10 +26,11 @@ MonoBehaviour:
     actionDelay: 0
   - cardActionType: 1
     actionTargetType: 1
-    actionValue: 5
+    actionValue: 1
     actionDelay: 0
+  removeAfterBattle: 0
   cardDescriptionDataList:
-  - descriptionText: Gain 1 Mana and Heal for 2 Health
+  - descriptionText: Gain 1 Mana and Health.
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
