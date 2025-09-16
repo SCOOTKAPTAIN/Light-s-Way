@@ -61,20 +61,23 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             {
                 allyHealthDataDataList.Add(newData);
             }
-        } 
+        }
 
         public void ChangeLight(int value)
         {
             light += value;
-            if(light > 100)
+            if (light > 100)
             {
                 light = 100;
             }
-            if(light < 0)
+            if (light < 0)
             {
                 light = 0;
             }
             UIManager.Instance.InformationCanvas.SetLightText(light);
+            
+            if (PostFXManager.Instance != null)
+                PostFXManager.Instance.UpdateEffects(light);
         }
         public void InitData()
         {
