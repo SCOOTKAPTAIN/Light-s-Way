@@ -65,6 +65,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
 
         public void ChangeLight(int value)
         {
+            
             light += value;
             if (light > 100)
             {
@@ -100,6 +101,8 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             lightLoss = 2;
             ActAlreadyPlayed = false;
             BonusMaxHealth = 0;
+            if (PostFXManager.Instance != null)
+                PostFXManager.Instance.UpdateEffects(light);
         }
 
        

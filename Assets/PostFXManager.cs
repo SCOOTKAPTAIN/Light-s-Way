@@ -56,9 +56,7 @@ public class PostFXManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Update screen FX based on current Light (0–100).
-    /// </summary>
+   
     public void UpdateEffects(float currentLight)
     {
         float t = 1f - Mathf.Clamp01(currentLight / MaxLight);
