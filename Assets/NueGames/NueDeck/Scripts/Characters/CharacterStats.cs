@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NueGames.NueDeck.Scripts.Enums;
+using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Characters
 {
@@ -69,7 +70,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.Block].ClearAtNextTurn = true;
 
             StatusDict[StatusType.Strength].CanNegativeStack = true;
-            StatusDict[StatusType.Dexterity].CanNegativeStack = true;
+            StatusDict[StatusType.Fortitude].CanNegativeStack = true;
             
             StatusDict[StatusType.Stun].DecreaseOverTurn = true;
             StatusDict[StatusType.Stun].OnTriggerAction += CheckStunStatus;
@@ -116,13 +117,14 @@ namespace NueGames.NueDeck.Scripts.Characters
         {
             if (IsDeath) return;
             OnTakeDamageAction?.Invoke();
-            var remainingDamage = value;
             
+            var remainingDamage = value;
+    
             if (!canPierceArmor)
             {
                 if (StatusDict[StatusType.Block].IsActive)
                 {
-                    ApplyStatus(StatusType.Block,-value);
+                    ApplyStatus(StatusType.Block, -value);
 
                     remainingDamage = 0;
                     if (StatusDict[StatusType.Block].StatusValue <= 0)

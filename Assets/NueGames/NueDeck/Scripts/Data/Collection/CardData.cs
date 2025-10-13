@@ -24,6 +24,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         [SerializeField] private bool exhaustAfterPlay;
         [SerializeField] private List<CardActionData> cardActionDataList;
         [SerializeField] private bool removeAfterBattle;
+        [SerializeField] private int requiredLight;
        
 
         
@@ -49,6 +50,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
 
         public bool ExhaustAfterPlay => exhaustAfterPlay;
         public bool RemoveAfterBattle => removeAfterBattle;
+        public int RequiredLight => requiredLight;
 
         
 
@@ -81,6 +83,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         public void EditUsableWithoutTarget(bool newStatus) => usableWithoutTarget = newStatus;
         public void EditExhaustAfterPlay(bool newStatus) => exhaustAfterPlay = newStatus;
         public void EditRemoveAfterBattle(bool newStatus) => removeAfterBattle = newStatus;
+        public void EditRequiredLight(int newValue) => requiredLight = newValue;
 
         public void EditCardActionDataList(List<CardActionData> newCardActionDataList) =>
             cardActionDataList = newCardActionDataList;

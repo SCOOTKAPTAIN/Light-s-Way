@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6903f06e96c43789549f142f8956d64, type: 3}
   m_Name: 1-Slash
   m_EditorClassIdentifier: 
-  id: 1_attack_basic
+  id: 1_1_Slash
   cardName: Slash
   manaCost: 1
   cardSprite: {fileID: 4176362632249098406, guid: 3a12e66a4cf48f04f86a64bef3386e64, type: 3}
@@ -20,11 +20,12 @@ MonoBehaviour:
   usableWithoutTarget: 0
   exhaustAfterPlay: 0
   cardActionDataList:
-  - cardActionType: 0
+  - cardActionType: 16
     actionTargetType: 0
-    actionValue: 5
+    actionValue: 7
     actionDelay: 0
   removeAfterBattle: 0
+  requiredLight: 0
   cardDescriptionDataList:
   - descriptionText: 'Deal '
     enableOverrideColor: 0
@@ -37,14 +38,14 @@ MonoBehaviour:
     overrideColorOnValueScaled: 0
   - descriptionText: 
     enableOverrideColor: 1
-    overrideColor: {r: 1, g: 0, b: 0, a: 1}
+    overrideColor: {r: 0.8415094, g: 0.08097541, b: 0.1033847, a: 1}
     useModifier: 1
     modifiedActionValueIndex: 0
     modiferStats: 3
     usePrefixOnModifiedValue: 1
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 1
-  - descriptionText: ' Damage.'
+  - descriptionText: ' damage.'
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -54,4 +55,4 @@ MonoBehaviour:
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
   specialKeywordsList: 
-  audioType: 0
+  audioType: 11

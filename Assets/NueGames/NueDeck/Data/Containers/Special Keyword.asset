@@ -14,15 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   specialKeywordBaseList:
   - specialKeyword: 0
-    contentText: Block damages
+    contentText: Reduce incoming damage by <color=#FFB430>X</color>.
   - specialKeyword: 1
-    contentText: Increase your attack damage
+    contentText: Increase your attack damage by <color=#FFB430>X</color>.
   - specialKeyword: 4
-    contentText: Increase your block amount
+    contentText: WIthout it, the power of your lantern diminishes.
   - specialKeyword: 2
-    contentText: Damage per round. Ignores <color=blue>block</color>.
+    contentText: Damage overtime. Ignores <color=#FFB430>Block</color>.
   - specialKeyword: 3
-    contentText: After using <color=yellow>Exhaust</color>, remove it from your deck
-      for this combat
+    contentText: After using, remove it from your deck for this combat.
   - specialKeyword: 5
-    contentText: Can not use any action
+    contentText: Can not take action.
+  - specialKeyword: 6
+    contentText: Take 5% more damage per stack.
+  - specialKeyword: 8
+    contentText: Perform an extra <color=#FFB430>X</color> damage attack after each
+      instance of attacks.

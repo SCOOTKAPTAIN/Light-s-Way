@@ -155,10 +155,10 @@ namespace NueGames.NueDeck.Scripts.Collection
                 var cardTransform = card.transform;
 
                 // Set to inactive material if not enough mana required to use card
-                card.SetInactiveMaterialState(GameManager.PersistentGameplayData.CurrentMana < card.CardData.ManaCost);
+                card.SetInactiveMaterialState( GameManager.PersistentGameplayData.CurrentMana < card.CardData.ManaCost);
 
                 var noCardHeld = _heldCard == null; // Whether a card is "held" (outside of hand)
-                var onSelectedCard = noCardHeld && _selected == i;
+                var onSelectedCard = noCardHeld && _selected == i;  
                 var onDraggedCard = noCardHeld && _dragged == i;
 
                 // Get Position along Curve (for card positioning)

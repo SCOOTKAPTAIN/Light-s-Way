@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6903f06e96c43789549f142f8956d64, type: 3}
   m_Name: 5_Rekindle
   m_EditorClassIdentifier: 
-  id: Rekindle
+  id: 1_5_Rekindle
   cardName: Rekindle
   manaCost: 0
   cardSprite: {fileID: -2508936760440499138, guid: d4ccbd799d8c62745891531ffa9b5ae3, type: 3}
@@ -20,17 +20,14 @@ MonoBehaviour:
   usableWithoutTarget: 1
   exhaustAfterPlay: 0
   cardActionDataList:
-  - cardActionType: 11
+  - cardActionType: 20
     actionTargetType: 1
     actionValue: 0
     actionDelay: 0
-  - cardActionType: 5
-    actionTargetType: 1
-    actionValue: 3
-    actionDelay: 0
   removeAfterBattle: 0
+  requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: Refills Mana to Max and Draw 3 card. Costs 10 Light
+  - descriptionText: Use 10 <color=#FFB430>Light</color>
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -39,5 +36,32 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  specialKeywordsList: 
-  audioType: 9
+  - descriptionText: ' to refill <color=#FFB430>AP</color> and'
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: ' <color=#FFB430>Draw</color>'
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: ' 3 cards.'
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  specialKeywordsList: 04000000
+  audioType: 15

@@ -11,7 +11,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
         {
             if (CombatManager != null){
                 GameManager.PersistentGameplayData.ChangeLight(-10);
-                CombatManager.RefillMana();
+                CombatManager.IncreaseMana(Mathf.RoundToInt(GameManager.PersistentGameplayData.MaxMana));
             }else
                 Debug.LogError("There is no CombatManager");
 

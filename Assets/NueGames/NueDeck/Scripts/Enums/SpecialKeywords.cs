@@ -6,7 +6,10 @@
         Strength,
         Poison,
         Exhaust,
-        Dexterity,
-        Stun
+        Light,
+        Stun,
+        Fragile,
+        Bleeding,
+        Pursuit
     }
 }

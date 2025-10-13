@@ -2,6 +2,7 @@
 {
     public enum CardActionType
     {
+
         Attack,
         Heal,
         Block,
@@ -17,6 +18,75 @@
         LightStun,
         BlockDamage,
         BlockMultiply,
-        AttackAndBlock
+        AttackAndBlock,
+        
+    Slash,
+    Guard,
+    Shine,
+    Flash,
+    Rekindle,
+    Sweep,
+    SwordAndShield,
+    InnerStrength,
+    WindUp,
+    InfiniteBlade,
+    AllIn,
+    BulkUp,
+    InstantBarrier,
+    BarrierCrash,
+    StrengthenShield,
+    ShieldSiphon,
+    TheBestDefense,
+    Bountiful,
+    SaintsPrayer,
+    SacredProtection,
+    GoddessEmbrace,
+    InstantIncantation,
+    GodsAngel,
+    SharpDagger,
+    MurderGoRound,
+    BloodyShank,
+    BloodMoney,
+    BloodTracking,
+    ReapersHarvest,
+    RapierStrikes,
+    GainMomentum,
+    LeaveNoOpening,
+    EnGarde,
+    FollowThrough,
+    FinalGrace,
+    IcicleShot,
+    Fireball,
+    HailStorm,
+    MegaFlare,
+    FrozenMirror,
+    BlazingSurge,
+    PerfectHarmony,
+    FullyGeared,
+    EmergencyDodge,
+    NotOutOfOptions,
+    SteadyBarricade,
+    PreparedPlans,
+    TheMastermind,
+    Smite,
+    AngelDance,
+    GuidingLight,
+    PowerToJudge,
+    ExecutionVerdict,
+    GrandCross,
+    DisarmFoe,
+    UnfairPlay,
+    LaughAtWeakness,
+    OverpoweringDifference,
+    ReturnToSender,
+    IllusionOfVictory
+
+
+
+
+
+
+
+
     }
 }

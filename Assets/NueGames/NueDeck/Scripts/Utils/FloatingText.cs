@@ -6,7 +6,7 @@ namespace NueGames.NueDeck.Scripts.Utils
 {
     public class FloatingText : MonoBehaviour
     {
-        [SerializeField] private float duration = 1;
+        [SerializeField] private float duration = 2;
         [SerializeField] private AnimationCurve scaleCurve;
         [SerializeField] private AnimationCurve yForceCurve;
         [SerializeField] private AnimationCurve xForceCurve;

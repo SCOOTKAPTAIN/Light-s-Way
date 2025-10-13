@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6903f06e96c43789549f142f8956d64, type: 3}
   m_Name: 7_Sweep
   m_EditorClassIdentifier: 
-  id: Sweep
+  id: 2_1_Sweep
   cardName: Sweep
   manaCost: 1
   cardSprite: {fileID: 5145048583532046611, guid: 6cdcea32a8832d446bb69277aa314a40, type: 3}
@@ -20,11 +20,12 @@ MonoBehaviour:
   usableWithoutTarget: 1
   exhaustAfterPlay: 0
   cardActionDataList:
-  - cardActionType: 0
+  - cardActionType: 21
     actionTargetType: 2
-    actionValue: 4
+    actionValue: 9
     actionDelay: 0
   removeAfterBattle: 0
+  requiredLight: 0
   cardDescriptionDataList:
   - descriptionText: 'Deal '
     enableOverrideColor: 0
@@ -44,7 +45,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 1
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: ' Damage to all enemies.'
+  - descriptionText: ' damage to <color=#FFB430>All</color> enemies.'
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -54,4 +55,4 @@ MonoBehaviour:
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
   specialKeywordsList: 
-  audioType: 0
+  audioType: 16

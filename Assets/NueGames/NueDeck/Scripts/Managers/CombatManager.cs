@@ -19,6 +19,8 @@ namespace NueGames.NueDeck.Scripts.Managers
         [SerializeField] private BackgroundContainer backgroundContainer;
         [SerializeField] private List<Transform> enemyPosList;
         [SerializeField] private List<Transform> allyPosList;
+    [SerializeField] [Tooltip("Optional: assign an invisible Transform in the scene where group FX (eg. AllEnemies) should spawn.")]
+    private Transform enemiesFxAnchor;
  
         
         #region Cache
@@ -30,6 +32,11 @@ namespace NueGames.NueDeck.Scripts.Managers
         public List<Transform> EnemyPosList => enemyPosList;
 
         public List<Transform> AllyPosList => allyPosList;
+
+    /// <summary>
+    /// Optional designer-placed anchor used as a spawn point for group FX (AllEnemies/AllAllies).
+    /// </summary>
+    public Transform EnemiesFxAnchor => enemiesFxAnchor;
 
         public AllyBase CurrentMainAlly => CurrentAlliesList.Count>0 ? CurrentAlliesList[0] : null;
 
@@ -78,6 +85,11 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         public void StartCombat()
         {
+            // Try to find a scene-placed FxAnchor so group FX can be spawned at a designer-chosen location.
+            var fxAnchor = FindAnyObjectByType<NueGames.NueDeck.Scripts.Utils.FxAnchor>();
+            if (fxAnchor != null)
+                enemiesFxAnchor = fxAnchor.transform;
+
             BuildEnemies();
             BuildAllies();
             backgroundContainer.OpenSelectedBackground();

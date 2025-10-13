@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6903f06e96c43789549f142f8956d64, type: 3}
   m_Name: 4_Flash
   m_EditorClassIdentifier: 
-  id: Flash
+  id: 1_4_Flash
   cardName: Flash
   manaCost: 0
   cardSprite: {fileID: -6578892327267529403, guid: 77887d969e6b118478f6d5daf4e4466b, type: 3}
@@ -20,17 +20,14 @@ MonoBehaviour:
   usableWithoutTarget: 0
   exhaustAfterPlay: 0
   cardActionDataList:
-  - cardActionType: 12
+  - cardActionType: 19
     actionTargetType: 0
-    actionValue: 2
-    actionDelay: 0
-  - cardActionType: 5
-    actionTargetType: 1
     actionValue: 1
     actionDelay: 0
   removeAfterBattle: 0
+  requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: Stun an enemy for 2 turns and Draw a card. Costs 10 Light.
+  - descriptionText: Use 10 <color=#FFB430>Light</color> to<color=#FFB430>Stun</color>
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -39,5 +36,32 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  specialKeywordsList: 
-  audioType: 9
+  - descriptionText: ' an enemy for 1 turn.'
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: ' <color=#FFB430>Draw</color>'
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: ' 1 card. '
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  specialKeywordsList: 0500000004000000
+  audioType: 14

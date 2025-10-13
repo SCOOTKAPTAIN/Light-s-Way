@@ -32,6 +32,8 @@ namespace NueGames.NueDeck.Editor
         private bool UsableWithoutTarget{ get; set; }
         private bool ExhaustAfterPlay{ get; set; }
         private bool RemoveAfterBattle { get; set; }
+        private int RequiredLight { get; set; }
+
 
         private List<CardActionData> CardActionDataList { get; set; }
         private List<CardDescriptionData> CardDescriptionDataList{ get; set; }
@@ -54,6 +56,8 @@ namespace NueGames.NueDeck.Editor
             AudioType = SelectedCardData.AudioType;
             CardRarity = SelectedCardData.Rarity;
             RemoveAfterBattle = SelectedCardData.RemoveAfterBattle;
+            RequiredLight = SelectedCardData.RequiredLight;
+
 
         }
 
@@ -71,6 +75,8 @@ namespace NueGames.NueDeck.Editor
             AudioType = AudioActionType.Attack;
             CardRarity = RarityType.Common;
             RemoveAfterBattle = false;
+            RequiredLight = 0;
+
 
         }
         #endregion
@@ -257,6 +263,12 @@ namespace NueGames.NueDeck.Editor
         {
             RemoveAfterBattle = EditorGUILayout.Toggle("Remove After Battle:", RemoveAfterBattle);
         }
+    
+        private void ChangeRequiredLight()
+        {
+            RequiredLight = EditorGUILayout.IntField("Required Light:", RequiredLight);
+        }
+
 
         
         private bool _isGeneralSettingsFolded;
@@ -275,6 +287,7 @@ namespace NueGames.NueDeck.Editor
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.BeginVertical();
             ChangeManaCost();
+            ChangeRequiredLight();
             ChangeRarity();
             ChangeUsableWithoutTarget();
             ChangeExhaustAfterPlay();
@@ -524,6 +537,7 @@ namespace NueGames.NueDeck.Editor
             SelectedCardData.EditUsableWithoutTarget(UsableWithoutTarget);
             SelectedCardData.EditExhaustAfterPlay(ExhaustAfterPlay);
             SelectedCardData.EditRemoveAfterBattle(RemoveAfterBattle);
+            SelectedCardData.EditRequiredLight(RequiredLight);
             SelectedCardData.EditCardActionDataList(CardActionDataList);
             SelectedCardData.EditCardDescriptionDataList(CardDescriptionDataList);
             SelectedCardData.EditSpecialKeywordsList(SpecialKeywordsList);

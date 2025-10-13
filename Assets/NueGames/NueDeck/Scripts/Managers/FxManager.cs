@@ -44,17 +44,38 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         #region Public Methods
 
-        public void SpawnFloatingText(Transform targetTransform,string text, int xDir =0, int yDir =-1)
+        public void SpawnFloatingText(Transform targetTransform, string text, int xDir = 0, int yDir = -1)
         {
-            var cloneText =Instantiate(floatingTextPrefab, targetTransform.position, Quaternion.identity);
-            
+            var cloneText = Instantiate(floatingTextPrefab, targetTransform.position, Quaternion.identity);
+
             if (xDir == 0)
-                xDir = Random.value>=0.5f ? 1 : -1;
-            cloneText.PlayText(text,xDir,yDir);
+                xDir = Random.value >= 0.5f ? 1 : -1;
+            cloneText.PlayText(text, xDir, yDir);
         }
+
+        public void SpawnStaticText(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
+        {
+            var cloneText = Instantiate(floatingTextPrefab, targetTransform.position, Quaternion.identity);
+
+            if (xDir == 0)
+                xDir = Random.value >= 0.5f ? 1 : -1;
+            cloneText.PlayText(text, xDir, yDir);
+        }
+
+
         public void PlayFx(Transform targetTransform, FxType targetFx)
         {
-            Instantiate(FXDict[targetFx], targetTransform);
+            // Instantiate(FXDict[targetFx], targetTransform);
+           Instantiate(FXDict[targetFx], targetTransform.position + Vector3.up * 0.2f, Quaternion.identity);
+        }
+
+        /// <summary>
+        /// Play an FX at an arbitrary world position. Useful for group effects (all enemies/all allies).
+        /// </summary>
+        public void PlayFxAtPosition(Vector3 position, FxType targetFx, float yOffset = 0.2f)
+        {
+            if (!FXDict.TryGetValue(targetFx, out var prefab) || prefab == null) return;
+            Instantiate(prefab, position + Vector3.up * yOffset, Quaternion.identity);
         }
         #endregion
         

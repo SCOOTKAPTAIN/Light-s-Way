@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6903f06e96c43789549f142f8956d64, type: 3}
   m_Name: 2-Guard
   m_EditorClassIdentifier: 
-  id: 3_block_basic
+  id: 1_2_Guard
   cardName: Guard
   manaCost: 1
   cardSprite: {fileID: 2537882373423050008, guid: 6e4422e217a113540b6bc077bfb0a5d7, type: 3}
@@ -20,11 +20,12 @@ MonoBehaviour:
   usableWithoutTarget: 1
   exhaustAfterPlay: 0
   cardActionDataList:
-  - cardActionType: 2
+  - cardActionType: 17
     actionTargetType: 1
-    actionValue: 5
+    actionValue: 7
     actionDelay: 0
   removeAfterBattle: 0
+  requiredLight: 0
   cardDescriptionDataList:
   - descriptionText: 'Gain '
     enableOverrideColor: 0
@@ -37,14 +38,14 @@ MonoBehaviour:
     overrideColorOnValueScaled: 0
   - descriptionText: 
     enableOverrideColor: 1
-    overrideColor: {r: 0, g: 0.41176474, b: 0.6666667, a: 1}
+    overrideColor: {r: 0, g: 0.4117647, b: 0.6666667, a: 1}
     useModifier: 1
     modifiedActionValueIndex: 0
     modiferStats: 0
     usePrefixOnModifiedValue: 1
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 1
-  - descriptionText: ' block'
+  - descriptionText: ' <color=#FFB430>Block</color>.'
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -54,4 +55,4 @@ MonoBehaviour:
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
   specialKeywordsList: 00000000
-  audioType: 2
+  audioType: 12

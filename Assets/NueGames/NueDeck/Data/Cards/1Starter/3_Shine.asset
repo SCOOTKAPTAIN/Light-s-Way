@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6903f06e96c43789549f142f8956d64, type: 3}
   m_Name: 3_Shine
   m_EditorClassIdentifier: 
-  id: Shine
+  id: 1_3_Shine
   cardName: Shine
   manaCost: 0
   cardSprite: {fileID: 2813274282232148420, guid: 1f00d8dc6df0a00499f7426aab7fa14a, type: 3}
@@ -20,17 +20,14 @@ MonoBehaviour:
   usableWithoutTarget: 0
   exhaustAfterPlay: 0
   cardActionDataList:
-  - cardActionType: 10
+  - cardActionType: 18
     actionTargetType: 0
-    actionValue: 30
-    actionDelay: 0
-  - cardActionType: 5
-    actionTargetType: 1
-    actionValue: 1
+    actionValue: 29
     actionDelay: 0
   removeAfterBattle: 0
+  requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: 'Deal '
+  - descriptionText: ' Use 10 <color=#FFB430>Light</color> to deal '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -41,14 +38,14 @@ MonoBehaviour:
     overrideColorOnValueScaled: 0
   - descriptionText: 
     enableOverrideColor: 1
-    overrideColor: {r: 1, g: 0, b: 0, a: 1}
+    overrideColor: {r: 0.84313726, g: 0.08235294, b: 0.101960786, a: 1}
     useModifier: 1
     modifiedActionValueIndex: 0
     modiferStats: 3
     usePrefixOnModifiedValue: 1
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 1
-  - descriptionText: ' Damage and Draw a card. Costs 10 Light.'
+  - descriptionText: ' Damage. '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -57,5 +54,14 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  specialKeywordsList: 
-  audioType: 0
+  - descriptionText: <color=#FFB430>Draw</color> 1 card.
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  specialKeywordsList: 04000000
+  audioType: 13

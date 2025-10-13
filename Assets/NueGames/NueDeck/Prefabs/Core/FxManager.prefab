@@ -24,12 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190535649969331355}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4738070697433486633
 MonoBehaviour:
@@ -58,4 +59,18 @@ MonoBehaviour:
     fxPrefab: {fileID: 4399970628791159158, guid: 11a5c265e67f20144a9ec55a3e948415, type: 3}
   - fxType: 6
     fxPrefab: {fileID: 306904137279546315, guid: 9f4840041868be74ea8d4f988e961a5f, type: 3}
+  - fxType: 7
+    fxPrefab: {fileID: 4931249800145279701, guid: c75d14481b9d3cd41b5ec5e64c065f2e, type: 3}
+  - fxType: 8
+    fxPrefab: {fileID: 6582740879243116295, guid: 8073c6148b9eaf44995acf9a22331f15, type: 3}
+  - fxType: 9
+    fxPrefab: {fileID: 4931249800145279701, guid: cbd7313545e5f58459efaf302f95ad6d, type: 3}
+  - fxType: 68
+    fxPrefab: {fileID: 4931249800145279701, guid: e67936e0e9377c544a79562f194ce58b, type: 3}
+  - fxType: 10
+    fxPrefab: {fileID: 4931249800145279701, guid: 895daf8072551f04cbb741a1eac58684, type: 3}
+  - fxType: 11
+    fxPrefab: {fileID: 4931249800145279701, guid: 3c8752f64c2a68044a296ad0841a2e1c, type: 3}
+  - fxType: 12
+    fxPrefab: {fileID: 4931249800145279701, guid: 252ff0d8ea4c096468008b40747f53ad, type: 3}
   floatingTextPrefab: {fileID: 5875565574366412673, guid: ff5e71a98d9a7364e9d9fbe0d5a58c35, type: 3}

@@ -2,12 +2,15 @@
 {
     public enum StatusType
     {
-        None =0,
+        None = 0,
         Block,
         Poison,
         Strength,
-        Dexterity,
+        Fortitude,
         Stun,
-        Proficiency
+        Proficiency,
+        Fragile,
+        Pursuit,
+        Bleeding
     }
 }
