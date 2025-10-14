@@ -24,7 +24,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             }
 
             CollectionManager.DrawCards(Mathf.RoundToInt(1));
-            actionParameters.TargetCharacter.CharacterStats.ApplyStatus(StatusType.Stun,Mathf.RoundToInt(1));
+            actionParameters.TargetCharacter.CharacterStats.ApplyStatus(StatusType.Stun, Mathf.RoundToInt(1));
             GameManager.PersistentGameplayData.ChangeLight(-10);
             FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.Flash);
           

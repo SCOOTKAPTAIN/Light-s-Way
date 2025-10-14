@@ -4,12 +4,11 @@ using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
 {
-    public class Sweep: CardActionBase
+    public class SwordandShield1: CardActionBase
     {
-        public override CardActionType ActionType => CardActionType.Sweep;
+        public override CardActionType ActionType => CardActionType.SwordAndShield1;
         public override void DoAction(CardActionParameters actionParameters)
         {
-                var anchor = CombatManager.Instance.EnemiesFxAnchor;
             
             if (!actionParameters.TargetCharacter) return;
 
@@ -19,7 +18,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var value = GameManager.PersistentGameplayData.proficiency + actionParameters.Value
              + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue;
 
-            FxManager.Instance.PlayFxAtPosition(anchor.position, FxType.Sweep, 0.2f);
+            FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.SwordAndShield1);
 
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 

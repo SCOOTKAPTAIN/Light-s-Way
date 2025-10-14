@@ -19,7 +19,7 @@
         Flash,
         Rekindle,
         Sweep,
-        SwordAndShield,
+        SwordAndShield1,
         InnerStrength,
         WindUp,
         InfiniteBlade,
@@ -73,6 +73,9 @@
         OverpoweringDifference,
         ReturnToSender,
         IllusionOfVictory,
-    NoLight
+        NoLight,
+        SwordandShield2
+
+
     }
 }

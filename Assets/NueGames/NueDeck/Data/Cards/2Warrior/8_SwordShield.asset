@@ -20,9 +20,13 @@ MonoBehaviour:
   usableWithoutTarget: 0
   exhaustAfterPlay: 0
   cardActionDataList:
-  - cardActionType: 15
+  - cardActionType: 22
     actionTargetType: 0
-    actionValue: 9
+    actionValue: 11
+    actionDelay: 0
+  - cardActionType: 76
+    actionTargetType: 1
+    actionValue: 11
     actionDelay: 0
   removeAfterBattle: 0
   requiredLight: 0
@@ -73,4 +77,4 @@ MonoBehaviour:
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
   specialKeywordsList: 00000000
-  audioType: 0
+  audioType: 17

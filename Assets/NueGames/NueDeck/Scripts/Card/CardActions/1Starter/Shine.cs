@@ -29,22 +29,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             GameManager.PersistentGameplayData.ChangeLight(-10);
             FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.Shine);
             
-            // put ts before every damage activations ---------------------------------------------------------------------------------------------------------------------------------
-            int fragileStacks = targetCharacter.CharacterStats.StatusDict[StatusType.Fragile].StatusValue;
-            float multiplier = 1f + (0.05f * fragileStacks);
-            if (fragileStacks > 0)
-            {
-                value = Mathf.RoundToInt(value * multiplier);
-            }
-            if (selfCharacter.CharacterStats.StatusDict[StatusType.Pursuit].StatusValue > 0)
-            {
-                var pursuitValue = Mathf.RoundToInt(selfCharacter.CharacterStats.StatusDict[StatusType.Pursuit].StatusValue * multiplier);
-                targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(pursuitValue));
-                FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.Pursuit);
-                FxManager.SpawnStaticText(actionParameters.TargetCharacter.TextSpawnRoot, pursuitValue.ToString());
-                AudioManager.PlayOneShot(AudioActionType.Pursuit);
-            }
-            // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value));
 

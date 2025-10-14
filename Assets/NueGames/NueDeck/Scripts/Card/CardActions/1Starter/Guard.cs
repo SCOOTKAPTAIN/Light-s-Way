@@ -14,10 +14,13 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                 : actionParameters.SelfCharacter;
             
             if (!newTarget) return;
-            
+
             newTarget.CharacterStats.ApplyStatus(StatusType.Block,
                 Mathf.RoundToInt(actionParameters.Value + GameManager.PersistentGameplayData.proficiency + actionParameters.SelfCharacter.CharacterStats
                     .StatusDict[StatusType.Fortitude].StatusValue));
+
+
+                    
 
 
             if (FxManager != null)

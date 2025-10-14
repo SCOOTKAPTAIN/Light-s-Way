@@ -73,4 +73,8 @@ MonoBehaviour:
     fxPrefab: {fileID: 4931249800145279701, guid: 3c8752f64c2a68044a296ad0841a2e1c, type: 3}
   - fxType: 12
     fxPrefab: {fileID: 4931249800145279701, guid: 252ff0d8ea4c096468008b40747f53ad, type: 3}
+  - fxType: 13
+    fxPrefab: {fileID: 4931249800145279701, guid: f5cbc57907e74484fbdcfcd6dd35c7a1, type: 3}
+  - fxType: 69
+    fxPrefab: {fileID: 4931249800145279701, guid: cfc5b3eb745fea7428ff918a09b06bcd, type: 3}
   floatingTextPrefab: {fileID: 5875565574366412673, guid: ff5e71a98d9a7364e9d9fbe0d5a58c35, type: 3}
