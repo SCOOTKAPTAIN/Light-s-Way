@@ -61,7 +61,13 @@ namespace NueGames.NueDeck.Scripts.Card
             IsPlayable = isPlayable;
             nameTextField.text = CardData.CardName;
             descTextField.text = CardData.MyDescription;
-            manaTextField.text = CardData.ManaCost.ToString();
+            // Show 0 cost when the player currently has a FreeNextCard status active (QoL overlay)
+            var displayCost = CardData.ManaCost;
+            var mainAlly = CombatManager?.CurrentMainAlly;
+            if (mainAlly != null && mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.FreeNextCard) && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].IsActive && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].StatusValue > 0)
+                displayCost = 0;
+
+            manaTextField.text = displayCost.ToString();
             cardImage.sprite = CardData.CardSprite;
             foreach (var rarityRoot in RarityRootList)
                 rarityRoot.gameObject.SetActive(rarityRoot.Rarity == CardData.Rarity);
@@ -79,7 +85,24 @@ namespace NueGames.NueDeck.Scripts.Card
 
         private IEnumerator CardUseRoutine(CharacterBase self,CharacterBase targetCharacter, List<EnemyBase> allEnemies, List<AllyBase> allAllies)
         {
+            // Prevent the player from selecting or dragging other cards while this card's actions run.
+            var prevCanSelect = GameManager.PersistentGameplayData.CanSelectCards;
+            GameManager.PersistentGameplayData.CanSelectCards = false;
+
             SpendMana(CardData.ManaCost);
+            // Animate the card to the play anchor (for visual feedback) before running actions.
+            Transform playAnchor = CombatManager.playAnchor;
+            if (playAnchor == null && CollectionManager != null && CollectionManager.HandController != null)
+            {
+                // Fallback to discard transform so card animates off-hand regardless.
+                playAnchor = CollectionManager.HandController.discardTransform;
+            }
+
+            if (playAnchor != null)
+            {
+                // Start the play animation but don't wait for it — actions should start immediately when the player releases the card.
+                StartCoroutine(AnimateToTransform(playAnchor, 0.18f));
+            }
             
             foreach (var playerAction in CardData.CardActionDataList)
             {
@@ -92,6 +115,36 @@ namespace NueGames.NueDeck.Scripts.Card
                             target,self,CardData,this));
             }
             CollectionManager.OnCardPlayed(this);
+
+            // Restore previous selection state (usually true during player's turn)
+            GameManager.PersistentGameplayData.CanSelectCards = prevCanSelect;
+        }
+
+        private IEnumerator AnimateToTransform(Transform target, float duration)
+        {
+            if (target == null) yield break;
+            var startPos = CachedTransform.position;
+            var startRot = CachedTransform.rotation;
+            var startScale = CachedTransform.localScale;
+
+            var endPos = target.position;
+            var endRot = target.rotation;
+            var endScale = target.localScale;
+
+            var t = 0f;
+            while (t < duration)
+            {
+                t += Time.deltaTime;
+                var p = Mathf.SmoothStep(0f, 1f, t / duration);
+                CachedTransform.position = Vector3.Lerp(startPos, endPos, p);
+                CachedTransform.rotation = Quaternion.Slerp(startRot, endRot, p);
+                CachedTransform.localScale = Vector3.Lerp(startScale, endScale, p);
+                yield return null;
+            }
+
+            CachedTransform.position = endPos;
+            CachedTransform.rotation = endRot;
+            CachedTransform.localScale = endScale;
         }
 
         private static List<CharacterBase> DetermineTargets(CharacterBase targetCharacter, List<EnemyBase> allEnemies, List<AllyBase> allAllies,
@@ -150,7 +203,38 @@ namespace NueGames.NueDeck.Scripts.Card
         protected virtual void SpendMana(int value)
         {
             if (!IsPlayable) return;
+            // Check if the main ally has a FreeNextCard status active. If so, consume one and skip spending mana.
+            var mainAlly = CombatManager?.CurrentMainAlly;
+            if (mainAlly != null)
+            {
+                if (mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.FreeNextCard) && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].IsActive && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].StatusValue > 0)
+                {
+                    // decrement the counter via ApplyStatus so events update, then clear if <= 0
+                    mainAlly.CharacterStats.ApplyStatus(StatusType.FreeNextCard, -1);
+                    if (mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].StatusValue <= 0)
+                        mainAlly.CharacterStats.ClearStatus(StatusType.FreeNextCard);
+
+                    // skip spending mana
+                    return;
+                }
+            }
+
             GameManager.PersistentGameplayData.CurrentMana -= value;
+
+            // If the main ally has the God's Angel combat buff active, and the card cost was 2 or more,
+            // refund 1 mana and heal 1 HP.
+            if (mainAlly != null && mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.GodsAngelBuff) && mainAlly.CharacterStats.StatusDict[StatusType.GodsAngelBuff].IsActive && value >= 2)
+            {
+                GameManager.PersistentGameplayData.CurrentMana += 1;
+                mainAlly.CharacterStats.Heal(1);
+                // Optional feedback
+                if (FxManager != null)
+                {
+                    FxManager.SpawnFloatingTextGreen(mainAlly.transform, "1");
+                    FxManager.PlayFx(mainAlly.transform, FxType.GodsAngel2);
+                    AudioManager.PlayOneShot(AudioActionType.GodsAngel2);
+                }
+            }
         }
         
         public virtual void SetInactiveMaterialState(bool isInactive) 
@@ -167,7 +251,11 @@ namespace NueGames.NueDeck.Scripts.Card
             CardData.UpdateDescription();
             nameTextField.text = CardData.CardName;
             descTextField.text = CardData.MyDescription;
-            manaTextField.text = CardData.ManaCost.ToString();
+            var displayCost = CardData.ManaCost;
+            var mainAlly = CombatManager?.CurrentMainAlly;
+            if (mainAlly != null && mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.FreeNextCard) && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].IsActive && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].StatusValue > 0)
+                displayCost = 0;
+            manaTextField.text = displayCost.ToString();
         }
         
         #endregion

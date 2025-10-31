@@ -154,8 +154,17 @@ namespace NueGames.NueDeck.Scripts.Collection
                 var card = hand[i];
                 var cardTransform = card.transform;
 
-                // Set to inactive material if not enough mana required to use card
-                card.SetInactiveMaterialState( GameManager.PersistentGameplayData.CurrentMana < card.CardData.ManaCost);
+                // Set to inactive material if not enough mana required to use card.
+                // If the main ally has a FreeNextCard status active, treat the card as usable.
+                var hasFreeNext = false;
+                if (CombatManager != null && CombatManager.CurrentMainAlly != null)
+                {
+                    var stats = CombatManager.CurrentMainAlly.CharacterStats;
+                    if (stats.StatusDict.ContainsKey(StatusType.FreeNextCard) && stats.StatusDict[StatusType.FreeNextCard].IsActive && stats.StatusDict[StatusType.FreeNextCard].StatusValue > 0)
+                        hasFreeNext = true;
+                }
+
+                card.SetInactiveMaterialState(GameManager.PersistentGameplayData.CurrentMana < card.CardData.ManaCost && !hasFreeNext);
 
                 var noCardHeld = _heldCard == null; // Whether a card is "held" (outside of hand)
                 var onSelectedCard = noCardHeld && _selected == i;  
@@ -309,9 +318,16 @@ namespace NueGames.NueDeck.Scripts.Collection
             CombatManager.DeactivateCardHighlights();
             bool backToHand = true;
                 
-            if (GameManager.PersistentGameplayData.CanUseCards && GameManager.PersistentGameplayData.CurrentMana >= _heldCard.CardData.ManaCost)
+            var hasFree = false;
+            if (CombatManager != null && CombatManager.CurrentMainAlly != null)
             {
-                RaycastHit hit;
+                var stats = CombatManager.CurrentMainAlly.CharacterStats;
+                if (stats.StatusDict.ContainsKey(StatusType.FreeNextCard) && stats.StatusDict[StatusType.FreeNextCard].IsActive && stats.StatusDict[StatusType.FreeNextCard].StatusValue > 0)
+                    hasFree = true;
+            }
+
+            if (GameManager.PersistentGameplayData.CanUseCards && (GameManager.PersistentGameplayData.CurrentMana >= _heldCard.CardData.ManaCost || hasFree))
+            {
                 var mainRay = _mainCam.ScreenPointToRay(mousePos);
                 var _canUse = false;
                 CharacterBase selfCharacter = CombatManager.CurrentMainAlly;

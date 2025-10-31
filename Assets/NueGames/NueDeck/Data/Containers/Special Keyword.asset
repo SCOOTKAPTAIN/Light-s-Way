@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   specialKeywordBaseList:
   - specialKeyword: 0
-    contentText: Reduce incoming damage by <color=#FFB430>X</color>.
+    contentText: Blocks  incoming damage by <color=#FFB430>X</color>.
   - specialKeyword: 1
     contentText: Increase your attack damage by <color=#FFB430>X</color>.
   - specialKeyword: 4
@@ -30,3 +30,10 @@ MonoBehaviour:
   - specialKeyword: 8
     contentText: Perform an extra <color=#FFB430>X</color> damage attack after each
       instance of attacks.
+  - specialKeyword: 9
+    contentText: Consumes 1 stack to negate an incoming debuff.
+  - specialKeyword: 10
+    contentText: Next card played has it's cost reduced to 0.
+  - specialKeyword: 11
+    contentText: Refunds 1 <color=#FFB430>Mana</color> and <color=#FFB430>Health</color>
+      when using 2+ cost Mana cards.

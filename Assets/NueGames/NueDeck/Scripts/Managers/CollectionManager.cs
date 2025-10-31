@@ -53,6 +53,21 @@ namespace NueGames.NueDeck.Scripts.Managers
         #region Public Methods
         public void DrawCards(int targetDrawCount)
         {
+            // If the current main ally has a NoDraw debuff, prevent drawing.
+            if (CombatManager != null && CombatManager.CurrentMainAlly != null)
+            {
+                var stats = CombatManager.CurrentMainAlly.CharacterStats;
+                if (stats.StatusDict.ContainsKey(NueGames.NueDeck.Scripts.Enums.StatusType.NoDraw) && stats.StatusDict[NueGames.NueDeck.Scripts.Enums.StatusType.NoDraw].IsActive)
+                {
+                    // Provide player feedback: small floating text
+                    if (FxManager != null)
+                    {
+                        FxManager.SpawnStaticText(CombatManager.CurrentMainAlly.transform, "Can't Draw", 0, 1);
+                    }
+                    return;
+                }
+            }
+
             var currentDrawCount = 0;
 
             for (var i = 0; i < targetDrawCount; i++)

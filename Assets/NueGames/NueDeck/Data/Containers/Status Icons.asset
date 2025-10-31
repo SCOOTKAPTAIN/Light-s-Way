@@ -13,28 +13,49 @@ MonoBehaviour:
   m_Name: Status Icons
   m_EditorClassIdentifier: 
   statusIconBasePrefab: {fileID: 6777904196308813527, guid: f4e76bc2e67da6241b52b8d7c6034e01, type: 3}
+  statusIconBasePrefabNoValue: {fileID: 6777904196308813527, guid: c1781d4392492de4aafd21e718cc7d4c, type: 3}
   statusIconList:
   - iconStatus: 1
-    iconSprite: {fileID: 21300000, guid: 091b728a2e9d83e4bba82225c3c052a3, type: 3}
+    iconSprite: {fileID: 21300000, guid: 9abc505eaee83af47a9243045e50de08, type: 3}
+    showValue: 1
     specialKeywords: 00000000
   - iconStatus: 2
     iconSprite: {fileID: -214828719786938277, guid: a707003c96586cc41b22ae32a9cdb636, type: 3}
+    showValue: 1
     specialKeywords: 02000000
   - iconStatus: 3
-    iconSprite: {fileID: 21300000, guid: ec8ba2ca07aeb734caba7fe5df71117c, type: 3}
+    iconSprite: {fileID: 21300000, guid: c32e69ff7233ccf4a89fb3f5631644aa, type: 3}
+    showValue: 1
     specialKeywords: 01000000
   - iconStatus: 4
     iconSprite: {fileID: 21300000, guid: b814f523022834b4eb4ef10d01cf8faf, type: 3}
+    showValue: 1
     specialKeywords: 04000000
   - iconStatus: 5
     iconSprite: {fileID: 1944889613778695005, guid: 1fb0c0cb02c616d49815abb7a9a0fc0f, type: 3}
+    showValue: 1
     specialKeywords: 05000000
   - iconStatus: 6
     iconSprite: {fileID: 21300000, guid: b814f523022834b4eb4ef10d01cf8faf, type: 3}
+    showValue: 1
     specialKeywords: 05000000
   - iconStatus: 7
     iconSprite: {fileID: 21300000, guid: 0c8b674cf50332343b354f30b4f09ec1, type: 3}
+    showValue: 1
     specialKeywords: 06000000
   - iconStatus: 8
     iconSprite: {fileID: 21300000, guid: b814f523022834b4eb4ef10d01cf8faf, type: 3}
+    showValue: 1
     specialKeywords: 08000000
+  - iconStatus: 12
+    iconSprite: {fileID: 21300000, guid: 1790c8e0c39db5b4a83b3321505983df, type: 3}
+    showValue: 1
+    specialKeywords: 09000000
+  - iconStatus: 13
+    iconSprite: {fileID: 21300000, guid: bc5c7911c8ad6934a9c78ad7f9df1192, type: 3}
+    showValue: 0
+    specialKeywords: 0a000000
+  - iconStatus: 14
+    iconSprite: {fileID: 21300000, guid: 7dcf6df1fdbfdcb458fc58439bf16780, type: 3}
+    showValue: 0
+    specialKeywords: 0b000000

@@ -30,6 +30,17 @@ namespace NueGames.NueDeck.Scripts.Characters
     }
     public class CharacterStats
     { 
+        // Shared list of status types considered debuffs.
+        // Keep in one place so new logic (ClearDebuffs and debuff blocking) can reuse it.
+        private static readonly StatusType[] DebuffTypes = new[]
+        {
+            StatusType.Poison,
+            StatusType.Stun,
+            StatusType.Fragile,
+            StatusType.Bleeding,
+            StatusType.NoDraw,
+            StatusType.NoGainMana
+        };
         public int MaxHealth { get; set; }
         public int CurrentHealth { get; set; }
         public bool IsStunned { get;  set; }
@@ -69,6 +80,10 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             StatusDict[StatusType.Block].ClearAtNextTurn = true;
 
+            StatusDict[StatusType.NoDraw].DecreaseOverTurn = true;
+
+            StatusDict[StatusType.NoGainMana].DecreaseOverTurn = true;
+
             StatusDict[StatusType.Strength].CanNegativeStack = true;
             StatusDict[StatusType.Fortitude].CanNegativeStack = true;
             
@@ -81,6 +96,25 @@ namespace NueGames.NueDeck.Scripts.Characters
         #region Public Methods
         public void ApplyStatus(StatusType targetStatus,int value)
         {
+            // If this status being applied is a debuff and the character has a DebuffWard active,
+            // consume one DebuffWard stack and block the incoming debuff instead of applying it.
+            if (DebuffTypes.Contains(targetStatus))
+            {
+                if (StatusDict.ContainsKey(StatusType.DebuffWard) && StatusDict[StatusType.DebuffWard].IsActive && StatusDict[StatusType.DebuffWard].StatusValue > 0)
+                {
+                    // Consume one ward stack
+                    StatusDict[StatusType.DebuffWard].StatusValue--;
+                    // If it reached zero, clear it so UI updates correctly
+                    if (StatusDict[StatusType.DebuffWard].StatusValue <= 0)
+                        ClearStatus(StatusType.DebuffWard);
+                    else
+                        OnStatusChanged?.Invoke(StatusType.DebuffWard, StatusDict[StatusType.DebuffWard].StatusValue);
+
+                    // Do not apply the incoming debuff
+                    return;
+                }
+            }
+
             if (StatusDict[targetStatus].IsActive)
             {
                 StatusDict[targetStatus].StatusValue += value;
@@ -156,6 +190,27 @@ namespace NueGames.NueDeck.Scripts.Characters
         {
             foreach (var status in StatusDict)
                 ClearStatus(status.Key);
+        }
+
+        /// <summary>
+        /// Clear debuff statuses from this character. Add new debuffs to the DebuffTypes set to make them
+        /// removable by this method.
+        /// </summary>
+    // Clears debuffs and returns how many distinct debuff types were removed.
+    // Do not perform healing here; callers can decide whether to heal based on removedCount.
+    public int ClearDebuffs()
+        {
+            var removedCount = 0;
+            foreach (var debuff in DebuffTypes)
+            {
+                if (StatusDict.ContainsKey(debuff) && StatusDict[debuff].IsActive && !StatusDict[debuff].IsPermanent)
+                {
+                    ClearStatus(debuff);
+                    removedCount++;
+                }
+            }
+
+            return removedCount;
         }
            
         public void ClearStatus(StatusType targetStatus)

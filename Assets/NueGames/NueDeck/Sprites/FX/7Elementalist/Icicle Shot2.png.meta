@@ -1,0 +1,514 @@
+fileFormatVersion: 2
+guid: 9be7f64715972f84b9986b44ecd0edd8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7410258010199031536
+    second: Icicle Shot2_0
+  - first:
+      213: -6288146144762946794
+    second: Icicle Shot2_1
+  - first:
+      213: -1323387548187749339
+    second: Icicle Shot2_2
+  - first:
+      213: 2926187939571655695
+    second: Icicle Shot2_3
+  - first:
+      213: 5652748581162364533
+    second: Icicle Shot2_4
+  - first:
+      213: 3659755547734758396
+    second: Icicle Shot2_5
+  - first:
+      213: -1200902529733741500
+    second: Icicle Shot2_6
+  - first:
+      213: 3197150396399317724
+    second: Icicle Shot2_7
+  - first:
+      213: -593686229629790020
+    second: Icicle Shot2_8
+  - first:
+      213: -8166324557785489210
+    second: Icicle Shot2_9
+  - first:
+      213: 4734272415704873072
+    second: Icicle Shot2_10
+  - first:
+      213: 2288759676560161303
+    second: Icicle Shot2_11
+  - first:
+      213: 6840503476060677639
+    second: Icicle Shot2_12
+  - first:
+      213: -7335807091051512158
+    second: Icicle Shot2_13
+  - first:
+      213: 6531779506113560747
+    second: Icicle Shot2_14
+  - first:
+      213: 5186455343027471538
+    second: Icicle Shot2_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Icicle Shot2_0
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 384
+        width: 56
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fef7e7266686d660800000000000000
+      internalID: 7410258010199031536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_1
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 305
+        width: 82
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61b99a9b5640cb8a0800000000000000
+      internalID: -6288146144762946794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_2
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 397
+        width: 42
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 524181a590262ade0800000000000000
+      internalID: -1323387548187749339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_3
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 307
+        width: 60
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f04633c6d68eb9820800000000000000
+      internalID: 2926187939571655695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_4
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 373
+        width: 45
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57ea6c092e8927e40800000000000000
+      internalID: 5652748581162364533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_5
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 340
+        width: 45
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf3de7bc7401ac230800000000000000
+      internalID: 3659755547734758396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_6
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 303
+        width: 62
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4443a590389855fe0800000000000000
+      internalID: -1200902529733741500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_7
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 336
+        width: 44
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd271e6a85f8e5c20800000000000000
+      internalID: 3197150396399317724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_8
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 297
+        width: 45
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb810e6058dc2c7f0800000000000000
+      internalID: -593686229629790020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_9
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 89
+        width: 226
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c0a5ace4136bae80800000000000000
+      internalID: -8166324557785489210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_10
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 283
+        width: 38
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 078f408cda383b140800000000000000
+      internalID: 4734272415704873072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_11
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 240
+        width: 29
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71a3b99acce43cf10800000000000000
+      internalID: 2288759676560161303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_12
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 223
+        width: 71
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 706eb6f3ba95eee50800000000000000
+      internalID: 6840503476060677639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_13
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 150
+        width: 60
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ae3515415af13a90800000000000000
+      internalID: -7335807091051512158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_14
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 176
+        width: 56
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba0431d9ada85aa50800000000000000
+      internalID: 6531779506113560747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icicle Shot2_15
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 116
+        width: 70
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b4449cc7adf9f740800000000000000
+      internalID: 5186455343027471538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Icicle Shot2_0: 7410258010199031536
+      Icicle Shot2_1: -6288146144762946794
+      Icicle Shot2_10: 4734272415704873072
+      Icicle Shot2_11: 2288759676560161303
+      Icicle Shot2_12: 6840503476060677639
+      Icicle Shot2_13: -7335807091051512158
+      Icicle Shot2_14: 6531779506113560747
+      Icicle Shot2_15: 5186455343027471538
+      Icicle Shot2_2: -1323387548187749339
+      Icicle Shot2_3: 2926187939571655695
+      Icicle Shot2_4: 5652748581162364533
+      Icicle Shot2_5: 3659755547734758396
+      Icicle Shot2_6: -1200902529733741500
+      Icicle Shot2_7: 3197150396399317724
+      Icicle Shot2_8: -593686229629790020
+      Icicle Shot2_9: -8166324557785489210
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

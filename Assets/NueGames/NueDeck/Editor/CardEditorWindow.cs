@@ -42,6 +42,12 @@ namespace NueGames.NueDeck.Editor
         
         private RarityType CardRarity { get; set; }
 
+    // EditorPrefs keys to persist foldout state between sessions
+    private const string PrefKey_GeneralFoldout = "NueDeck_CardEditor_GeneralFoldout";
+    private const string PrefKey_ActionsFoldout = "NueDeck_CardEditor_ActionsFoldout";
+    private const string PrefKey_DescriptionFoldout = "NueDeck_CardEditor_DescriptionFoldout";
+    private const string PrefKey_SpecialKeywordsFoldout = "NueDeck_CardEditor_SpecialKeywordsFoldout";
+
         private void CacheCardData()
         {
             CardId = SelectedCardData.Id;
@@ -101,6 +107,11 @@ namespace NueGames.NueDeck.Editor
                 _serializedObject = new SerializedObject(SelectedCardData);
                 CacheCardData();
             }
+            // Load persisted foldout state
+            _isGeneralSettingsFolded = EditorPrefs.GetBool(PrefKey_GeneralFoldout, false);
+            _isCardActionDataListFolded = EditorPrefs.GetBool(PrefKey_ActionsFoldout, false);
+            _isDescriptonDataListFolded = EditorPrefs.GetBool(PrefKey_DescriptionFoldout, false);
+            _isSpecialKeywordsFolded = EditorPrefs.GetBool(PrefKey_SpecialKeywordsFoldout, false);
             
             Selection.selectionChanged += Repaint;
         }
@@ -192,6 +203,7 @@ namespace NueGames.NueDeck.Editor
             if (!SelectedCardData)
             {
                 EditorGUILayout.LabelField("Select card");
+                EditorGUILayout.EndVertical();
                 return;
             }
             GUILayout.Space(10);
@@ -276,6 +288,7 @@ namespace NueGames.NueDeck.Editor
         private void ChangeGeneralSettings()
         {
             _isGeneralSettingsFolded =EditorGUILayout.BeginFoldoutHeaderGroup(_isGeneralSettingsFolded, "General Settings");
+            EditorPrefs.SetBool(PrefKey_GeneralFoldout, _isGeneralSettingsFolded);
             if (!_isGeneralSettingsFolded)
             {
                 EditorGUILayout.EndFoldoutHeaderGroup();
@@ -306,6 +319,7 @@ namespace NueGames.NueDeck.Editor
         private void ChangeCardActionDataList()
         {
             _isCardActionDataListFolded =EditorGUILayout.BeginFoldoutHeaderGroup(_isCardActionDataListFolded, "Card Actions");
+            EditorPrefs.SetBool(PrefKey_ActionsFoldout, _isCardActionDataListFolded);
             if (_isCardActionDataListFolded)
             {
                 _cardActionScrollPos = EditorGUILayout.BeginScrollView(_cardActionScrollPos,GUILayout.ExpandWidth(true));
@@ -368,6 +382,7 @@ namespace NueGames.NueDeck.Editor
         private void ChangeCardDescriptionDataList()
         {
             _isDescriptonDataListFolded =EditorGUILayout.BeginFoldoutHeaderGroup(_isDescriptonDataListFolded, "Description");
+            EditorPrefs.SetBool(PrefKey_DescriptionFoldout, _isDescriptonDataListFolded);
             if (_isDescriptonDataListFolded)
             {
                 _descriptionDataScrollPos = EditorGUILayout.BeginScrollView(_descriptionDataScrollPos,GUILayout.ExpandWidth(true));
@@ -486,6 +501,7 @@ namespace NueGames.NueDeck.Editor
         private void ChangeSpecialKeywords()
         {
             _isSpecialKeywordsFolded =EditorGUILayout.BeginFoldoutHeaderGroup(_isSpecialKeywordsFolded, "Special Keywords");
+            EditorPrefs.SetBool(PrefKey_SpecialKeywordsFoldout, _isSpecialKeywordsFolded);
             if (!_isSpecialKeywordsFolded)
             {
                 EditorGUILayout.EndFoldoutHeaderGroup();

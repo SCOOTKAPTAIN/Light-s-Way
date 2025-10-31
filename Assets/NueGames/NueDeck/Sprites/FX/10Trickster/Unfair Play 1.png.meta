@@ -1,0 +1,439 @@
+fileFormatVersion: 2
+guid: 7838d51bb54f44b4b8d05a119792baa8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4684920748218107292
+    second: Unfair Play 1_0
+  - first:
+      213: 8324103369021097494
+    second: Unfair Play 1_1
+  - first:
+      213: 8264732274069626553
+    second: Unfair Play 1_2
+  - first:
+      213: -8016123966254378444
+    second: Unfair Play 1_3
+  - first:
+      213: -7360368394338749699
+    second: Unfair Play 1_4
+  - first:
+      213: 8286640316453696939
+    second: Unfair Play 1_5
+  - first:
+      213: -3072734390119432943
+    second: Unfair Play 1_6
+  - first:
+      213: 901605868251158392
+    second: Unfair Play 1_7
+  - first:
+      213: 5324373295326862853
+    second: Unfair Play 1_8
+  - first:
+      213: -43509783010720756
+    second: Unfair Play 1_9
+  - first:
+      213: -7069811264611550902
+    second: Unfair Play 1_10
+  - first:
+      213: -5023833305963095829
+    second: Unfair Play 1_11
+  - first:
+      213: -4919428636235305373
+    second: Unfair Play 1_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Unfair Play 1_0
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 395
+        width: 75
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c95c566499e240140800000000000000
+      internalID: 4684920748218107292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_1
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 429
+        width: 32
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 616822049e7258370800000000000000
+      internalID: 8324103369021097494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_2
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 155
+        width: 318
+        height: 340
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9be50aff63a32b270800000000000000
+      internalID: 8264732274069626553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_3
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 333
+        width: 73
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43299e359b101c090800000000000000
+      internalID: -8016123966254378444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_4
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 125
+        width: 62
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df23d6731f7bad990800000000000000
+      internalID: -7360368394338749699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_5
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 33
+        width: 126
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba537ab967f000370800000000000000
+      internalID: 8286640316453696939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_6
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 111
+        width: 40
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11dfdcb2a547b55d0800000000000000
+      internalID: -3072734390119432943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_7
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 101
+        width: 39
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8779480a2c5238c00800000000000000
+      internalID: 901605868251158392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_8
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 91
+        width: 40
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50e98876d49f3e940800000000000000
+      internalID: 5324373295326862853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_9
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 82
+        width: 39
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c044467351c656ff0800000000000000
+      internalID: -43509783010720756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_10
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 72
+        width: 39
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a49f5cfbc1cf2ed90800000000000000
+      internalID: -7069811264611550902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_11
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 62
+        width: 40
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be81b43c932c74ab0800000000000000
+      internalID: -5023833305963095829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_12
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 42
+        width: 66
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36e6f4738bdaabbb0800000000000000
+      internalID: -4919428636235305373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Unfair Play 1_0: 4684920748218107292
+      Unfair Play 1_1: 8324103369021097494
+      Unfair Play 1_10: -7069811264611550902
+      Unfair Play 1_11: -5023833305963095829
+      Unfair Play 1_12: -4919428636235305373
+      Unfair Play 1_2: 8264732274069626553
+      Unfair Play 1_3: -8016123966254378444
+      Unfair Play 1_4: -7360368394338749699
+      Unfair Play 1_5: 8286640316453696939
+      Unfair Play 1_6: -3072734390119432943
+      Unfair Play 1_7: 901605868251158392
+      Unfair Play 1_8: 5324373295326862853
+      Unfair Play 1_9: -43509783010720756
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

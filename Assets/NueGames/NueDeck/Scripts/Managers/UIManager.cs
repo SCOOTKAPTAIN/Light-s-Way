@@ -89,12 +89,22 @@ namespace NueGames.NueDeck.Scripts.Managers
 
             while (true)
             {
-                timer += Time.deltaTime* (isIn ? fadeSpeed : -fadeSpeed);
-                
-                fader.alpha = timer;
-                
-                if (timer>=1f)  break;
-              
+                timer += Time.deltaTime * (isIn ? fadeSpeed : -fadeSpeed);
+                timer = Mathf.Clamp01(timer);
+
+                if (fader != null)
+                    fader.alpha = timer;
+
+                // Stop when we've reached the target bound for the requested direction
+                if (isIn)
+                {
+                    if (timer >= 1f) break;
+                }
+                else
+                {
+                    if (timer <= 0f) break;
+                }
+
                 yield return waitFrame;
             }
         }

@@ -19,6 +19,11 @@ namespace NueGames.NueDeck.Scripts.Managers
         [SerializeField] private BackgroundContainer backgroundContainer;
         [SerializeField] private List<Transform> enemyPosList;
         [SerializeField] private List<Transform> allyPosList;
+    [Header("UX Anchors")]
+    [Tooltip("Designer: optional transform where played cards should animate to when used. If empty, card will animate to discardTransform.")]
+    public Transform playAnchor;
+    [Tooltip("How long (seconds) a card takes to move to the play anchor. Set to 0 to disable the move animation.")]
+    public float cardPlayMoveDuration = 0.12f;
     [SerializeField] [Tooltip("Optional: assign an invisible Transform in the scene where group FX (eg. AllEnemies) should spawn.")]
     private Transform enemiesFxAnchor;
  
@@ -62,6 +67,49 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         #endregion
         
+        // Transient action context shared between card actions within a combat.
+        // Use SetActionContext to store a value and TryGetActionContext/TryConsumeActionContext to read it.
+        private readonly System.Collections.Generic.Dictionary<string, object> _actionContext = new System.Collections.Generic.Dictionary<string, object>();
+
+        public void SetActionContext(string key, object value)
+        {
+            if (string.IsNullOrEmpty(key)) return;
+            _actionContext[key] = value;
+        }
+
+        public bool TryGetActionContext<T>(string key, out T value)
+        {
+            value = default;
+            if (string.IsNullOrEmpty(key)) return false;
+            if (_actionContext.TryGetValue(key, out var o) && o is T t)
+            {
+                value = t;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Try to get the context value and remove it (consume).
+        /// </summary>
+        public bool TryConsumeActionContext<T>(string key, out T value)
+        {
+            if (TryGetActionContext(key, out value))
+            {
+                _actionContext.Remove(key);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Clear transient action context. Call at end of turn/combat if needed.
+        /// </summary>
+        public void ClearActionContext()
+        {
+            _actionContext.Clear();
+        }
+
         
         #region Setup
         private void Awake()
@@ -121,7 +169,16 @@ namespace NueGames.NueDeck.Scripts.Managers
                     }
                     
                     GameManager.PersistentGameplayData.CurrentMana = GameManager.PersistentGameplayData.MaxMana;
-                   
+                    // If the main ally has a NoGainMana status, do not refill mana at start of turn
+                    if (CurrentMainAlly != null && CurrentMainAlly.CharacterStats.StatusDict[StatusType.NoGainMana].IsActive)
+                    {
+                        if (FxManager != null)
+                            FxManager.SpawnStaticText(CurrentMainAlly.transform, "No Mana Gain", 0, 1);
+                    }
+                    else
+                    {
+                        GameManager.PersistentGameplayData.CurrentMana = GameManager.PersistentGameplayData.MaxMana;
+                    }
                     CollectionManager.DrawCards(GameManager.PersistentGameplayData.DrawCount);
                     
                     GameManager.PersistentGameplayData.CanSelectCards = true;
@@ -181,12 +238,28 @@ namespace NueGames.NueDeck.Scripts.Managers
         }
         public void IncreaseMana(int target)
         {
+            // Respect NoGainMana on the current main ally
+            if (CurrentMainAlly != null && CurrentMainAlly.CharacterStats.StatusDict[StatusType.NoGainMana].IsActive)
+            {
+                if (FxManager != null)
+                    FxManager.SpawnStaticText(CurrentMainAlly.transform, "No Mana Gain", 0, 1);
+                return;
+            }
+
             GameManager.PersistentGameplayData.CurrentMana += target;
             UIManager.CombatCanvas.SetPileTexts();
         }
 
         public void RefillMana()
         {
+            // Respect NoGainMana on the current main ally
+            if (CurrentMainAlly != null && CurrentMainAlly.CharacterStats.StatusDict[StatusType.NoGainMana].IsActive)
+            {
+                if (FxManager != null)
+                    FxManager.SpawnStaticText(CurrentMainAlly.transform, "No Mana Gain", 0, 1);
+                return;
+            }
+
             GameManager.PersistentGameplayData.CurrentMana = GameManager.PersistentGameplayData.MaxMana;
             UIManager.CombatCanvas.SetPileTexts();
         }

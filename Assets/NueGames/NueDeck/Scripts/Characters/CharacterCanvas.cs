@@ -60,17 +60,23 @@ namespace NueGames.NueDeck.Scripts.Characters
         #region Public Methods
         public void ApplyStatus(StatusType targetStatus, int value)
         {
+            // Do not create or show icons for zero or negative values.
+            if (value <= 0)
+            {
+                ClearStatus(targetStatus);
+                return;
+            }
+
             if (StatusDict[targetStatus] == null)
             {
                 var targetData = statusIconsData.StatusIconList.FirstOrDefault(x => x.IconStatus == targetStatus);
-                
                 if (targetData == null) return;
-                
+
                 var clone = Instantiate(statusIconsData.StatusIconBasePrefab, statusIconRoot);
                 clone.SetStatus(targetData);
                 StatusDict[targetStatus] = clone;
             }
-            
+
             StatusDict[targetStatus].SetStatusValue(value);
         }
 

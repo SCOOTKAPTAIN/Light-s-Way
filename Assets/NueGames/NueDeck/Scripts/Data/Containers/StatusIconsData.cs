@@ -22,9 +22,11 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
     {
         [SerializeField] private StatusType iconStatus;
         [SerializeField] private Sprite iconSprite;
+        [SerializeField] private bool showValue = true;
         [SerializeField] private List<SpecialKeywords> specialKeywords;
         public StatusType IconStatus => iconStatus;
         public Sprite IconSprite => iconSprite;
+        public bool ShowValue => showValue;
         public List<SpecialKeywords> SpecialKeywords => specialKeywords;
     }
 }

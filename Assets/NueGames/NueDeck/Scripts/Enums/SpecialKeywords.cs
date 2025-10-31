@@ -10,6 +10,13 @@
         Stun,
         Fragile,
         Bleeding,
-        Pursuit
+        Pursuit,
+        Ward,
+        Inspiration,
+        Nephilim
+        
+
+
+
     }
 }

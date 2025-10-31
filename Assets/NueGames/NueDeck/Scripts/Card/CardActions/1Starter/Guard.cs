@@ -20,6 +20,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                     .StatusDict[StatusType.Fortitude].StatusValue));
 
 
+
                     
 
 

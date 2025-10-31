@@ -29,3 +29,6 @@ MonoBehaviour:
     - actionType: 0
       minActionValue: 2
       maxActionValue: 5
+    - actionType: 2
+      minActionValue: 2
+      maxActionValue: 5

@@ -35,7 +35,7 @@
         InstantBarrier,
         BarrierCrash,
         StrengthenShield,
-        ShieldSiphon,
+        ShieldSiphon1,
         TheBestDefense,
         Bountiful,
         SaintsPrayer,
@@ -80,7 +80,31 @@
         OverpoweringDifference,
         ReturnToSender,
         IllusionOfVictory,
-        SwordandShield2
+        SwordandShield2,
+        AllIn2,
+        ShieldSiphon2,
+        ShieldSiphon3,
+        TheBestDefense2,
+        GodsAngel2,
+        GodsAngel3,
+        BloodMoney2,
+        BloodMoney3,
+        BloodTracking2,
+        ReapersHarvest2,
+        RapierStrikes2,
+        FinalGrace2,
+        FollowThrough2,
+        LeaveNoOpening2,
+        LeaveNoOpening3,
+        BlazingSurge2,
+        FrozenMirror2,
+        AngelDance2,
+        AngelDance3,
+        GrandCross2,
+        IllusionOfVictory2,
+        IllusionOfVictory3,
+        ReturnToSender2
+
 
 
 

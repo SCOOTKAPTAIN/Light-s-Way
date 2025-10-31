@@ -11,6 +11,12 @@
         Proficiency,
         Fragile,
         Pursuit,
-        Bleeding
+        Bleeding,
+        NoDraw,
+        NoGainMana,
+        DebuffWard,
+        FreeNextCard,
+        GodsAngelBuff
+
     }
 }

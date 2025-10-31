@@ -155,6 +155,10 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2127643291914233287, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 138
+      objectReference: {fileID: 0}
     - target: {fileID: 2388636854935074172, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -243,6 +247,10 @@ PrefabInstance:
       propertyPath: m_VerticalScrollbarVisibility
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5184609935386280693, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
+      propertyPath: m_text
+      value: 'Max Mana : '
+      objectReference: {fileID: 0}
     - target: {fileID: 6550763617103885917, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -251,9 +259,13 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: -17
       objectReference: {fileID: 0}
+    - target: {fileID: 6777581452396203703, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 142.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6881876133316046595, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7232791116543648847, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
       propertyPath: m_Pivot.x

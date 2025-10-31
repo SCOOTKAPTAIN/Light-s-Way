@@ -34,5 +34,5 @@ MonoBehaviour:
     hideActionValue: 0
     actionList:
     - actionType: 3
-      minActionValue: 5
-      maxActionValue: 6
+      minActionValue: 55
+      maxActionValue: 60
