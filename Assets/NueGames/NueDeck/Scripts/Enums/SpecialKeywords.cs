@@ -13,8 +13,12 @@
         Pursuit,
         Ward,
         Inspiration,
-        Nephilim
-        
+        Nephilim,
+        Bloodletting,
+        Detonate 
+
+
+
 
 
 

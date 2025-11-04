@@ -22,11 +22,11 @@ MonoBehaviour:
   cardActionDataList:
   - cardActionType: 22
     actionTargetType: 0
-    actionValue: 11
+    actionValue: 14
     actionDelay: 0
   - cardActionType: 76
     actionTargetType: 1
-    actionValue: 11
+    actionValue: 14
     actionDelay: 0.5
   removeAfterBattle: 0
   requiredLight: 0

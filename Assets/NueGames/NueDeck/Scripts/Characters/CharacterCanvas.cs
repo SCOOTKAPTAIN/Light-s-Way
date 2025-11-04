@@ -100,6 +100,18 @@ namespace NueGames.NueDeck.Scripts.Characters
         public void UpdateHealthText(int currentHealth,int maxHealth) =>  currentHealthText.text = $"{currentHealth}/{maxHealth}";
         public void SetHighlight(bool open) => highlightRoot.gameObject.SetActive(open);
        
+        // Handler for shield (Block) gain notifications. Spawn blue floating text at the
+        // character's text spawn root.
+        public void SpawnShieldGainedText(int amount)
+        {
+            if (amount <= 0) return;
+            if (FxManager == null) return;
+
+            var charBase = GetComponentInParent<CharacterBase>();
+            var spawnRoot = charBase != null ? charBase.TextSpawnRoot : transform;
+            FxManager.SpawnFloatingTextBlue(spawnRoot, amount.ToString());
+        }
+       
         #endregion
 
         #region Pointer Events

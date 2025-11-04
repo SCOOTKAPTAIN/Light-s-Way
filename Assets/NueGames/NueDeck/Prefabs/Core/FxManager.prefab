@@ -121,6 +121,10 @@ MonoBehaviour:
     fxPrefab: {fileID: 4931249800145279701, guid: 7bd794d75f0d7d44a9131a3341e8abdb, type: 3}
   - fxType: 75
     fxPrefab: {fileID: 4931249800145279701, guid: 32b15de6f1afdc140ad8f0c61575a9be, type: 3}
+  - fxType: 30
+    fxPrefab: {fileID: 4931249800145279701, guid: 7c22ca6a249434b44b0317bc180847b4, type: 3}
+  - fxType: 93
+    fxPrefab: {fileID: 4931249800145279701, guid: b66b7293175318547b965bef254b7c69, type: 3}
   floatingTextPrefabRed: {fileID: 5875565574366412673, guid: ff5e71a98d9a7364e9d9fbe0d5a58c35, type: 3}
   floatingTextPrefabGreen: {fileID: 5875565574366412673, guid: 3ac7e93a64ff77c449b3430cfaacbf1a, type: 3}
-  floatingTextPrefabBlue: {fileID: 5875565574366412673, guid: ff5e71a98d9a7364e9d9fbe0d5a58c35, type: 3}
+  floatingTextPrefabBlue: {fileID: 5875565574366412673, guid: 82a85b92f4e688449be2134a8730df5c, type: 3}

@@ -14,26 +14,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   specialKeywordBaseList:
   - specialKeyword: 0
-    contentText: Blocks  incoming damage by <color=#FFB430>X</color>.
+    header: Block
+    contentText: Reduce incoming damage by <color=#FFB430>X</color>.
   - specialKeyword: 1
+    header: Strength
     contentText: Increase your attack damage by <color=#FFB430>X</color>.
   - specialKeyword: 4
+    header: Light
     contentText: WIthout it, the power of your lantern diminishes.
   - specialKeyword: 2
+    header: Poison
     contentText: Damage overtime. Ignores <color=#FFB430>Block</color>.
   - specialKeyword: 3
+    header: Exhaust
     contentText: After using, remove it from your deck for this combat.
   - specialKeyword: 5
+    header: Stun
     contentText: Can not take action.
   - specialKeyword: 6
-    contentText: Take 5% more damage per stack.
+    header: Fragile
+    contentText: Increase incoming damage by <color=#FFB430>X</color> * 5%.
   - specialKeyword: 8
+    header: Pursuit
     contentText: Perform an extra <color=#FFB430>X</color> damage attack after each
       instance of attacks.
   - specialKeyword: 9
-    contentText: Consumes 1 stack to negate an incoming debuff.
+    header: Ward
+    contentText: Consumes <color=#FFB430>1</color> stack to negate an incoming <color=#FFB430>Debuff</color>.
   - specialKeyword: 10
-    contentText: Next card played has it's cost reduced to 0.
+    header: Inspiration
+    contentText: Next card played has it's cost reduced to <color=#FFB430>0</color>.
   - specialKeyword: 11
+    header: Nephilim
     contentText: Refunds 1 <color=#FFB430>Mana</color> and <color=#FFB430>Health</color>
-      when using 2+ cost Mana cards.
+      when using 2+ cost <color=#FFB430>Mana</color> cards.
+  - specialKeyword: 7
+    header: Bleeding
+    contentText: At the end of the turn. Take <color=#FFB430> X Block-ignoring</color>
+      damage.
+  - specialKeyword: 12
+    header: Bloodletting
+    contentText: "This attack deal bonus damage equal to the target\u2019s <color=#FFB430>Bleeding</color>."
+  - specialKeyword: 13
+    header: Detonate
+    contentText: 'Deal double value of a status as damage and remove all stacks of
+      it.
+
+'

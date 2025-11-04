@@ -21,7 +21,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
 
 
-                    
+
 
 
             if (FxManager != null)

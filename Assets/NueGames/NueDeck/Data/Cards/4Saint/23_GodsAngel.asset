@@ -27,11 +27,11 @@ MonoBehaviour:
   - cardActionType: 82
     actionTargetType: 1
     actionValue: 0
-    actionDelay: 0.4
+    actionDelay: 0.2
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: 'In this combat, using a 2+ '
+  - descriptionText: 'Grants '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: Mana
+  - descriptionText: Nephilim
     enableOverrideColor: 1
     overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
     useModifier: 0
@@ -49,43 +49,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: ' cost card will refund 1 '
-    enableOverrideColor: 0
-    overrideColor: {r: 0, g: 0, b: 0, a: 1}
-    useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
-  - descriptionText: Mana
-    enableOverrideColor: 1
-    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
-    useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
-  - descriptionText: ' and'
-    enableOverrideColor: 0
-    overrideColor: {r: 0, g: 0, b: 0, a: 1}
-    useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
-  - descriptionText: ' Heal'
-    enableOverrideColor: 1
-    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
-    useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
-  - descriptionText: ' for 1 health. '
+  - descriptionText: ' for the rest of this combat. '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0

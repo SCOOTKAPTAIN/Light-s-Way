@@ -103,10 +103,10 @@ TextureImporter:
       name: Blood money 1_0
       rect:
         serializedVersion: 2
-        x: 23
-        y: 23
-        width: 466
-        height: 466
+        x: 15
+        y: 15
+        width: 482
+        height: 482
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

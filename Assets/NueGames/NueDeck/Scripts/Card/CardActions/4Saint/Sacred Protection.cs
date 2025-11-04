@@ -14,7 +14,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             {
                 var removed = actionParameters.SelfCharacter.CharacterStats.ClearDebuffs();
                 if (removed > 0)
-                    actionParameters.SelfCharacter.CharacterStats.Heal(removed);
+                    actionParameters.SelfCharacter.CharacterStats.Heal(removed * 2);
+                    FxManager.SpawnFloatingTextGreen(actionParameters.SelfCharacter.transform, (removed * 2).ToString());
             }
 
             if (FxManager != null)

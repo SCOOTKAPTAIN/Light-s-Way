@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NueGames.NueDeck.Scripts.Enums;
+using NueGames.NueDeck.Scripts.Managers;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Characters
@@ -53,9 +54,13 @@ namespace NueGames.NueDeck.Scripts.Characters
         private readonly Action<StatusType> OnStatusCleared;
         public Action OnHealAction;
         public Action OnTakeDamageAction;
-        public Action OnShieldGained;
+    // Invoked when shield (Block) is gained. Passes the positive delta amount.
+    public Action<int> OnShieldGained;
         
-        public readonly Dictionary<StatusType, StatusStats> StatusDict = new Dictionary<StatusType, StatusStats>();
+    public readonly Dictionary<StatusType, StatusStats> StatusDict = new Dictionary<StatusType, StatusStats>();
+
+    // Reference to the canvas for spawning FX at the character's visual root.
+    private readonly CharacterCanvas _characterCanvas;
         
         #region Setup
         public CharacterStats(int maxHealth, CharacterCanvas characterCanvas)
@@ -68,6 +73,8 @@ namespace NueGames.NueDeck.Scripts.Characters
             OnStatusChanged += characterCanvas.UpdateStatusText;
             OnStatusApplied += characterCanvas.ApplyStatus;
             OnStatusCleared += characterCanvas.ClearStatus;
+            OnShieldGained += characterCanvas.SpawnShieldGainedText;
+            _characterCanvas = characterCanvas;
         }
         
         private void SetAllStatus()
@@ -89,12 +96,15 @@ namespace NueGames.NueDeck.Scripts.Characters
             
             StatusDict[StatusType.Stun].DecreaseOverTurn = true;
             StatusDict[StatusType.Stun].OnTriggerAction += CheckStunStatus;
+
+            StatusDict[StatusType.Bleeding].DecreaseOverTurn = true;
+            StatusDict[StatusType.Bleeding].OnTriggerAction += DamageBleeding;
             
         }
         #endregion
         
         #region Public Methods
-        public void ApplyStatus(StatusType targetStatus,int value)
+    public void ApplyStatus(StatusType targetStatus,int value)
         {
             // If this status being applied is a debuff and the character has a DebuffWard active,
             // consume one DebuffWard stack and block the incoming debuff instead of applying it.
@@ -115,6 +125,9 @@ namespace NueGames.NueDeck.Scripts.Characters
                 }
             }
 
+            // compute previous value so we can detect positive deltas (useful for block floating text)
+            var previousValue = StatusDict[targetStatus].IsActive ? StatusDict[targetStatus].StatusValue : 0;
+
             if (StatusDict[targetStatus].IsActive)
             {
                 StatusDict[targetStatus].StatusValue += value;
@@ -126,6 +139,14 @@ namespace NueGames.NueDeck.Scripts.Characters
                 StatusDict[targetStatus].StatusValue = value;
                 StatusDict[targetStatus].IsActive = true;
                 OnStatusApplied?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
+            }
+
+            // If this was Block, notify listeners about positive net gains
+            if (targetStatus == StatusType.Block)
+            {
+                var delta = StatusDict[targetStatus].StatusValue - previousValue;
+                if (delta > 0)
+                    OnShieldGained?.Invoke(delta);
             }
         }
         public void TriggerAllStatus()
@@ -259,12 +280,37 @@ namespace NueGames.NueDeck.Scripts.Characters
             
             OnStatusChanged?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
         }
-        
-     
+
+
         private void DamagePoison()
         {
-            if (StatusDict[StatusType.Poison].StatusValue<=0) return;
-            Damage(StatusDict[StatusType.Poison].StatusValue,true);
+            if (StatusDict[StatusType.Poison].StatusValue <= 0) return;
+            Damage(StatusDict[StatusType.Poison].StatusValue, true);
+        }
+
+        private void DamageBleeding()
+        {
+            if (StatusDict[StatusType.Bleeding].StatusValue <= 0) return;
+            var bleedAmount = StatusDict[StatusType.Bleeding].StatusValue;
+
+            // Play bleed FX at this character's canvas (if available)
+            if (_characterCanvas != null && FxManager.Instance != null)
+            {
+                FxManager.Instance.PlayFx(_characterCanvas.transform, FxType.Bleed);
+
+                // Also spawn red floating text showing the bleed damage amount at the character's text spawn root
+                var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
+                var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
+                FxManager.Instance.SpawnFloatingText(spawnRoot, bleedAmount.ToString());
+            }
+
+            // Play bleed sound, debounced to avoid overlapping rapid ticks
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Bleed, 0.25f);
+            }
+
+            Damage(bleedAmount, true);
         }
         
         public void CheckStunStatus()

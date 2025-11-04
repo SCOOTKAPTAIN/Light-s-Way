@@ -19,6 +19,8 @@ namespace NueGames.NueDeck.Scripts.Managers
         [SerializeField] private List<SoundProfileData> soundProfileDataList;
         
         private Dictionary<AudioActionType, SoundProfileData> _audioDict = new Dictionary<AudioActionType, SoundProfileData>();
+    // Tracks last played time per audio action to allow debounced playback and avoid overlapping noise
+    private readonly Dictionary<AudioActionType, float> _lastPlayedTime = new Dictionary<AudioActionType, float>();
         
         #region Setup
         private void Awake()
@@ -76,6 +78,23 @@ namespace NueGames.NueDeck.Scripts.Managers
         {
             if (clip)
                 sfxSource.PlayOneShot(clip);
+        }
+
+        /// <summary>
+        /// Play a one-shot SFX for the given action type but skip playing if the same action was played
+        /// more recently than minInterval seconds. Useful to prevent overlapping rapid sounds (e.g., bleed ticks).
+        /// </summary>
+        public void PlayOneShotDebounced(AudioActionType type, float minInterval = 0.25f)
+        {
+            var clip = _audioDict[type]?.GetRandomClip();
+            if (clip == null) return;
+
+            var now = Time.time;
+            if (!_lastPlayedTime.TryGetValue(type, out var last)) last = -999f;
+            if (now - last < minInterval) return;
+
+            _lastPlayedTime[type] = now;
+            PlayOneShot(clip);
         }
         
         public void PlayOneShotButton(AudioClip clip)

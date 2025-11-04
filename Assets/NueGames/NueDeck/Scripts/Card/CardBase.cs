@@ -116,8 +116,12 @@ namespace NueGames.NueDeck.Scripts.Card
             }
             CollectionManager.OnCardPlayed(this);
 
-            // Restore previous selection state (usually true during player's turn)
-            GameManager.PersistentGameplayData.CanSelectCards = prevCanSelect;
+            // Restore previous selection state (usually true during player's turn).
+            // If the combat state changed to EnemyTurn (e.g. a card ended the turn), do not re-enable selection.
+            if (CombatManager != null && CombatManager.CurrentCombatStateType == CombatStateType.AllyTurn)
+            {
+                GameManager.PersistentGameplayData.CanSelectCards = prevCanSelect;
+            }
         }
 
         private IEnumerator AnimateToTransform(Transform target, float duration)

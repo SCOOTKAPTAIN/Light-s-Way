@@ -5,6 +5,12 @@ TextureImporter:
   - first:
       213: -6182261228361314032
     second: Blood Tracking 2_0
+  - first:
+      213: -7606086338563718614
+    second: Blood Tracking 2_1
+  - first:
+      213: 6325272659967982085
+    second: Blood Tracking 2_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,10 +109,10 @@ TextureImporter:
       name: Blood Tracking 2_0
       rect:
         serializedVersion: 2
-        x: 162
-        y: 72
-        width: 214
-        height: 393
+        x: 14
+        y: 89
+        width: 484
+        height: 235
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -116,6 +122,48 @@ TextureImporter:
       bones: []
       spriteID: 0119ad6fa22343aa0800000000000000
       internalID: -6182261228361314032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blood Tracking 2_1
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 308
+        width: 84
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2245fa16c0c17690800000000000000
+      internalID: -7606086338563718614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blood Tracking 2_2
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 28
+        width: 129
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50ab1e4b8f1e7c750800000000000000
+      internalID: 6325272659967982085
       vertices: []
       indices: 
       edges: []
@@ -132,6 +180,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Blood Tracking 2_0: -6182261228361314032
+      Blood Tracking 2_1: -7606086338563718614
+      Blood Tracking 2_2: 6325272659967982085
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1054,7 +1054,7 @@ MonoBehaviour:
   - name: 0LightMap
     clip: {fileID: 8300000, guid: ab4648e900ae1c84cb74ebc48cbb0342, type: 3}
   - name: 100LightBattle
-    clip: {fileID: 8300000, guid: 58bc5476120d8814cab1e19de3e5a78a, type: 3}
+    clip: {fileID: 8300000, guid: 86634f668e05aa24db7613bb92efbdba, type: 3}
   - name: 89LightBattle
     clip: {fileID: 8300000, guid: f2ee28c4c4278b94abcb3da4abbd8156, type: 3}
   - name: 49LightBattle

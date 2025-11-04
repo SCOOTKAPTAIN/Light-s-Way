@@ -103,10 +103,10 @@ TextureImporter:
       name: Blood Tracking 1_0
       rect:
         serializedVersion: 2
-        x: 114
-        y: 53
-        width: 298
-        height: 428
+        x: 18
+        y: 19
+        width: 476
+        height: 476
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

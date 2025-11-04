@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Status Icons
   m_EditorClassIdentifier: 
   statusIconBasePrefab: {fileID: 6777904196308813527, guid: f4e76bc2e67da6241b52b8d7c6034e01, type: 3}
-  statusIconBasePrefabNoValue: {fileID: 6777904196308813527, guid: c1781d4392492de4aafd21e718cc7d4c, type: 3}
   statusIconList:
   - iconStatus: 1
     iconSprite: {fileID: 21300000, guid: 9abc505eaee83af47a9243045e50de08, type: 3}
@@ -59,3 +58,7 @@ MonoBehaviour:
     iconSprite: {fileID: 21300000, guid: 7dcf6df1fdbfdcb458fc58439bf16780, type: 3}
     showValue: 0
     specialKeywords: 0b000000
+  - iconStatus: 9
+    iconSprite: {fileID: 21300000, guid: 4a1bc4d7c95927144978b4d39457a786, type: 3}
+    showValue: 1
+    specialKeywords: 07000000

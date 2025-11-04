@@ -106,10 +106,10 @@ TextureImporter:
       name: Reaper's Harvest 1_0
       rect:
         serializedVersion: 2
-        x: 47
-        y: 52
-        width: 255
-        height: 404
+        x: 16
+        y: 14
+        width: 284
+        height: 449
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,10 +127,10 @@ TextureImporter:
       name: Reaper's Harvest 1_1
       rect:
         serializedVersion: 2
-        x: 102
-        y: 316
-        width: 375
-        height: 168
+        x: 77
+        y: 307
+        width: 417
+        height: 186
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

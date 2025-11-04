@@ -103,10 +103,10 @@ TextureImporter:
       name: Murder-go-round_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 28
-        width: 472
-        height: 477
+        x: 18
+        y: 0
+        width: 476
+        height: 455
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

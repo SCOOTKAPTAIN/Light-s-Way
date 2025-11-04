@@ -27,7 +27,7 @@ MonoBehaviour:
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: 'Deal damage based on '
+  - descriptionText: 'Deal damage equal to your current '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: ' value.'
+  - descriptionText: .
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
