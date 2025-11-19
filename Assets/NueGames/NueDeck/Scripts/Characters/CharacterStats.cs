@@ -99,6 +99,7 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             StatusDict[StatusType.Bleeding].DecreaseOverTurn = true;
             StatusDict[StatusType.Bleeding].OnTriggerAction += DamageBleeding;
+            StatusDict[StatusType.Bleeding].CanNegativeStack = false;
             
         }
         #endregion
@@ -271,7 +272,8 @@ namespace NueGames.NueDeck.Scripts.Characters
                 }
             }
             
-            if (StatusDict[targetStatus].DecreaseOverTurn) 
+            // Only decrease status values for active statuses to prevent inactive ones from going negative
+            if (StatusDict[targetStatus].DecreaseOverTurn && StatusDict[targetStatus].IsActive) 
                 StatusDict[targetStatus].StatusValue--;
             
             if (StatusDict[targetStatus].StatusValue == 0)

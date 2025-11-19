@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
 {
-    public class BloodMoney: CardActionBase
+    public class BloodMoney2: CardActionBase
     {
-        public override CardActionType ActionType => CardActionType.BloodMoney;
+        public override CardActionType ActionType => CardActionType.BloodMoney2;
         public override void DoAction(CardActionParameters actionParameters)
         {
             if (!actionParameters.TargetCharacter) return;
@@ -16,18 +16,22 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             
 
-                        FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.BloodMoney);
-                        FxManager.PlayFx(targetCharacter.transform, FxType.Bleed);
+                        FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.BloodMoney2);
+            FxManager.PlayFx(targetCharacter.transform, FxType.Bleed);
+                        FxManager.PlayFx(actionParameters.SelfCharacter.transform, FxType.BloodMoney3);
 
                         var bleedValue = targetCharacter.CharacterStats.StatusDict[StatusType.Bleeding].StatusValue;
                         var damage = Mathf.RoundToInt(bleedValue * 2f);
 
+                        // Grant gold immediately before dealing damage (in case damage ends combat)
+                        GameManager.Instance.PersistentGameplayData.CurrentGold += damage;
+                        UIManager.Instance.InformationCanvas.SetGoldText(GameManager.Instance.PersistentGameplayData.CurrentGold);
+
+                        // Store the bleeding value for Blood Money 3 to use for gold calculation (backup)
+                        CombatManager.SetActionContext("BloodMoneyBleedingDetonated", bleedValue);
+
                         // Detonate: deal damage equal to bleeding * 2. Use piercing damage to match bleeding ticks.
                         targetCharacter.CharacterStats.Damage(damage, true);
-
-                        // Reward gold equal to the amount of bleeding detonated (not the damage)
-                        GameManager.Instance.PersistentGameplayData.CurrentGold += bleedValue;
-                        UIManager.Instance.InformationCanvas.SetGoldText(GameManager.Instance.PersistentGameplayData.CurrentGold);
 
                         if (FxManager != null)
                         {
@@ -38,7 +42,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                         targetCharacter.CharacterStats.ClearStatus(StatusType.Bleeding);
 
             if (AudioManager != null)
-                AudioManager.PlayOneShot(actionParameters.CardData.AudioType);
+                AudioManager.PlayOneShot(AudioActionType.BloodMoney2);
+                AudioManager.PlayOneShot(AudioActionType.BloodMoney3);
               
         }
     }

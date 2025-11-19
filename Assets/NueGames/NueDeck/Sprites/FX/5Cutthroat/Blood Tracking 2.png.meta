@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: de0266aecabb09148a116abf9da3282b
+guid: 4ab6a32c2be40bd48b40844391fec469
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6182261228361314032
-    second: Blood Tracking 2_0
-  - first:
-      213: -7606086338563718614
-    second: Blood Tracking 2_1
-  - first:
-      213: 6325272659967982085
-    second: Blood Tracking 2_2
+      213: -4525555302594323463
+    second: Blood Tracking 3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Blood Tracking 2_0
+      name: Blood Tracking 3_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 89
-        width: 484
-        height: 235
+        x: 90
+        y: 14
+        width: 332
+        height: 477
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,50 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0119ad6fa22343aa0800000000000000
-      internalID: -6182261228361314032
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Blood Tracking 2_1
-      rect:
-        serializedVersion: 2
-        x: 175
-        y: 308
-        width: 84
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a2245fa16c0c17690800000000000000
-      internalID: -7606086338563718614
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Blood Tracking 2_2
-      rect:
-        serializedVersion: 2
-        x: 42
-        y: 28
-        width: 129
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 50ab1e4b8f1e7c750800000000000000
-      internalID: 6325272659967982085
+      spriteID: 9fbda710e6ff131c0800000000000000
+      internalID: -4525555302594323463
       vertices: []
       indices: 
       edges: []
@@ -179,9 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Blood Tracking 2_0: -6182261228361314032
-      Blood Tracking 2_1: -7606086338563718614
-      Blood Tracking 2_2: 6325272659967982085
+      Blood Tracking 3_0: -4525555302594323463
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

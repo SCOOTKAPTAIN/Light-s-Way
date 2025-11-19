@@ -55,7 +55,7 @@ MonoBehaviour:
     showValue: 0
     specialKeywords: 0a000000
   - iconStatus: 14
-    iconSprite: {fileID: 21300000, guid: 7dcf6df1fdbfdcb458fc58439bf16780, type: 3}
+    iconSprite: {fileID: 21300000, guid: 10484672ed470564d8df4e19401a9580, type: 3}
     showValue: 0
     specialKeywords: 0b000000
   - iconStatus: 9

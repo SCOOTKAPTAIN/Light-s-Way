@@ -20,7 +20,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
              + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue
              + targetCharacter.CharacterStats.StatusDict[StatusType.Bleeding].StatusValue;
 
-            FxManager.PlayFxAtPosition(anchor.position, FxType.MurderGoRound, 0.2f);
+            FxManager.PlayFxAtPosition(anchor.position, FxType.MurderGoRound, new Vector3(0f, 0.5f, 0f));
             FxManager.PlayFx(targetCharacter.transform, FxType.Bleed);
               
 
@@ -28,7 +28,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value));
 
-            targetCharacter.CharacterStats.ApplyStatus(StatusType.Bleeding, 5);
+            targetCharacter.CharacterStats.ApplyStatus(StatusType.Bleeding, 3);
 
 
             if (FxManager != null)

@@ -26,7 +26,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value));
 
-            targetCharacter.CharacterStats.ApplyStatus(StatusType.Bleeding, 5);
+            targetCharacter.CharacterStats.ApplyStatus(StatusType.Bleeding, 2);
 
             targetCharacter.CharacterStats.ApplyStatus(StatusType.Bleeding, targetCharacter.CharacterStats.StatusDict[StatusType.Bleeding].StatusValue);
 

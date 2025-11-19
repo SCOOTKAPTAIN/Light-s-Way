@@ -33,7 +33,7 @@ MonoBehaviour:
     contentText: Can not take action.
   - specialKeyword: 6
     header: Fragile
-    contentText: Increase incoming damage by <color=#FFB430>X</color> * 5%.
+    contentText: Increase damage taken by <color=#FFB430>X</color> * 5%.
   - specialKeyword: 8
     header: Pursuit
     contentText: Perform an extra <color=#FFB430>X</color> damage attack after each

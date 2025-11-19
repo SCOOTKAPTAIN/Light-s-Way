@@ -26,6 +26,7 @@ MonoBehaviour:
     actionDelay: 0
   removeAfterBattle: 0
   requiredLight: 0
+  maxUsesPerCombat: 3
   cardDescriptionDataList:
   - descriptionText: 'Increase '
     enableOverrideColor: 0

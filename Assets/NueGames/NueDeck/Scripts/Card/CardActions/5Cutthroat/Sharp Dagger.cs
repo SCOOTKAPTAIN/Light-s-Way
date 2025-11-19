@@ -20,13 +20,12 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.SharpDagger);
             FxManager.PlayFx(targetCharacter.transform, FxType.Bleed);
-              
 
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value));
 
-            targetCharacter.CharacterStats.ApplyStatus(StatusType.Bleeding, 3);
+            targetCharacter.CharacterStats.ApplyStatus(StatusType.Bleeding, 2);
 
 
             if (FxManager != null)
