@@ -23,6 +23,10 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         public Dictionary<FxType, GameObject> FXDict { get; private set;}= new Dictionary<FxType, GameObject>();
         public List<FxBundle> FXList => fxList;
+        
+        // Track spawned FX to prevent duplicates in the same frame
+        private Dictionary<string, int> _spawnedThisFrame = new Dictionary<string, int>();
+        private int _currentFrame = -1;
 
         #region Setup
         private void Awake()
@@ -108,11 +112,28 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         /// <summary>
         /// Play an FX at an arbitrary world position with a full XYZ offset.
+        /// Only spawns once per frame for the same FxType to prevent duplicates.
         /// </summary>
         public void PlayFxAtPosition(Vector3 position, FxType targetFx, Vector3 offset)
         {
             if (!FXDict.TryGetValue(targetFx, out var prefab) || prefab == null) return;
-            Instantiate(prefab, position + offset, Quaternion.identity);
+            
+            // Reset tracking if we're in a new frame
+            if (_currentFrame != Time.frameCount)
+            {
+                _currentFrame = Time.frameCount;
+                _spawnedThisFrame.Clear();
+            }
+            
+            // Create a unique key for this FX type and position
+            var key = $"{targetFx}_{position.x:F1}_{position.y:F1}_{position.z:F1}";
+            
+            // Only spawn if we haven't already spawned this FX at this position this frame
+            if (!_spawnedThisFrame.ContainsKey(key))
+            {
+                _spawnedThisFrame[key] = 1;
+                Instantiate(prefab, position + offset, Quaternion.identity);
+            }
         }
         #endregion
         

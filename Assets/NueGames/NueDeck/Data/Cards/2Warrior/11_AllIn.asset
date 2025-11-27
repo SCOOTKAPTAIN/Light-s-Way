@@ -26,12 +26,12 @@ MonoBehaviour:
     actionDelay: 0
   - cardActionType: 77
     actionTargetType: 0
-    actionValue: 19
+    actionValue: 24
     actionDelay: 0.9
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: 'Increase <color=#FFB430>Strength</color> by 1. Deal '
+  - descriptionText: 'Gain 1 <color=#FFB430>Strength</color> before dealing '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0

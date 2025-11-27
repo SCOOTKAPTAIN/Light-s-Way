@@ -26,23 +26,23 @@ MonoBehaviour:
     actionDelay: 0
   - cardActionType: 86
     actionTargetType: 2
-    actionValue: 4
+    actionValue: 2
     actionDelay: 0.9
   - cardActionType: 86
     actionTargetType: 2
-    actionValue: 4
+    actionValue: 2
     actionDelay: 0.3
   - cardActionType: 86
     actionTargetType: 2
-    actionValue: 4
+    actionValue: 2
     actionDelay: 0.3
   - cardActionType: 86
     actionTargetType: 2
-    actionValue: 4
+    actionValue: 2
     actionDelay: 0.3
   - cardActionType: 86
     actionTargetType: 2
-    actionValue: 4
+    actionValue: 2
     actionDelay: 0.3
   removeAfterBattle: 0
   requiredLight: 0

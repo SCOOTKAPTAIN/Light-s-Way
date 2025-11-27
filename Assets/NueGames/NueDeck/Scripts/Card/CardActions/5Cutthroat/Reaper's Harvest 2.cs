@@ -20,7 +20,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
              + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue
              + targetCharacter.CharacterStats.StatusDict[StatusType.Bleeding].StatusValue;
 
-            FxManager.PlayFxAtPosition(anchor.position, FxType.ReapersHarvest2, 0.2f);
+            FxManager.PlayFxAtPosition(anchor.position, FxType.ReapersHarvest2, 0.4f);
             FxManager.PlayFx(targetCharacter.transform, FxType.Bleed);
 
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
