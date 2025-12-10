@@ -180,6 +180,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (IsDeath) return;
             OnTakeDamageAction?.Invoke();
             
+            var healthBefore = CurrentHealth;
             var remainingDamage = value;
     
             // Armor consumes a single attack instance entirely (if not piercing).
@@ -236,6 +237,17 @@ namespace NueGames.NueDeck.Scripts.Characters
                 OnDeath?.Invoke();
                 IsDeath = true;
             }
+            
+            // Spawn damage text based on actual health change (damage taken = health_before - health_after).
+            // Armor-negated damage shows no text; Block-negated + health loss still shows text.
+            var actualDamageTaken = healthBefore - CurrentHealth;
+            if (actualDamageTaken > 0 && _characterCanvas != null && FxManager.Instance != null)
+            {
+                var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
+                var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
+                FxManager.Instance.SpawnFloatingText(spawnRoot, actualDamageTaken.ToString());
+            }
+            
             OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
         }
         

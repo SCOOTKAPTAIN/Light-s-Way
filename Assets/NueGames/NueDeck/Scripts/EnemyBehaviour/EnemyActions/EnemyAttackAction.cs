@@ -18,7 +18,7 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             if (FxManager != null)
             {
                 FxManager.PlayFx(actionParameters.TargetCharacter.transform,FxType.Attack);
-                FxManager.SpawnFloatingText(actionParameters.TargetCharacter.TextSpawnRoot,value.ToString());
+              //  FxManager.SpawnFloatingText(actionParameters.TargetCharacter.TextSpawnRoot,value.ToString());
             }
 
             if (AudioManager != null)

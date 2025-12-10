@@ -26,11 +26,6 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             selfCharacter.CharacterStats.ApplyStatus(StatusType.Pursuit, 4);
 
-            if (FxManager != null)
-            {
-                FxManager.SpawnFloatingText(actionParameters.TargetCharacter.TextSpawnRoot, value.ToString());
-            }
-
             if (AudioManager != null)
                 AudioManager.PlayOneShot(AudioActionType.RapierStrikes2);
               
