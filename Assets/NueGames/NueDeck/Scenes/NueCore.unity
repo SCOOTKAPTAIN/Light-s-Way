@@ -699,6 +699,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4738070697433486633, guid: e7a9bde70f4f930459240b323a8fcd77, type: 3}
+      propertyPath: floatingTextPrefabRed
+      value: 
+      objectReference: {fileID: 5875565574366412673, guid: 563cc02ed8f797e498bc5cf11e33e894, type: 3}
+    - target: {fileID: 4738070697433486633, guid: e7a9bde70f4f930459240b323a8fcd77, type: 3}
+      propertyPath: floatingTextPrefabYellow
+      value: 
+      objectReference: {fileID: 5875565574366412673, guid: ff5e71a98d9a7364e9d9fbe0d5a58c35, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

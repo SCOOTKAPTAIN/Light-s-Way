@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NueGames.NueDeck.Scripts.Enums;
@@ -87,6 +87,10 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             StatusDict[StatusType.Block].ClearAtNextTurn = true;
 
+            // Armor: consumable counts that nullify one incoming non-piercing attack per stack
+            StatusDict[StatusType.Armor].IsActive = false;
+            StatusDict[StatusType.Armor].StatusValue = 0;
+
             StatusDict[StatusType.NoDraw].DecreaseOverTurn = true;
 
             StatusDict[StatusType.NoGainMana].DecreaseOverTurn = true;
@@ -100,6 +104,8 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.Bleeding].DecreaseOverTurn = true;
             StatusDict[StatusType.Bleeding].OnTriggerAction += DamageBleeding;
             StatusDict[StatusType.Bleeding].CanNegativeStack = false;
+
+            StatusDict[StatusType.Pursuit].DecreaseOverTurn = true;
             
         }
         #endregion
@@ -176,17 +182,48 @@ namespace NueGames.NueDeck.Scripts.Characters
             
             var remainingDamage = value;
     
+            // Armor consumes a single attack instance entirely (if not piercing).
             if (!canPierceArmor)
             {
-                if (StatusDict[StatusType.Block].IsActive)
+                if (StatusDict.ContainsKey(StatusType.Armor) && StatusDict[StatusType.Armor].IsActive && StatusDict[StatusType.Armor].StatusValue > 0)
                 {
-                    ApplyStatus(StatusType.Block, -value);
+                    // Consume one armor stack and cancel damage
+                    StatusDict[StatusType.Armor].StatusValue--;
+                    if (StatusDict[StatusType.Armor].StatusValue <= 0)
+                        ClearStatus(StatusType.Armor);
+                    else
+                        OnStatusChanged?.Invoke(StatusType.Armor, StatusDict[StatusType.Armor].StatusValue);
 
+                    // Damage instance is nullified by armor
                     remainingDamage = 0;
-                    if (StatusDict[StatusType.Block].StatusValue <= 0)
+
+                    // Play small visual/audio feedback: spawn blue "Blocked" text and a guard FX
+                    if (_characterCanvas != null && FxManager.Instance != null)
                     {
-                        remainingDamage = StatusDict[StatusType.Block].StatusValue * -1;
-                        ClearStatus(StatusType.Block);
+                        var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
+                        var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
+                        FxManager.Instance.SpawnFloatingTextBlue(spawnRoot, "Blocked!");
+                        // Play guard FX
+                    }
+
+                    // Play a debounced guard audio cue to avoid overlapping sounds
+                    if (AudioManager.Instance != null)
+                    {
+                        AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Armor);
+                    }
+                }
+                else
+                {
+                    if (StatusDict[StatusType.Block].IsActive)
+                    {
+                        ApplyStatus(StatusType.Block, -value);
+
+                        remainingDamage = 0;
+                        if (StatusDict[StatusType.Block].StatusValue <= 0)
+                        {
+                            remainingDamage = StatusDict[StatusType.Block].StatusValue * -1;
+                            ClearStatus(StatusType.Block);
+                        }
                     }
                 }
             }

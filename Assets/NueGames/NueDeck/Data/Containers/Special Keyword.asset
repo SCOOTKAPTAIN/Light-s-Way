@@ -40,13 +40,13 @@ MonoBehaviour:
       instance of attacks.
   - specialKeyword: 9
     header: Ward
-    contentText: Consumes <color=#FFB430>1</color> stack to negate an incoming <color=#FFB430>Debuff</color>.
+    contentText: Consumes <color=#FFB430>1</color> stack to negate an incoming <color=#FFB430>Infliction</color>.
   - specialKeyword: 10
-    header: Inspiration
+    header: Enlightenment
     contentText: Next card played has it's cost reduced to <color=#FFB430>0</color>.
   - specialKeyword: 11
     header: Nephilim
-    contentText: Refunds 1 <color=#FFB430>Mana</color> and <color=#FFB430>Health</color>
+    contentText: Refunds 1 <color=#FFB430>Mana</color> and 1 <color=#FFB430>Health</color>
       when using 2+ cost <color=#FFB430>Mana</color> cards.
   - specialKeyword: 7
     header: Bleeding
@@ -54,10 +54,12 @@ MonoBehaviour:
       damage.
   - specialKeyword: 12
     header: Bloodletting
-    contentText: "This attack deal bonus damage equal to the target\u2019s <color=#FFB430>Bleeding</color>."
+    contentText: "Deal bonus damage equal to the target\u2019s <color=#FFB430>Bleeding</color>."
   - specialKeyword: 13
     header: Detonate
-    contentText: 'Deal double value of a status as damage and remove all stacks of
-      it.
+    contentText: 'Deal 3x value of a status as damage then remove all stacks of it.
 
 '
+  - specialKeyword: 14
+    header: Armor
+    contentText: Consumes <color=#FFB430>1</color> stack to nulify an attack instance.

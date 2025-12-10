@@ -43,7 +43,7 @@ MonoBehaviour:
     showValue: 1
     specialKeywords: 06000000
   - iconStatus: 8
-    iconSprite: {fileID: 21300000, guid: b814f523022834b4eb4ef10d01cf8faf, type: 3}
+    iconSprite: {fileID: 21300000, guid: a50c391e67c8141409dc176b7caed3aa, type: 3}
     showValue: 1
     specialKeywords: 08000000
   - iconStatus: 12
@@ -62,3 +62,7 @@ MonoBehaviour:
     iconSprite: {fileID: 21300000, guid: 4a1bc4d7c95927144978b4d39457a786, type: 3}
     showValue: 1
     specialKeywords: 07000000
+  - iconStatus: 15
+    iconSprite: {fileID: 21300000, guid: 25538fc61aae85f488615c83d3ed5d47, type: 3}
+    showValue: 1
+    specialKeywords: 0e000000

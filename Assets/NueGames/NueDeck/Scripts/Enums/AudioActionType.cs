@@ -98,7 +98,9 @@
         IllusionOfVictory2,
         IllusionOfVictory3,
         ReturnToSender2,
-        Bleed
+        Bleed,
+        ReapersHarvest3,
+        Armor
 
 
 

@@ -38,7 +38,7 @@ namespace NueGames.NueDeck.Scripts.Utils
                     if (FxManager.Instance != null)
                     {
                         FxManager.Instance.PlayFx(target.transform, FxType.Pursuit);
-                        FxManager.Instance.SpawnStaticText(target.TextSpawnRoot, pursuitValue.ToString());
+                        FxManager.Instance.SpawnFloatingTextYellow(target.TextSpawnRoot, pursuitValue.ToString());
                     }
                     if (AudioManager.Instance != null)
                     {

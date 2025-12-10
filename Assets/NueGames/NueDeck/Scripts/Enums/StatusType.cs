@@ -16,7 +16,8 @@
         NoGainMana,
         DebuffWard,
         FreeNextCard,
-        GodsAngelBuff
+        GodsAngelBuff,
+        Armor
         
 
     }

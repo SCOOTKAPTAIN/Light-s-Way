@@ -103,7 +103,8 @@
         GrandCross2,
         IllusionOfVictory2,
         IllusionOfVictory3,
-        ReturnToSender2
+        ReturnToSender2,
+        ReapersHarvest3
     
 
 

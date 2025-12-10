@@ -15,7 +15,8 @@
         Inspiration,
         Nephilim,
         Bloodletting,
-        Detonate 
+        Detonate,
+        Armor
 
 
 

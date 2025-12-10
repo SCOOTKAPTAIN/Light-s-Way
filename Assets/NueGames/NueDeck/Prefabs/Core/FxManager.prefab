@@ -145,6 +145,17 @@ MonoBehaviour:
     fxPrefab: {fileID: 4931249800145279701, guid: 5e82afe76c12af04cbbbeafee79d82fa, type: 3}
   - fxType: 79
     fxPrefab: {fileID: 4931249800145279701, guid: cf41b0d1327c6d446a62c971fc395fa9, type: 3}
+  - fxType: 95
+    fxPrefab: {fileID: 4931249800145279701, guid: a2bcc0195e80d9c4bad5e2039f7a811b, type: 3}
+  - fxType: 67
+    fxPrefab: {fileID: 4931249800145279701, guid: 6cc4a3393386d67489b78ae950154c5f, type: 3}
+  - fxType: 36
+    fxPrefab: {fileID: 4931249800145279701, guid: 7568c9caacaddb14b99fff16b9b98992, type: 3}
+  - fxType: 80
+    fxPrefab: {fileID: 4931249800145279701, guid: ec98225dd226dbb44ade7ca1bd8227d0, type: 3}
+  - fxType: 39
+    fxPrefab: {fileID: 6582740879243116295, guid: e007603e33a343c4a85306345735a59a, type: 3}
   floatingTextPrefabRed: {fileID: 5875565574366412673, guid: ff5e71a98d9a7364e9d9fbe0d5a58c35, type: 3}
   floatingTextPrefabGreen: {fileID: 5875565574366412673, guid: 3ac7e93a64ff77c449b3430cfaacbf1a, type: 3}
   floatingTextPrefabBlue: {fileID: 5875565574366412673, guid: 82a85b92f4e688449be2134a8730df5c, type: 3}
+  floatingTextPrefabYellow: {fileID: 0}

@@ -1,4 +1,4 @@
-﻿using NueGames.NueDeck.Scripts.Enums;
+using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
 using UnityEngine;
 

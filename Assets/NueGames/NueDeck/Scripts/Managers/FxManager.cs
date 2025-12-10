@@ -20,6 +20,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         [SerializeField] private FloatingText floatingTextPrefabRed;
         [SerializeField] private FloatingText floatingTextPrefabGreen;
         [SerializeField] private FloatingText floatingTextPrefabBlue;
+         [SerializeField] private FloatingText floatingTextPrefabYellow;
 
         public Dictionary<FxType, GameObject> FXDict { get; private set;}= new Dictionary<FxType, GameObject>();
         public List<FxBundle> FXList => fxList;
@@ -51,37 +52,81 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         public void SpawnFloatingText(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
         {
-            var cloneText = Instantiate(floatingTextPrefabRed, targetTransform.position, Quaternion.identity);
+            // Damage numbers get a larger spread so multiple hits don't perfectly overlap
+            var jitter = new Vector3(
+                Random.Range(-0.35f, 0.35f),
+                Random.Range(0f, 0.25f),
+                Random.Range(-0.05f, 0.05f)
+            );
+            var spawnPos = targetTransform.position + jitter;
+            var cloneText = Instantiate(floatingTextPrefabRed, spawnPos, Quaternion.identity);
 
             if (xDir == 0)
-                xDir = Random.value >= 0.5f ? 1 : -1;
+                xDir = Random.value >= 0.5f ? 2 : -2;
             cloneText.PlayText(text, xDir, yDir);
         }
 
         public void SpawnStaticText(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
         {
-            var cloneText = Instantiate(floatingTextPrefabRed, targetTransform.position, Quaternion.identity);
+            // Static texts get a small jitter to avoid perfect stacking
+            var jitter = new Vector3(
+                Random.Range(-0.12f, 0.12f),
+                Random.Range(0f, 0.1f),
+                Random.Range(-0.02f, 0.02f)
+            );
+            var spawnPos = targetTransform.position + jitter;
+            var cloneText = Instantiate(floatingTextPrefabRed, spawnPos, Quaternion.identity);
 
             if (xDir == 0)
-                xDir = Random.value >= 0.5f ? 1 : -1;
+                xDir = Random.value >= 0.5f ? 2 : -2;
             cloneText.PlayText(text, xDir, yDir);
         }
 
         public void SpawnFloatingTextGreen(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
         {
-            var cloneText = Instantiate(floatingTextPrefabGreen, targetTransform.position, Quaternion.identity);
+            // Healing texts are softer and less spread than damage texts
+            var jitter = new Vector3(
+                Random.Range(-0.22f, 0.22f),
+                Random.Range(0f, 0.16f),
+                Random.Range(-0.03f, 0.03f)
+            );
+            var spawnPos = targetTransform.position + jitter;
+            var cloneText = Instantiate(floatingTextPrefabGreen, spawnPos, Quaternion.identity);
 
             if (xDir == 0)
-                xDir = Random.value >= 0.5f ? 1 : -1;
+                xDir = Random.value >= 0.5f ? 2 : -2;
             cloneText.PlayText(text, xDir, yDir);
         }
 
         public void SpawnFloatingTextBlue(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
         {
-            var cloneText = Instantiate(floatingTextPrefabBlue, targetTransform.position, Quaternion.identity);
+            // Block/guard texts should be fairly static and clustered, small jitter only
+            var jitter = new Vector3(
+                Random.Range(-0.15f, 0.15f),
+                Random.Range(0f, 0.08f),
+                Random.Range(-0.02f, 0.02f)
+            );
+            var spawnPos = targetTransform.position + jitter;
+            var cloneText = Instantiate(floatingTextPrefabBlue, spawnPos, Quaternion.identity);
 
             if (xDir == 0)
-                xDir = Random.value >= 0.5f ? 1 : -1;
+                xDir = Random.value >= 0.5f ? 2 : -2;
+            cloneText.PlayText(text, xDir, yDir);
+        }
+
+        public void SpawnFloatingTextYellow(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
+        {
+            // Block/guard texts should be fairly static and clustered, small jitter only
+            var jitter = new Vector3(
+                Random.Range(-0.15f, 0.15f),
+                Random.Range(0f, 0.08f),
+                Random.Range(-0.02f, 0.02f)
+            );
+            var spawnPos = targetTransform.position + jitter;
+            var cloneText = Instantiate(floatingTextPrefabYellow, spawnPos, Quaternion.identity);
+
+            if (xDir == 0)
+                xDir = Random.value >= 0.5f ? 2 : -2;
             cloneText.PlayText(text, xDir, yDir);
         }
 
