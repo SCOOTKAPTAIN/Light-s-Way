@@ -10,7 +10,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
         public override void DoAction(CardActionParameters actionParameters)
         {
             if (!actionParameters.TargetCharacter) return;
-            if (actionParameters.TargetCharacter.CharacterStats.IsDeath) return;
+         
 
             var targetCharacter = actionParameters.TargetCharacter;
             var selfCharacter = actionParameters.SelfCharacter;

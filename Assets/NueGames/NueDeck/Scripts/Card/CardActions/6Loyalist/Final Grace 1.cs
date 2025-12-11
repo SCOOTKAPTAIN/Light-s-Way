@@ -4,13 +4,12 @@ using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
 {
-    public class FollowThrough: CardActionBase
+    public class FinalGrace: CardActionBase
     {
-        public override CardActionType ActionType => CardActionType.FollowThrough;
+        public override CardActionType ActionType => CardActionType.FinalGrace;
         public override void DoAction(CardActionParameters actionParameters)
         {
             if (!actionParameters.TargetCharacter) return;
-        
 
             var targetCharacter = actionParameters.TargetCharacter;
             var selfCharacter = actionParameters.SelfCharacter;
@@ -18,8 +17,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var value = GameManager.PersistentGameplayData.proficiency + actionParameters.Value
              + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue;
 
-            FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.FollowThrough,new Vector3(0f,0,0));
+            FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.FinalGrace);
               
+
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value));

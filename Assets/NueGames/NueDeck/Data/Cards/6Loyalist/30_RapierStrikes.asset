@@ -27,7 +27,7 @@ MonoBehaviour:
   - cardActionType: 87
     actionTargetType: 0
     actionValue: 2
-    actionDelay: 0.2
+    actionDelay: 0.25
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
@@ -58,7 +58,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: ' Gain 3 '
+  - descriptionText: ' Gain 4 '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0

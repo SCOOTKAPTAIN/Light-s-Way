@@ -27,19 +27,19 @@ MonoBehaviour:
   - cardActionType: 90
     actionTargetType: 2
     actionValue: 1
-    actionDelay: 0.2
+    actionDelay: 0.1
   - cardActionType: 47
     actionTargetType: 2
     actionValue: 1
-    actionDelay: 0.2
+    actionDelay: 0.3
   - cardActionType: 90
     actionTargetType: 2
     actionValue: 1
-    actionDelay: 0.2
+    actionDelay: 0.1
   - cardActionType: 91
     actionTargetType: 1
     actionValue: 0
-    actionDelay: 0.6
+    actionDelay: 0.5
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:

@@ -26,7 +26,7 @@ MonoBehaviour:
     actionDelay: 0
   - cardActionType: 77
     actionTargetType: 0
-    actionValue: 24
+    actionValue: 29
     actionDelay: 0.9
   removeAfterBattle: 0
   requiredLight: 0

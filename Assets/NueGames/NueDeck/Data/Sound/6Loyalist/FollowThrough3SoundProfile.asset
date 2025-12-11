@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8f29259e87442338a016acd10256ddc, type: 3}
-  m_Name: FollowThrough1
+  m_Name: FollowThrough3SoundProfile
   m_EditorClassIdentifier: 
-  audioType: 44
+  audioType: 100
   randomClipList:
-  - {fileID: 8300000, guid: 23ecf8b9ad51cc4478c83e7e790641ed, type: 3}
+  - {fileID: 8300000, guid: 7915b334cd503a64cadd4b4e0a687d1b, type: 3}

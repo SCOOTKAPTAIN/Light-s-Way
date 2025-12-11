@@ -30,14 +30,14 @@ MonoBehaviour:
     contentText: After using, remove it from your deck for this combat.
   - specialKeyword: 5
     header: Stun
-    contentText: Can not take action.
+    contentText: Unable to take action.
   - specialKeyword: 6
     header: Fragile
     contentText: Increase damage taken by <color=#FFB430>X</color> * 5%.
   - specialKeyword: 8
     header: Pursuit
     contentText: Perform an extra <color=#FFB430>X</color> damage attack when launching
-      an attack instance..
+      an attack instance.
   - specialKeyword: 9
     header: Ward
     contentText: Consumes <color=#FFB430>1</color> stack to negate an incoming <color=#FFB430>Infliction</color>.
@@ -57,7 +57,7 @@ MonoBehaviour:
     contentText: "Deal bonus damage equal to the target\u2019s <color=#FFB430>Bleeding</color>."
   - specialKeyword: 13
     header: Detonate
-    contentText: 'Deal 3x value of a status as damage then remove all stacks of it.
+    contentText: 'Deal 2x value of a status as damage then remove all stacks of it.
 
 '
   - specialKeyword: 14
