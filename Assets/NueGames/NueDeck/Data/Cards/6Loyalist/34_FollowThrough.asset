@@ -10,24 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6903f06e96c43789549f142f8956d64, type: 3}
-  m_Name: 34_EnGarde
+  m_Name: 34_FollowThrough
   m_EditorClassIdentifier: 
-  id: 6_2_EnGarde
-  cardName: En Garde
+  id: 6_5_FollowThrough
+  cardName: Follow Through
   manaCost: 3
-  cardSprite: {fileID: 9165039081435508148, guid: 50f612f72090b8d4d8a9674cf27bbe8b, type: 3}
+  cardSprite: {fileID: 4613945267765794543, guid: e9d30a9040e23854aa0e63e282408171, type: 3}
   rarity: 2
-  usableWithoutTarget: 1
-  exhaustAfterPlay: 1
+  usableWithoutTarget: 0
+  exhaustAfterPlay: 0
   cardActionDataList:
-  - cardActionType: 48
-    actionTargetType: 1
-    actionValue: 19
+  - cardActionType: 49
+    actionTargetType: 0
+    actionValue: 3
     actionDelay: 0
+  - cardActionType: 49
+    actionTargetType: 0
+    actionValue: 3
+    actionDelay: 0.2
+  - cardActionType: 49
+    actionTargetType: 0
+    actionValue: 3
+    actionDelay: 0.2
+  - cardActionType: 89
+    actionTargetType: 1
+    actionValue: 0
+    actionDelay: 0.2
+  - cardActionType: 101
+    actionTargetType: 0
+    actionValue: 3
+    actionDelay: 0.4
+  - cardActionType: 101
+    actionTargetType: 0
+    actionValue: 3
+    actionDelay: 0.2
+  - cardActionType: 101
+    actionTargetType: 0
+    actionValue: 3
+    actionDelay: 0.2
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: Gain 1
+  - descriptionText: 'Deal '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -36,7 +60,25 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: ' Armor'
+  - descriptionText: 
+    enableOverrideColor: 1
+    overrideColor: {r: 0.8415094, g: 0.08097541, b: 0.1033847, a: 1}
+    useModifier: 1
+    modifiedActionValueIndex: 0
+    modiferStats: 3
+    usePrefixOnModifiedValue: 1
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 1
+  - descriptionText: ' damage 3 times. If the target has no '
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: Block
     enableOverrideColor: 1
     overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
     useModifier: 0
@@ -45,7 +87,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: ' and 10 '
+  - descriptionText: ' afterwards, gain 5 '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -63,7 +105,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: '. '
+  - descriptionText: ' and repeat the attack.'
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -72,23 +114,5 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: Exhaust
-    enableOverrideColor: 1
-    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
-    useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
-  - descriptionText: .
-    enableOverrideColor: 0
-    overrideColor: {r: 0, g: 0, b: 0, a: 1}
-    useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
-  specialKeywordsList: 08000000030000000e000000
-  audioType: 43
+  specialKeywordsList: 0000000008000000
+  audioType: 44

@@ -21,6 +21,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         [SerializeField] private FloatingText floatingTextPrefabGreen;
         [SerializeField] private FloatingText floatingTextPrefabBlue;
          [SerializeField] private FloatingText floatingTextPrefabYellow;
+        [SerializeField] private FloatingText floatingTextPrefabGrey;
 
         public Dictionary<FxType, GameObject> FXDict { get; private set;}= new Dictionary<FxType, GameObject>();
         public List<FxBundle> FXList => fxList;
@@ -125,6 +126,21 @@ namespace NueGames.NueDeck.Scripts.Managers
             var spawnPos = targetTransform.position + jitter;
             var cloneText = Instantiate(floatingTextPrefabYellow, spawnPos, Quaternion.identity);
 
+            if (xDir == 0)
+                xDir = Random.value >= 0.5f ? 2 : -2;
+            cloneText.PlayText(text, xDir, yDir);
+        }
+
+        public void SpawnFloatingTextGrey(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
+        {
+            // Grey text for fully blocked damage
+            var jitter = new Vector3(
+                Random.Range(-0.15f, 0.15f),
+                Random.Range(0f, 0.08f),
+                Random.Range(-0.02f, 0.02f)
+            );
+            var spawnPos = targetTransform.position + jitter;
+            var cloneText = Instantiate(floatingTextPrefabGrey, spawnPos, Quaternion.identity);
             if (xDir == 0)
                 xDir = Random.value >= 0.5f ? 2 : -2;
             cloneText.PlayText(text, xDir, yDir);

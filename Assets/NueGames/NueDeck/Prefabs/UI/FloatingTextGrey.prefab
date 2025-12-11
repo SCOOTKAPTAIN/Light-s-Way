@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5089149355103730504}
   - component: {fileID: 7589883486126085616}
   m_Layer: 0
-  m_Name: FloatingTextYellow
+  m_Name: FloatingTextGrey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!1 &1855711273740538389
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,8 +259,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.636, y: -0.636}
+  m_SizeDelta: {x: 1.254, y: 1.254}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5969353578715134342
 CanvasRenderer:
@@ -292,15 +292,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 41c4ad1ef274bf247992d224239fb22e, type: 2}
-  m_sharedMaterial: {fileID: 6178789319605395654, guid: 41c4ad1ef274bf247992d224239fb22e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ac8c0f01d5c81cd49a3be416deb84a9e, type: 2}
+  m_sharedMaterial: {fileID: 6178789319605395654, guid: ac8c0f01d5c81cd49a3be416deb84a9e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281524719
-  m_fontColor: {r: 0.9372549, g: 0.88235295, b: 0.19607843, a: 1}
+    rgba: 4291546059
+  m_fontColor: {r: 0.79622644, g: 0.79622644, b: 0.79622644, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -317,15 +317,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.4
+  m_fontSize: 0.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 0
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

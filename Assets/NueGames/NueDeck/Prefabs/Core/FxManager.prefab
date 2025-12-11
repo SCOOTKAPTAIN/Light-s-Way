@@ -155,7 +155,22 @@ MonoBehaviour:
     fxPrefab: {fileID: 4931249800145279701, guid: ec98225dd226dbb44ade7ca1bd8227d0, type: 3}
   - fxType: 39
     fxPrefab: {fileID: 6582740879243116295, guid: e007603e33a343c4a85306345735a59a, type: 3}
-  floatingTextPrefabRed: {fileID: 5875565574366412673, guid: ff5e71a98d9a7364e9d9fbe0d5a58c35, type: 3}
+  - fxType: 37
+    fxPrefab: {fileID: 4931249800145279701, guid: 9e39a2a12f1218b4f91cbfb48f2b6d0e, type: 3}
+  - fxType: 38
+    fxPrefab: {fileID: 4931249800145279701, guid: 4ef408643849fe74496f789c0295d99e, type: 3}
+  - fxType: 83
+    fxPrefab: {fileID: 4931249800145279701, guid: 92231df75244dd44bac71e67e643acbd, type: 3}
+  - fxType: 84
+    fxPrefab: {fileID: 4931249800145279701, guid: f95f343cb4f526f4aa0d146c14894b66, type: 3}
+  - fxType: 82
+    fxPrefab: {fileID: 4931249800145279701, guid: 28fe8591dca70cb48af43c4ed04d11d5, type: 3}
+  - fxType: 40
+    fxPrefab: {fileID: 4931249800145279701, guid: 54c1be25dc60ce245ad3b3b048243665, type: 3}
+  - fxType: 96
+    fxPrefab: {fileID: 4931249800145279701, guid: cbb506cd2ff1715409a4c3a8de037fd6, type: 3}
+  floatingTextPrefabRed: {fileID: 5875565574366412673, guid: 563cc02ed8f797e498bc5cf11e33e894, type: 3}
   floatingTextPrefabGreen: {fileID: 5875565574366412673, guid: 3ac7e93a64ff77c449b3430cfaacbf1a, type: 3}
   floatingTextPrefabBlue: {fileID: 5875565574366412673, guid: 82a85b92f4e688449be2134a8730df5c, type: 3}
-  floatingTextPrefabYellow: {fileID: 0}
+  floatingTextPrefabYellow: {fileID: 5875565574366412673, guid: ff5e71a98d9a7364e9d9fbe0d5a58c35, type: 3}
+  floatingTextPrefabGrey: {fileID: 0}

@@ -36,8 +36,8 @@ MonoBehaviour:
     contentText: Increase damage taken by <color=#FFB430>X</color> * 5%.
   - specialKeyword: 8
     header: Pursuit
-    contentText: Perform an extra <color=#FFB430>X</color> damage attack after each
-      instance of attacks.
+    contentText: Perform an extra <color=#FFB430>X</color> damage attack when launching
+      an attack instance..
   - specialKeyword: 9
     header: Ward
     contentText: Consumes <color=#FFB430>1</color> stack to negate an incoming <color=#FFB430>Infliction</color>.

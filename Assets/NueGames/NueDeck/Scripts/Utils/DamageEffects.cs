@@ -31,14 +31,13 @@ namespace NueGames.NueDeck.Scripts.Utils
                 int pursuitValue = Mathf.RoundToInt(pursuitStacks * multiplier);
                 if (pursuitValue > 0)
                 {
-                    // Apply pursuit damage (subject to Block etc.)
-                    target.CharacterStats.Damage(Mathf.RoundToInt(pursuitValue));
+                    // Apply pursuit damage with yellow text (passed via damageTextColor parameter)
+                    target.CharacterStats.Damage(Mathf.RoundToInt(pursuitValue), false, "yellow");
 
-                    // FX / static text / audio
+                    // FX / audio
                     if (FxManager.Instance != null)
                     {
                         FxManager.Instance.PlayFx(target.transform, FxType.Pursuit);
-                        FxManager.Instance.SpawnFloatingTextYellow(target.TextSpawnRoot, pursuitValue.ToString());
                     }
                     if (AudioManager.Instance != null)
                     {

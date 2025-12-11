@@ -100,7 +100,9 @@
         ReturnToSender2,
         Bleed,
         ReapersHarvest3,
-        Armor
+        Armor,
+        BlockedHit,
+        FollowThrough3
 
 
 

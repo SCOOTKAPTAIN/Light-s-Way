@@ -175,13 +175,14 @@ namespace NueGames.NueDeck.Scripts.Characters
             OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
         }
         
-        public void Damage(int value, bool canPierceArmor = false)
+        public void Damage(int value, bool canPierceArmor = false, string damageTextColor = "red")
         {
             if (IsDeath) return;
             OnTakeDamageAction?.Invoke();
             
             var healthBefore = CurrentHealth;
             var remainingDamage = value;
+            var wasBlockedCompletely = false;
     
             // Armor consumes a single attack instance entirely (if not piercing).
             if (!canPierceArmor)
@@ -198,25 +199,26 @@ namespace NueGames.NueDeck.Scripts.Characters
                     // Damage instance is nullified by armor
                     remainingDamage = 0;
 
-                    // Play small visual/audio feedback: spawn blue "Blocked" text and a guard FX
+                    // Play small visual/audio feedback: spawn blue "Nulified!" text and a guard FX
                     if (_characterCanvas != null && FxManager.Instance != null)
                     {
                         var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
                         var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
-                        FxManager.Instance.SpawnFloatingTextBlue(spawnRoot, "Blocked!");
+                        FxManager.Instance.SpawnFloatingTextGrey(spawnRoot, "Nulified!");
                         // Play guard FX
                     }
 
                     // Play a debounced guard audio cue to avoid overlapping sounds
                     if (AudioManager.Instance != null)
                     {
-                        AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Armor);
+                        AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Armor, 0f);
                     }
                 }
                 else
                 {
                     if (StatusDict[StatusType.Block].IsActive)
                     {
+                        var blockBefore = StatusDict[StatusType.Block].StatusValue;
                         ApplyStatus(StatusType.Block, -value);
 
                         remainingDamage = 0;
@@ -224,6 +226,12 @@ namespace NueGames.NueDeck.Scripts.Characters
                         {
                             remainingDamage = StatusDict[StatusType.Block].StatusValue * -1;
                             ClearStatus(StatusType.Block);
+                        }
+                        
+                        // Check if all damage was absorbed by block
+                        if (blockBefore >= value)
+                        {
+                            wasBlockedCompletely = true;
                         }
                     }
                 }
@@ -239,13 +247,35 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
             
             // Spawn damage text based on actual health change (damage taken = health_before - health_after).
+            // Exception: if the target dies, show the full remaining damage value instead of clamping to health.
             // Armor-negated damage shows no text; Block-negated + health loss still shows text.
             var actualDamageTaken = healthBefore - CurrentHealth;
-            if (actualDamageTaken > 0 && _characterCanvas != null && FxManager.Instance != null)
+            var displayDamage = actualDamageTaken;
+            
+            // If the target died and we have remaining damage that exceeded health, show the full remaining damage
+            if (CurrentHealth == 0 && IsDeath && remainingDamage > healthBefore)
+            {
+                displayDamage = remainingDamage;
+            }
+            
+            if (displayDamage > 0 && _characterCanvas != null && FxManager.Instance != null)
             {
                 var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
                 var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
-                FxManager.Instance.SpawnFloatingText(spawnRoot, actualDamageTaken.ToString());
+                
+                if (damageTextColor == "yellow")
+                    FxManager.Instance.SpawnFloatingTextYellow(spawnRoot, displayDamage.ToString());
+                else
+                    FxManager.Instance.SpawnFloatingText(spawnRoot, displayDamage.ToString());
+            }
+            
+            // Show grey blocked number and 'Blocked!' together as one text when damage is fully absorbed by Block
+            if (wasBlockedCompletely && _characterCanvas != null && FxManager.Instance != null)
+            {
+                var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
+                var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
+                FxManager.Instance.SpawnFloatingTextGrey(spawnRoot, value.ToString() + "\nBlocked!");
+                AudioManager.Instance.PlayOneShotDebounced(AudioActionType.BlockedHit, 0f);
             }
             
             OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
