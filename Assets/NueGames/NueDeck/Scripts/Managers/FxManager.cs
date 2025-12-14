@@ -22,6 +22,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         [SerializeField] private FloatingText floatingTextPrefabBlue;
          [SerializeField] private FloatingText floatingTextPrefabYellow;
         [SerializeField] private FloatingText floatingTextPrefabGrey;
+        [SerializeField] private FloatingText floatingTextPrefabOrange;
 
         public Dictionary<FxType, GameObject> FXDict { get; private set;}= new Dictionary<FxType, GameObject>();
         public List<FxBundle> FXList => fxList;
@@ -146,6 +147,21 @@ namespace NueGames.NueDeck.Scripts.Managers
             cloneText.PlayText(text, xDir, yDir);
         }
 
+        public void SpawnFloatingTextOrange(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
+        {
+            // Grey text for fully blocked damage
+            var jitter = new Vector3(
+                Random.Range(-0.15f, 0.15f),
+                Random.Range(0f, 0.08f),
+                Random.Range(-0.02f, 0.02f)
+            );
+            var spawnPos = targetTransform.position + jitter;
+            var cloneText = Instantiate(floatingTextPrefabOrange, spawnPos, Quaternion.identity);
+            if (xDir == 0)
+                xDir = Random.value >= 0.5f ? 2 : -2;
+            cloneText.PlayText(text, xDir, yDir);
+        }
+
 
         public void PlayFx(Transform targetTransform, FxType targetFx)
         {
@@ -159,7 +175,15 @@ namespace NueGames.NueDeck.Scripts.Managers
         public void PlayFx(Transform targetTransform, FxType targetFx, Vector3 offset)
         {
             if (!FXDict.TryGetValue(targetFx, out var prefab) || prefab == null) return;
-            Instantiate(prefab, targetTransform.position + offset, Quaternion.identity);
+            var clone = Instantiate(prefab, targetTransform.position + offset, Quaternion.identity);
+            try
+            {
+                clone.transform.SetParent(targetTransform, true);
+            }
+            catch (Exception)
+            {
+                // Parent may fail for some prefab types; ignore to preserve instantiation
+            }
         }
 
         /// <summary>
@@ -193,6 +217,11 @@ namespace NueGames.NueDeck.Scripts.Managers
             if (!_spawnedThisFrame.ContainsKey(key))
             {
                 _spawnedThisFrame[key] = 1;
+                // Debug important FX spawns for troubleshooting
+                if (targetFx == FxType.Frozen || targetFx == FxType.Combustion || targetFx == FxType.FrozenMirror2 || targetFx == FxType.BlazingSurge2)
+                {
+                    Debug.Log($"[FxManager] Spawning {targetFx} at {position + offset}");
+                }
                 Instantiate(prefab, position + offset, Quaternion.identity);
             }
         }

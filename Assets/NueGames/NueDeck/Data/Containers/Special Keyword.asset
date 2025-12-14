@@ -18,29 +18,32 @@ MonoBehaviour:
     contentText: Reduce incoming damage by <color=#FFB430>X</color>.
   - specialKeyword: 1
     header: Strength
-    contentText: Increase your attack damage by <color=#FFB430>X</color>.
+    contentText: Increase the <color=#FFB430>Base</color> damage of attacks by <color=#FFB430>X</color>.
   - specialKeyword: 4
     header: Light
     contentText: WIthout it, the power of your lantern diminishes.
   - specialKeyword: 2
     header: Poison
-    contentText: Damage overtime. Ignores <color=#FFB430>Block</color>.
+    contentText: 'At the end of the turn, take <color=#FFB430>X</color> damage (negated
+      by Block).
+
+      Increase Poison by <color=#FFB430>1</color>.'
   - specialKeyword: 3
     header: Exhaust
-    contentText: After using, remove it from your deck for this combat.
+    contentText: Remove this card from your deck for the rest of the combat.
   - specialKeyword: 5
     header: Stun
-    contentText: Unable to take action.
+    contentText: <color=#FFB430>Unable</color> to take action.
   - specialKeyword: 6
     header: Fragile
-    contentText: Increase damage taken by <color=#FFB430>X</color> * 5%.
+    contentText: "Take <color=#FFB430>X \xD7 5%</color> more damage."
   - specialKeyword: 8
     header: Pursuit
     contentText: Perform an extra <color=#FFB430>X</color> damage attack when launching
       an attack instance.
   - specialKeyword: 9
     header: Ward
-    contentText: Consumes <color=#FFB430>1</color> stack to negate an incoming <color=#FFB430>Infliction</color>.
+    contentText: Consume <color=#FFB430>1</color> stack to negate an incoming <color=#FFB430>Infliction</color>.
   - specialKeyword: 10
     header: Enlightenment
     contentText: Next card played has it's cost reduced to <color=#FFB430>0</color>.
@@ -50,16 +53,44 @@ MonoBehaviour:
       when using 2+ cost <color=#FFB430>Mana</color> cards.
   - specialKeyword: 7
     header: Bleeding
-    contentText: At the end of the turn. Take <color=#FFB430> X Block-ignoring</color>
+    contentText: At the end of the turn, take <color=#FFB430>X</color> Block-ignoring
       damage.
   - specialKeyword: 12
     header: Bloodletting
     contentText: "Deal bonus damage equal to the target\u2019s <color=#FFB430>Bleeding</color>."
   - specialKeyword: 13
     header: Detonate
-    contentText: 'Deal 2x value of a status as damage then remove all stacks of it.
-
-'
+    contentText: "Deal damage equal to <color=#FFB430>3\xD7</color> a status\u2019s
+      value, then remove all its stacks."
   - specialKeyword: 14
     header: Armor
     contentText: Consumes <color=#FFB430>1</color> stack to nulify an attack instance.
+  - specialKeyword: 15
+    header: Frostbite
+    contentText: "At the end of the turn, take <color=#FFB430>X \xD7 25%</color>
+      of <color=#FFB430>Proficiency</color> as Block-ignoring damage.\nConsume <color=#FFB430>5</color>
+      stacks to inflict <color=#FFB430>Frozen</color>."
+  - specialKeyword: 16
+    header: Burning
+    contentText: "At the end of the turn, take <color=#FFB430>X \xD7 25%</color>
+      of <color=#FFB430>Proficiency</color> as Block-ignoring damage.\nConsume <color=#FFB430>5</color>
+      stacks to inflict <color=#FFB430>Combustion</color>."
+  - specialKeyword: 18
+    header: Combustion
+    contentText: Deal damage equal to (<color=#FFB430>Strength</color> + 5x <color=#FFB430>Proficiency</color>)
+      and apply 1 <color=#FFB430>Burning</color> to  <color=#FFB430>All</color> enemies.
+  - specialKeyword: 17
+    header: Frozen
+    contentText: <color=#FFB430>Unable</color> to take action. The next instance
+      of damage taken is increased by <color=#FFB430>50%</color>. <color=#FFB430>Taking</color>
+      damage removes this status.
+  - specialKeyword: 19
+    header: Fortitude
+    contentText: Increase the <color=#FFB430>Base</color> Block granted by cards
+      by <color=#FFB430>X</color>.
+  - specialKeyword: 20
+    header: Frozen Mirror
+    contentText: When attacked, apply <color=#FFB430>1 Frostbite</color> to the attacker.
+  - specialKeyword: 21
+    header: Blazing Surge
+    contentText: When attacked, apply <color=#FFB430>1 Burning</color> to the attacker.

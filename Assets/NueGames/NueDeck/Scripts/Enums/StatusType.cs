@@ -17,7 +17,13 @@
         DebuffWard,
         FreeNextCard,
         GodsAngelBuff,
-        Armor
+        Armor,
+        Frostbite,
+        Burning,
+        Frozen,
+        FrozenMirror,
+        BlazingSurge,
+        PerfectHarmony,
         
 
     }

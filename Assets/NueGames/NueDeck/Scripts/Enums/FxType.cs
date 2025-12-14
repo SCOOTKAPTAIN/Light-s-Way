@@ -96,12 +96,14 @@
         IllusionOfVictory3,
         ReturnToSender2,
         Bleed,
-SlowBleed,
-ReapersHarvest3,
-FollowThrough3
-
-
-
+        SlowBleed,
+        ReapersHarvest3,
+        FollowThrough3,
+        Frozen,
+        Combustion,
+        Frostbite,
+        Burning,
+        Shatter
 
 
 

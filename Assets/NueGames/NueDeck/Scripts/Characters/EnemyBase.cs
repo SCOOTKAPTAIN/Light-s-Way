@@ -6,6 +6,7 @@ using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Interfaces;
 using NueGames.NueDeck.Scripts.Managers;
 using NueGames.NueDeck.Scripts.NueExtentions;
+using System.Linq;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Characters
@@ -73,7 +74,8 @@ namespace NueGames.NueDeck.Scripts.Characters
         {
             if (CharacterStats.IsStunned)
                 yield break;
-            
+
+            Debug.Log($"ActionRoutine START for '{name}' with intent '{NextAbility?.Intention?.EnemyIntentionType}'");
             EnemyCanvas.IntentImage.gameObject.SetActive(false);
             if (NextAbility.Intention.EnemyIntentionType == EnemyIntentionType.Attack || NextAbility.Intention.EnemyIntentionType == EnemyIntentionType.Debuff)
             {
@@ -83,15 +85,20 @@ namespace NueGames.NueDeck.Scripts.Characters
             {
                 yield return StartCoroutine(BuffRoutine(NextAbility));
             }
+            Debug.Log($"ActionRoutine END for '{name}'");
         }
         
         protected virtual IEnumerator AttackRoutine(EnemyAbilityData targetAbility)
         {
             var waitFrame = new WaitForEndOfFrame();
+            Debug.Log($"AttackRoutine START for '{name}' (ability: '{targetAbility?.Intention?.EnemyIntentionType}')");
 
             if (CombatManager == null) yield break;
             
-            var target = CombatManager.CurrentAlliesList.RandomItem();
+            var aliveAllies = CombatManager.CurrentAlliesList.Where(a => a != null && !a.CharacterStats.IsDeath).ToList();
+            if (aliveAllies.Count == 0) yield break;
+            
+            var target = aliveAllies.RandomItem();
             
             var startPos = transform.position;
             var endPos = target.transform.position;
@@ -99,18 +106,46 @@ namespace NueGames.NueDeck.Scripts.Characters
             var startRot = transform.localRotation;
             var endRot = Quaternion.Euler(60, 0, 60);
             
-            yield return StartCoroutine(MoveToTargetRoutine(waitFrame, startPos, endPos, startRot, endRot, 5));
+            // Run movement inline so it completes correctly even if the enemy GameObject is destroyed mid-action.
+            yield return MoveToTargetRoutine(waitFrame, startPos, endPos, startRot, endRot, 5);
           
-            targetAbility.ActionList.ForEach(x=>EnemyActionProcessor.GetAction(x.ActionType).DoAction(new EnemyActionParameters(x.ActionValue,target,this)));
+            // Re-evaluate target in case it died while earlier actions ran.
+            if (target == null || target.CharacterStats.IsDeath)
+            {
+                var fallbackAllies = CombatManager.CurrentAlliesList.Where(a => a != null && !a.CharacterStats.IsDeath).ToList();
+                if (fallbackAllies.Count == 0)
+                {
+                    // Nothing to attack; return to start position and end routine.
+                    Debug.LogWarning($"{name} had no allies to attack (all dead) — skipping action.");
+                    // Return to origin; run inline to ensure completion even if the enemy is destroyed.
+                    yield return MoveToTargetRoutine(waitFrame, endPos, startPos, endRot, startRot, 5);
+                    yield break;
+                }
+                target = fallbackAllies.RandomItem();
+                Debug.Log($"{name} switched attack target to '{target.name}' because original died.");
+            }
+
+            targetAbility.ActionList.ForEach(x => EnemyActionProcessor.GetAction(x.ActionType).DoAction(new EnemyActionParameters(x.ActionValue, target, this)));
             
             yield return StartCoroutine(MoveToTargetRoutine(waitFrame, endPos, startPos, endRot, startRot, 5));
+            Debug.Log($"AttackRoutine END for '{name}'");
         }
         
         protected virtual IEnumerator BuffRoutine(EnemyAbilityData targetAbility)
         {
             var waitFrame = new WaitForEndOfFrame();
             
-            var target = CombatManager.CurrentEnemiesList.RandomItem();
+            var aliveEnemies = CombatManager.CurrentEnemiesList.Where(e => e != null && !e.CharacterStats.IsDeath).ToList();
+            CharacterBase target;
+            if (aliveEnemies.Count == 0)
+            {
+                // No alive enemies to buff; default to self to avoid invalid targets.
+                target = this;
+            }
+            else
+            {
+                target = aliveEnemies.RandomItem();
+            }
             
             var startPos = transform.position;
             var endPos = startPos+new Vector3(0,0.2f,0);
@@ -118,11 +153,30 @@ namespace NueGames.NueDeck.Scripts.Characters
             var startRot = transform.localRotation;
             var endRot = transform.localRotation;
             
-            yield return StartCoroutine(MoveToTargetRoutine(waitFrame, startPos, endPos, startRot, endRot, 5));
+            // Run movement inline so it completes correctly even if the enemy GameObject is destroyed mid-action.
+            yield return MoveToTargetRoutine(waitFrame, startPos, endPos, startRot, endRot, 5);
             
-            targetAbility.ActionList.ForEach(x=>EnemyActionProcessor.GetAction(x.ActionType).DoAction(new EnemyActionParameters(x.ActionValue,target,this)));
+            // Re-evaluate target in case it died while earlier actions ran.
+            if (target == null || target.CharacterStats.IsDeath)
+            {
+                var fallbackEnemies = CombatManager.CurrentEnemiesList.Where(e => e != null && !e.CharacterStats.IsDeath).ToList();
+                if (fallbackEnemies.Count == 0)
+                {
+                    // No valid enemy targets; fallback to self.
+                    Debug.LogWarning($"{name} had no enemy targets to buff — defaulting to self.");
+                    target = this;
+                }
+                else
+                {
+                    target = fallbackEnemies.RandomItem();
+                    Debug.Log($"{name} switched buff target to '{target.name}' because original died.");
+                }
+            }
+
+            targetAbility.ActionList.ForEach(x => EnemyActionProcessor.GetAction(x.ActionType).DoAction(new EnemyActionParameters(x.ActionValue, target, this)));
             
-            yield return StartCoroutine(MoveToTargetRoutine(waitFrame, endPos, startPos, endRot, startRot, 5));
+            yield return MoveToTargetRoutine(waitFrame, endPos, startPos, endRot, startRot, 5);
+            Debug.Log($"BuffRoutine END for '{name}'");
         }
         #endregion
         
@@ -134,9 +188,17 @@ namespace NueGames.NueDeck.Scripts.Characters
             {
                 timer += Time.deltaTime*speed;
 
+                // Guard transform access in case the GameObject is destroyed mid-movement.
+                if (this == null)
+                {
+                    if (timer >= 1f) break;
+                    yield return waitFrame;
+                    continue;
+                }
+
                 transform.position = Vector3.Lerp(startPos, endPos, timer);
-                transform.localRotation = Quaternion.Lerp(startRot,endRot,timer);
-                if (timer>=1f)
+                transform.localRotation = Quaternion.Lerp(startRot, endRot, timer);
+                if (timer >= 1f)
                 {
                     break;
                 }

@@ -27,9 +27,9 @@ MonoBehaviour:
     showValue: 1
     specialKeywords: 01000000
   - iconStatus: 4
-    iconSprite: {fileID: 21300000, guid: b814f523022834b4eb4ef10d01cf8faf, type: 3}
+    iconSprite: {fileID: 21300000, guid: a84449f5ba272e8418f3e89910eca7fb, type: 3}
     showValue: 1
-    specialKeywords: 04000000
+    specialKeywords: 13000000
   - iconStatus: 5
     iconSprite: {fileID: 21300000, guid: c485cbc1af63bd246a792e41c4d971ff, type: 3}
     showValue: 1
@@ -66,3 +66,23 @@ MonoBehaviour:
     iconSprite: {fileID: 21300000, guid: 25538fc61aae85f488615c83d3ed5d47, type: 3}
     showValue: 1
     specialKeywords: 0e000000
+  - iconStatus: 16
+    iconSprite: {fileID: 21300000, guid: 058baf301abf4034fb7ebb6d87055935, type: 3}
+    showValue: 1
+    specialKeywords: 0f00000011000000
+  - iconStatus: 17
+    iconSprite: {fileID: 21300000, guid: 45c5a3114bc6e844c80b42934f6711be, type: 3}
+    showValue: 1
+    specialKeywords: 1000000012000000
+  - iconStatus: 18
+    iconSprite: {fileID: 21300000, guid: e32fcebed33f83447b50d21afe1c98a4, type: 3}
+    showValue: 0
+    specialKeywords: 11000000
+  - iconStatus: 19
+    iconSprite: {fileID: 21300000, guid: 77367c4da6e59c148b650db9d601ab95, type: 3}
+    showValue: 1
+    specialKeywords: 14000000
+  - iconStatus: 20
+    iconSprite: {fileID: 21300000, guid: 67b42227683698c4088bfa9d0a32d354, type: 3}
+    showValue: 1
+    specialKeywords: 15000000

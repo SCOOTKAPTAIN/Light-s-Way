@@ -16,7 +16,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             
             var value =  GameManager.PersistentGameplayData.proficiency + actionParameters.Value + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue; 
             
-            targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value));
+            targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
             selfCharacter.CharacterStats.ApplyStatus(StatusType.Block,Mathf.RoundToInt(value));
 
             if (FxManager != null)

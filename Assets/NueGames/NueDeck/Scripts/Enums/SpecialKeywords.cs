@@ -16,7 +16,14 @@
         Nephilim,
         Bloodletting,
         Detonate,
-        Armor
+        Armor,
+        Frostbite,
+        Burning,
+        Frozen,
+        Combustion,
+        Fortitude,
+        FrozenMirror,
+        BlazingSurge
 
 
 

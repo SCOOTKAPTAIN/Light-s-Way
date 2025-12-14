@@ -16,12 +16,12 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             
 
-                        FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.BloodMoney2);
+                       FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.BloodMoney2);
             FxManager.PlayFx(targetCharacter.transform, FxType.Bleed);
                         FxManager.PlayFx(actionParameters.SelfCharacter.transform, FxType.BloodMoney3);
 
                         var bleedValue = targetCharacter.CharacterStats.StatusDict[StatusType.Bleeding].StatusValue;
-                        var damage = Mathf.RoundToInt(bleedValue * 2f);
+                        var damage = Mathf.RoundToInt(bleedValue * 3f);
 
                         // Grant gold immediately before dealing damage (in case damage ends combat)
                         GameManager.Instance.PersistentGameplayData.CurrentGold += damage;
@@ -31,12 +31,11 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                         CombatManager.SetActionContext("BloodMoneyBleedingDetonated", bleedValue);
 
                         // Detonate: deal damage equal to bleeding * 2. Use piercing damage to match bleeding ticks.
-                        targetCharacter.CharacterStats.Damage(damage, true);
+                        //targetCharacter.CharacterStats.Damage(damage, true);
+                        targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(damage), false, "red", selfCharacter);
+                        
 
-                        if (FxManager != null)
-                        {
-                                FxManager.SpawnFloatingText(actionParameters.TargetCharacter.TextSpawnRoot, damage.ToString());
-                        }
+                      
 
                         // Remove bleeding stacks from the target
                         targetCharacter.CharacterStats.ClearStatus(StatusType.Bleeding);

@@ -6,6 +6,7 @@ using NueGames.NueDeck.Scripts.Characters.Enemies;
 using NueGames.NueDeck.Scripts.Data.Containers;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Utils.Background;
+using System.Linq;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Managers
@@ -379,15 +380,103 @@ namespace NueGames.NueDeck.Scripts.Managers
         private IEnumerator EnemyTurnRoutine()
         {
             var waitDelay = new WaitForSeconds(0.1f);
+            Debug.Log("EnemyTurnRoutine: starting enemy turn with " + CurrentEnemiesList.Count + " enemies.");
 
-            foreach (var currentEnemy in CurrentEnemiesList)
+            var snapshot = CurrentEnemiesList.ToList();
+            try
             {
-                yield return currentEnemy.StartCoroutine(nameof(EnemyExample.ActionRoutine));
-                yield return waitDelay;
+                foreach (var currentEnemy in snapshot)
+                {
+                    var enemyName = currentEnemy != null ? currentEnemy.name : "<null>";
+
+                    if (CurrentCombatStateType == CombatStateType.EndCombat)
+                    {
+                        Debug.Log("EnemyTurnRoutine: combat ended mid-routine, aborting remaining enemy actions.");
+                        break;
+                    }
+
+                    if (currentEnemy == null)
+                    {
+                        Debug.Log($"EnemyTurnRoutine: skipped null enemy reference ({enemyName}).");
+                        continue;
+                    }
+
+                    if (currentEnemy.CharacterStats.IsDeath)
+                    {
+                        Debug.Log($"EnemyTurnRoutine: skipped dead enemy '{enemyName}'.");
+                        continue;
+                    }
+
+                    if (CurrentEnemiesList.Count == 0)
+                    {
+                        Debug.Log("EnemyTurnRoutine: no enemies remain, stopping loop.");
+                        break;
+                    }
+
+                    Debug.Log($"EnemyTurnRoutine: processing enemy '{enemyName}'.");
+
+                    // Run enemy action in a wrapper that sets a completion flag so we can apply a timeout
+                    var finished = false;
+                    StartCoroutine(RunEnemyAction(currentEnemy, () => finished = true));
+                    var elapsed = 0f;
+                    var timeout = 10f; // seconds - if an action hangs longer than this, continue to next enemy
+                    while (!finished && elapsed < timeout)
+                    {
+                        // If the enemy died or was destroyed during their action, proceed immediately.
+                        if (currentEnemy == null || currentEnemy.CharacterStats.IsDeath)
+                        {
+                            Debug.Log($"EnemyTurnRoutine: detected '{enemyName}' died/destroyed during its action; proceeding to next enemy.");
+                            break;
+                        }
+
+                        elapsed += Time.deltaTime;
+                        yield return null;
+                    }
+
+                    if (!finished && (currentEnemy != null && !currentEnemy.CharacterStats.IsDeath))
+                    {
+                        Debug.LogWarning($"EnemyTurnRoutine: enemy '{enemyName}' action timed out after {timeout} seconds. Skipping to next enemy (will still complete if action finishes later).");
+                    }
+
+                    yield return waitDelay;
+                }
+            }
+            finally
+            {
+                if (CurrentCombatStateType != CombatStateType.EndCombat)
+                {
+                    Debug.Log("EnemyTurnRoutine: enemy turn complete, switching to AllyTurn.");
+                    CurrentCombatStateType = CombatStateType.AllyTurn;
+                }
+                else
+                {
+                    Debug.Log("EnemyTurnRoutine: combat already ended, not switching turn state.");
+                }
+            }
+        }
+
+        private IEnumerator RunEnemyAction(EnemyBase enemy, System.Action onComplete)
+        {
+            // Wrapper to run an enemy's action coroutine and notify when finished. If the enemy is null or dead, mark complete immediately.
+            var enemyName = enemy != null ? enemy.name : "<null>";
+            if (enemy == null || enemy.CharacterStats == null || enemy.CharacterStats.IsDeath)
+            {
+                Debug.Log($"RunEnemyAction: '{enemyName}' is null/dead — marking complete.");
+                onComplete?.Invoke();
+                yield break;
             }
 
-            if (CurrentCombatStateType != CombatStateType.EndCombat)
-                CurrentCombatStateType = CombatStateType.AllyTurn;
+            Debug.Log($"RunEnemyAction: starting action for '{enemyName}'.");
+            try
+            {
+                // Run the enemy's IEnumerator directly on the CombatManager so it continues even if the enemy GameObject is destroyed.
+                yield return StartCoroutine(enemy.ActionRoutine());
+                Debug.Log($"RunEnemyAction: completed action for '{enemyName}'.");
+            }
+            finally
+            {
+                onComplete?.Invoke();
+            }
         }
         #endregion
     }

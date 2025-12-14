@@ -93,7 +93,13 @@ namespace NueGames.NueDeck.Scripts.Characters
         public void UpdateStatusText(StatusType targetStatus, int value)
         {
             if (StatusDict[targetStatus] == null) return;
-          
+            // If the status value is 0 or less, remove the icon instead of showing '0'
+            if (value <= 0)
+            {
+                ClearStatus(targetStatus);
+                return;
+            }
+
             StatusDict[targetStatus].StatusValueText.text = $"{value}";
         }
         

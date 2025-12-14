@@ -18,7 +18,7 @@ MonoBehaviour:
 
     They''re more
     scared of you than anything.'
-  maxHealth: 60
+  maxHealth: 100
   enemyPrefab: {fileID: 243822687015991123, guid: 8fd2219ea8dcc7e43b4a8c40bf922ba9, type: 3}
   followAbilityPattern: 0
   enemyAbilityList:

@@ -102,7 +102,15 @@
         ReapersHarvest3,
         Armor,
         BlockedHit,
-        FollowThrough3
+        FollowThrough3,
+        Frozen,
+        Combustion,
+        Frostbite,
+        Burning,
+        Shatter,
+        
+
+
 
 
 

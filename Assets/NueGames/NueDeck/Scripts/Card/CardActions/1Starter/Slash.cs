@@ -22,13 +22,18 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 
-            targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value));
+            targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
 
-
-            if (FxManager != null)
+            // If attacker has Perfect Harmony permanent status, apply 1 Burning and 1 Frostbite
+            if (selfCharacter.CharacterStats.StatusDict.ContainsKey(StatusType.PerfectHarmony) && selfCharacter.CharacterStats.StatusDict[StatusType.PerfectHarmony].IsActive)
             {
-                FxManager.SpawnFloatingText(actionParameters.TargetCharacter.TextSpawnRoot, value.ToString());
+                targetCharacter.CharacterStats.ApplyStatus(StatusType.Burning, 1, selfCharacter);
+                targetCharacter.CharacterStats.ApplyStatus(StatusType.Frostbite, 1, selfCharacter);
+               
             }
+
+
+          
 
             if (AudioManager != null)
                 AudioManager.PlayOneShot(actionParameters.CardData.AudioType);

@@ -37,11 +37,16 @@ namespace NueGames.NueDeck.Scripts.Characters
         {
             StatusType.Poison,
             StatusType.Stun,
+            StatusType.Frozen,
             StatusType.Fragile,
             StatusType.Bleeding,
+            StatusType.Frostbite,
+            StatusType.Burning,
             StatusType.NoDraw,
             StatusType.NoGainMana
         };
+        private const float FrostbitePercentPerStack = 0.25f; // 25% proficiency per stack
+        private const float BurningPercentPerStack = 0.25f; // 25% proficiency per stack
         public int MaxHealth { get; set; }
         public int CurrentHealth { get; set; }
         public bool IsStunned { get;  set; }
@@ -106,12 +111,29 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.Bleeding].CanNegativeStack = false;
 
             StatusDict[StatusType.Pursuit].DecreaseOverTurn = true;
+
+            // Reactive 'if attacked this turn' statuses
+            StatusDict[StatusType.FrozenMirror].DecreaseOverTurn = true;
+            StatusDict[StatusType.BlazingSurge].DecreaseOverTurn = true;
+
+
+            // Frostbite: deals percent of proficiency per stack each turn (unblockable)
+            StatusDict[StatusType.Frostbite].OnTriggerAction += DamageFrostbite;
+            StatusDict[StatusType.Frostbite].CanNegativeStack = false;
+
+            // Burning: deals percent of proficiency per stack each turn (unblockable)
+            StatusDict[StatusType.Burning].OnTriggerAction += DamageBurning;
+            StatusDict[StatusType.Burning].CanNegativeStack = false;
+
+            // Frozen: a separate stun-like status for 1 turn; will be checked at turn triggers
+            StatusDict[StatusType.Frozen].DecreaseOverTurn = true;
+            StatusDict[StatusType.Frozen].OnTriggerAction += CheckFrozenStatus;
             
         }
         #endregion
         
         #region Public Methods
-    public void ApplyStatus(StatusType targetStatus,int value)
+    public void ApplyStatus(StatusType targetStatus,int value, CharacterBase source = null)
         {
             // If this status being applied is a debuff and the character has a DebuffWard active,
             // consume one DebuffWard stack and block the incoming debuff instead of applying it.
@@ -155,6 +177,82 @@ namespace NueGames.NueDeck.Scripts.Characters
                 if (delta > 0)
                     OnShieldGained?.Invoke(delta);
             }
+
+            // Special handling for Frostbite/Burning thresholds (trigger when reaching 5 stacks)
+            if (targetStatus == StatusType.Frostbite || targetStatus == StatusType.Burning)
+            {
+                while (StatusDict[targetStatus].StatusValue >= 5)
+                {
+                    // reduce stacks by 5 and trigger the associated effect
+                    StatusDict[targetStatus].StatusValue -= 5;
+
+                    // If status cleared to zero, remove it so UI and behavior update correctly
+                    if (StatusDict[targetStatus].StatusValue <= 0)
+                    {
+                        ClearStatus(targetStatus);
+                    }
+                    else
+                    {
+                        OnStatusChanged?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
+                    }
+
+                    if (targetStatus == StatusType.Frostbite)
+                    {
+                        // Apply Frozen: 1 turn stun-like status
+                        ApplyStatus(StatusType.Frozen, 1, source);
+                        // Optional FX feedback
+                        if (_characterCanvas != null && FxManager.Instance != null)
+                        {
+                            var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
+                            var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
+                            var fxPos = spawnRoot.position;
+                            FxManager.Instance.PlayFx(spawnRoot, FxType.Frozen, new Vector3(0f,0f,0f));
+                            Debug.Log($"PlayFx Frozen on '{charBase?.name ?? "unknown"}' at position {fxPos}, source {(source!=null?source.name:"null")}");
+                            Debug.Log($"PlayFxAtPosition Frozen at {fxPos} for '{charBase?.name ?? "unknown"}', source {(source!=null?source.name:"null")}");
+                        }
+                        if (AudioManager.Instance != null)
+                            AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Frozen, 0.2f);
+                    }
+                    else
+                    {
+                        // Combustion: deal 5x Proficiency to all enemies and apply 1 Burning to each (can chain)
+                        var proficiency = GameManager.Instance.PersistentGameplayData.proficiency;
+                        // Use the status 'source' (owner) for Strength; fallback to this character if none
+                        var ownerChar = source ?? (_characterCanvas != null ? _characterCanvas.GetComponentInParent<CharacterBase>() : null);
+                        var strengthAmount = 0;
+                        if (ownerChar != null)
+                            strengthAmount = ownerChar.CharacterStats.StatusDict[StatusType.Strength].StatusValue;
+
+                        var damage = Mathf.RoundToInt(strengthAmount + proficiency * 5);
+                        var combatManager = CombatManager.Instance;
+                        if (combatManager != null)
+                        {
+                            // Iterate a snapshot to avoid collection-modified exceptions when enemies die during the loop
+                            foreach (var enemy in combatManager.CurrentEnemiesList.ToList())
+                            {
+                                if (enemy == null || enemy.CharacterStats.IsDeath) continue;
+                                // Apply 1 Burning to each enemy (this may chain combustions via ApplyStatus)
+                                enemy.CharacterStats.ApplyStatus(StatusType.Burning, 1, ownerChar);
+                                // Deal damage (unblockable) using owner's strength as part of the formula
+                                enemy.CharacterStats.Damage(damage, true, "red", ownerChar);
+                                Debug.Log($"Combustion dealing {damage} (Strength={strengthAmount}, Prof={proficiency}) to {enemy.name} from owner {(ownerChar!=null?ownerChar.name:"null")}");
+                                // Play per-enemy combustion FX
+                                if (FxManager.Instance != null)
+                                {
+                                    var enemyBase = enemy.GetComponent<CharacterBase>();
+                                    var fxTarget = (enemyBase != null && enemyBase.TextSpawnRoot != null) ? enemyBase.TextSpawnRoot : enemy.transform;
+                                    var fxPos = fxTarget.position;
+                                    FxManager.Instance.PlayFx(fxTarget, FxType.Combustion, new Vector3(0f,0f,0f));
+                                    Debug.Log($"PlayFx Combustion on '{enemy?.name ?? "unknown"}' at {fxPos} source {(ownerChar!=null?ownerChar.name:"null")}");
+                                }
+                            }
+                        }
+                        // Play global combustion audio once
+                        if (AudioManager.Instance != null)
+                            AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Combustion, 0.25f);
+                    }
+                }
+            }
         }
         public void TriggerAllStatus()
         {
@@ -175,14 +273,17 @@ namespace NueGames.NueDeck.Scripts.Characters
             OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
         }
         
-        public void Damage(int value, bool canPierceArmor = false, string damageTextColor = "red")
+        public void Damage(int value, bool canPierceArmor = false, string damageTextColor = "red", NueGames.NueDeck.Scripts.Characters.CharacterBase attacker = null)
         {
             if (IsDeath) return;
             OnTakeDamageAction?.Invoke();
             
             var healthBefore = CurrentHealth;
             var remainingDamage = value;
+            var originalDamage = value;
             var wasBlockedCompletely = false;
+            var wasNullifiedByArmor = false;
+            var blockBefore = 0;
     
             // Armor consumes a single attack instance entirely (if not piercing).
             if (!canPierceArmor)
@@ -198,6 +299,7 @@ namespace NueGames.NueDeck.Scripts.Characters
 
                     // Damage instance is nullified by armor
                     remainingDamage = 0;
+                    wasNullifiedByArmor = true;
 
                     // Play small visual/audio feedback: spawn blue "Nulified!" text and a guard FX
                     if (_characterCanvas != null && FxManager.Instance != null)
@@ -218,7 +320,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                 {
                     if (StatusDict[StatusType.Block].IsActive)
                     {
-                        var blockBefore = StatusDict[StatusType.Block].StatusValue;
+                        blockBefore = StatusDict[StatusType.Block].StatusValue;
                         ApplyStatus(StatusType.Block, -value);
 
                         remainingDamage = 0;
@@ -237,6 +339,62 @@ namespace NueGames.NueDeck.Scripts.Characters
                 }
             }
             
+            // If this target is Frozen and was hit by an attacker (not DOT/status), consume Frozen and apply Shatter effects.
+            if (attacker != null && StatusDict.ContainsKey(StatusType.Frozen) && StatusDict[StatusType.Frozen].IsActive && StatusDict[StatusType.Frozen].StatusValue > 0)
+            {
+                // If armor nullified the attack, consume Frozen and trigger Shatter FX/audio but do not apply extra damage
+                if (wasNullifiedByArmor)
+                {
+                    ClearStatus(StatusType.Frozen);
+                    if (_characterCanvas != null && FxManager.Instance != null)
+                    {
+                        var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
+                        var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
+                        FxManager.Instance.PlayFx(_characterCanvas.transform, FxType.Shatter);
+                        FxManager.Instance.SpawnFloatingTextOrange(spawnRoot, "Shatter Bonus!");
+                    }
+                    if (AudioManager.Instance != null)
+                        AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Shatter, 0.2f);
+                }
+                else
+                {
+                    // If the target had Block, Shatter increases the attack's total damage (before block), potentially causing overflow.
+                    if (blockBefore > 0)
+                    {
+                        var shatterTotal = Mathf.RoundToInt(originalDamage * 1.5f);
+                        var newRemaining = shatterTotal - blockBefore;
+                        if (newRemaining < 0) newRemaining = 0;
+                        remainingDamage = newRemaining;
+
+                        // Also consume any additional block caused by the shatter multiplier so block state is consistent
+                        var extraToConsume = Mathf.Max(0, shatterTotal - originalDamage);
+                        if (extraToConsume > 0)
+                        {
+                            ApplyStatus(StatusType.Block, -extraToConsume);
+                        }
+
+                        // Update wasBlockedCompletely to reflect whether the shatter total was fully absorbed
+                        wasBlockedCompletely = blockBefore >= shatterTotal;
+                    }
+                    else
+                    {
+                        // No block: multiply whatever damage remains
+                        remainingDamage = Mathf.RoundToInt(remainingDamage * 1.5f);
+                    }
+
+                    ClearStatus(StatusType.Frozen);
+                    if (_characterCanvas != null && FxManager.Instance != null)
+                    {
+                        var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
+                        var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
+                        FxManager.Instance.PlayFx(_characterCanvas.transform, FxType.Shatter);
+                        FxManager.Instance.SpawnFloatingTextOrange(spawnRoot, "Shatter Bonus!");
+                    }
+                    if (AudioManager.Instance != null)
+                        AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Shatter, 0.2f);
+                }
+            }
+
             CurrentHealth -= remainingDamage;
             
             if (CurrentHealth <= 0)
@@ -274,11 +432,55 @@ namespace NueGames.NueDeck.Scripts.Characters
             {
                 var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
                 var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
-                FxManager.Instance.SpawnFloatingTextGrey(spawnRoot, value.ToString() + "\nBlocked!");
+                // Calculate how much Block was consumed during this attack (including shatter extra consumption)
+                var finalBlockValue = StatusDict.ContainsKey(StatusType.Block) && StatusDict[StatusType.Block].IsActive ? StatusDict[StatusType.Block].StatusValue : 0;
+                var blockedAmount = blockBefore - finalBlockValue;
+                if (blockedAmount < 0) blockedAmount = 0;
+                FxManager.Instance.SpawnFloatingTextGrey(spawnRoot, blockedAmount.ToString() + "\nBlocked!");
                 AudioManager.Instance.PlayOneShotDebounced(AudioActionType.BlockedHit, 0f);
             }
             
             OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
+
+            // Reactive statuses: if this character had a FrozenMirror or BlazingSurge reflect active, apply the effects to attacker
+            if (attacker != null)
+            {
+                // Apply 1 Frostbite to the attacker if FrozenMirror is active
+                if (StatusDict.ContainsKey(StatusType.FrozenMirror) && StatusDict[StatusType.FrozenMirror].IsActive && StatusDict[StatusType.FrozenMirror].StatusValue > 0)
+                {
+                    var ownerChar = _characterCanvas != null ? _characterCanvas.GetComponentInParent<CharacterBase>() : null;
+                    attacker.CharacterStats.ApplyStatus(StatusType.Frostbite, 1, ownerChar);
+                    // Play the mirrored effect on attacker
+                    if (FxManager.Instance != null)
+                    {
+                        var attackerBase = attacker.GetComponent<CharacterBase>();
+                        var attackerSpawn = (attackerBase != null && attackerBase.TextSpawnRoot != null) ? attackerBase.TextSpawnRoot : attacker.transform;
+                        var pos = attackerSpawn.position;
+                        FxManager.Instance.PlayFx(attackerSpawn, FxType.FrozenMirror2, new Vector3(0f,0f,0f));
+                        Debug.Log($"PlayFx FrozenMirror2 on attacker '{attacker.name}' at position {pos}");
+                      
+                    }
+                    AudioManager.Instance.PlayOneShotDebounced(AudioActionType.FrozenMirror2, 0f);
+                }
+
+                // Apply 1 Burning to the attacker if BlazingSurge is active
+                if (StatusDict.ContainsKey(StatusType.BlazingSurge) && StatusDict[StatusType.BlazingSurge].IsActive && StatusDict[StatusType.BlazingSurge].StatusValue > 0)
+                {
+                    var ownerChar = _characterCanvas != null ? _characterCanvas.GetComponentInParent<CharacterBase>() : null;
+                    attacker.CharacterStats.ApplyStatus(StatusType.Burning, 1, ownerChar);
+                    // Play the mirrored effect on attacker
+                    if (FxManager.Instance != null)
+                    {
+                        var attackerBase = attacker.GetComponent<CharacterBase>();
+                        var attackerSpawn = (attackerBase != null && attackerBase.TextSpawnRoot != null) ? attackerBase.TextSpawnRoot : attacker.transform;
+                        var pos2 = attackerSpawn.position;
+                        FxManager.Instance.PlayFx(attackerSpawn, FxType.BlazingSurge2, new Vector3(0f,0f,0f));
+                        Debug.Log($"PlayFx BlazingSurge2 on attacker '{attacker.name}' at position {pos2}");
+                        
+                    }
+                    AudioManager.Instance.PlayOneShotDebounced(AudioActionType.BlazingSurge2, 0f);
+                }
+            }
         }
         
         public void IncreaseMaxHealth(int value)
@@ -382,7 +584,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                 // Also spawn red floating text showing the bleed damage amount at the character's text spawn root
                 var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
                 var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
-                FxManager.Instance.SpawnFloatingText(spawnRoot, bleedAmount.ToString());
+              //  FxManager.Instance.SpawnFloatingText(spawnRoot, bleedAmount.ToString());
             }
 
             // Play bleed sound, debounced to avoid overlapping rapid ticks
@@ -392,6 +594,66 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
 
             Damage(bleedAmount, true);
+        }
+
+        private void DamageFrostbite()
+        {
+            if (StatusDict[StatusType.Frostbite].StatusValue <= 0) return;
+            var stacks = StatusDict[StatusType.Frostbite].StatusValue;
+            var proficiency = GameManager.Instance.PersistentGameplayData.proficiency;
+            var damageFloat = proficiency * FrostbitePercentPerStack * stacks;
+            var damage = Mathf.RoundToInt(damageFloat);
+            // Ensure at least 1 damage per tick if stacks are present
+            if (damage <= 0) damage = 1;
+
+            // Spawn ice/poison FX and text
+            if (_characterCanvas != null && FxManager.Instance != null)
+            {
+                FxManager.Instance.PlayFx(_characterCanvas.transform, FxType.Frostbite);
+                var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
+                var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
+                //FxManager.Instance.SpawnFloatingText(spawnRoot, damage.ToString());
+            }
+
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Frostbite, 0.25f);
+
+            Damage(damage, true);
+        }
+
+        private void DamageBurning()
+        {
+            if (StatusDict[StatusType.Burning].StatusValue <= 0) return;
+            var stacks = StatusDict[StatusType.Burning].StatusValue;
+            var proficiency = GameManager.Instance.PersistentGameplayData.proficiency;
+            var damageFloat = proficiency * BurningPercentPerStack * stacks;
+            var damage = Mathf.RoundToInt(damageFloat);
+            // Ensure at least 1 damage per tick if stacks are present
+            if (damage <= 0) damage = 1;
+
+            if (_characterCanvas != null && FxManager.Instance != null)
+            {
+                FxManager.Instance.PlayFx(_characterCanvas.transform, FxType.Burning);
+                var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
+                var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
+                //FxManager.Instance.SpawnFloatingText(spawnRoot, damage.ToString());
+            }
+
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Burning, 0.25f);
+
+            Damage(damage, true);
+        }
+
+        private void CheckFrozenStatus()
+        {
+            if (StatusDict[StatusType.Frozen].StatusValue <= 0)
+            {
+                IsStunned = false;
+                return;
+            }
+
+            IsStunned = true;
         }
         
         public void CheckStunStatus()

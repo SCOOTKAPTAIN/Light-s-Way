@@ -26,7 +26,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             FxManager.PlayFx(targetCharacter.transform, FxType.FinalGrace2);
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 
-            targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value));
+            targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
 
             // Roll for stun
             if (Random.value < stunChance)

@@ -173,8 +173,35 @@ MonoBehaviour:
     fxPrefab: {fileID: 4931249800145279701, guid: c3af4f35d2268814e88a63e782829d46, type: 3}
   - fxType: 81
     fxPrefab: {fileID: 4931249800145279701, guid: 8a62a9e328268ce4a9850704cc263bc4, type: 3}
+  - fxType: 42
+    fxPrefab: {fileID: 4931249800145279701, guid: 72951d6ddaa8dde499b363eb09c0c0b9, type: 3}
+  - fxType: 97
+    fxPrefab: {fileID: 4931249800145279701, guid: 1a65de669e4bf194fa9d23e7f1f98639, type: 3}
+  - fxType: 99
+    fxPrefab: {fileID: 4931249800145279701, guid: 7e9d29df067083747b8b47512059637b, type: 3}
+  - fxType: 100
+    fxPrefab: {fileID: 4931249800145279701, guid: 6a4b7daaaaa442549a3e77244706083b, type: 3}
+  - fxType: 43
+    fxPrefab: {fileID: 4931249800145279701, guid: ec1be45881809d94f8c02d2cdcc2869b, type: 3}
+  - fxType: 98
+    fxPrefab: {fileID: 4931249800145279701, guid: 8f996fba8986cbe499503091e80e975f, type: 3}
+  - fxType: 101
+    fxPrefab: {fileID: 4931249800145279701, guid: 73714406e2fa97b4488cc9dbe82f7376, type: 3}
+  - fxType: 44
+    fxPrefab: {fileID: 4931249800145279701, guid: 3146211349fcb16488a424d7cdd54f46, type: 3}
+  - fxType: 45
+    fxPrefab: {fileID: 4931249800145279701, guid: 81470776226fc8347878fd94cc9bc8ec, type: 3}
+  - fxType: 46
+    fxPrefab: {fileID: 4931249800145279701, guid: df355fdd397880f488c4317ddaf9bd97, type: 3}
+  - fxType: 86
+    fxPrefab: {fileID: 4931249800145279701, guid: 464d963b8ceeb0849b97623dc3ebeed1, type: 3}
+  - fxType: 47
+    fxPrefab: {fileID: 4931249800145279701, guid: d8befb186d2d5ba40a34e7bd960b83cd, type: 3}
+  - fxType: 85
+    fxPrefab: {fileID: 4931249800145279701, guid: 22f221b45e03f794b82a005df4657bcd, type: 3}
   floatingTextPrefabRed: {fileID: 5875565574366412673, guid: 563cc02ed8f797e498bc5cf11e33e894, type: 3}
   floatingTextPrefabGreen: {fileID: 5875565574366412673, guid: 3ac7e93a64ff77c449b3430cfaacbf1a, type: 3}
   floatingTextPrefabBlue: {fileID: 5875565574366412673, guid: 82a85b92f4e688449be2134a8730df5c, type: 3}
   floatingTextPrefabYellow: {fileID: 5875565574366412673, guid: ff5e71a98d9a7364e9d9fbe0d5a58c35, type: 3}
   floatingTextPrefabGrey: {fileID: 0}
+  floatingTextPrefabOrange: {fileID: 0}

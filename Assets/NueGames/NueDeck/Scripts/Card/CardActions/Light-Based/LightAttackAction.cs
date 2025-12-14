@@ -19,7 +19,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             GameManager.PersistentGameplayData.ChangeLight(-10);
             
             
-            targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value));
+            targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
 
             if (FxManager != null)
             {

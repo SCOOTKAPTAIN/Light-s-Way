@@ -14,7 +14,7 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             var value = Mathf.RoundToInt(actionParameters.Value +
                                          actionParameters.SelfCharacter.CharacterStats.StatusDict[StatusType.Strength]
                                              .StatusValue);
-            actionParameters.TargetCharacter.CharacterStats.Damage(value);
+            actionParameters.TargetCharacter.CharacterStats.Damage(value, false, "red", actionParameters.SelfCharacter);
             if (FxManager != null)
             {
                 FxManager.PlayFx(actionParameters.TargetCharacter.transform,FxType.Attack);
