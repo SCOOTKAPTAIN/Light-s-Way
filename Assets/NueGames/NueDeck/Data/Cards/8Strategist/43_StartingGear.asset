@@ -1,0 +1,166 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6903f06e96c43789549f142f8956d64, type: 3}
+  m_Name: 43_StartingGear
+  m_EditorClassIdentifier: 
+  id: 8_1_StartingGear
+  cardName: Starting Gear
+  manaCost: 1
+  cardSprite: {fileID: -7540723323354791688, guid: 937ee4a85e06f50469130d74e8168dd9, type: 3}
+  rarity: 0
+  usableWithoutTarget: 1
+  exhaustAfterPlay: 1
+  cardActionDataList:
+  - cardActionType: 58
+    actionTargetType: 1
+    actionValue: 11
+    actionDelay: 0
+  removeAfterBattle: 0
+  requiredLight: 0
+  cardDescriptionDataList:
+  - descriptionText: 'Gain one '
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: Random
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: ' effect:\n'
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: ' 1 '
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: Armor
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: ', 2 '
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: Strength
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: ', 2 '
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: Fortitude
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: ' or '
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0.41176474, b: 0.6666667, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 4
+    usePrefixOnModifiedValue: 1
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 1
+  - descriptionText: ' Block'
+    enableOverrideColor: 1
+    overrideColor: {r: 0, g: 0.41176474, b: 0.6666667, a: 1}
+    useModifier: 1
+    modifiedActionValueIndex: 0
+    modiferStats: 4
+    usePrefixOnModifiedValue: 1
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 1
+  - descriptionText: ' Block'
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: '. '
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: Exhaust
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: .
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  specialKeywordsList: 0000000001000000030000000e00000013000000
+  audioType: 53

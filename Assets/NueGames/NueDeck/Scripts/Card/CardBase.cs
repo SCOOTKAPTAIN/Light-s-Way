@@ -64,6 +64,10 @@ namespace NueGames.NueDeck.Scripts.Card
             // Show 0 cost when the player currently has a FreeNextCard status active (QoL overlay)
             var displayCost = CardData.ManaCost;
             var mainAlly = CombatManager?.CurrentMainAlly;
+            // Emergency Dodge: dynamic cost equal to player's maximum mana
+            if (CardData.CardActionDataList != null && CardData.CardActionDataList.Exists(a => a.CardActionType == CardActionType.EmergencyDodge) && GameManager != null)
+                displayCost = GameManager.PersistentGameplayData.MaxMana;
+
             if (mainAlly != null && mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.FreeNextCard) && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].IsActive && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].StatusValue > 0)
                 displayCost = 0;
 
@@ -89,7 +93,11 @@ namespace NueGames.NueDeck.Scripts.Card
             var prevCanSelect = GameManager.PersistentGameplayData.CanSelectCards;
             GameManager.PersistentGameplayData.CanSelectCards = false;
 
-            SpendMana(CardData.ManaCost);
+            // Determine effective cost (Emergency Dodge uses player's MaxMana)
+            var effectiveCost = CardData.ManaCost;
+            if (CardData.CardActionDataList != null && CardData.CardActionDataList.Exists(a => a.CardActionType == CardActionType.EmergencyDodge) && GameManager != null)
+                effectiveCost = GameManager.PersistentGameplayData.MaxMana;
+            SpendMana(effectiveCost);
             // Animate the card to the play anchor (for visual feedback) before running actions.
             Transform playAnchor = CombatManager.playAnchor;
             if (playAnchor == null && CollectionManager != null && CollectionManager.HandController != null)
@@ -257,6 +265,8 @@ namespace NueGames.NueDeck.Scripts.Card
             descTextField.text = CardData.MyDescription;
             var displayCost = CardData.ManaCost;
             var mainAlly = CombatManager?.CurrentMainAlly;
+            if (CardData.CardActionDataList != null && CardData.CardActionDataList.Exists(a => a.CardActionType == CardActionType.EmergencyDodge) && GameManager != null)
+                displayCost = GameManager.PersistentGameplayData.MaxMana;
             if (mainAlly != null && mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.FreeNextCard) && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].IsActive && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].StatusValue > 0)
                 displayCost = 0;
             manaTextField.text = displayCost.ToString();

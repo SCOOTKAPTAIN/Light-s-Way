@@ -24,10 +24,8 @@ MonoBehaviour:
     contentText: WIthout it, the power of your lantern diminishes.
   - specialKeyword: 2
     header: Poison
-    contentText: 'At the end of the turn, take <color=#FFB430>X</color> damage (negated
-      by Block).
-
-      Increase Poison by <color=#FFB430>1</color>.'
+    contentText: At the end of the turn, take <color=#FFB430>X</color> damage (negated
+      by Block) and increase <color=#FFB430>Poison</color> by <color=#FFB430>1</color>.
   - specialKeyword: 3
     header: Exhaust
     contentText: Remove this card from your deck for the rest of the combat.
@@ -47,10 +45,11 @@ MonoBehaviour:
   - specialKeyword: 10
     header: Enlightenment
     contentText: Next card played has it's cost reduced to <color=#FFB430>0</color>.
+      (<color=#FFB430>Unstackable</color>).
   - specialKeyword: 11
     header: Nephilim
     contentText: Refunds 1 <color=#FFB430>Mana</color> and 1 <color=#FFB430>Health</color>
-      when using 2+ cost <color=#FFB430>Mana</color> cards.
+      when using 2+ cost <color=#FFB430>Mana</color> cards. (<color=#FFB430>Unstackable</color>).
   - specialKeyword: 7
     header: Bleeding
     contentText: At the end of the turn, take <color=#FFB430>X</color> Block-ignoring
@@ -77,8 +76,9 @@ MonoBehaviour:
       stacks to inflict <color=#FFB430>Combustion</color>."
   - specialKeyword: 18
     header: Combustion
-    contentText: Deal damage equal to (<color=#FFB430>Strength</color> + 5x <color=#FFB430>Proficiency</color>)
-      and apply 1 <color=#FFB430>Burning</color> to  <color=#FFB430>All</color> enemies.
+    contentText: Deal damage equal to (<color=#FFB430>Strength  + 5x Proficiency</color> 
+      and apply  <color=#FFB430>1 Burning</color> to  <color=#FFB430>All</color>
+      enemies.
   - specialKeyword: 17
     header: Frozen
     contentText: <color=#FFB430>Unable</color> to take action. The next instance
@@ -94,3 +94,18 @@ MonoBehaviour:
   - specialKeyword: 21
     header: Blazing Surge
     contentText: When attacked, apply <color=#FFB430>1 Burning</color> to the attacker.
+  - specialKeyword: 22
+    header: Perfect harmony
+    contentText: <color=#FFB430>"Slash"</color> will apply  <color=#FFB430>1 Burning</color>
+      and  <color=#FFB430>1 Frostbite</color>.
+  - specialKeyword: 23
+    header: Commit
+    contentText: <color=#FFB430>Cost</color> is equal to your  <color=#FFB430>Max
+      Mana</color>.
+  - specialKeyword: 24
+    header: Steady Barricade
+    contentText: At the start of each turn, retain up to <color=#FFB430>10 x X Block</color>.
+  - specialKeyword: 25
+    header: The Mastermind
+    contentText: At the start of each turn, <color=#FFB430>Draw 3 x X  </color> additional
+      cards.

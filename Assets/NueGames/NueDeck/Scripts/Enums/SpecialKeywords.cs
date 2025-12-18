@@ -23,7 +23,11 @@
         Combustion,
         Fortitude,
         FrozenMirror,
-        BlazingSurge
+        BlazingSurge,
+        PerfectHarmony,
+        Commit,
+        SteadyBarricade,
+        TheMastermind
 
 
 

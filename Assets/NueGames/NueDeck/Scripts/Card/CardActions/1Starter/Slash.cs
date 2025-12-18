@@ -17,27 +17,34 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var value = GameManager.PersistentGameplayData.proficiency + actionParameters.Value
              + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue;
 
-            FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.Slash);
+            
               
 
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 
-            targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
+            
 
             // If attacker has Perfect Harmony permanent status, apply 1 Burning and 1 Frostbite
             if (selfCharacter.CharacterStats.StatusDict.ContainsKey(StatusType.PerfectHarmony) && selfCharacter.CharacterStats.StatusDict[StatusType.PerfectHarmony].IsActive)
             {
+                FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.PerfectHarmonySlash);
+                AudioManager.PlayOneShot(AudioActionType.PerfectHarmonySlash);
+                targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
                 targetCharacter.CharacterStats.ApplyStatus(StatusType.Burning, 1, selfCharacter);
                 targetCharacter.CharacterStats.ApplyStatus(StatusType.Frostbite, 1, selfCharacter);
                
+            }
+            else
+            {
+                FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.Slash);
+                AudioManager.PlayOneShot(actionParameters.CardData.AudioType);
+                targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
             }
 
 
           
 
-            if (AudioManager != null)
-                AudioManager.PlayOneShot(actionParameters.CardData.AudioType);
-              
+          
         }
     }
 }

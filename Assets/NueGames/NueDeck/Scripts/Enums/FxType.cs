@@ -51,7 +51,7 @@
         FrozenMirror,
         BlazingSurge,
         PerfectHarmony,
-        FullyGeared,
+        StartingGear,
         EmergencyDodge,
         NotOutOfOptions,
         SteadyBarricade,
@@ -103,7 +103,8 @@
         Combustion,
         Frostbite,
         Burning,
-        Shatter
+        Shatter,
+        PerfectHarmonySlash
 
 
 

@@ -62,7 +62,7 @@
         FrozenMirror,
         BlazingSurge,
         PerfectHarmony,
-        FullyGeared,
+        StartingGear,
         EmergencyDodge,
         NotOutOfOptions,
         SteadyBarricade,

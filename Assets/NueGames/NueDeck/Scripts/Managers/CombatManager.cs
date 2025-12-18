@@ -337,6 +337,12 @@ namespace NueGames.NueDeck.Scripts.Managers
             CollectionManager.DrawPile.Clear();
             CollectionManager.HandPile.Clear();
             CollectionManager.HandController.hand.Clear();
+            // Clear combat-only statuses on allies so temporary effects (eg. Mastermind) are reverted
+            foreach (var allyBase in CurrentAlliesList)
+            {
+                allyBase.CharacterStats.ClearAllStatus();
+            }
+
             UIManager.CombatCanvas.gameObject.SetActive(true);
             UIManager.CombatCanvas.CombatLosePanel.SetActive(true);
         }
@@ -361,7 +367,9 @@ namespace NueGames.NueDeck.Scripts.Managers
             }
             else
             {
-                CurrentMainAlly.CharacterStats.ClearAllStatus();
+                // Clear statuses for all allies so combat-only effects are reverted
+                foreach (var allyBase in CurrentAlliesList)
+                    allyBase.CharacterStats.ClearAllStatus();
                 //GameManager.PersistentGameplayData.CurrentEncounterId++;
                 UIManager.CombatCanvas.gameObject.SetActive(false);
                 UIManager.RewardCanvas.gameObject.SetActive(true);

@@ -164,7 +164,10 @@ namespace NueGames.NueDeck.Scripts.Collection
                         hasFreeNext = true;
                 }
 
-                card.SetInactiveMaterialState(GameManager.PersistentGameplayData.CurrentMana < card.CardData.ManaCost && !hasFreeNext);
+                var requiredMana = card.CardData.ManaCost;
+                if (card.CardData.CardActionDataList != null && card.CardData.CardActionDataList.Exists(a => a.CardActionType == CardActionType.EmergencyDodge) && GameManager != null)
+                    requiredMana = GameManager.PersistentGameplayData.MaxMana;
+                card.SetInactiveMaterialState(GameManager.PersistentGameplayData.CurrentMana < requiredMana && !hasFreeNext);
 
                 var noCardHeld = _heldCard == null; // Whether a card is "held" (outside of hand)
                 var onSelectedCard = noCardHeld && _selected == i;  
@@ -326,7 +329,10 @@ namespace NueGames.NueDeck.Scripts.Collection
                     hasFree = true;
             }
 
-            if (GameManager.PersistentGameplayData.CanUseCards && (GameManager.PersistentGameplayData.CurrentMana >= _heldCard.CardData.ManaCost || hasFree))
+                var heldRequiredMana = _heldCard.CardData.ManaCost;
+                if (_heldCard.CardData.CardActionDataList != null && _heldCard.CardData.CardActionDataList.Exists(a => a.CardActionType == CardActionType.EmergencyDodge) && GameManager != null)
+                    heldRequiredMana = GameManager.PersistentGameplayData.MaxMana;
+                if (GameManager.PersistentGameplayData.CanUseCards && (GameManager.PersistentGameplayData.CurrentMana >= heldRequiredMana || hasFree))
             {
                 var mainRay = _mainCam.ScreenPointToRay(mousePos);
                 var _canUse = false;

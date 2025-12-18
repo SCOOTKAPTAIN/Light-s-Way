@@ -41,7 +41,7 @@ MonoBehaviour:
     overrideColor: {r: 0.8415094, g: 0.08097541, b: 0.1033847, a: 1}
     useModifier: 1
     modifiedActionValueIndex: 0
-    modiferStats: 0
+    modiferStats: 3
     usePrefixOnModifiedValue: 1
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 1

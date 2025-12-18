@@ -24,6 +24,8 @@
         FrozenMirror,
         BlazingSurge,
         PerfectHarmony,
+        SteadyBarricade,
+        Mastermind,
         
 
     }

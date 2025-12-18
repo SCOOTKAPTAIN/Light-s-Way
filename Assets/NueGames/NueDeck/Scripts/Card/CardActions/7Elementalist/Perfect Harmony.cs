@@ -11,11 +11,12 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var selfCharacter = actionParameters.SelfCharacter;
             // Apply permanent PerfectHarmony status for this combat
             selfCharacter.CharacterStats.ApplyStatus(StatusType.PerfectHarmony, 1);
-            // Make it permanent for combat
-            selfCharacter.CharacterStats.StatusDict[StatusType.PerfectHarmony].IsPermanent = true;
+            FxManager.PlayFx(actionParameters.SelfCharacter.transform, FxType.PerfectHarmony,new Vector3(0,0.4f,0));
 
             if (AudioManager != null)
                 AudioManager.PlayOneShot(actionParameters.CardData.AudioType);
+
+               
         }
     }
 }

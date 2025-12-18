@@ -100,6 +100,12 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             StatusDict[StatusType.NoGainMana].DecreaseOverTurn = true;
 
+            // Steady Barricade: persists for the combat; each stack retains +10 Block at turn start
+            StatusDict[StatusType.SteadyBarricade].IsPermanent = true;
+
+            // Mastermind: increases draw count for the combat while active; keep as combat-permanent
+            StatusDict[StatusType.Mastermind].IsPermanent = true;
+
             StatusDict[StatusType.Strength].CanNegativeStack = true;
             StatusDict[StatusType.Fortitude].CanNegativeStack = true;
             
@@ -253,11 +259,31 @@ namespace NueGames.NueDeck.Scripts.Characters
                     }
                 }
             }
+
+            // Special handling: Mastermind increases draw count for the combat while active
+            if (targetStatus == StatusType.Mastermind && value > 0)
+            {
+                var pgd = GameManager.Instance?.PersistentGameplayData;
+                if (pgd != null)
+                {
+                    pgd.DrawCount += value;
+                    Debug.Log($"Mastermind applied: increased draw count by {value} to {pgd.DrawCount}.");
+                }
+            }
         }
         public void TriggerAllStatus()
         {
+            // Evaluate stun state for this turn BEFORE any decrement/clear happens, so stacks map to full turns.
+            var willStunThisTurn =
+                (StatusDict.ContainsKey(StatusType.Stun) && StatusDict[StatusType.Stun].StatusValue > 0) ||
+                (StatusDict.ContainsKey(StatusType.Frozen) && StatusDict[StatusType.Frozen].StatusValue > 0);
+
             for (int i = 0; i < Enum.GetNames(typeof(StatusType)).Length; i++)
                 TriggerStatus((StatusType) i);
+
+            // After processing all statuses (including decrement/clear), lock in the stun state for this turn
+            // based on the pre-decrement snapshot so Stun stacks translate to full skipped turns.
+            IsStunned = willStunThisTurn;
         }
         
         public void SetCurrentHealth(int targetCurrentHealth)
@@ -481,6 +507,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                     AudioManager.Instance.PlayOneShotDebounced(AudioActionType.BlazingSurge2, 0f);
                 }
             }
+
         }
         
         public void IncreaseMaxHealth(int value)
@@ -518,6 +545,18 @@ namespace NueGames.NueDeck.Scripts.Characters
            
         public void ClearStatus(StatusType targetStatus)
         {
+            // If clearing Mastermind, revert the draw bonus it provided
+            if (targetStatus == StatusType.Mastermind && StatusDict[targetStatus].IsActive && StatusDict[targetStatus].StatusValue > 0)
+            {
+                var pgd = GameManager.Instance?.PersistentGameplayData;
+                if (pgd != null)
+                {
+                    pgd.DrawCount -= StatusDict[targetStatus].StatusValue;
+                    if (pgd.DrawCount < 0) pgd.DrawCount = 0;
+                    Debug.Log($"Mastermind cleared: decreased draw count by {StatusDict[targetStatus].StatusValue} to {pgd.DrawCount}.");
+                }
+            }
+
             StatusDict[targetStatus].IsActive = false;
             StatusDict[targetStatus].StatusValue = 0;
             OnStatusCleared?.Invoke(targetStatus);
@@ -533,9 +572,33 @@ namespace NueGames.NueDeck.Scripts.Characters
             //One turn only statuses
             if (StatusDict[targetStatus].ClearAtNextTurn)
             {
-                ClearStatus(targetStatus);
-                OnStatusChanged?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
-                return;
+                // Special behavior for Block: if SteadyBarricade stacks exist, preserve up to 10 * stacks of Block instead of clearing fully
+                if (targetStatus == StatusType.Block && StatusDict.ContainsKey(StatusType.SteadyBarricade) && StatusDict[StatusType.SteadyBarricade].IsActive && StatusDict[StatusType.SteadyBarricade].StatusValue > 0)
+                {
+                    var stacks = StatusDict[StatusType.SteadyBarricade].StatusValue;
+                    var retainCap = stacks * 10;
+                    var currentBlock = StatusDict[StatusType.Block].StatusValue;
+                    var newBlock = Math.Min(currentBlock, retainCap);
+
+                    if (newBlock <= 0)
+                    {
+                        ClearStatus(StatusType.Block);
+                        OnStatusChanged?.Invoke(StatusType.Block, 0);
+                    }
+                    else
+                    {
+                        StatusDict[StatusType.Block].StatusValue = newBlock;
+                        OnStatusChanged?.Invoke(StatusType.Block, newBlock);
+                    }
+
+                    return;
+                }
+                else
+                {
+                    ClearStatus(targetStatus);
+                    OnStatusChanged?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
+                    return;
+                }
             }
             
             //Check status

@@ -23,7 +23,7 @@ MonoBehaviour:
   - cardActionType: 50
     actionTargetType: 4
     actionValue: 2
-    actionDelay: 0.15
+    actionDelay: 0
   - cardActionType: 50
     actionTargetType: 4
     actionValue: 2
