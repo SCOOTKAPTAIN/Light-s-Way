@@ -18,7 +18,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (GameManager.PersistentGameplayData.light < 10)
             {
                 CollectionManager.DrawCards(Mathf.RoundToInt(1));
-                FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.NoLight);
+                FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.NoLight);
                 AudioManager.PlayOneShot(AudioActionType.NoLight);
                 return;
             }
@@ -26,7 +26,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             CollectionManager.DrawCards(Mathf.RoundToInt(1));
             actionParameters.TargetCharacter.CharacterStats.ApplyStatus(StatusType.Stun, Mathf.RoundToInt(1));
             GameManager.PersistentGameplayData.ChangeLight(-10);
-            FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.Flash);
+            FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.Flash);
           
             if (AudioManager != null) 
                 AudioManager.PlayOneShot(actionParameters.CardData.AudioType);

@@ -22,10 +22,10 @@ MonoBehaviour:
   - specialKeyword: 4
     header: Light
     contentText: WIthout it, the power of your lantern diminishes.
-  - specialKeyword: 2
-    header: Poison
-    contentText: At the end of the turn, take <color=#FFB430>X</color> damage (negated
-      by Block) and increase <color=#FFB430>Poison</color> by <color=#FFB430>1</color>.
+  - specialKeyword: 7
+    header: Bleeding
+    contentText: At the end of the turn, take <color=#FFB430>X</color> damage and
+      increase <color=#FFB430>Bleeding</color> by <color=#FFB430>1</color>.
   - specialKeyword: 3
     header: Exhaust
     contentText: Remove this card from your deck for the rest of the combat.
@@ -34,7 +34,7 @@ MonoBehaviour:
     contentText: <color=#FFB430>Unable</color> to take action.
   - specialKeyword: 6
     header: Fragile
-    contentText: "Take <color=#FFB430>X \xD7 5%</color> more damage."
+    contentText: "Take <color=#FFB430>X \xD7 10%</color> more damage."
   - specialKeyword: 8
     header: Pursuit
     contentText: Perform an extra <color=#FFB430>X</color> damage attack when launching
@@ -50,10 +50,9 @@ MonoBehaviour:
     header: Nephilim
     contentText: Refunds 1 <color=#FFB430>Mana</color> and 1 <color=#FFB430>Health</color>
       when using 2+ cost <color=#FFB430>Mana</color> cards. (<color=#FFB430>Unstackable</color>).
-  - specialKeyword: 7
-    header: Bleeding
-    contentText: At the end of the turn, take <color=#FFB430>X</color> Block-ignoring
-      damage.
+  - specialKeyword: 2
+    header: Poison
+    contentText: At the end of the turn, take <color=#FFB430>X Piercing</color> damage.
   - specialKeyword: 12
     header: Bloodletting
     contentText: "Deal bonus damage equal to the target\u2019s <color=#FFB430>Bleeding</color>."
@@ -76,9 +75,8 @@ MonoBehaviour:
       stacks to inflict <color=#FFB430>Combustion</color>."
   - specialKeyword: 18
     header: Combustion
-    contentText: Deal damage equal to (<color=#FFB430>Strength  + 5x Proficiency</color> 
-      and apply  <color=#FFB430>1 Burning</color> to  <color=#FFB430>All</color>
-      enemies.
+    contentText: Deal damage equal to (<color=#FFB430>Strength  + 5x Proficiency</color>
+      and apply <color=#FFB430>1 Burning</color> to <color=#FFB430>All</color> enemies.
   - specialKeyword: 17
     header: Frozen
     contentText: <color=#FFB430>Unable</color> to take action. The next instance
@@ -97,15 +95,34 @@ MonoBehaviour:
   - specialKeyword: 22
     header: Perfect harmony
     contentText: <color=#FFB430>"Slash"</color> will apply  <color=#FFB430>1 Burning</color>
-      and  <color=#FFB430>1 Frostbite</color>.
+      and  <color=#FFB430>1 Frostbite</color>. (<color=#FFB430>Unstackable</color>).
   - specialKeyword: 23
     header: Commit
     contentText: <color=#FFB430>Cost</color> is equal to your  <color=#FFB430>Max
       Mana</color>.
   - specialKeyword: 24
     header: Steady Barricade
-    contentText: At the start of each turn, retain up to <color=#FFB430>10 x X Block</color>.
+    contentText: "At the start of each turn, retain up to <color=#FFB430>10 \xD7
+      X Block</color>."
   - specialKeyword: 25
     header: The Mastermind
-    contentText: At the start of each turn, <color=#FFB430>Draw 3 x X  </color> additional
+    contentText: At the start of each turn, draw <color=#FFB430>X</color> additional
       cards.
+  - specialKeyword: 26
+    header: Weakness
+    contentText: "Deal <color=#FFB430>30%</color> less damage.\nFurther reduced by
+      <color=#FFB430>2% \xD7 X</color>."
+  - specialKeyword: 27
+    header: Judged
+    contentText: Damage taken will ignore <color=#FFB430>Block</color> and <color=#FFB430>Armor</color>.
+  - specialKeyword: 28
+    header: Shield-Plated Blade
+    contentText: "When attacking:\nDeal bonus damage equal to <color=#FFB430>20%
+      \xD7 X Block</color>.\nLose <color=#FFB430>10% \xD7 X Block</color>."
+  - specialKeyword: 29
+    header: Blinded
+    contentText: Cards drawn this turn are <color=#FFB430>Indistinguishable</color>.
+  - specialKeyword: 30
+    header: Sabotaged
+    contentText: When attacking, consume <color=#FFB430>1</color> stack to inflict
+      <color=#FFB430>X</color> damage to self.

@@ -15,14 +15,6 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             if (!newTarget) return;
 
-            var ShieldConverted = Mathf.RoundToInt(newTarget.CharacterStats.StatusDict[StatusType.Block].StatusValue);
-            CombatManager.Instance.SetActionContext("ShieldToStrength", ShieldConverted);
-
-            newTarget.CharacterStats.ClearStatus(StatusType.Block);
-
-
-
-
             if (FxManager != null)
                 FxManager.PlayFx(newTarget.transform, FxType.TheBestDefense, new Vector3(0f, 0.1f, 0f));
             

@@ -20,14 +20,14 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (GameManager.PersistentGameplayData.light < 10)
             {
                 CollectionManager.DrawCards(Mathf.RoundToInt(1));
-                FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.NoLight);
+                FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.NoLight);
                 AudioManager.PlayOneShot(AudioActionType.NoLight);
                 return;
             }
 
             CollectionManager.DrawCards(Mathf.RoundToInt(1));
             GameManager.PersistentGameplayData.ChangeLight(-10);
-            FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.Shine);
+            FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.Shine);
             
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 

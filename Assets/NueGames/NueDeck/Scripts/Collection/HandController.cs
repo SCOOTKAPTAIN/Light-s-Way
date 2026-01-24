@@ -531,6 +531,13 @@ namespace NueGames.NueDeck.Scripts.Collection
                 card.transform.SetParent(transform);
                 card.transform.SetSiblingIndex(index);
             }
+            
+            // If the player has Obscured status active, apply it to the newly added card
+            var combatManager = CombatManager.Instance;
+            if (combatManager != null && combatManager.CurrentMainAlly != null)
+            {
+                combatManager.CurrentMainAlly.CharacterStats.UpdateHandCardsObscuredState();
+            }
         }
 
         /// <summary>

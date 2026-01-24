@@ -33,12 +33,27 @@ namespace NueGames.NueDeck.Scripts.Characters
             CharacterStats.SetCurrentHealth(CharacterStats.CurrentHealth);
             CombatManager.OnAllyTurnStarted += ShowNextAbility;
             CombatManager.OnEnemyTurnStarted += CharacterStats.TriggerAllStatus;
+            
+            // Subscribe to player status changes to update intention value
+            if (CombatManager.CurrentMainAlly != null)
+            {
+                CombatManager.CurrentMainAlly.CharacterStats.OnStatusChangedPublic += OnPlayerStatusChanged;
+            }
+            // Also subscribe to own status changes that affect damage (Strength, Weakness)
+            CharacterStats.OnStatusChangedPublic += OnEnemyStatusChanged;
         }
         protected override void OnDeath()
         {
             base.OnDeath();
             CombatManager.OnAllyTurnStarted -= ShowNextAbility;
             CombatManager.OnEnemyTurnStarted -= CharacterStats.TriggerAllStatus;
+            
+            // Unsubscribe from status change events
+            if (CombatManager.CurrentMainAlly != null)
+            {
+                CombatManager.CurrentMainAlly.CharacterStats.OnStatusChangedPublic -= OnPlayerStatusChanged;
+            }
+            CharacterStats.OnStatusChangedPublic -= OnEnemyStatusChanged;
            
             CombatManager.OnEnemyDeath(this);
             AudioManager.PlayOneShot(DeathSoundProfileData.GetRandomClip());
@@ -52,6 +67,13 @@ namespace NueGames.NueDeck.Scripts.Characters
         private void ShowNextAbility()
         {
             NextAbility = EnemyCharacterData.GetAbility(_usedAbilityCount);
+            
+            // Reset cached action values for all actions in this ability
+            foreach (var action in NextAbility.ActionList)
+            {
+                action.ResetCachedValue();
+            }
+            
             EnemyCanvas.IntentImage.sprite = NextAbility.Intention.IntentionSprite;
             
             if (NextAbility.HideActionValue)
@@ -61,11 +83,70 @@ namespace NueGames.NueDeck.Scripts.Characters
             else
             {
                 EnemyCanvas.NextActionValueText.gameObject.SetActive(true);
-                EnemyCanvas.NextActionValueText.text = NextAbility.ActionList[0].ActionValue.ToString();
+                // Calculate displayed damage including strength, weakness, and target's fragile
+                int displayedDamage = CalculateDisplayedDamage(NextAbility.ActionList[0].ActionValue);
+                EnemyCanvas.NextActionValueText.text = displayedDamage.ToString();
             }
 
             _usedAbilityCount++;
             EnemyCanvas.IntentImage.gameObject.SetActive(true);
+        }
+        
+        /// <summary>
+        /// Calculates the damage that will be displayed in the intention text,
+        /// accounting for enemy Strength, enemy Weakness, and target's Fragile stacks.
+        /// </summary>
+        private int CalculateDisplayedDamage(int baseValue)
+        {
+            var combatManager = CombatManager.Instance;
+            if (combatManager == null || combatManager.CurrentMainAlly == null)
+                return baseValue;
+            
+            var targetCharacter = combatManager.CurrentMainAlly;
+            
+            // Add enemy's Strength to base value
+            var value = baseValue + CharacterStats.StatusDict[StatusType.Strength].StatusValue;
+            
+            // Apply Fragile and Pursuit modifiers based on target's status
+            value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, this, value));
+            
+            return value;
+        }
+        
+        /// <summary>
+        /// Updates the intention damage value when player statuses change (Fragile, Pursuit, etc).
+        /// </summary>
+        private void OnPlayerStatusChanged(StatusType statusType, int value)
+        {
+            // Only update if it's a status that affects damage calculation
+            if (statusType == StatusType.Fragile || statusType == StatusType.Pursuit)
+            {
+                UpdateIntentionValue();
+            }
+        }
+        
+        /// <summary>
+        /// Updates the intention damage value when enemy statuses change (Strength, Weakness, etc).
+        /// </summary>
+        private void OnEnemyStatusChanged(StatusType statusType, int value)
+        {
+            // Only update if it's a status that affects damage calculation
+            if (statusType == StatusType.Strength || statusType == StatusType.Weak)
+            {
+                UpdateIntentionValue();
+            }
+        }
+        
+        /// <summary>
+        /// Updates the displayed intention damage value in real-time.
+        /// </summary>
+        private void UpdateIntentionValue()
+        {
+            if (NextAbility == null || NextAbility.HideActionValue)
+                return;
+            
+            int displayedDamage = CalculateDisplayedDamage(NextAbility.ActionList[0].ActionValue);
+            EnemyCanvas.NextActionValueText.text = displayedDamage.ToString();
         }
         #endregion
         

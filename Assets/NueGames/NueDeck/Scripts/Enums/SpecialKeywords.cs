@@ -27,7 +27,12 @@
         PerfectHarmony,
         Commit,
         SteadyBarricade,
-        TheMastermind
+        TheMastermind,
+        Weakness,
+        Judged,
+        TheBestDefence,
+        Blind,
+        Sabotaged
 
 
 

@@ -19,7 +19,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             
             if (FxManager != null)
             {
-                FxManager.PlayFx(actionParameters.TargetCharacter.transform,FxType.Attack);
+                FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position,FxType.Attack);
                 FxManager.PlayFx(actionParameters.SelfCharacter.transform,FxType.Heal);
                 FxManager.SpawnFloatingText(actionParameters.TargetCharacter.TextSpawnRoot,value.ToString());
             }

@@ -138,6 +138,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         {
             var tooltipManager = TooltipManager.Instance;
             var specialKeywords = new List<SpecialKeywords>();
+            var characterBase = GetComponentInParent<CharacterBase>();
             
             foreach (var statusIcon in StatusDict)
             {
@@ -153,9 +154,21 @@ namespace NueGames.NueDeck.Scripts.Characters
             
             foreach (var specialKeyword in specialKeywords)
             {
-                var specialKeywordData =tooltipManager.SpecialKeywordData.SpecialKeywordBaseList.Find(x => x.SpecialKeyword == specialKeyword);
+                var specialKeywordData = tooltipManager.SpecialKeywordData.SpecialKeywordBaseList.Find(x => x.SpecialKeyword == specialKeyword);
                 if (specialKeywordData != null)
-                    ShowTooltipInfo(tooltipManager,specialKeywordData.GetContent(),specialKeywordData.GetHeader(),descriptionRoot);
+                {
+                    // Get content with dynamic status values if character context is available
+                    string content = characterBase != null 
+                        ? specialKeywordData.GetContentWithStatusValues(characterBase.CharacterStats)
+                        : specialKeywordData.GetContent();
+                    
+                    // Get header with status value if character context is available
+                    string header = characterBase != null
+                        ? specialKeywordData.GetHeaderWithStatusValue(characterBase.CharacterStats)
+                        : specialKeywordData.GetHeader();
+                    
+                    ShowTooltipInfo(tooltipManager, content, header, descriptionRoot);
+                }
             }
             
         }

@@ -39,7 +39,7 @@ MonoBehaviour:
     showValue: 1
     specialKeywords: 05000000
   - iconStatus: 7
-    iconSprite: {fileID: 21300000, guid: 0c8b674cf50332343b354f30b4f09ec1, type: 3}
+    iconSprite: {fileID: 21300000, guid: 4ca64b068a5685e4d85d4a6eb28cc751, type: 3}
     showValue: 1
     specialKeywords: 06000000
   - iconStatus: 8
@@ -98,3 +98,23 @@ MonoBehaviour:
     iconSprite: {fileID: 21300000, guid: 424ea67e16807164d9ed523a1e249d62, type: 3}
     showValue: 1
     specialKeywords: 19000000
+  - iconStatus: 24
+    iconSprite: {fileID: 21300000, guid: a4dda461d4f74b8479de7dd83efe259c, type: 3}
+    showValue: 1
+    specialKeywords: 1a000000
+  - iconStatus: 25
+    iconSprite: {fileID: 21300000, guid: c363cbcd10a575a4883ce141715d340c, type: 3}
+    showValue: 1
+    specialKeywords: 1b000000
+  - iconStatus: 26
+    iconSprite: {fileID: 21300000, guid: 225db496463427f4eba348e976e3a915, type: 3}
+    showValue: 1
+    specialKeywords: 1c000000
+  - iconStatus: 27
+    iconSprite: {fileID: 21300000, guid: 4dddf76d6a5de254c83a5abd13dd2794, type: 3}
+    showValue: 1
+    specialKeywords: 1d000000
+  - iconStatus: 28
+    iconSprite: {fileID: 21300000, guid: 8820b133cfd19db4f94de50ece8198de, type: 3}
+    showValue: 1
+    specialKeywords: 1e000000

@@ -12,17 +12,19 @@ namespace NueGames.NueDeck.Scripts.Characters
         public StatusType StatusType { get; set; }
         public int StatusValue { get; set; }
         public bool DecreaseOverTurn { get; set; } // If true, decrease on turn end
+        public bool TriggerAtTurnEnd { get; set; } // If true, trigger and decrease at turn end instead of turn start
         public bool IsPermanent { get; set; } // If true, status can not be cleared during combat
         public bool IsActive { get; set; }
         public bool CanNegativeStack { get; set; }
         public bool ClearAtNextTurn { get; set; }
         
         public Action OnTriggerAction;
-        public StatusStats(StatusType statusType,int statusValue,bool decreaseOverTurn = false, bool isPermanent = false,bool isActive = false,bool canNegativeStack = false,bool clearAtNextTurn = false)
+        public StatusStats(StatusType statusType,int statusValue,bool decreaseOverTurn = false, bool isPermanent = false,bool isActive = false,bool canNegativeStack = false,bool clearAtNextTurn = false, bool triggerAtTurnEnd = false)
         {
             StatusType = statusType;
             StatusValue = statusValue;
             DecreaseOverTurn = decreaseOverTurn;
+            TriggerAtTurnEnd = triggerAtTurnEnd;
             IsPermanent = isPermanent;
             IsActive = isActive;
             CanNegativeStack = canNegativeStack;
@@ -39,11 +41,14 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusType.Stun,
             StatusType.Frozen,
             StatusType.Fragile,
+            StatusType.Weak,
             StatusType.Bleeding,
             StatusType.Frostbite,
             StatusType.Burning,
             StatusType.NoDraw,
-            StatusType.NoGainMana
+            StatusType.NoGainMana,
+            StatusType.Judged,
+            StatusType.Obscured
         };
         private const float FrostbitePercentPerStack = 0.25f; // 25% proficiency per stack
         private const float BurningPercentPerStack = 0.25f; // 25% proficiency per stack
@@ -59,8 +64,10 @@ namespace NueGames.NueDeck.Scripts.Characters
         private readonly Action<StatusType> OnStatusCleared;
         public Action OnHealAction;
         public Action OnTakeDamageAction;
-    // Invoked when shield (Block) is gained. Passes the positive delta amount.
-    public Action<int> OnShieldGained;
+        // Public event for status changes that external systems can subscribe to
+        public Action<StatusType, int> OnStatusChangedPublic;
+        // Invoked when shield (Block) is gained. Passes the positive delta amount.
+        public Action<int> OnShieldGained;
         
     public readonly Dictionary<StatusType, StatusStats> StatusDict = new Dictionary<StatusType, StatusStats>();
 
@@ -89,6 +96,9 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             StatusDict[StatusType.Poison].DecreaseOverTurn = true;
             StatusDict[StatusType.Poison].OnTriggerAction += DamagePoison;
+            // Poison should trigger at turn end so it can be blocked by Block gained during the turn
+            StatusDict[StatusType.Poison].TriggerAtTurnEnd = true;
+           
 
             StatusDict[StatusType.Block].ClearAtNextTurn = true;
 
@@ -112,9 +122,12 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.Stun].DecreaseOverTurn = true;
             StatusDict[StatusType.Stun].OnTriggerAction += CheckStunStatus;
 
-            StatusDict[StatusType.Bleeding].DecreaseOverTurn = true;
             StatusDict[StatusType.Bleeding].OnTriggerAction += DamageBleeding;
             StatusDict[StatusType.Bleeding].CanNegativeStack = false;
+            // Bleeding should trigger at turn end so it can be blocked by Block gained during the turn
+            StatusDict[StatusType.Bleeding].TriggerAtTurnEnd = true;
+           
+            StatusDict[StatusType.Judged].DecreaseOverTurn = true;
 
             StatusDict[StatusType.Pursuit].DecreaseOverTurn = true;
 
@@ -134,6 +147,19 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Frozen: a separate stun-like status for 1 turn; will be checked at turn triggers
             StatusDict[StatusType.Frozen].DecreaseOverTurn = true;
             StatusDict[StatusType.Frozen].OnTriggerAction += CheckFrozenStatus;
+
+            StatusDict[StatusType.Fragile].DecreaseOverTurn = true;
+            // Fragile should trigger/clear at turn end so it persists through an enemy's attack
+            StatusDict[StatusType.Fragile].TriggerAtTurnEnd = true;
+
+            StatusDict[StatusType.Weak].DecreaseOverTurn = true;
+            // Weakness should trigger/clear at turn end so it reduces an enemy's attack before decrementing
+            StatusDict[StatusType.Weak].TriggerAtTurnEnd = true;
+            
+            // Obscured: debuff that should trigger/clear at turn end, not turn start
+            StatusDict[StatusType.Obscured].TriggerAtTurnEnd = true;
+            StatusDict[StatusType.Obscured].DecreaseOverTurn = true;
+
             
         }
         #endregion
@@ -167,6 +193,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             {
                 StatusDict[targetStatus].StatusValue += value;
                 OnStatusChanged?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
+                OnStatusChangedPublic?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
                 
             }
             else
@@ -174,6 +201,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                 StatusDict[targetStatus].StatusValue = value;
                 StatusDict[targetStatus].IsActive = true;
                 OnStatusApplied?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
+                OnStatusChangedPublic?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
             }
 
             // If this was Block, notify listeners about positive net gains
@@ -270,6 +298,54 @@ namespace NueGames.NueDeck.Scripts.Characters
                     Debug.Log($"Mastermind applied: increased draw count by {value} to {pgd.DrawCount}.");
                 }
             }
+            
+            // Special handling: Obscured status obscures all cards in hand
+            if (targetStatus == StatusType.Obscured)
+            {
+                var collectionManager = CollectionManager.Instance;
+                if (collectionManager != null && collectionManager.HandController != null && collectionManager.HandController.hand != null)
+                {
+                    bool isObscured = StatusDict[StatusType.Obscured].StatusValue > 0;
+                    foreach (var card in collectionManager.HandController.hand)
+                    {
+                        if (card != null)
+                            card.SetObscuredState(isObscured);
+                    }
+                }
+            }
+        }
+        
+        public void OnObscuredStatusChanged()
+        {
+            // Called when Obscured status changes to update card visibility
+            var collectionManager = CollectionManager.Instance;
+            if (collectionManager != null && collectionManager.HandController != null && collectionManager.HandController.hand != null)
+            {
+                bool isObscured = StatusDict[StatusType.Obscured].StatusValue > 0;
+                foreach (var card in collectionManager.HandController.hand)
+                {
+                    if (card != null)
+                        card.SetObscuredState(isObscured);
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Updates all cards currently in hand with the Obscured status state.
+        /// Call this when cards are drawn to ensure they respect any active Obscured status.
+        /// </summary>
+        public void UpdateHandCardsObscuredState()
+        {
+            var collectionManager = CollectionManager.Instance;
+            if (collectionManager != null && collectionManager.HandController != null && collectionManager.HandController.hand != null)
+            {
+                bool isObscured = StatusDict[StatusType.Obscured].StatusValue > 0;
+                foreach (var card in collectionManager.HandController.hand)
+                {
+                    if (card != null)
+                        card.SetObscuredState(isObscured);
+                }
+            }
         }
         public void TriggerAllStatus()
         {
@@ -279,11 +355,32 @@ namespace NueGames.NueDeck.Scripts.Characters
                 (StatusDict.ContainsKey(StatusType.Frozen) && StatusDict[StatusType.Frozen].StatusValue > 0);
 
             for (int i = 0; i < Enum.GetNames(typeof(StatusType)).Length; i++)
-                TriggerStatus((StatusType) i);
+            {
+                var statusType = (StatusType)i;
+                // Skip turn-end statuses - they'll be handled in TriggerEndOfTurnStatuses()
+                if (StatusDict[statusType].TriggerAtTurnEnd)
+                    continue;
+                    
+                TriggerStatus(statusType);
+            }
 
             // After processing all statuses (including decrement/clear), lock in the stun state for this turn
             // based on the pre-decrement snapshot so Stun stacks translate to full skipped turns.
             IsStunned = willStunThisTurn;
+        }
+        
+        /// <summary>
+        /// Triggers statuses that should activate at the END of a turn (e.g., Obscured).
+        /// Call this at the end of a turn before transitioning to the next character's turn.
+        /// </summary>
+        public void TriggerEndOfTurnStatuses()
+        {
+            for (int i = 0; i < Enum.GetNames(typeof(StatusType)).Length; i++)
+            {
+                var statusType = (StatusType)i;
+                if (StatusDict[statusType].TriggerAtTurnEnd)
+                    TriggerStatus(statusType);
+            }
         }
         
         public void SetCurrentHealth(int targetCurrentHealth)
@@ -311,55 +408,61 @@ namespace NueGames.NueDeck.Scripts.Characters
             var wasNullifiedByArmor = false;
             var blockBefore = 0;
     
-            // Armor consumes a single attack instance entirely (if not piercing).
-            if (!canPierceArmor)
+            // Check if target has Judged status - if so, bypass Block and Armor entirely
+            bool hasJudged = StatusDict.ContainsKey(StatusType.Judged) && StatusDict[StatusType.Judged].IsActive && StatusDict[StatusType.Judged].StatusValue > 0;
+            
+            if (!hasJudged)
             {
-                if (StatusDict.ContainsKey(StatusType.Armor) && StatusDict[StatusType.Armor].IsActive && StatusDict[StatusType.Armor].StatusValue > 0)
+                // Armor consumes a single attack instance entirely (if not piercing).
+                if (!canPierceArmor)
                 {
-                    // Consume one armor stack and cancel damage
-                    StatusDict[StatusType.Armor].StatusValue--;
-                    if (StatusDict[StatusType.Armor].StatusValue <= 0)
-                        ClearStatus(StatusType.Armor);
-                    else
-                        OnStatusChanged?.Invoke(StatusType.Armor, StatusDict[StatusType.Armor].StatusValue);
-
-                    // Damage instance is nullified by armor
-                    remainingDamage = 0;
-                    wasNullifiedByArmor = true;
-
-                    // Play small visual/audio feedback: spawn blue "Nulified!" text and a guard FX
-                    if (_characterCanvas != null && FxManager.Instance != null)
+                    if (StatusDict.ContainsKey(StatusType.Armor) && StatusDict[StatusType.Armor].IsActive && StatusDict[StatusType.Armor].StatusValue > 0)
                     {
-                        var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
-                        var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
-                        FxManager.Instance.SpawnFloatingTextGrey(spawnRoot, "Nulified!");
-                        // Play guard FX
-                    }
+                        // Consume one armor stack and cancel damage
+                        StatusDict[StatusType.Armor].StatusValue--;
+                        if (StatusDict[StatusType.Armor].StatusValue <= 0)
+                            ClearStatus(StatusType.Armor);
+                        else
+                            OnStatusChanged?.Invoke(StatusType.Armor, StatusDict[StatusType.Armor].StatusValue);
 
-                    // Play a debounced guard audio cue to avoid overlapping sounds
-                    if (AudioManager.Instance != null)
-                    {
-                        AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Armor, 0f);
-                    }
-                }
-                else
-                {
-                    if (StatusDict[StatusType.Block].IsActive)
-                    {
-                        blockBefore = StatusDict[StatusType.Block].StatusValue;
-                        ApplyStatus(StatusType.Block, -value);
-
+                        // Damage instance is nullified by armor
                         remainingDamage = 0;
-                        if (StatusDict[StatusType.Block].StatusValue <= 0)
+                        wasNullifiedByArmor = true;
+
+                        // Play small visual/audio feedback: spawn blue "Nulified!" text and a guard FX
+                        if (_characterCanvas != null && FxManager.Instance != null)
                         {
-                            remainingDamage = StatusDict[StatusType.Block].StatusValue * -1;
-                            ClearStatus(StatusType.Block);
+                            var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
+                            var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
+                            FxManager.Instance.SpawnFloatingTextGrey(spawnRoot, "Nulified!");
+                            // Play guard FX
                         }
-                        
-                        // Check if all damage was absorbed by block
-                        if (blockBefore >= value)
+
+                        // Play a debounced guard audio cue to avoid overlapping sounds
+                        if (AudioManager.Instance != null)
                         {
-                            wasBlockedCompletely = true;
+                            AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Armor, 0f);
+                        }
+                    }
+                    else
+                    {
+                        if (StatusDict[StatusType.Block].IsActive)
+                        {
+                            blockBefore = StatusDict[StatusType.Block].StatusValue;
+                            ApplyStatus(StatusType.Block, -value);
+
+                            remainingDamage = 0;
+                            if (StatusDict[StatusType.Block].StatusValue <= 0)
+                            {
+                                remainingDamage = StatusDict[StatusType.Block].StatusValue * -1;
+                                ClearStatus(StatusType.Block);
+                            }
+                            
+                            // Check if all damage was absorbed by block
+                            if (blockBefore >= value)
+                            {
+                                wasBlockedCompletely = true;
+                            }
                         }
                     }
                 }
@@ -556,6 +659,20 @@ namespace NueGames.NueDeck.Scripts.Characters
                     Debug.Log($"Mastermind cleared: decreased draw count by {StatusDict[targetStatus].StatusValue} to {pgd.DrawCount}.");
                 }
             }
+            
+            // If clearing Obscured, remove the overlay from all cards
+            if (targetStatus == StatusType.Obscured)
+            {
+                var collectionManager = CollectionManager.Instance;
+                if (collectionManager != null && collectionManager.HandController != null && collectionManager.HandController.hand != null)
+                {
+                    foreach (var card in collectionManager.HandController.hand)
+                    {
+                        if (card != null)
+                            card.SetObscuredState(false);
+                    }
+                }
+            }
 
             StatusDict[targetStatus].IsActive = false;
             StatusDict[targetStatus].StatusValue = 0;
@@ -656,7 +773,13 @@ namespace NueGames.NueDeck.Scripts.Characters
                 AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Bleed, 0.25f);
             }
 
-            Damage(bleedAmount, true);
+            // Bleeding damage is blockable (canPierceArmor = false)
+            Damage(bleedAmount, false);
+
+             // Increase Bleeding by 1 stack before dealing damage
+            StatusDict[StatusType.Bleeding].StatusValue++;
+            OnStatusChanged?.Invoke(StatusType.Bleeding, StatusDict[StatusType.Bleeding].StatusValue);
+            
         }
 
         private void DamageFrostbite()

@@ -17,7 +17,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var value = GameManager.PersistentGameplayData.proficiency + actionParameters.Value
              + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue;
 
-            FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.FinalGrace);
+            // Play FX at position instead of on transform to prevent FX being destroyed when enemy dies
+            FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.FinalGrace);
               
 
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));

@@ -57,9 +57,32 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [SerializeField] private EnemyActionType actionType;
         [SerializeField] private int minActionValue;
         [SerializeField] private int maxActionValue;
-        public EnemyActionType ActionType => actionType;
-        public int ActionValue => Random.Range(minActionValue,maxActionValue);
         
+        // Cache the rolled value so it stays consistent
+        private int _cachedActionValue = -1;
+        
+        public EnemyActionType ActionType => actionType;
+        public int ActionValue
+        {
+            get
+            {
+                // Roll the value once and cache it for the entire ability execution
+                if (_cachedActionValue == -1)
+                {
+                    _cachedActionValue = Random.Range(minActionValue, maxActionValue + 1);
+                }
+                return _cachedActionValue;
+            }
+        }
+        
+        /// <summary>
+        /// Resets the cached action value for the next ability cycle.
+        /// Call this when a new ability is queued.
+        /// </summary>
+        public void ResetCachedValue()
+        {
+            _cachedActionValue = -1;
+        }
     }
     
     

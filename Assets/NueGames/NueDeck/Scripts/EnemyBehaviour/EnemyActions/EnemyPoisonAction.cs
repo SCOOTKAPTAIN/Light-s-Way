@@ -14,6 +14,10 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             if (!newTarget) return;
             
             newTarget.CharacterStats.ApplyStatus(StatusType.Poison,Mathf.RoundToInt(actionParameters.Value));
+
+            newTarget.CharacterStats.ApplyStatus(StatusType.Weak, Mathf.RoundToInt(actionParameters.Value));
+
+            newTarget.CharacterStats.ApplyStatus(StatusType.Fragile, Mathf.RoundToInt(actionParameters.Value));
             
             if (FxManager != null) 
                 FxManager.PlayFx(newTarget.transform, FxType.Poison);

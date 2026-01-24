@@ -554,6 +554,7 @@ namespace NueGames.NueDeck.Editor
             SelectedCardData.EditExhaustAfterPlay(ExhaustAfterPlay);
             SelectedCardData.EditRemoveAfterBattle(RemoveAfterBattle);
             SelectedCardData.EditRequiredLight(RequiredLight);
+            SelectedCardData.EditRarity(CardRarity);
             SelectedCardData.EditCardActionDataList(CardActionDataList);
             SelectedCardData.EditCardDescriptionDataList(CardDescriptionDataList);
             SelectedCardData.EditSpecialKeywordsList(SpecialKeywordsList);

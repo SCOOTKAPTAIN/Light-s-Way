@@ -14,6 +14,11 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             var value = Mathf.RoundToInt(actionParameters.Value +
                                          actionParameters.SelfCharacter.CharacterStats.StatusDict[StatusType.Strength]
                                              .StatusValue);
+
+            var selfCharacter = actionParameters.SelfCharacter;
+
+            value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(actionParameters.TargetCharacter, selfCharacter, value));
+                                 
             actionParameters.TargetCharacter.CharacterStats.Damage(value, false, "red", actionParameters.SelfCharacter);
             if (FxManager != null)
             {

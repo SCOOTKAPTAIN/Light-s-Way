@@ -14,20 +14,22 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var targetCharacter = actionParameters.TargetCharacter;
             var selfCharacter = actionParameters.SelfCharacter;
 
-            var value = GameManager.PersistentGameplayData.proficiency + actionParameters.Value
-             + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue;
-
+            var proficiency = GameManager.PersistentGameplayData.proficiency;
+            var cardValue = actionParameters.Value;
+            var strengthValue = selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue;
             
-              
+            var value = proficiency + cardValue + strengthValue;
+            
+            Debug.Log($"[Slash] Proficiency: {proficiency} + CardValue: {cardValue} + Strength: {strengthValue} = {value}");
 
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
-
             
+            Debug.Log($"[Slash] After ApplyFragileAndPursuit: {value}");
 
             // If attacker has Perfect Harmony permanent status, apply 1 Burning and 1 Frostbite
             if (selfCharacter.CharacterStats.StatusDict.ContainsKey(StatusType.PerfectHarmony) && selfCharacter.CharacterStats.StatusDict[StatusType.PerfectHarmony].IsActive)
             {
-                FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.PerfectHarmonySlash);
+                FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.PerfectHarmonySlash);
                 AudioManager.PlayOneShot(AudioActionType.PerfectHarmonySlash);
                 targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
                 targetCharacter.CharacterStats.ApplyStatus(StatusType.Burning, 1, selfCharacter);
@@ -36,15 +38,10 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             }
             else
             {
-                FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.Slash);
+                FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.Slash);
                 AudioManager.PlayOneShot(actionParameters.CardData.AudioType);
                 targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
             }
-
-
-          
-
-          
         }
     }
 }

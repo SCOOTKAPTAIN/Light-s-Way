@@ -24,6 +24,7 @@ namespace NueGames.NueDeck.Scripts.Card
         [SerializeField] protected Transform descriptionRoot;
         [SerializeField] protected Image cardImage;
         [SerializeField] protected Image passiveImage;
+        [SerializeField] protected Image obscuredOverlay;
         [SerializeField] protected TextMeshProUGUI nameTextField;
         [SerializeField] protected TextMeshProUGUI descTextField;
         [SerializeField] protected TextMeshProUGUI manaTextField;
@@ -45,6 +46,7 @@ namespace NueGames.NueDeck.Scripts.Card
         protected CollectionManager CollectionManager => CollectionManager.Instance;
         
         public bool IsExhausted { get; private set; }
+        public bool IsObscured { get; private set; }
 
         #endregion
         
@@ -258,6 +260,15 @@ namespace NueGames.NueDeck.Scripts.Card
             passiveImage.gameObject.SetActive(isInactive);
         }
         
+        public virtual void SetObscuredState(bool isObscured)
+        {
+            IsObscured = isObscured;
+            if (obscuredOverlay != null)
+            {
+                obscuredOverlay.gameObject.SetActive(isObscured);
+            }
+        }
+        
         public virtual void UpdateCardText()
         {
             CardData.UpdateDescription();
@@ -368,13 +379,28 @@ namespace NueGames.NueDeck.Scripts.Card
         {
             if (!descriptionRoot) return;
             if (CardData.KeywordsList.Count<=0) return;
+            if (IsObscured) return; // Don't show tooltips when card is obscured
            
             var tooltipManager = TooltipManager.Instance;
+            var mainAlly = CombatManager?.CurrentMainAlly;
+            
             foreach (var cardDataSpecialKeyword in CardData.KeywordsList)
             {
                 var specialKeyword = tooltipManager.SpecialKeywordData.SpecialKeywordBaseList.Find(x=>x.SpecialKeyword == cardDataSpecialKeyword);
                 if (specialKeyword != null)
-                    ShowTooltipInfo(tooltipManager,specialKeyword.GetContent(),specialKeyword.GetHeader(),descriptionRoot,CursorType.Default,CollectionManager ? CollectionManager.HandController.cam : Camera.main);
+                {
+                    // Get content with dynamic status values if character context is available
+                    string content = mainAlly != null 
+                        ? specialKeyword.GetContentWithStatusValues(mainAlly.CharacterStats)
+                        : specialKeyword.GetContent();
+                    
+                    // Get header with status value if character context is available
+                    string header = mainAlly != null
+                        ? specialKeyword.GetHeaderWithStatusValue(mainAlly.CharacterStats)
+                        : specialKeyword.GetHeader();
+                    
+                    ShowTooltipInfo(tooltipManager, content, header, descriptionRoot, CursorType.Default, CollectionManager ? CollectionManager.HandController.cam : Camera.main);
+                }
             }
         }
         public virtual void ShowTooltipInfo(TooltipManager tooltipManager, string content, string header = "", Transform tooltipStaticTransform = null, CursorType targetCursor = CursorType.Default,Camera cam = null, float delayShow =0)

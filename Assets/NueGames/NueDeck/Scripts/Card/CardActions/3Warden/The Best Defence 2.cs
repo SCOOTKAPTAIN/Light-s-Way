@@ -15,25 +15,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             if (!newTarget) return;
 
-            int convertedBlock = 0;
-            if (CombatManager.Instance.TryConsumeActionContext<int>("ShieldToStrength", out var storedConverted))
-            {
-                convertedBlock = storedConverted;
-            }
-            else
-            {
-                convertedBlock = Mathf.RoundToInt(actionParameters.Value);
-            }
-
-            var strengthToGrant = Mathf.RoundToInt(convertedBlock * 0.3f);
-            if (strengthToGrant > 0)
-            {
-                newTarget.CharacterStats.ApplyStatus(StatusType.Strength, strengthToGrant);
-            }
-
-            
-
-
+            // Apply "The Best Defence" status
+            newTarget.CharacterStats.ApplyStatus(StatusType.TheBestDefense, 1);
 
             if (FxManager != null)
                 FxManager.PlayFx(newTarget.transform, FxType.TheBestDefense2, new Vector3(0f, 0.4f, 0f));

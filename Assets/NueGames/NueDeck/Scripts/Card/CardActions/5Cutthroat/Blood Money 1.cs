@@ -11,7 +11,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
         {
             if (!actionParameters.TargetCharacter) return;
 
-            FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.BloodMoney);
+            FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.BloodMoney);
                        
    
 

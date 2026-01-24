@@ -1,37 +1,46 @@
 fileFormatVersion: 2
-guid: 7521851b7dba727489ccebff38d2c663
+guid: 7838d51bb54f44b4b8d05a119792baa8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7021021172976003893
-    second: Disarm Foe_0
+      213: 4684920748218107292
+    second: Unfair Play 1_0
   - first:
-      213: -8670733560072280239
-    second: Disarm Foe_1
+      213: 8324103369021097494
+    second: Unfair Play 1_1
   - first:
-      213: 1332110685653856707
-    second: Disarm Foe_2
+      213: 8264732274069626553
+    second: Unfair Play 1_2
   - first:
-      213: -1233753749764947149
-    second: Disarm Foe_3
+      213: -8016123966254378444
+    second: Unfair Play 1_3
   - first:
-      213: -8207500595860519609
-    second: Disarm Foe_4
+      213: -7360368394338749699
+    second: Unfair Play 1_4
   - first:
-      213: 844415611621536172
-    second: Disarm Foe_5
+      213: 8286640316453696939
+    second: Unfair Play 1_5
   - first:
-      213: -4473090960546832890
-    second: Disarm Foe_6
+      213: -3072734390119432943
+    second: Unfair Play 1_6
   - first:
-      213: 1327331587831942628
-    second: Disarm Foe_7
+      213: 901605868251158392
+    second: Unfair Play 1_7
   - first:
-      213: 8031069247459290112
-    second: Disarm Foe_8
+      213: 5324373295326862853
+    second: Unfair Play 1_8
   - first:
-      213: -1252675825385182171
-    second: Disarm Foe_9
+      213: -43509783010720756
+    second: Unfair Play 1_9
+  - first:
+      213: -7069811264611550902
+    second: Unfair Play 1_10
+  - first:
+      213: -5023833305963095829
+    second: Unfair Play 1_11
+  - first:
+      213: -4919428636235305373
+    second: Unfair Play 1_12
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -127,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Disarm Foe_0
+      name: Unfair Play 1_0
       rect:
         serializedVersion: 2
-        x: 22
-        y: 270
-        width: 166
-        height: 125
+        x: 71
+        y: 395
+        width: 75
+        height: 68
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 53b2bbfce8daf6160800000000000000
-      internalID: 7021021172976003893
+      spriteID: c95c566499e240140800000000000000
+      internalID: 4684920748218107292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Disarm Foe_1
+      name: Unfair Play 1_1
       rect:
         serializedVersion: 2
-        x: 92
-        y: 34
-        width: 194
-        height: 478
+        x: 178
+        y: 429
+        width: 32
+        height: 83
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,125 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 15765d144cd5ba780800000000000000
-      internalID: -8670733560072280239
+      spriteID: 616822049e7258370800000000000000
+      internalID: 8324103369021097494
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Disarm Foe_2
+      name: Unfair Play 1_2
       rect:
         serializedVersion: 2
-        x: 265
-        y: 264
-        width: 126
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3c176eb5c9b9c7210800000000000000
-      internalID: 1332110685653856707
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Disarm Foe_3
-      rect:
-        serializedVersion: 2
-        x: 362
-        y: 258
-        width: 83
-        height: 165
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 33344f45083d0eee0800000000000000
-      internalID: -1233753749764947149
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Disarm Foe_4
-      rect:
-        serializedVersion: 2
-        x: 442
-        y: 333
-        width: 58
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7454de971b9191e80800000000000000
-      internalID: -8207500595860519609
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Disarm Foe_5
-      rect:
-        serializedVersion: 2
-        x: 284
-        y: 218
-        width: 35
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ca1fe7d5687f7bb00800000000000000
-      internalID: 844415611621536172
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Disarm Foe_6
-      rect:
-        serializedVersion: 2
-        x: 332
-        y: 175
-        width: 60
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 60e589888736ce1c0800000000000000
-      internalID: -4473090960546832890
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Disarm Foe_7
-      rect:
-        serializedVersion: 2
-        x: 68
+        x: 183
         y: 155
-        width: 58
-        height: 38
+        width: 318
+        height: 340
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,20 +192,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4edc0efeb01ab6210800000000000000
-      internalID: 1327331587831942628
+      spriteID: 9be50aff63a32b270800000000000000
+      internalID: 8264732274069626553
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Disarm Foe_8
+      name: Unfair Play 1_3
       rect:
         serializedVersion: 2
-        x: 321
-        y: 138
-        width: 37
-        height: 54
+        x: 37
+        y: 333
+        width: 73
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -309,20 +213,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 00cef5d1ee6147f60800000000000000
-      internalID: 8031069247459290112
+      spriteID: 43299e359b101c090800000000000000
+      internalID: -8016123966254378444
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Disarm Foe_9
+      name: Unfair Play 1_4
       rect:
         serializedVersion: 2
-        x: 69
-        y: 83
-        width: 36
-        height: 40
+        x: 23
+        y: 125
+        width: 62
+        height: 132
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -330,8 +234,176 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 52c623949f99d9ee0800000000000000
-      internalID: -1252675825385182171
+      spriteID: df23d6731f7bad990800000000000000
+      internalID: -7360368394338749699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_5
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 33
+        width: 126
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba537ab967f000370800000000000000
+      internalID: 8286640316453696939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_6
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 111
+        width: 40
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11dfdcb2a547b55d0800000000000000
+      internalID: -3072734390119432943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_7
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 101
+        width: 39
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8779480a2c5238c00800000000000000
+      internalID: 901605868251158392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_8
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 91
+        width: 40
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50e98876d49f3e940800000000000000
+      internalID: 5324373295326862853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_9
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 82
+        width: 39
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c044467351c656ff0800000000000000
+      internalID: -43509783010720756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_10
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 72
+        width: 39
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a49f5cfbc1cf2ed90800000000000000
+      internalID: -7069811264611550902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_11
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 62
+        width: 40
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be81b43c932c74ab0800000000000000
+      internalID: -5023833305963095829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Unfair Play 1_12
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 42
+        width: 66
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36e6f4738bdaabbb0800000000000000
+      internalID: -4919428636235305373
       vertices: []
       indices: 
       edges: []
@@ -347,16 +419,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Disarm Foe_0: 7021021172976003893
-      Disarm Foe_1: -8670733560072280239
-      Disarm Foe_2: 1332110685653856707
-      Disarm Foe_3: -1233753749764947149
-      Disarm Foe_4: -8207500595860519609
-      Disarm Foe_5: 844415611621536172
-      Disarm Foe_6: -4473090960546832890
-      Disarm Foe_7: 1327331587831942628
-      Disarm Foe_8: 8031069247459290112
-      Disarm Foe_9: -1252675825385182171
+      Unfair Play 1_0: 4684920748218107292
+      Unfair Play 1_1: 8324103369021097494
+      Unfair Play 1_10: -7069811264611550902
+      Unfair Play 1_11: -5023833305963095829
+      Unfair Play 1_12: -4919428636235305373
+      Unfair Play 1_2: 8264732274069626553
+      Unfair Play 1_3: -8016123966254378444
+      Unfair Play 1_4: -7360368394338749699
+      Unfair Play 1_5: 8286640316453696939
+      Unfair Play 1_6: -3072734390119432943
+      Unfair Play 1_7: 901605868251158392
+      Unfair Play 1_8: 5324373295326862853
+      Unfair Play 1_9: -43509783010720756
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

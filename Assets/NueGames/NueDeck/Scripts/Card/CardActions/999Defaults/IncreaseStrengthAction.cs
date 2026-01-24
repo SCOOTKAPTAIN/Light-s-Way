@@ -18,7 +18,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             newTarget.CharacterStats.ApplyStatus(StatusType.Strength,Mathf.RoundToInt(actionParameters.Value));
             
             if (FxManager != null)
-                FxManager.PlayFx(newTarget.transform, FxType.Str);
+                FxManager.PlayFx(newTarget.transform, FxType.InnerStrength);
 
             if (AudioManager != null) 
                 AudioManager.PlayOneShot(actionParameters.CardData.AudioType);

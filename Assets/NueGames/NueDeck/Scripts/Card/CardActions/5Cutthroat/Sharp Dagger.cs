@@ -18,14 +18,14 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
              + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue
              + targetCharacter.CharacterStats.StatusDict[StatusType.Bleeding].StatusValue;
 
-            FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.SharpDagger);
-            FxManager.PlayFx(targetCharacter.transform, FxType.Bleed);
+            FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.SharpDagger);
+            FxManager.PlayFxAtPosition(targetCharacter.transform.position, FxType.Bleed);
 
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
 
-            targetCharacter.CharacterStats.ApplyStatus(StatusType.Bleeding, 2);
+            targetCharacter.CharacterStats.ApplyStatus(StatusType.Bleeding, 1);
 
 
             if (AudioManager != null)

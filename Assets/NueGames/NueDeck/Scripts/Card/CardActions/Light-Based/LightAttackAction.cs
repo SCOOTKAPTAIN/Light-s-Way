@@ -23,7 +23,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             if (FxManager != null)
             {
-                FxManager.PlayFx(actionParameters.TargetCharacter.transform,FxType.Attack);
+                FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position,FxType.Attack);
                 FxManager.SpawnFloatingText(actionParameters.TargetCharacter.TextSpawnRoot,value.ToString());
             }
            

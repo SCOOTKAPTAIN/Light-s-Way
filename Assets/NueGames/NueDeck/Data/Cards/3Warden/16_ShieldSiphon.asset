@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3_5_ShieldSIphon
   cardName: Shield Siphon
-  manaCost: 3
+  manaCost: 4
   cardSprite: {fileID: -3273723934467286461, guid: 38590472344f5764c9172165355719d5, type: 3}
   rarity: 2
   usableWithoutTarget: 0

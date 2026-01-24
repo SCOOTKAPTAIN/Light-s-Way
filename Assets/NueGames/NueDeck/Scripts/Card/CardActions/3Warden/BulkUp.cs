@@ -20,6 +20,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                     .StatusDict[StatusType.Fortitude].StatusValue + (actionParameters.SelfCharacter.CharacterStats
                     .StatusDict[StatusType.Strength].StatusValue * 2)));
 
+
             if (FxManager != null)
                 FxManager.PlayFx(newTarget.transform, FxType.BulkUp);
             

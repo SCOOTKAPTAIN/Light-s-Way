@@ -26,6 +26,11 @@
         PerfectHarmony,
         SteadyBarricade,
         Mastermind,
+        Weak,
+        Judged,
+        TheBestDefense,
+        Obscured,
+        Sabotaged
         
 
     }

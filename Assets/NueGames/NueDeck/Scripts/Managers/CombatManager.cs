@@ -210,6 +210,12 @@ namespace NueGames.NueDeck.Scripts.Managers
         #region Public Methods
         public void EndTurn()
         {
+            // Trigger end-of-turn statuses for the current ally before switching to enemy turn
+            if (CurrentMainAlly != null)
+            {
+                CurrentMainAlly.CharacterStats.TriggerEndOfTurnStatuses();
+            }
+            
             CurrentCombatStateType = CombatStateType.EnemyTurn;
         }
         public void OnAllyDeath(AllyBase targetAlly)
@@ -453,6 +459,14 @@ namespace NueGames.NueDeck.Scripts.Managers
             {
                 if (CurrentCombatStateType != CombatStateType.EndCombat)
                 {
+                    // Trigger end-of-turn statuses for all enemies before switching back to ally turn
+                    // Use a snapshot to avoid "Collection was modified" error if enemies die during status triggers
+                    foreach (var enemy in CurrentEnemiesList.ToList())
+                    {
+                        if (enemy != null)
+                            enemy.CharacterStats.TriggerEndOfTurnStatuses();
+                    }
+                    
                     Debug.Log("EnemyTurnRoutine: enemy turn complete, switching to AllyTurn.");
                     CurrentCombatStateType = CombatStateType.AllyTurn;
                 }

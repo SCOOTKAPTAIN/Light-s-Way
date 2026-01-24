@@ -6,7 +6,7 @@
         Heal,
         Poison,
         Block,
-        Str,
+        Debuff,
         Buff,
         Stun,
         Slash,

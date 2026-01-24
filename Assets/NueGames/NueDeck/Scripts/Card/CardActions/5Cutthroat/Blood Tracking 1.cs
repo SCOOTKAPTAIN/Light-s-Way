@@ -12,8 +12,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
         {
             if (!actionParameters.TargetCharacter) return;
 
-            FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.BloodTracking, new Vector3(0,-0.3f,0));
-            FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.SlowBleed);
+            FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.BloodTracking, new Vector3(0,-0.3f,0));
+            FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.SlowBleed);
                        
    
 

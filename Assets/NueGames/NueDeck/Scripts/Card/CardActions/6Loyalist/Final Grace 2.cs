@@ -23,7 +23,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var stunChance = 0.5f + (pursuitValue * 0.01f); // 50% + (Pursuit * 1%)
             stunChance = Mathf.Clamp01(stunChance); // Cap at 100%
 
-            FxManager.PlayFx(targetCharacter.transform, FxType.FinalGrace2);
+            // Play FX at position instead of on transform to prevent FX being destroyed when enemy dies
+            FxManager.PlayFxAtPosition(targetCharacter.transform.position, FxType.FinalGrace2);
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);

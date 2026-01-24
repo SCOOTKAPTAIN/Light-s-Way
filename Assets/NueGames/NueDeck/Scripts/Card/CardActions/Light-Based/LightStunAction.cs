@@ -19,7 +19,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             if (FxManager != null)
             {
-                FxManager.PlayFx(actionParameters.TargetCharacter.transform,FxType.Stun);
+                FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position,FxType.Stun);
             }
            
             if (AudioManager != null) 

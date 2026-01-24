@@ -16,8 +16,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             
 
-                       FxManager.PlayFx(actionParameters.TargetCharacter.transform, FxType.BloodMoney2);
-            FxManager.PlayFx(targetCharacter.transform, FxType.Bleed);
+                       FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.BloodMoney2);
+            FxManager.PlayFxAtPosition(targetCharacter.transform.position, FxType.Bleed);
                         FxManager.PlayFx(actionParameters.SelfCharacter.transform, FxType.BloodMoney3);
 
                         var bleedValue = targetCharacter.CharacterStats.StatusDict[StatusType.Bleeding].StatusValue;
