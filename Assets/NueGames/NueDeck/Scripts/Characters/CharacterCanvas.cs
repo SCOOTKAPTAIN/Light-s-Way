@@ -25,6 +25,8 @@ namespace NueGames.NueDeck.Scripts.Characters
         [SerializeField] protected StatusIconsData statusIconsData;
         [SerializeField] protected TextMeshProUGUI currentHealthText;
         
+        private Button _statusContainerButton;
+        
         #region Cache
 
         protected Dictionary<StatusType, StatusIconBase> StatusDict = new Dictionary<StatusType, StatusIconBase>();
@@ -53,6 +55,80 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             if (TargetCanvas)
                 TargetCanvas.worldCamera = Camera.main;
+                
+            // Setup status container as clickable button
+            SetupStatusContainerButton();
+        }
+        
+        /// <summary>
+        /// Sets up the status icon root as a clickable button to open status details panel.
+        /// </summary>
+        private void SetupStatusContainerButton()
+        {
+            if (statusIconRoot == null) return;
+            
+            // Add Button component if it doesn't exist
+            _statusContainerButton = statusIconRoot.GetComponent<Button>();
+            if (_statusContainerButton == null)
+            {
+                _statusContainerButton = statusIconRoot.gameObject.AddComponent<Button>();
+            }
+            
+            // Make button transparent (only used for clicking, not visual)
+            _statusContainerButton.transition = Selectable.Transition.None;
+            
+            // Add click listener
+            _statusContainerButton.onClick.AddListener(OnStatusContainerClicked);
+            
+            // Ensure there's an Image component for raycasting (can be invisible)
+            var image = statusIconRoot.GetComponent<Image>();
+            if (image == null)
+            {
+                image = statusIconRoot.gameObject.AddComponent<Image>();
+                image.color = new Color(0, 0, 0, 0); // Fully transparent
+            }
+            
+            // Add EventTrigger for cursor change on hover
+            var eventTrigger = statusIconRoot.GetComponent<UnityEngine.EventSystems.EventTrigger>();
+            if (eventTrigger == null)
+            {
+                eventTrigger = statusIconRoot.gameObject.AddComponent<UnityEngine.EventSystems.EventTrigger>();
+            }
+            
+            // On pointer enter - change to hand cursor (uses default system cursor)
+            var pointerEnter = new UnityEngine.EventSystems.EventTrigger.Entry
+            {
+                eventID = UnityEngine.EventSystems.EventTriggerType.PointerEnter
+            };
+            pointerEnter.callback.AddListener((data) => { Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto); });
+            eventTrigger.triggers.Add(pointerEnter);
+            
+            // On pointer exit - restore default cursor
+            var pointerExit = new UnityEngine.EventSystems.EventTrigger.Entry
+            {
+                eventID = UnityEngine.EventSystems.EventTriggerType.PointerExit
+            };
+            pointerExit.callback.AddListener((data) => { Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto); });
+            eventTrigger.triggers.Add(pointerExit);
+        }
+        
+        /// <summary>
+        /// Called when the status container is clicked - opens the status details panel.
+        /// </summary>
+        private void OnStatusContainerClicked()
+        {
+            var characterBase = GetComponentInParent<CharacterBase>();
+            if (characterBase == null) return;
+            
+            var statusPanel = FindFirstObjectByType<StatusDetailsPanels>(FindObjectsInactive.Include);
+            if (statusPanel != null)
+            {
+                statusPanel.ShowPanel(characterBase);
+            }
+            else
+            {
+                Debug.LogWarning("StatusDetailsPanel not found in scene. Make sure it exists in the UI.");
+            }
         }
 
         #endregion
@@ -75,9 +151,33 @@ namespace NueGames.NueDeck.Scripts.Characters
                 var clone = Instantiate(statusIconsData.StatusIconBasePrefab, statusIconRoot);
                 clone.SetStatus(targetData);
                 StatusDict[targetStatus] = clone;
+                
+                // Sort icons by display priority after adding a new one
+                SortStatusIcons();
             }
 
             StatusDict[targetStatus].SetStatusValue(value);
+        }
+        
+        /// <summary>
+        /// Sorts all active status icons by their display priority.
+        /// Lower priority values appear first (leftmost).
+        /// </summary>
+        private void SortStatusIcons()
+        {
+            // Get all active status icons with their priority
+            var activeIcons = StatusDict
+                .Where(kvp => kvp.Value != null)
+                .Select(kvp => new { Icon = kvp.Value, Priority = kvp.Value.MyStatusIconData.DisplayPriority, StatusType = kvp.Key })
+                .OrderBy(x => x.Priority)
+                .ThenBy(x => (int)x.StatusType) // Secondary sort by enum order if priority is the same
+                .ToList();
+            
+            // Set sibling index to match sorted order
+            for (int i = 0; i < activeIcons.Count; i++)
+            {
+                activeIcons[i].Icon.transform.SetSiblingIndex(i);
+            }
         }
 
         public void ClearStatus(StatusType targetStatus)

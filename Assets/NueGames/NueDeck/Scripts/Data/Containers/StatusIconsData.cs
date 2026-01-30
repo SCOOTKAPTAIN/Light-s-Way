@@ -24,9 +24,16 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
         [SerializeField] private Sprite iconSprite;
         [SerializeField] private bool showValue = true;
         [SerializeField] private List<SpecialKeywords> specialKeywords;
+        
+        [Header("Display Priority")]
+        [Tooltip("Lower number = displayed first (leftmost). 0 = highest priority, 10 = lowest priority. Default is 5.")]
+        [Range(0, 10)]
+        [SerializeField] private int displayPriority = 5;
+        
         public StatusType IconStatus => iconStatus;
         public Sprite IconSprite => iconSprite;
         public bool ShowValue => showValue;
         public List<SpecialKeywords> SpecialKeywords => specialKeywords;
+        public int DisplayPriority => displayPriority;
     }
 }

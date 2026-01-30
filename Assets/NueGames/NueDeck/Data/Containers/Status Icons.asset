@@ -18,103 +18,129 @@ MonoBehaviour:
     iconSprite: {fileID: 21300000, guid: 9abc505eaee83af47a9243045e50de08, type: 3}
     showValue: 1
     specialKeywords: 00000000
-  - iconStatus: 2
-    iconSprite: {fileID: -214828719786938277, guid: a707003c96586cc41b22ae32a9cdb636, type: 3}
-    showValue: 1
-    specialKeywords: 02000000
-  - iconStatus: 3
-    iconSprite: {fileID: 21300000, guid: c32e69ff7233ccf4a89fb3f5631644aa, type: 3}
-    showValue: 1
-    specialKeywords: 01000000
-  - iconStatus: 4
-    iconSprite: {fileID: 21300000, guid: a84449f5ba272e8418f3e89910eca7fb, type: 3}
-    showValue: 1
-    specialKeywords: 13000000
-  - iconStatus: 5
-    iconSprite: {fileID: 21300000, guid: c485cbc1af63bd246a792e41c4d971ff, type: 3}
-    showValue: 1
-    specialKeywords: 05000000
-  - iconStatus: 6
-    iconSprite: {fileID: 21300000, guid: b814f523022834b4eb4ef10d01cf8faf, type: 3}
-    showValue: 1
-    specialKeywords: 05000000
-  - iconStatus: 7
-    iconSprite: {fileID: 21300000, guid: 4ca64b068a5685e4d85d4a6eb28cc751, type: 3}
-    showValue: 1
-    specialKeywords: 06000000
-  - iconStatus: 8
-    iconSprite: {fileID: 21300000, guid: a50c391e67c8141409dc176b7caed3aa, type: 3}
-    showValue: 1
-    specialKeywords: 08000000
-  - iconStatus: 12
-    iconSprite: {fileID: 21300000, guid: 1790c8e0c39db5b4a83b3321505983df, type: 3}
-    showValue: 1
-    specialKeywords: 09000000
-  - iconStatus: 13
-    iconSprite: {fileID: 21300000, guid: bc5c7911c8ad6934a9c78ad7f9df1192, type: 3}
-    showValue: 0
-    specialKeywords: 0a000000
-  - iconStatus: 14
-    iconSprite: {fileID: 21300000, guid: 10484672ed470564d8df4e19401a9580, type: 3}
-    showValue: 0
-    specialKeywords: 0b000000
-  - iconStatus: 9
-    iconSprite: {fileID: 21300000, guid: 4a1bc4d7c95927144978b4d39457a786, type: 3}
-    showValue: 1
-    specialKeywords: 07000000
+    displayPriority: 1
   - iconStatus: 15
     iconSprite: {fileID: 21300000, guid: 25538fc61aae85f488615c83d3ed5d47, type: 3}
     showValue: 1
     specialKeywords: 0e000000
+    displayPriority: 1
+  - iconStatus: 2
+    iconSprite: {fileID: 21300000, guid: 8318f07f051f1064580eb1438eadfe25, type: 3}
+    showValue: 1
+    specialKeywords: 02000000
+    displayPriority: 6
+  - iconStatus: 3
+    iconSprite: {fileID: 21300000, guid: c32e69ff7233ccf4a89fb3f5631644aa, type: 3}
+    showValue: 1
+    specialKeywords: 01000000
+    displayPriority: 3
+  - iconStatus: 4
+    iconSprite: {fileID: 21300000, guid: a84449f5ba272e8418f3e89910eca7fb, type: 3}
+    showValue: 1
+    specialKeywords: 13000000
+    displayPriority: 3
+  - iconStatus: 5
+    iconSprite: {fileID: 21300000, guid: c485cbc1af63bd246a792e41c4d971ff, type: 3}
+    showValue: 1
+    specialKeywords: 05000000
+    displayPriority: 5
+  - iconStatus: 6
+    iconSprite: {fileID: 21300000, guid: b814f523022834b4eb4ef10d01cf8faf, type: 3}
+    showValue: 1
+    specialKeywords: 05000000
+    displayPriority: 5
+  - iconStatus: 7
+    iconSprite: {fileID: 21300000, guid: 4ca64b068a5685e4d85d4a6eb28cc751, type: 3}
+    showValue: 1
+    specialKeywords: 06000000
+    displayPriority: 5
+  - iconStatus: 8
+    iconSprite: {fileID: 21300000, guid: a50c391e67c8141409dc176b7caed3aa, type: 3}
+    showValue: 1
+    specialKeywords: 08000000
+    displayPriority: 4
+  - iconStatus: 12
+    iconSprite: {fileID: 21300000, guid: 1790c8e0c39db5b4a83b3321505983df, type: 3}
+    showValue: 1
+    specialKeywords: 09000000
+    displayPriority: 4
+  - iconStatus: 13
+    iconSprite: {fileID: 21300000, guid: bc5c7911c8ad6934a9c78ad7f9df1192, type: 3}
+    showValue: 0
+    specialKeywords: 0a000000
+    displayPriority: 4
+  - iconStatus: 14
+    iconSprite: {fileID: 21300000, guid: 10484672ed470564d8df4e19401a9580, type: 3}
+    showValue: 0
+    specialKeywords: 0b000000
+    displayPriority: 4
+  - iconStatus: 9
+    iconSprite: {fileID: 21300000, guid: 4a1bc4d7c95927144978b4d39457a786, type: 3}
+    showValue: 1
+    specialKeywords: 07000000
+    displayPriority: 6
   - iconStatus: 16
     iconSprite: {fileID: 21300000, guid: 058baf301abf4034fb7ebb6d87055935, type: 3}
     showValue: 1
     specialKeywords: 0f00000011000000
+    displayPriority: 6
   - iconStatus: 17
     iconSprite: {fileID: 21300000, guid: 45c5a3114bc6e844c80b42934f6711be, type: 3}
     showValue: 1
     specialKeywords: 1000000012000000
+    displayPriority: 6
   - iconStatus: 18
     iconSprite: {fileID: 21300000, guid: e32fcebed33f83447b50d21afe1c98a4, type: 3}
     showValue: 0
     specialKeywords: 11000000
+    displayPriority: 5
   - iconStatus: 19
     iconSprite: {fileID: 21300000, guid: 77367c4da6e59c148b650db9d601ab95, type: 3}
     showValue: 1
     specialKeywords: 14000000
+    displayPriority: 4
   - iconStatus: 20
     iconSprite: {fileID: 21300000, guid: 67b42227683698c4088bfa9d0a32d354, type: 3}
     showValue: 1
     specialKeywords: 15000000
+    displayPriority: 4
   - iconStatus: 21
     iconSprite: {fileID: 21300000, guid: 2e8b87728c5eb9a4386b9574bbd4e8aa, type: 3}
     showValue: 0
     specialKeywords: 16000000
+    displayPriority: 4
   - iconStatus: 22
     iconSprite: {fileID: 21300000, guid: edd9af36c9f18c948a864c8af23efbfa, type: 3}
     showValue: 1
     specialKeywords: 18000000
+    displayPriority: 4
   - iconStatus: 23
     iconSprite: {fileID: 21300000, guid: 424ea67e16807164d9ed523a1e249d62, type: 3}
     showValue: 1
     specialKeywords: 19000000
+    displayPriority: 4
   - iconStatus: 24
     iconSprite: {fileID: 21300000, guid: a4dda461d4f74b8479de7dd83efe259c, type: 3}
     showValue: 1
     specialKeywords: 1a000000
+    displayPriority: 5
   - iconStatus: 25
     iconSprite: {fileID: 21300000, guid: c363cbcd10a575a4883ce141715d340c, type: 3}
     showValue: 1
     specialKeywords: 1b000000
+    displayPriority: 5
   - iconStatus: 26
     iconSprite: {fileID: 21300000, guid: 225db496463427f4eba348e976e3a915, type: 3}
     showValue: 1
     specialKeywords: 1c000000
+    displayPriority: 4
   - iconStatus: 27
     iconSprite: {fileID: 21300000, guid: 4dddf76d6a5de254c83a5abd13dd2794, type: 3}
     showValue: 1
     specialKeywords: 1d000000
+    displayPriority: 6
   - iconStatus: 28
     iconSprite: {fileID: 21300000, guid: 8820b133cfd19db4f94de50ece8198de, type: 3}
     showValue: 1
     specialKeywords: 1e000000
+    displayPriority: 6

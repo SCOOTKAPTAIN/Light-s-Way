@@ -3,198 +3,102 @@ using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
+
+namespace Map
+{
+    public enum EncounterType
+    {
+        Normal,
+        Elite,
+        Boss
+    }
+}
+
 public class EncounterManager : MonoBehaviour
 {
-    
-    public int randomEncounterId;
-
-   public static EncounterManager instance;
+    public static EncounterManager instance;
     protected GameManager GameManager => GameManager.Instance;
 
     private void Awake()
     {
-            if (instance)
-            {
-                Destroy(gameObject);
-                return;              
-            }
-            else
-            {
-                instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
+        if (instance)
+        {
+            Destroy(gameObject);
+            return;              
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
+    /// <summary>
+    /// Unified encounter selector - handles normal, elite, and boss encounters
+    /// </summary>
+    public void SelectEncounter(Map.EncounterType encounterType)
+    {
+        int actNumber = GameManager.PersistentGameplayData.ActNumber;
+        
+        // Use ActNumber directly as StageId (no need for separate tracking)
+        GameManager.PersistentGameplayData.CurrentStageId = actNumber;
+        
+        switch (encounterType)
+        {
+            case Map.EncounterType.Normal:
+                // Random normal encounter for current act
+                int normalEncounterCount = GetEncounterCount(actNumber, false);
+                GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0, normalEncounterCount);
+                GameManager.PersistentGameplayData.IsFinalEncounter = false;
+                break;
+                
+            case Map.EncounterType.Elite:
+                // Elite encounters are at the end of normal encounter list
+                int totalNormalCount = GetEncounterCount(actNumber, false);
+                GameManager.PersistentGameplayData.CurrentEncounterId = totalNormalCount; // Elite is after normal encounters
+                GameManager.PersistentGameplayData.IsFinalEncounter = false;
+                break;
+                
+            case Map.EncounterType.Boss:
+                // Boss encounter
+                GameManager.PersistentGameplayData.CurrentEncounterId = 0; // Bosses use separate list
+                GameManager.PersistentGameplayData.IsFinalEncounter = true;
+                break;
+        }
+        
+        Debug.Log($"Selected {encounterType} encounter for Act {actNumber}, Stage {GameManager.PersistentGameplayData.CurrentStageId}, Encounter {GameManager.PersistentGameplayData.CurrentEncounterId}");
+    }
+    
+    /// <summary>
+    /// Gets the number of encounters available for an act
+    /// </summary>
+    private int GetEncounterCount(int actNumber, bool isBoss)
+    {
+        var encounterStage = GameManager.EncounterData.EnemyEncounterList.Find(x => x.StageId == actNumber);
+        if (encounterStage == null) return 1;
+        
+        return isBoss 
+            ? encounterStage.BossEncounterList.Count 
+            : encounterStage.EnemyEncounterList.Count;
+    }
 
+    #region Legacy Methods (for backwards compatibility)
+    [System.Obsolete("Use SelectEncounter(EncounterType.Normal) instead")]
     public void EncounterSelector()
     {
-        // Stage Values
-        // 0 - start
-        // 1 - Act 1
-        // 2 - Act 1 Boss
-        // 3 - Act 2
-        // 4 - Act 2 Boss
-        // 5 - Act 3
-        // 6 - Act 3 Boss
-        // 7 - Act 4 
-        // 8 - Act 4 Boss
-        // 9 - Final Act
-        // 10 - Final Boss
-        switch(GameManager.PersistentGameplayData.ActNumber)
-        {
-            case 1: // Act 1 Enemies
-            GameManager.PersistentGameplayData.CurrentStageId = 1;
-           GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,1);
-           
-            break;
-
-            case 3:  // Act 2 Enemies
-            GameManager.PersistentGameplayData.CurrentStageId = 3;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,1);
-
-            break;
-
-            case 5: // Act 3 Enemies
-            GameManager.PersistentGameplayData.CurrentStageId = 5;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,2);
-            
-            break;
-
-            case 7: // Act 4 Enemies
-            GameManager.PersistentGameplayData.CurrentStageId = 7;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,2);
-            
-            break;
-          
-            case 9: // Act 5 Enemies
-            GameManager.PersistentGameplayData.CurrentStageId = 9;
-            GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0,2);           
-            break;
-            default:
-             throw new System.ArgumentOutOfRangeException();
-        }
-
+        SelectEncounter(Map.EncounterType.Normal);
     }
 
+    [System.Obsolete("Use SelectEncounter(EncounterType.Elite) instead")]
     public void EliteEncounterSelector()
     {
-        // Stage Values
-        // 0 - start
-        // 1 - Act 1
-        // 2 - Act 1 Boss
-        // 3 - Act 2
-        // 4 - Act 2 Boss
-        // 5 - Act 3
-        // 6 - Act 3 Boss
-        // 7 - Act 4 
-        // 8 - Act 4 Boss
-        // 9 - Final Act
-        // 10 - Final Boss
-        switch(GameManager.PersistentGameplayData.ActNumber)
-        {
-            case 1: // Act 1 Enemies
-            GameManager.PersistentGameplayData.CurrentStageId = 1;
-           GameManager.PersistentGameplayData.CurrentEncounterId = 2;
-           
-            break;
-
-            case 3:  // Act 2 Enemies
-            GameManager.PersistentGameplayData.CurrentStageId = 3;
-            GameManager.PersistentGameplayData.CurrentEncounterId = 2;
-
-            break;
-
-            case 5: // Act 3 Enemies
-            GameManager.PersistentGameplayData.CurrentStageId = 5;
-            GameManager.PersistentGameplayData.CurrentEncounterId = 3;
-            
-            break;
-
-            case 7: // Act 4 Enemies
-            GameManager.PersistentGameplayData.CurrentStageId = 7;
-            GameManager.PersistentGameplayData.CurrentEncounterId = 3;
-            
-            break;
-          
-            case 9: // Act 5 Enemies
-            GameManager.PersistentGameplayData.CurrentStageId = 9;
-            GameManager.PersistentGameplayData.CurrentEncounterId = 3;           
-            break;
-            default:
-             throw new System.ArgumentOutOfRangeException();
-        }
-
+        SelectEncounter(Map.EncounterType.Elite);
     }
 
+    [System.Obsolete("Use SelectEncounter(EncounterType.Boss) instead")]
     public void BossSelector()
     {
-        // Stage Values
-        // 0 - start
-        // 1 - Act 1
-        // 2 - Act 1 Boss
-        // 3 - Act 2
-        // 4 - Act 2 Boss
-        // 5 - Act 3
-        // 6 - Act 3 Boss
-        // 7 - Act 4 
-        // 8 - Act 4 Boss
-        // 9 - Final Act
-        // 10 - Final Boss
-        switch(GameManager.PersistentGameplayData.ActNumber)
-        {
-            
-
-            case 2: // Act 1 Bosses
-            GameManager.PersistentGameplayData.CurrentStageId = 2;
-            GameManager.PersistentGameplayData.CurrentEncounterId = 0;
-            GameManager.PersistentGameplayData.ActNumber++;
-            break;
-          
-
-            case 4: // Act 2 Boss
-            GameManager.PersistentGameplayData.CurrentStageId = 4;
-            GameManager.PersistentGameplayData.CurrentEncounterId = 0;
-            GameManager.PersistentGameplayData.ActNumber++;
-
-            break;
-          
-
-            case 6: // Act 3 Bosses
-            GameManager.PersistentGameplayData.CurrentStageId = 6;
-            GameManager.PersistentGameplayData.CurrentEncounterId = 0;
-            GameManager.PersistentGameplayData.ActNumber++;
-            
-            break;
-          
-
-            case 8: // Act 4 Bosses
-            GameManager.PersistentGameplayData.CurrentStageId = 8;
-            GameManager.PersistentGameplayData.CurrentEncounterId = 0;
-            GameManager.PersistentGameplayData.ActNumber++;
-            
-            break;
-
-
-            case 10: // Act 5 Final Boss
-            GameManager.PersistentGameplayData.CurrentStageId = 10;
-            GameManager.PersistentGameplayData.CurrentEncounterId = 0;
-            GameManager.PersistentGameplayData.ActNumber++;
-            
-            break;
-            default:
-             throw new System.ArgumentOutOfRangeException();
-        }
-
+        SelectEncounter(Map.EncounterType.Boss);
     }
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion
 }

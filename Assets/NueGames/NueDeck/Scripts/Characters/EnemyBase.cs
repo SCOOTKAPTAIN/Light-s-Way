@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Data.Characters;
 using NueGames.NueDeck.Scripts.Data.Containers;
 using NueGames.NueDeck.Scripts.EnemyBehaviour;
@@ -31,6 +32,19 @@ namespace NueGames.NueDeck.Scripts.Characters
             CharacterStats = new CharacterStats(EnemyCharacterData.MaxHealth,EnemyCanvas);
             CharacterStats.OnDeath += OnDeath;
             CharacterStats.SetCurrentHealth(CharacterStats.CurrentHealth);
+            
+            // Apply starting statuses for gimmick enemies
+            if (EnemyCharacterData.StartingStatuses != null && EnemyCharacterData.StartingStatuses.Count > 0)
+            {
+                foreach (var startingStatus in EnemyCharacterData.StartingStatuses)
+                {
+                    if (startingStatus.StatusValue > 0)
+                    {
+                        CharacterStats.ApplyStatus(startingStatus.StatusType, startingStatus.StatusValue);
+                    }
+                }
+            }
+            
             CombatManager.OnAllyTurnStarted += ShowNextAbility;
             CombatManager.OnEnemyTurnStarted += CharacterStats.TriggerAllStatus;
             
@@ -64,9 +78,13 @@ namespace NueGames.NueDeck.Scripts.Characters
         #region Private Methods
 
         private int _usedAbilityCount;
+        private EnemyAbilityData _lastUsedAbility; // Per-instance tracking
+        
         private void ShowNextAbility()
         {
-            NextAbility = EnemyCharacterData.GetAbility(_usedAbilityCount);
+            // Pass the last used ability to prevent repeats (per-instance)
+            NextAbility = EnemyCharacterData.GetAbility(_lastUsedAbility, _usedAbilityCount);
+            _lastUsedAbility = NextAbility; // Update last used ability for this instance
             
             // Reset cached action values for all actions in this ability
             foreach (var action in NextAbility.ActionList)
@@ -217,15 +235,25 @@ namespace NueGames.NueDeck.Scripts.Characters
             var waitFrame = new WaitForEndOfFrame();
             
             var aliveEnemies = CombatManager.CurrentEnemiesList.Where(e => e != null && !e.CharacterStats.IsDeath).ToList();
-            CharacterBase target;
-            if (aliveEnemies.Count == 0)
+            
+            // Check if this ability has AOE actions
+            bool hasAOE = targetAbility.ActionList.Any(a => a.TargetRestriction == EnemyActionTargetType.AllAllies);
+            
+            if (hasAOE)
             {
-                // No alive enemies to buff; default to self to avoid invalid targets.
-                target = this;
+                // AOE ability - target all allies including self
+                yield return StartCoroutine(AOEBuffRoutine(targetAbility, aliveEnemies, waitFrame));
+                yield break;
             }
-            else
+            
+            // Single-target ability - determine valid target based on action restrictions
+            CharacterBase target = GetValidBuffTarget(targetAbility, aliveEnemies);
+            
+            if (target == null)
             {
-                target = aliveEnemies.RandomItem();
+                // No valid target found - skip this ability
+                Debug.LogWarning($"{name} could not find valid target for buff ability '{targetAbility.Name}' - skipping.");
+                yield break;
             }
             
             var startPos = transform.position;
@@ -240,24 +268,86 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Re-evaluate target in case it died while earlier actions ran.
             if (target == null || target.CharacterStats.IsDeath)
             {
-                var fallbackEnemies = CombatManager.CurrentEnemiesList.Where(e => e != null && !e.CharacterStats.IsDeath).ToList();
-                if (fallbackEnemies.Count == 0)
+                target = GetValidBuffTarget(targetAbility, aliveEnemies.Where(e => e != null && !e.CharacterStats.IsDeath).ToList());
+                
+                if (target == null)
                 {
-                    // No valid enemy targets; fallback to self.
-                    Debug.LogWarning($"{name} had no enemy targets to buff — defaulting to self.");
-                    target = this;
+                    Debug.LogWarning($"{name} had no valid targets after target died — skipping ability.");
+                    yield return MoveToTargetRoutine(waitFrame, endPos, startPos, endRot, startRot, 5);
+                    yield break;
                 }
-                else
-                {
-                    target = fallbackEnemies.RandomItem();
-                    Debug.Log($"{name} switched buff target to '{target.name}' because original died.");
-                }
+                
+                Debug.Log($"{name} switched buff target to '{target.name}' because original died.");
             }
 
             targetAbility.ActionList.ForEach(x => EnemyActionProcessor.GetAction(x.ActionType).DoAction(new EnemyActionParameters(x.ActionValue, target, this)));
             
             yield return MoveToTargetRoutine(waitFrame, endPos, startPos, endRot, startRot, 5);
             Debug.Log($"BuffRoutine END for '{name}'");
+        }
+        
+        /// <summary>
+        /// Handles AOE buff actions that affect all allies.
+        /// </summary>
+        protected virtual IEnumerator AOEBuffRoutine(EnemyAbilityData targetAbility, List<EnemyBase> aliveEnemies, WaitForEndOfFrame waitFrame)
+        {
+            var startPos = transform.position;
+            var endPos = startPos + new Vector3(0, 0.2f, 0);
+            var startRot = transform.localRotation;
+            var endRot = transform.localRotation;
+            
+            yield return MoveToTargetRoutine(waitFrame, startPos, endPos, startRot, endRot, 5);
+            
+            Debug.Log($"{name} performing AOE buff on {aliveEnemies.Count} allies.");
+            
+            // Apply actions to all alive enemies
+            foreach (var ally in aliveEnemies)
+            {
+                if (ally == null || ally.CharacterStats.IsDeath) continue;
+                
+                foreach (var action in targetAbility.ActionList)
+                {
+                    EnemyActionProcessor.GetAction(action.ActionType).DoAction(new EnemyActionParameters(action.ActionValue, ally, this));
+                }
+            }
+            
+            yield return MoveToTargetRoutine(waitFrame, endPos, startPos, endRot, startRot, 5);
+            Debug.Log($"AOEBuffRoutine END for '{name}'");
+        }
+        
+        /// <summary>
+        /// Gets a valid target for buff actions based on target restrictions.
+        /// </summary>
+        private CharacterBase GetValidBuffTarget(EnemyAbilityData targetAbility, List<EnemyBase> aliveEnemies)
+        {
+            // Check the most restrictive action in the ability
+            bool hasSelfOnly = targetAbility.ActionList.Any(a => a.TargetRestriction == EnemyActionTargetType.SelfOnly);
+            bool hasAlliesOnly = targetAbility.ActionList.Any(a => a.TargetRestriction == EnemyActionTargetType.AlliesOnly);
+            
+            // If has SelfOnly actions, must target self
+            if (hasSelfOnly)
+            {
+                return this;
+            }
+            
+            // If has AlliesOnly actions, must target allies (not self)
+            if (hasAlliesOnly)
+            {
+                var allies = aliveEnemies.Where(e => e != this).ToList();
+                if (allies.Count == 0)
+                {
+                    Debug.LogWarning($"{name} has AlliesOnly action but no allies available.");
+                    return null;
+                }
+                return allies.RandomItem();
+            }
+            
+            // NoRestriction - can target anyone (self or allies)
+            if (aliveEnemies.Count == 0)
+            {
+                return this;
+            }
+            return aliveEnemies.RandomItem();
         }
         #endregion
         

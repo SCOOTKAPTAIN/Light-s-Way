@@ -1,4 +1,5 @@
 ﻿using System;
+using NueGames.NueDeck.Scripts.Characters;
 using NueGames.NueDeck.Scripts.Data.Containers;
 using NueGames.NueDeck.Scripts.Enums;
 using TMPro;

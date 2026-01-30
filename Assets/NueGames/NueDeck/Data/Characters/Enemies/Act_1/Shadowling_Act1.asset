@@ -20,7 +20,12 @@ MonoBehaviour:
     scared of you than anything.'
   maxHealth: 100
   enemyPrefab: {fileID: 243822687015991123, guid: 8fd2219ea8dcc7e43b4a8c40bf922ba9, type: 3}
-  followAbilityPattern: 0
+  followAbilityPattern: 1
+  useWeightedSelection: 0
+  preventRepeatAbility: 0
+  startingStatuses:
+  - statusType: 15
+    statusValue: 3
   enemyAbilityList:
   - name: Attack Single
     intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
@@ -29,6 +34,8 @@ MonoBehaviour:
     - actionType: 0
       minActionValue: 4
       maxActionValue: 8
+      targetRestriction: 0
+    weight: 1
   - name: Attack Single
     intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
     hideActionValue: 0
@@ -36,3 +43,5 @@ MonoBehaviour:
     - actionType: 3
       minActionValue: 55
       maxActionValue: 60
+      targetRestriction: 3
+    weight: 1

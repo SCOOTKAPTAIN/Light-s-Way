@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8f29259e87442338a016acd10256ddc, type: 3}
-  m_Name: UnfairPlaySoundProfile 1
+  m_Name: SabotagedSoundProfile
   m_EditorClassIdentifier: 
-  audioType: 66
+  audioType: 107
   randomClipList:
-  - {fileID: 8300000, guid: 0c1e34c5afa03c84383d9df5f1ec146c, type: 3}
+  - {fileID: 8300000, guid: ec0d522f5445c564097129d85300e69f, type: 3}

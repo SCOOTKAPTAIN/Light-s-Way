@@ -22,7 +22,7 @@ MonoBehaviour:
   cardActionDataList:
   - cardActionType: 71
     actionTargetType: 0
-    actionValue: 5
+    actionValue: 6
     actionDelay: 0
   removeAfterBattle: 0
   requiredLight: 0

@@ -102,5 +102,36 @@ namespace NueGames.NueDeck.Scripts.Utils
 
             return adjustedValue;
         }
+
+        /// <summary>
+        /// Applies Sabotaged effect: deals damage to attacker equal to Sabotaged value, then reduces it by 1.
+        /// Call this when an enemy is about to attack (before or after dealing damage).
+        /// </summary>
+        public static void ApplySabotaged(CharacterBase attacker)
+        {
+            if (attacker == null) return;
+            
+            // Check if attacker has Sabotaged status
+            if (attacker.CharacterStats.StatusDict.ContainsKey(StatusType.Sabotaged) && 
+                attacker.CharacterStats.StatusDict[StatusType.Sabotaged].IsActive && 
+                attacker.CharacterStats.StatusDict[StatusType.Sabotaged].StatusValue > 0)
+            {
+                var sabotageValue = attacker.CharacterStats.StatusDict[StatusType.Sabotaged].StatusValue;
+                
+                // Deal damage to self (no text color to avoid duplicate text)
+                attacker.CharacterStats.Damage(sabotageValue, false, "", null);
+                
+                // Reduce Sabotaged by 1
+                attacker.CharacterStats.ApplyStatus(StatusType.Sabotaged, -1);
+                
+                // Spawn custom floating text with label and value
+                if (FxManager.Instance != null)
+                    FxManager.Instance.SpawnFloatingTextOrange(attacker.TextSpawnRoot, "Sabotaged!\n" + sabotageValue.ToString());
+                
+                // Play audio
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.PlayOneShot(AudioActionType.Sabotaged);
+            }
+        }
     }
 }

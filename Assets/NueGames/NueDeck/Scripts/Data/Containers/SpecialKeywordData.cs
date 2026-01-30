@@ -95,6 +95,7 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 SpecialKeywords.TheMastermind => StatusType.Mastermind,
                 SpecialKeywords.Weakness => StatusType.Weak,
                 SpecialKeywords.Judged => StatusType.Judged,
+                SpecialKeywords.Sabotaged => StatusType.Sabotaged,
                // SpecialKeywords.TheBestDefence => StatusType.TheBestDefense,
                 _ => StatusType.None
             };

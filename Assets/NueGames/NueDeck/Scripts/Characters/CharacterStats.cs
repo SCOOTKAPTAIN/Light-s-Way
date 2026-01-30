@@ -550,10 +550,14 @@ namespace NueGames.NueDeck.Scripts.Characters
                 var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
                 var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
                 
-                if (damageTextColor == "yellow")
-                    FxManager.Instance.SpawnFloatingTextYellow(spawnRoot, displayDamage.ToString());
-                else
-                    FxManager.Instance.SpawnFloatingText(spawnRoot, displayDamage.ToString());
+                // Only spawn damage text if damageTextColor is specified (not empty/null)
+                if (!string.IsNullOrEmpty(damageTextColor))
+                {
+                    if (damageTextColor == "yellow")
+                        FxManager.Instance.SpawnFloatingTextYellow(spawnRoot, displayDamage.ToString());
+                    else
+                        FxManager.Instance.SpawnFloatingText(spawnRoot, displayDamage.ToString());
+                }
             }
             
             // Show grey blocked number and 'Blocked!' together as one text when damage is fully absorbed by Block
@@ -574,6 +578,16 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Reactive statuses: if this character had a FrozenMirror or BlazingSurge reflect active, apply the effects to attacker
             if (attacker != null)
             {
+                // // If attacker has Sabotaged status, deal damage to self equal to Sabotaged value, then reduce Sabotaged by 1
+                // if (attacker.CharacterStats.StatusDict.ContainsKey(StatusType.Sabotaged) && attacker.CharacterStats.StatusDict[StatusType.Sabotaged].IsActive && attacker.CharacterStats.StatusDict[StatusType.Sabotaged].StatusValue > 0)
+                // {
+                //     var sabotageValue = attacker.CharacterStats.StatusDict[StatusType.Sabotaged].StatusValue;
+                //     attacker.CharacterStats.Damage(sabotageValue, false, "red", null);
+                //     // Reduce Sabotaged by 1
+                //     attacker.CharacterStats.ApplyStatus(StatusType.Sabotaged, -1);
+                // }
+
+
                 // Apply 1 Frostbite to the attacker if FrozenMirror is active
                 if (StatusDict.ContainsKey(StatusType.FrozenMirror) && StatusDict[StatusType.FrozenMirror].IsActive && StatusDict[StatusType.FrozenMirror].StatusValue > 0)
                 {

@@ -20,6 +20,13 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(actionParameters.TargetCharacter, selfCharacter, value));
                                  
             actionParameters.TargetCharacter.CharacterStats.Damage(value, false, "red", actionParameters.SelfCharacter);
+
+            // Apply Sabotaged effect (deals damage to self, then reduces Sabotaged by 1)
+            NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplySabotaged(selfCharacter);
+
+
+
+
             if (FxManager != null)
             {
                 FxManager.PlayFx(actionParameters.TargetCharacter.transform,FxType.Attack);

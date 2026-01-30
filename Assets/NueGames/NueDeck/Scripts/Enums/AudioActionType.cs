@@ -108,7 +108,8 @@
         Frostbite,
         Burning,
         Shatter,
-        PerfectHarmonySlash
+        PerfectHarmonySlash,
+        Sabotaged
         
 
 
