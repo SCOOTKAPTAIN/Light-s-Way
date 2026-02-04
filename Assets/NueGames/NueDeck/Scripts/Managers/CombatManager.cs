@@ -35,6 +35,12 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         public Action OnAllyTurnStarted;
         public Action OnEnemyTurnStarted;
+        
+        /// <summary>
+        /// Light multiplier cached at combat start. Enemies use this value throughout the entire combat.
+        /// Does not update if Light changes mid-combat - only refreshes on next combat.
+        /// </summary>
+        public float CombatLightMultiplier { get; private set; } = 1.0f;
         public List<Transform> EnemyPosList => enemyPosList;
 
         public List<Transform> AllyPosList => allyPosList;
@@ -307,18 +313,55 @@ namespace NueGames.NueDeck.Scripts.Managers
         #region Private Methods
         private void BuildEnemies()
         {
-
-           // EncounterManager.instance.EncounterSelector();
+            // Get encounter type from stored index
+            var encounterType = (Map.EncounterType)GameManager.PersistentGameplayData.CurrentEncounterTypeIndex;
+            
+            // Get specific encounter if CurrentEncounterId is set (for scripted encounters)
+            int specificIndex = GameManager.PersistentGameplayData.CurrentEncounterId;
+            
             CurrentEncounter = GameManager.EncounterData.GetEnemyEncounter(
                 GameManager.PersistentGameplayData.CurrentStageId,
-                GameManager.PersistentGameplayData.CurrentEncounterId,
-                GameManager.PersistentGameplayData.IsFinalEncounter);
-            Debug.Log("Stage =" + GameManager.PersistentGameplayData.CurrentStageId + "Encounter ID = " + GameManager.PersistentGameplayData.CurrentEncounterId);
+                encounterType,
+                specificIndex);
+            
+            if (CurrentEncounter == null)
+            {
+                Debug.LogError($"Failed to get encounter for Stage {GameManager.PersistentGameplayData.CurrentStageId}, Type {encounterType}");
+                return;
+            }
+            
+            Debug.Log($"Building enemies for Stage {GameManager.PersistentGameplayData.CurrentStageId}, Type {encounterType}, Index {specificIndex}");
             
             var enemyList = CurrentEncounter.EnemyList;
+            int currentAct = GameManager.PersistentGameplayData.ActNumber;
+            float mutationChance = Utils.DamageEffects.GetMutationChance();
+            
+            // Cache Light multiplier at combat start - won't update if Light changes mid-combat
+            CombatLightMultiplier = Utils.DamageEffects.GetLightHealthMultiplier();
+            Debug.Log($"[Light Scaling] Combat starting at {GameManager.PersistentGameplayData.light} Light. Multiplier locked at {CombatLightMultiplier}x for this combat.");
+            
             for (var i = 0; i < enemyList.Count; i++)
             {
-                var clone = Instantiate(enemyList[i].EnemyPrefab, EnemyPosList.Count >= i ? EnemyPosList[i] : EnemyPosList[0]);
+                // Check for mutation: each enemy rolls independently
+                var enemyData = enemyList[i];
+                if (enemyData.MutatedVersion != null && UnityEngine.Random.Range(0f, 100f) < mutationChance)
+                {
+                    // Spawn mutated version instead
+                    Debug.Log($"[Mutation] {enemyData.CharacterName} mutated to {enemyData.MutatedVersion.CharacterName} (chance: {mutationChance}%)");
+                    
+                    // Play mutation sound effect using DialogueAudioManager
+                    // You can use sounds like: "enterbattle", "enterevent", "broke", "buy", or add your own mutation sound
+                    if (DialogueAudioManager.instance != null)
+                        DialogueAudioManager.instance.PlaySFX("chaosoccurs"); // Using event sound for mutation
+                    
+                    enemyData = enemyData.MutatedVersion;
+                }
+                
+                var clone = Instantiate(enemyData.EnemyPrefab, EnemyPosList.Count >= i ? EnemyPosList[i] : EnemyPosList[0]);
+                
+                // Set the current act BEFORE building the character
+                clone.SetCurrentAct(currentAct);
+                
                 clone.BuildCharacter();
                 CurrentEnemiesList.Add(clone);
             }
@@ -348,6 +391,10 @@ namespace NueGames.NueDeck.Scripts.Managers
             {
                 allyBase.CharacterStats.ClearAllStatus();
             }
+            
+            // Hide any stuck tooltips
+            if (NueGames.NueDeck.ThirdParty.NueTooltip.Core.TooltipManager.Instance != null)
+                NueGames.NueDeck.ThirdParty.NueTooltip.Core.TooltipManager.Instance.HideTooltip();
 
             UIManager.CombatCanvas.gameObject.SetActive(true);
             UIManager.CombatCanvas.CombatLosePanel.SetActive(true);
@@ -357,6 +404,10 @@ namespace NueGames.NueDeck.Scripts.Managers
             if (CurrentCombatStateType == CombatStateType.EndCombat) return;
 
             CurrentCombatStateType = CombatStateType.EndCombat;
+            
+            // Hide any stuck tooltips
+            if (NueGames.NueDeck.ThirdParty.NueTooltip.Core.TooltipManager.Instance != null)
+                NueGames.NueDeck.ThirdParty.NueTooltip.Core.TooltipManager.Instance.HideTooltip();
 
             foreach (var allyBase in CurrentAlliesList)
             {
@@ -373,6 +424,15 @@ namespace NueGames.NueDeck.Scripts.Managers
             }
             else
             {
+                // Mark boss as defeated if this was a boss encounter
+                if (GameManager.PersistentGameplayData.IsFinalEncounter && CurrentEncounter != null)
+                {
+                    if (!string.IsNullOrEmpty(CurrentEncounter.EncounterId))
+                    {
+                        GameManager.PersistentGameplayData.MarkBossAsDefeated(CurrentEncounter.EncounterId);
+                    }
+                }
+                
                 // Clear statuses for all allies so combat-only effects are reverted
                 foreach (var allyBase in CurrentAlliesList)
                     allyBase.CharacterStats.ClearAllStatus();
@@ -380,8 +440,9 @@ namespace NueGames.NueDeck.Scripts.Managers
                 UIManager.CombatCanvas.gameObject.SetActive(false);
                 UIManager.RewardCanvas.gameObject.SetActive(true);
                 UIManager.RewardCanvas.PrepareCanvas();
-                UIManager.RewardCanvas.BuildReward(RewardType.Gold);
-                UIManager.RewardCanvas.BuildReward(RewardType.Card);
+                
+                // Use encounter-specific rewards or default to standard rewards
+                UIManager.RewardCanvas.BuildRewardsForEncounter(CurrentEncounter);
             }
 
             GameManager.PersistentGameplayData.CurrentCardsList.RemoveAll(card => card.RemoveAfterBattle);

@@ -45,7 +45,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: ' and 10 '
+  - descriptionText: ' and 8 '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0

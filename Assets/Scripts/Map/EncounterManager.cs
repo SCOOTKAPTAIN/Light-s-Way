@@ -10,7 +10,8 @@ namespace Map
     {
         Normal,
         Elite,
-        Boss
+        Boss,
+        Special  // For event-based encounters
     }
 }
 
@@ -34,52 +35,54 @@ public class EncounterManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Unified encounter selector - handles normal, elite, and boss encounters
+    /// Unified encounter selector - handles normal, elite, boss, and special encounters
     /// </summary>
     public void SelectEncounter(Map.EncounterType encounterType)
     {
         int actNumber = GameManager.PersistentGameplayData.ActNumber;
         
-        // Use ActNumber directly as StageId (no need for separate tracking)
+        // Use ActNumber directly as StageId
         GameManager.PersistentGameplayData.CurrentStageId = actNumber;
+        GameManager.PersistentGameplayData.CurrentEncounterId = -1; // -1 = random selection
+        GameManager.PersistentGameplayData.CurrentEncounterTypeIndex = (int)encounterType; // Store encounter type
         
-        switch (encounterType)
-        {
-            case Map.EncounterType.Normal:
-                // Random normal encounter for current act
-                int normalEncounterCount = GetEncounterCount(actNumber, false);
-                GameManager.PersistentGameplayData.CurrentEncounterId = Random.Range(0, normalEncounterCount);
-                GameManager.PersistentGameplayData.IsFinalEncounter = false;
-                break;
-                
-            case Map.EncounterType.Elite:
-                // Elite encounters are at the end of normal encounter list
-                int totalNormalCount = GetEncounterCount(actNumber, false);
-                GameManager.PersistentGameplayData.CurrentEncounterId = totalNormalCount; // Elite is after normal encounters
-                GameManager.PersistentGameplayData.IsFinalEncounter = false;
-                break;
-                
-            case Map.EncounterType.Boss:
-                // Boss encounter
-                GameManager.PersistentGameplayData.CurrentEncounterId = 0; // Bosses use separate list
-                GameManager.PersistentGameplayData.IsFinalEncounter = true;
-                break;
-        }
+        // Set encounter type flag (for legacy GetEnemyEncounter calls)
+        GameManager.PersistentGameplayData.IsFinalEncounter = (encounterType == Map.EncounterType.Boss);
         
-        Debug.Log($"Selected {encounterType} encounter for Act {actNumber}, Stage {GameManager.PersistentGameplayData.CurrentStageId}, Encounter {GameManager.PersistentGameplayData.CurrentEncounterId}");
+        Debug.Log($"Selected random {encounterType} encounter for Act {actNumber}, Stage {GameManager.PersistentGameplayData.CurrentStageId}");
     }
     
     /// <summary>
-    /// Gets the number of encounters available for an act
+    /// Select a specific encounter by index (useful for scripted events/specific battles)
     /// </summary>
-    private int GetEncounterCount(int actNumber, bool isBoss)
+    public void SelectSpecificEncounter(Map.EncounterType encounterType, int encounterIndex)
+    {
+        int actNumber = GameManager.PersistentGameplayData.ActNumber;
+        
+        GameManager.PersistentGameplayData.CurrentStageId = actNumber;
+        GameManager.PersistentGameplayData.CurrentEncounterId = encounterIndex;
+        GameManager.PersistentGameplayData.CurrentEncounterTypeIndex = (int)encounterType;
+        GameManager.PersistentGameplayData.IsFinalEncounter = (encounterType == Map.EncounterType.Boss);
+        
+        Debug.Log($"Selected specific {encounterType} encounter #{encounterIndex} for Act {actNumber}");
+    }
+    
+    /// <summary>
+    /// Gets the number of encounters available for an act (optional, for debugging/UI)
+    /// </summary>
+    public int GetEncounterCount(int actNumber, Map.EncounterType encounterType)
     {
         var encounterStage = GameManager.EncounterData.EnemyEncounterList.Find(x => x.StageId == actNumber);
-        if (encounterStage == null) return 1;
+        if (encounterStage == null) return 0;
         
-        return isBoss 
-            ? encounterStage.BossEncounterList.Count 
-            : encounterStage.EnemyEncounterList.Count;
+        return encounterType switch
+        {
+            Map.EncounterType.Normal => encounterStage.NormalEncounterList?.Count ?? 0,
+            Map.EncounterType.Elite => encounterStage.EliteEncounterList?.Count ?? 0,
+            Map.EncounterType.Boss => encounterStage.BossEncounterList?.Count ?? 0,
+            Map.EncounterType.Special => encounterStage.SpecialEncounterList?.Count ?? 0,
+            _ => 0
+        };
     }
 
     #region Legacy Methods (for backwards compatibility)

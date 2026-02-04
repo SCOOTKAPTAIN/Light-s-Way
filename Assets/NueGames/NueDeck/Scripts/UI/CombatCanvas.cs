@@ -2,6 +2,7 @@
 using NueGames.NueDeck.Scripts.Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace NueGames.NueDeck.Scripts.UI
 {
@@ -16,6 +17,13 @@ namespace NueGames.NueDeck.Scripts.UI
         [Header("Panels")]
         [SerializeField] private GameObject combatWinPanel;
         [SerializeField] private GameObject combatLosePanel;
+        [SerializeField] private LightCardSelectionPanel lightCardSelectionPanel;
+        
+        [Header("Light Card Button")]
+        [SerializeField] private Button lightCardButton;
+        [SerializeField] private Image lightCardButtonImage;
+        [SerializeField] private Color glowColor = Color.yellow;
+        [SerializeField] private Color normalColor = Color.white;
 
         public TextMeshProUGUI DrawPileTextField => drawPileTextField;
         public TextMeshProUGUI DiscardPileTextField => discardPileTextField;
@@ -24,6 +32,7 @@ namespace NueGames.NueDeck.Scripts.UI
         public GameObject CombatLosePanel => combatLosePanel;
 
         public TextMeshProUGUI ExhaustPileTextField => exhaustPileTextField;
+        public LightCardSelectionPanel LightCardSelectionPanel => lightCardSelectionPanel;
 
         #region Setup
         private void Awake()
@@ -40,6 +49,18 @@ namespace NueGames.NueDeck.Scripts.UI
             DiscardPileTextField.text = $"{CollectionManager.DiscardPile.Count.ToString()}";
             ExhaustPileTextField.text =  $"{CollectionManager.ExhaustPile.Count.ToString()}";
             ManaTextTextField.text = $"{GameManager.PersistentGameplayData.CurrentMana.ToString()}/{GameManager.PersistentGameplayData.MaxMana}";
+            
+            // Update button glow based on Light
+            UpdateLightCardButtonGlow();
+        }
+        
+        public void UpdateLightCardButtonGlow()
+        {
+            if (lightCardButtonImage != null && GameManager != null && GameManager.PersistentGameplayData != null)
+            {
+                bool hasEnoughLight = GameManager.PersistentGameplayData.light >= 10;
+                lightCardButtonImage.color = hasEnoughLight ? glowColor : normalColor;
+            }
         }
 
         public override void ResetCanvas()
@@ -53,6 +74,33 @@ namespace NueGames.NueDeck.Scripts.UI
         {
             if (CombatManager.CurrentCombatStateType == CombatStateType.AllyTurn)
                 CombatManager.EndTurn();
+        }
+        
+        public void OpenLightCardSelection()
+        {
+            if (GameManager == null || GameManager.PersistentGameplayData == null) return;
+            
+            // Check if player has enough Light
+            if (GameManager.PersistentGameplayData.light < 10)
+            {
+                // Play "not enough Light" effects on the ally character
+                if (CombatManager != null && CombatManager.CurrentMainAlly != null)
+                {
+                    if (FxManager.Instance != null)
+                        FxManager.Instance.PlayFx(CombatManager.CurrentMainAlly.transform, FxType.NoLight);
+                }
+                
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.PlayOneShot(AudioActionType.NoLight);
+                
+                return; // Don't open panel
+            }
+            
+            // Has enough Light - open the panel
+            if (lightCardSelectionPanel != null)
+            {
+                lightCardSelectionPanel.OpenCanvas();
+            }
         }
         #endregion
     }

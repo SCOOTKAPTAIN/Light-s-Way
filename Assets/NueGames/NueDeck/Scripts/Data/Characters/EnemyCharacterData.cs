@@ -10,11 +10,49 @@ using Random = UnityEngine.Random;
 
 namespace NueGames.NueDeck.Scripts.Data.Characters
 {
+    /// <summary>
+    /// Act-specific configuration for an enemy.
+    /// Allows one enemy ScriptableObject to scale across multiple acts.
+    /// </summary>
+    [Serializable]
+    public class ActSpecificData
+    {
+        [Header("Act Configuration")]
+        [Tooltip("Which act this configuration applies to (1, 2, 3, 4, etc.)")]
+        [SerializeField] private int actNumber;
+        
+        [Header("Stats")]
+        [SerializeField] private int maxHealth;
+        
+        [Header("Starting Statuses")]
+        [SerializeField] private List<StartingStatusData> startingStatuses = new List<StartingStatusData>();
+        
+        [Header("Abilities")]
+        [SerializeField] private List<EnemyAbilityData> enemyAbilityList = new List<EnemyAbilityData>();
+        
+        public int ActNumber => actNumber;
+        public int MaxHealth => maxHealth;
+        public List<StartingStatusData> StartingStatuses => startingStatuses;
+        public List<EnemyAbilityData> EnemyAbilityList => enemyAbilityList;
+    }
     [CreateAssetMenu(fileName = "Enemy Character Data",menuName = "NueDeck/Characters/Enemy",order = 1)]
     public class EnemyCharacterData : CharacterDataBase
     {
         [Header("Enemy Defaults")] 
         [SerializeField] private EnemyBase enemyPrefab;
+        
+        [Header("Mutation System")]
+        [Tooltip("Mutated version of this enemy that can spawn at low Light levels. Leave empty if no mutation exists.")]
+        [SerializeField] private EnemyCharacterData mutatedVersion;
+        
+        public EnemyCharacterData MutatedVersion => mutatedVersion;
+        
+        [Header("Act-Based Scaling")]
+        [Tooltip("Enable to use act-specific configurations. When enabled, parameters below are FALLBACK values if act data is missing.")]
+        [SerializeField] private bool useActBasedScaling;
+        
+        [Tooltip("Act-specific configurations. Add one entry per act with different stats/statuses/abilities.")]
+        [SerializeField] private List<ActSpecificData> actConfigurations = new List<ActSpecificData>();
         
         [Header("Ability Selection Mode")]
         [Tooltip("If enabled, abilities execute in sequential order (1→2→3→1...). Overrides weighted selection.")]
@@ -35,6 +73,49 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         public List<StartingStatusData> StartingStatuses => startingStatuses;
 
         public EnemyBase EnemyPrefab => enemyPrefab;
+        public bool UseActBasedScaling => useActBasedScaling;
+        
+        /// <summary>
+        /// Gets act-specific data for the current act.
+        /// Returns null if act-based scaling is disabled or no matching act configuration found.
+        /// </summary>
+        public ActSpecificData GetActData(int currentAct)
+        {
+            if (!useActBasedScaling || actConfigurations == null || actConfigurations.Count == 0)
+                return null;
+            
+            return actConfigurations.FirstOrDefault(config => config.ActNumber == currentAct);
+        }
+        
+        /// <summary>
+        /// Gets the max health for a specific act.
+        /// Falls back to base maxHealth if no act-specific data exists.
+        /// </summary>
+        public int GetMaxHealth(int currentAct)
+        {
+            var actData = GetActData(currentAct);
+            return actData != null ? actData.MaxHealth : maxHealth;
+        }
+        
+        /// <summary>
+        /// Gets the starting statuses for a specific act.
+        /// Falls back to base startingStatuses if no act-specific data exists.
+        /// </summary>
+        public List<StartingStatusData> GetStartingStatuses(int currentAct)
+        {
+            var actData = GetActData(currentAct);
+            return actData != null ? actData.StartingStatuses : startingStatuses;
+        }
+        
+        /// <summary>
+        /// Gets the ability list for a specific act.
+        /// Falls back to base enemyAbilityList if no act-specific data exists.
+        /// </summary>
+        public List<EnemyAbilityData> GetEnemyAbilityList(int currentAct)
+        {
+            var actData = GetActData(currentAct);
+            return actData != null ? actData.EnemyAbilityList : enemyAbilityList;
+        }
 
         public EnemyAbilityData GetAbility()
         {
@@ -113,6 +194,14 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [SerializeField] private bool hideActionValue;
         [SerializeField] private List<EnemyActionData> actionList;
         
+        [Header("Repeat Actions")]
+        [Tooltip("If > 1, displays intention as 'valueXrepeat' (e.g., 5x3 for 5 damage repeated 3 times). Default is 1 (no multiplier shown).")]
+        [SerializeField] private int repeatCount = 1;
+        
+        [Header("Conditional Activation")]
+        [Tooltip("If conditions are set, this ability only becomes available (enters the weighted pool) when ALL conditions are met. Leave empty for always-available abilities.")]
+        [SerializeField] private List<AbilityCondition> conditions = new List<AbilityCondition>();
+        
         [Header("Weighted Selection")]
         [Tooltip("Higher weight = higher chance to be selected. Default is 1 (equal probability).")]
         [SerializeField] private float weight = 1f;
@@ -121,7 +210,47 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         public EnemyIntentionData Intention => intention;
         public List<EnemyActionData> ActionList => actionList;
         public bool HideActionValue => hideActionValue;
+        public int RepeatCount => repeatCount;
+        public List<AbilityCondition> Conditions => conditions;
         public float Weight => weight;
+    }
+    
+    [Serializable]
+    public class AbilityCondition
+    {
+        public enum ConditionTarget
+        {
+            Self,           // This enemy
+            Player,         // Main ally (player character)
+            AnyEnemy,       // Any enemy (including self)
+            AnyAlly,        // Any ally (player side)
+            AllEnemies,     // All enemies must meet condition
+            AllAllies       // All allies must meet condition
+        }
+        
+        public enum ConditionType
+        {
+            HasStatus,      // Target has a specific status (any amount)
+            LacksStatus,    // Target does NOT have a specific status
+            HasDebuff,      // Target has any debuff
+            HasBuff,        // Target has any buff
+            HealthBelow,    // Target health below threshold (%)
+            HealthAbove,    // Target health above threshold (%)
+            StatusAbove,    // Specific status stacks above threshold
+            StatusBelow     // Specific status stacks below threshold
+        }
+        
+        [Tooltip("Who to check the condition on")]
+        public ConditionTarget target = ConditionTarget.Self;
+        
+        [Tooltip("What type of condition to check")]
+        public ConditionType conditionType = ConditionType.HasStatus;
+        
+        [Tooltip("For HasStatus/LacksStatus/StatusAbove/StatusBelow: which status to check")]
+        public StatusType specificStatus = StatusType.None;
+        
+        [Tooltip("For HealthBelow/HealthAbove: percentage threshold (0-100). For StatusAbove/StatusBelow: stack count threshold.")]
+        public int threshold = 50;
     }
     
     [Serializable]
@@ -135,11 +264,16 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [Tooltip("NoRestriction = Random single target (self or ally). SelfOnly = Only self. AlliesOnly = Random ally (not self). AllAllies = All allies including self (AOE).")]
         [SerializeField] private EnemyActionTargetType targetRestriction = EnemyActionTargetType.NoRestriction;
         
+        [Header("Light Scaling")]
+        [Tooltip("If true, this action's value scales with Light level (darker = stronger). Use for combat values like damage/block/heal. Set false for status applications like poison stacks.")]
+        [SerializeField] private bool applyLightMultiplier = true;
+        
         // Cache the rolled value so it stays consistent
         private int _cachedActionValue = -1;
         
         public EnemyActionType ActionType => actionType;
         public EnemyActionTargetType TargetRestriction => targetRestriction;
+        public bool ApplyLightMultiplier => applyLightMultiplier;
         public int ActionValue
         {
             get

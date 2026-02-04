@@ -17,16 +17,16 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var value =  GameManager.PersistentGameplayData.proficiency + actionParameters.Value
              + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue;
 
-            if (GameManager.PersistentGameplayData.light < 10)
-            {
-                CollectionManager.DrawCards(Mathf.RoundToInt(1));
-                FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.NoLight);
-                AudioManager.PlayOneShot(AudioActionType.NoLight);
-                return;
-            }
+            // if (GameManager.PersistentGameplayData.light < 10)
+            // {
+            //     CollectionManager.DrawCards(Mathf.RoundToInt(1));
+            //     FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.NoLight);
+            //     AudioManager.PlayOneShot(AudioActionType.NoLight);
+            //     return;
+            // }
 
-            CollectionManager.DrawCards(Mathf.RoundToInt(1));
-            GameManager.PersistentGameplayData.ChangeLight(-10);
+         //   CollectionManager.DrawCards(Mathf.RoundToInt(1));
+            //GameManager.PersistentGameplayData.ChangeLight(-10);
             FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.Shine);
             
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));

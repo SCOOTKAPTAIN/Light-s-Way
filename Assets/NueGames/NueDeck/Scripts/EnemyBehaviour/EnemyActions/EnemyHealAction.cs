@@ -15,7 +15,15 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
 
             if (!newTarget) return;
             
-            newTarget.CharacterStats.Heal(Mathf.RoundToInt(actionParameters.Value));
+            float healValue = actionParameters.Value;
+            
+            // Apply Light-based multiplier if action has flag enabled (uses cached value from combat start)
+            if (actionParameters.ActionData != null && actionParameters.ActionData.ApplyLightMultiplier)
+            {
+                healValue *= CombatManager.Instance.CombatLightMultiplier;
+            }
+            
+            newTarget.CharacterStats.Heal(Mathf.RoundToInt(healValue));
 
             if (FxManager != null) 
                 FxManager.PlayFx(newTarget.transform, FxType.Heal);

@@ -85,6 +85,19 @@ namespace NueGames.NueDeck.Scripts.UI
             
             // Show panel
             panelRoot.SetActive(true);
+            
+            // Disable card dragging and selection while panel is open
+            var collectionManager = CollectionManager.Instance;
+            if (collectionManager != null && collectionManager.HandController != null)
+            {
+                collectionManager.HandController.DisableDragging();
+            }
+            
+            var gameManager = GameManager.Instance;
+            if (gameManager != null && gameManager.PersistentGameplayData != null)
+            {
+                gameManager.PersistentGameplayData.CanSelectCards = false;
+            }
         }
         
         /// <summary>
@@ -93,6 +106,19 @@ namespace NueGames.NueDeck.Scripts.UI
         public void HidePanel()
         {
             panelRoot.SetActive(false);
+            
+            // Re-enable card dragging and selection
+            var collectionManager = CollectionManager.Instance;
+            if (collectionManager != null && collectionManager.HandController != null)
+            {
+                collectionManager.HandController.EnableDragging();
+            }
+            
+            var gameManager = GameManager.Instance;
+            if (gameManager != null && gameManager.PersistentGameplayData != null)
+            {
+                gameManager.PersistentGameplayData.CanSelectCards = true;
+            }
             
             // Deactivate the Canvas parent to clean up
             var canvasTransform = panelRoot.transform.parent;

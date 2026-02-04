@@ -114,6 +114,21 @@ namespace NueGames.NueDeck.Scripts.Card
                 StartCoroutine(AnimateToTransform(playAnchor, 0.18f));
             }
             
+            // Ablazed: deal damage equal to stacks, then reduce by 1
+            if (self != null && self.CharacterStats != null)
+            {
+                if (self.CharacterStats.StatusDict.ContainsKey(StatusType.Ablazed) && 
+                    self.CharacterStats.StatusDict[StatusType.Ablazed].IsActive && 
+                    self.CharacterStats.StatusDict[StatusType.Ablazed].StatusValue > 0)
+                {
+                    int ablazedStacks = self.CharacterStats.StatusDict[StatusType.Ablazed].StatusValue;
+                    // Deal blockable damage equal to stacks
+                    self.CharacterStats.Damage(ablazedStacks, false, "orange", null);
+                    // Reduce by 1
+                    self.CharacterStats.ApplyStatus(StatusType.Ablazed, -1);
+                }
+            }
+            
             foreach (var playerAction in CardData.CardActionDataList)
             {
                 yield return new WaitForSeconds(playerAction.ActionDelay);
@@ -124,6 +139,18 @@ namespace NueGames.NueDeck.Scripts.Card
                         .DoAction(new CardActionParameters(playerAction.ActionValue,
                             target,self,CardData,this));
             }
+            
+            // Increase Slimed status by 1 when player uses a card
+            if (self != null && self.CharacterStats != null)
+            {
+                if (self.CharacterStats.StatusDict.ContainsKey(StatusType.Slimed) && 
+                    self.CharacterStats.StatusDict[StatusType.Slimed].IsActive && 
+                    self.CharacterStats.StatusDict[StatusType.Slimed].StatusValue > 0)
+                {
+                    self.CharacterStats.ApplyStatus(StatusType.Slimed, 1);
+                }
+            }
+            
             CollectionManager.OnCardPlayed(this);
 
             // Restore previous selection state (usually true during player's turn).

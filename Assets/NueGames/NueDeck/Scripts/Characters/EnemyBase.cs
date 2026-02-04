@@ -18,25 +18,49 @@ namespace NueGames.NueDeck.Scripts.Characters
         [SerializeField] protected EnemyCharacterData enemyCharacterData;
         [SerializeField] protected EnemyCanvas enemyCanvas;
         [SerializeField] protected SoundProfileData deathSoundProfileData;
+        [SerializeField] protected SpriteRenderer spriteRenderer;
         protected EnemyAbilityData NextAbility;
+        
+        // Track which act this enemy was spawned in for act-based scaling
+        private int _currentAct;
         
         public EnemyCharacterData EnemyCharacterData => enemyCharacterData;
         public EnemyCanvas EnemyCanvas => enemyCanvas;
         public SoundProfileData DeathSoundProfileData => deathSoundProfileData;
 
         #region Setup
+        
+        /// <summary>
+        /// Sets the current act for this enemy instance.
+        /// Must be called BEFORE BuildCharacter() to apply act-based scaling.
+        /// </summary>
+        public void SetCurrentAct(int actNumber)
+        {
+            _currentAct = actNumber;
+        }
+        
         public override void BuildCharacter()
         {
             base.BuildCharacter();
             EnemyCanvas.InitCanvas();
-            CharacterStats = new CharacterStats(EnemyCharacterData.MaxHealth,EnemyCanvas);
+            
+            // Use act-specific max health if act-based scaling is enabled
+            int maxHealth = EnemyCharacterData.GetMaxHealth(_currentAct);
+            
+            // Apply Light-based health multiplier (cached at combat start)
+            float lightMultiplier = CombatManager.CombatLightMultiplier;
+            maxHealth = Mathf.RoundToInt(maxHealth * lightMultiplier);
+            Debug.Log($"[Light Health Buff] Base: {EnemyCharacterData.GetMaxHealth(_currentAct)}, Multiplier: {lightMultiplier}x, Final: {maxHealth}");
+            
+            CharacterStats = new CharacterStats(maxHealth, EnemyCanvas);
             CharacterStats.OnDeath += OnDeath;
             CharacterStats.SetCurrentHealth(CharacterStats.CurrentHealth);
             
-            // Apply starting statuses for gimmick enemies
-            if (EnemyCharacterData.StartingStatuses != null && EnemyCharacterData.StartingStatuses.Count > 0)
+            // Apply starting statuses using act-specific data
+            var startingStatuses = EnemyCharacterData.GetStartingStatuses(_currentAct);
+            if (startingStatuses != null && startingStatuses.Count > 0)
             {
-                foreach (var startingStatus in EnemyCharacterData.StartingStatuses)
+                foreach (var startingStatus in startingStatuses)
                 {
                     if (startingStatus.StatusValue > 0)
                     {
@@ -71,6 +95,38 @@ namespace NueGames.NueDeck.Scripts.Characters
            
             CombatManager.OnEnemyDeath(this);
             AudioManager.PlayOneShot(DeathSoundProfileData.GetRandomClip());
+            
+            // Start death fade animation
+            StartCoroutine(DeathFadeRoutine());
+        }
+        
+        private IEnumerator DeathFadeRoutine()
+        {
+            // Find sprite renderer if not assigned
+            if (spriteRenderer == null)
+            {
+                spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            }
+            
+            if (spriteRenderer != null)
+            {
+                // Turn red
+                Color originalColor = spriteRenderer.color;
+                spriteRenderer.color = Color.red;
+                
+                // Fade out over 0.5 seconds
+                float fadeTime = 0.5f;
+                float timer = 0f;
+                
+                while (timer < fadeTime)
+                {
+                    timer += Time.deltaTime;
+                    float alpha = Mathf.Lerp(1f, 0f, timer / fadeTime);
+                    spriteRenderer.color = new Color(1f, 0f, 0f, alpha);
+                    yield return null;
+                }
+            }
+            
             Destroy(gameObject);
         }
         #endregion
@@ -82,8 +138,18 @@ namespace NueGames.NueDeck.Scripts.Characters
         
         private void ShowNextAbility()
         {
+            // Get act-specific ability list
+            var abilityList = EnemyCharacterData.GetEnemyAbilityList(_currentAct);
+            
+            // Safety check: if no abilities available, don't proceed
+            if (abilityList == null || abilityList.Count == 0)
+            {
+                Debug.LogWarning($"Enemy '{name}' has no abilities configured for Act {_currentAct}!");
+                return;
+            }
+            
             // Pass the last used ability to prevent repeats (per-instance)
-            NextAbility = EnemyCharacterData.GetAbility(_lastUsedAbility, _usedAbilityCount);
+            NextAbility = GetActSpecificAbility(abilityList, _lastUsedAbility, _usedAbilityCount);
             _lastUsedAbility = NextAbility; // Update last used ability for this instance
             
             // Reset cached action values for all actions in this ability
@@ -101,9 +167,18 @@ namespace NueGames.NueDeck.Scripts.Characters
             else
             {
                 EnemyCanvas.NextActionValueText.gameObject.SetActive(true);
-                // Calculate displayed damage including strength, weakness, and target's fragile
-                int displayedDamage = CalculateDisplayedDamage(NextAbility.ActionList[0].ActionValue);
-                EnemyCanvas.NextActionValueText.text = displayedDamage.ToString();
+                // Calculate displayed value using action data (checks ApplyLightMultiplier flag)
+                int displayedValue = CalculateDisplayedValue(NextAbility.ActionList[0].ActionValue, NextAbility.ActionList[0]);
+                
+                // Show repeat multiplier if repeatCount > 1
+                if (NextAbility.RepeatCount > 1)
+                {
+                    EnemyCanvas.NextActionValueText.text = $"{displayedValue}x{NextAbility.RepeatCount}";
+                }
+                else
+                {
+                    EnemyCanvas.NextActionValueText.text = displayedValue.ToString();
+                }
             }
 
             _usedAbilityCount++;
@@ -111,24 +186,289 @@ namespace NueGames.NueDeck.Scripts.Characters
         }
         
         /// <summary>
-        /// Calculates the damage that will be displayed in the intention text,
-        /// accounting for enemy Strength, enemy Weakness, and target's Fragile stacks.
+        /// Gets the next ability using act-specific ability list.
+        /// Respects the enemy's ability selection settings (pattern, weighted, etc.).
         /// </summary>
-        private int CalculateDisplayedDamage(int baseValue)
+        private EnemyAbilityData GetActSpecificAbility(List<EnemyAbilityData> abilityList, EnemyAbilityData lastUsedAbility, int usedAbilityCount)
+        {
+            if (EnemyCharacterData.UseActBasedScaling)
+            {
+                // When using act-based scaling, respect the enemy's ability selection settings
+                // Check if pattern mode is enabled (use original GetAbility logic)
+                var characterData = EnemyCharacterData as EnemyCharacterData;
+                
+                // Use reflection to access private fields (followAbilityPattern, useWeightedSelection, preventRepeatAbility)
+                var followPattern = (bool)typeof(EnemyCharacterData)
+                    .GetField("followAbilityPattern", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                    ?.GetValue(characterData);
+                var useWeighted = (bool)typeof(EnemyCharacterData)
+                    .GetField("useWeightedSelection", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                    ?.GetValue(characterData);
+                var preventRepeat = (bool)typeof(EnemyCharacterData)
+                    .GetField("preventRepeatAbility", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                    ?.GetValue(characterData);
+                
+                // Pattern mode: cycle through abilities sequentially (filtered by conditions)
+                if (followPattern)
+                {
+                    // Filter abilities by conditions
+                    var patternAbilities = abilityList.Where(a => AreConditionsMet(a)).ToList();
+                    
+                    // If no abilities meet conditions, use all abilities as fallback
+                    if (patternAbilities.Count == 0)
+                        patternAbilities = abilityList;
+                    
+                    var index = usedAbilityCount % patternAbilities.Count;
+                    return patternAbilities[index];
+                }
+                
+                // Weighted selection mode
+                if (useWeighted)
+                {
+                    return GetWeightedAbilityFromList(abilityList, lastUsedAbility, preventRepeat);
+                }
+                
+                // Random selection (no pattern, no weights) - filtered by conditions
+                var randomAbilities = abilityList.Where(a => AreConditionsMet(a)).ToList();
+                
+                // If no abilities meet conditions, use all abilities as fallback
+                if (randomAbilities.Count == 0)
+                    randomAbilities = abilityList;
+                
+                return randomAbilities[Random.Range(0, randomAbilities.Count)];
+            }
+            
+            // Fallback to original method if not using act-based scaling
+            return EnemyCharacterData.GetAbility(lastUsedAbility, usedAbilityCount);
+        }
+        
+        /// <summary>
+        /// Weighted ability selection from a specific ability list.
+        /// </summary>
+        private EnemyAbilityData GetWeightedAbilityFromList(List<EnemyAbilityData> abilityList, EnemyAbilityData lastUsedAbility, bool preventRepeat)
+        {
+            // Filter out the last used ability ONLY if preventRepeat is enabled
+            var availableAbilities = preventRepeat && lastUsedAbility != null && abilityList.Count > 1
+                ? abilityList.Where(a => a != lastUsedAbility).ToList()
+                : new List<EnemyAbilityData>(abilityList);
+            
+            // Further filter by conditions - only include abilities whose conditions are ALL met
+            availableAbilities = availableAbilities
+                .Where(ability => AreConditionsMet(ability))
+                .ToList();
+            
+            // If no abilities meet their conditions, fallback to all available (ignoring conditions)
+            if (availableAbilities.Count == 0)
+            {
+                availableAbilities = preventRepeat && lastUsedAbility != null && abilityList.Count > 1
+                    ? abilityList.Where(a => a != lastUsedAbility).ToList()
+                    : new List<EnemyAbilityData>(abilityList);
+            }
+            
+            // Safety check: if still empty, just return first ability
+            if (availableAbilities.Count == 0)
+            {
+                Debug.LogWarning($"Enemy '{name}' has no available abilities after filtering. Returning first ability from original list.");
+                return abilityList[0];
+            }
+            
+            // Calculate total weight
+            float totalWeight = availableAbilities.Sum(a => a.Weight);
+            
+            if (totalWeight <= 0)
+            {
+                // Fallback to random if all weights are 0
+                return availableAbilities[Random.Range(0, availableAbilities.Count)];
+            }
+            
+            // Roll a random value between 0 and total weight
+            float roll = Random.Range(0f, totalWeight);
+            float currentWeight = 0f;
+            
+            // Find which ability the roll landed on
+            foreach (var ability in availableAbilities)
+            {
+                currentWeight += ability.Weight;
+                if (roll < currentWeight)
+                {
+                    return ability;
+                }
+            }
+            
+            // Fallback
+            return availableAbilities[availableAbilities.Count - 1];
+        }
+        
+        /// <summary>
+        /// Checks if all conditions for an ability are met.
+        /// Returns true if no conditions are set (always available).
+        /// </summary>
+        private bool AreConditionsMet(EnemyAbilityData ability)
+        {
+            if (ability.Conditions == null || ability.Conditions.Count == 0)
+                return true; // No conditions = always available
+            
+            // ALL conditions must be met
+            foreach (var condition in ability.Conditions)
+            {
+                if (!IsConditionMet(condition))
+                    return false;
+            }
+            
+            return true;
+        }
+        
+        /// <summary>
+        /// Evaluates a single condition.
+        /// </summary>
+        private bool IsConditionMet(AbilityCondition condition)
         {
             var combatManager = CombatManager.Instance;
-            if (combatManager == null || combatManager.CurrentMainAlly == null)
+            if (combatManager == null) return false;
+            
+            List<CharacterBase> targets = GetConditionTargets(condition.target, combatManager);
+            if (targets.Count == 0) return false;
+            
+            // For "All" conditions, ALL targets must meet the condition
+            bool requireAll = condition.target == AbilityCondition.ConditionTarget.AllEnemies ||
+                              condition.target == AbilityCondition.ConditionTarget.AllAllies;
+            
+            if (requireAll)
+            {
+                return targets.All(target => EvaluateConditionOnTarget(condition, target));
+            }
+            else
+            {
+                // For "Any" conditions, at least ONE target must meet the condition
+                return targets.Any(target => EvaluateConditionOnTarget(condition, target));
+            }
+        }
+        
+        /// <summary>
+        /// Gets the list of targets based on the condition target type.
+        /// </summary>
+        private List<CharacterBase> GetConditionTargets(AbilityCondition.ConditionTarget targetType, CombatManager combatManager)
+        {
+            var targets = new List<CharacterBase>();
+            
+            switch (targetType)
+            {
+                case AbilityCondition.ConditionTarget.Self:
+                    targets.Add(this);
+                    break;
+                    
+                case AbilityCondition.ConditionTarget.Player:
+                    if (combatManager.CurrentMainAlly != null)
+                        targets.Add(combatManager.CurrentMainAlly);
+                    break;
+                    
+                case AbilityCondition.ConditionTarget.AnyEnemy:
+                case AbilityCondition.ConditionTarget.AllEnemies:
+                    targets.AddRange(combatManager.CurrentEnemiesList.Where(e => e != null && !e.CharacterStats.IsDeath));
+                    break;
+                    
+                case AbilityCondition.ConditionTarget.AnyAlly:
+                case AbilityCondition.ConditionTarget.AllAllies:
+                    targets.AddRange(combatManager.CurrentAlliesList.Where(a => a != null && !a.CharacterStats.IsDeath));
+                    break;
+            }
+            
+            return targets;
+        }
+        
+        /// <summary>
+        /// Evaluates a condition on a specific target character.
+        /// </summary>
+        private bool EvaluateConditionOnTarget(AbilityCondition condition, CharacterBase target)
+        {
+            if (target == null || target.CharacterStats == null) return false;
+            
+            var stats = target.CharacterStats;
+            
+            switch (condition.conditionType)
+            {
+                case AbilityCondition.ConditionType.HasStatus:
+                    return stats.StatusDict.ContainsKey(condition.specificStatus) && 
+                           stats.StatusDict[condition.specificStatus].StatusValue > 0;
+                
+                case AbilityCondition.ConditionType.LacksStatus:
+                    return !stats.StatusDict.ContainsKey(condition.specificStatus) || 
+                           stats.StatusDict[condition.specificStatus].StatusValue <= 0;
+                
+                case AbilityCondition.ConditionType.HasDebuff:
+                    return stats.StatusDict.Any(kvp => 
+                        System.Array.Exists(CharacterStats.DebuffTypes, debuff => debuff == kvp.Key) && 
+                        kvp.Value.StatusValue > 0);
+                
+                case AbilityCondition.ConditionType.HasBuff:
+                    return stats.StatusDict.Any(kvp => 
+                        !System.Array.Exists(CharacterStats.DebuffTypes, debuff => debuff == kvp.Key) && 
+                        kvp.Value.StatusValue > 0 && 
+                        kvp.Key != StatusType.None);
+                
+                case AbilityCondition.ConditionType.HealthBelow:
+                    float healthPercentBelow = (stats.CurrentHealth / (float)stats.MaxHealth) * 100f;
+                    return healthPercentBelow < condition.threshold;
+                
+                case AbilityCondition.ConditionType.HealthAbove:
+                    float healthPercentAbove = (stats.CurrentHealth / (float)stats.MaxHealth) * 100f;
+                    return healthPercentAbove > condition.threshold;
+                
+                case AbilityCondition.ConditionType.StatusAbove:
+                    if (!stats.StatusDict.ContainsKey(condition.specificStatus))
+                        return false; // Status doesn't exist = not above threshold
+                    return stats.StatusDict[condition.specificStatus].StatusValue > condition.threshold;
+                
+                case AbilityCondition.ConditionType.StatusBelow:
+                    if (!stats.StatusDict.ContainsKey(condition.specificStatus))
+                        return true; // Status doesn't exist (0 stacks) = below any positive threshold
+                    return stats.StatusDict[condition.specificStatus].StatusValue < condition.threshold;
+                
+                default:
+                    return false;
+            }
+        }
+        
+        /// <summary>
+        /// Calculates the value that will be displayed in the intention text.
+        /// Checks the action's ApplyLightMultiplier flag to determine if Light scaling applies.
+        /// Attack-type actions also apply Strength + Fragile + Weak + Pursuit modifiers.
+        /// </summary>
+        private int CalculateDisplayedValue(int baseValue, EnemyActionData actionData)
+        {
+            var combatManager = CombatManager.Instance;
+            if (combatManager == null)
                 return baseValue;
             
-            var targetCharacter = combatManager.CurrentMainAlly;
+            float value = baseValue;
             
-            // Add enemy's Strength to base value
-            var value = baseValue + CharacterStats.StatusDict[StatusType.Strength].StatusValue;
+            // Apply Light multiplier if the action has it enabled (uses cached value from combat start)
+            if (actionData.ApplyLightMultiplier)
+            {
+                value *= CombatManager.CombatLightMultiplier;
+            }
             
-            // Apply Fragile and Pursuit modifiers based on target's status
-            value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, this, value));
+            // Attack actions get additional modifiers (Strength, Fragile, Weak, Pursuit)
+            if (actionData.ActionType == EnemyActionType.Attack)
+            {
+                if (combatManager.CurrentMainAlly == null)
+                    return Mathf.RoundToInt(value);
+                    
+                var targetCharacter = combatManager.CurrentMainAlly;
+                
+                // Add enemy's Strength
+                value += CharacterStats.StatusDict[StatusType.Strength].StatusValue;
+                
+                // Apply Fragile, Weak, Pursuit, Slimed modifiers
+                value = NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, this, value);
+            }
+            // Block actions get Fortitude bonus
+            else if (actionData.ActionType == EnemyActionType.Block)
+            {
+                value += CharacterStats.StatusDict[StatusType.Fortitude].StatusValue;
+            }
             
-            return value;
+            return Mathf.RoundToInt(value);
         }
         
         /// <summary>
@@ -163,8 +503,17 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (NextAbility == null || NextAbility.HideActionValue)
                 return;
             
-            int displayedDamage = CalculateDisplayedDamage(NextAbility.ActionList[0].ActionValue);
-            EnemyCanvas.NextActionValueText.text = displayedDamage.ToString();
+            int displayedValue = CalculateDisplayedValue(NextAbility.ActionList[0].ActionValue, NextAbility.ActionList[0]);
+            
+            // Update intention text with repeat multiplier if needed
+            if (NextAbility.RepeatCount > 1)
+            {
+                EnemyCanvas.NextActionValueText.text = $"{displayedValue}x{NextAbility.RepeatCount}";
+            }
+            else
+            {
+                EnemyCanvas.NextActionValueText.text = displayedValue.ToString();
+            }
         }
         #endregion
         
@@ -200,13 +549,20 @@ namespace NueGames.NueDeck.Scripts.Characters
             var target = aliveAllies.RandomItem();
             
             var startPos = transform.position;
-            var endPos = target.transform.position;
-
-            var startRot = transform.localRotation;
-            var endRot = Quaternion.Euler(60, 0, 60);
+            var directionToTarget = (target.transform.position - startPos).normalized;
             
-            // Run movement inline so it completes correctly even if the enemy GameObject is destroyed mid-action.
-            yield return MoveToTargetRoutine(waitFrame, startPos, endPos, startRot, endRot, 5);
+            // Windup: catapult back
+            var windupPos = startPos - directionToTarget * 0.3f;
+            var startRot = transform.localRotation;
+            var windupRot = Quaternion.Euler(-15, 0, 0);
+            
+            // Windup phase
+            yield return MoveToTargetRoutine(waitFrame, startPos, windupPos, startRot, windupRot, 3f);
+            
+            // Fast lunge forward (short distance)
+            var lungePos = startPos + directionToTarget * 0.5f;
+            var lungeRot = Quaternion.Euler(30, 0, 0);
+            yield return MoveToTargetRoutine(waitFrame, windupPos, lungePos, windupRot, lungeRot, 15f);
           
             // Re-evaluate target in case it died while earlier actions ran.
             if (target == null || target.CharacterStats.IsDeath)
@@ -216,17 +572,18 @@ namespace NueGames.NueDeck.Scripts.Characters
                 {
                     // Nothing to attack; return to start position and end routine.
                     Debug.LogWarning($"{name} had no allies to attack (all dead) — skipping action.");
-                    // Return to origin; run inline to ensure completion even if the enemy is destroyed.
-                    yield return MoveToTargetRoutine(waitFrame, endPos, startPos, endRot, startRot, 5);
+                    yield return MoveToTargetRoutine(waitFrame, lungePos, startPos, lungeRot, startRot, 2f);
                     yield break;
                 }
                 target = fallbackAllies.RandomItem();
                 Debug.Log($"{name} switched attack target to '{target.name}' because original died.");
             }
 
-            targetAbility.ActionList.ForEach(x => EnemyActionProcessor.GetAction(x.ActionType).DoAction(new EnemyActionParameters(x.ActionValue, target, this)));
+            // Execute attack actions
+            targetAbility.ActionList.ForEach(x => EnemyActionProcessor.GetAction(x.ActionType).DoAction(new EnemyActionParameters(x.ActionValue, target, this, x)));
             
-            yield return StartCoroutine(MoveToTargetRoutine(waitFrame, endPos, startPos, endRot, startRot, 5));
+            // Slow slide back to original position
+            yield return MoveToTargetRoutine(waitFrame, lungePos, startPos, lungeRot, startRot, 2f);
             Debug.Log($"AttackRoutine END for '{name}'");
         }
         
@@ -307,7 +664,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                 
                 foreach (var action in targetAbility.ActionList)
                 {
-                    EnemyActionProcessor.GetAction(action.ActionType).DoAction(new EnemyActionParameters(action.ActionValue, ally, this));
+                    EnemyActionProcessor.GetAction(action.ActionType).DoAction(new EnemyActionParameters(action.ActionValue, ally, this, action));
                 }
             }
             

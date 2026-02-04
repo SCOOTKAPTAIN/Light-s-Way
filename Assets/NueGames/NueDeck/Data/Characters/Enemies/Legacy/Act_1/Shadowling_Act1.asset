@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
+  m_Name: Shadowling_Act1
+  m_EditorClassIdentifier: 
+  characterID: Shadowling
+  characterName: Shadowling
+  characterDescription: 'Common Slime found all over the world.
+
+    They''re more
+    scared of you than anything.'
+  maxHealth: 100
+  enemyPrefab: {fileID: 243822687015991123, guid: 8fd2219ea8dcc7e43b4a8c40bf922ba9, type: 3}
+  followAbilityPattern: 1
+  useWeightedSelection: 0
+  preventRepeatAbility: 0
+  startingStatuses:
+  - statusType: 15
+    statusValue: 3
+  enemyAbilityList:
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    hideActionValue: 0
+    actionList:
+    - actionType: 0
+      minActionValue: 4
+      maxActionValue: 8
+      targetRestriction: 0
+    weight: 1
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+    hideActionValue: 0
+    actionList:
+    - actionType: 3
+      minActionValue: 55
+      maxActionValue: 60
+      targetRestriction: 3
+    weight: 1

@@ -15,17 +15,17 @@ MonoBehaviour:
   specialKeywordBaseList:
   - specialKeyword: 0
     header: Block
-    contentText: Reduce incoming damage by <color=#FFB430>X</color>.
+    contentText: Reduce incoming damage by <color=#FFB430>{Block}</color>. <color=#FFB430>Temporary</color>.
   - specialKeyword: 1
     header: Strength
-    contentText: Increase the <color=#FFB430>Base</color> damage of attacks by <color=#FFB430>X</color>.
+    contentText: Increase the <color=#FFB430>Base</color> damage of attacks by <color=#FFB430>{Strength}</color>.
   - specialKeyword: 4
     header: Light
     contentText: WIthout it, the power of your lantern diminishes.
   - specialKeyword: 7
     header: Bleeding
-    contentText: At the end of the turn, take <color=#FFB430>X</color> damage and
-      increase <color=#FFB430>Bleeding</color> by <color=#FFB430>1</color>.
+    contentText: At the end of the turn, take <color=#FFB430>{Bleeding}</color> damage
+      and increase <color=#FFB430>Bleeding</color> by <color=#FFB430>1</color>.
   - specialKeyword: 3
     header: Exhaust
     contentText: Remove this card from your deck for the rest of the combat.
@@ -34,11 +34,11 @@ MonoBehaviour:
     contentText: <color=#FFB430>Unable</color> to take action.
   - specialKeyword: 6
     header: Fragile
-    contentText: "Take <color=#FFB430>X \xD7 10%</color> more damage."
+    contentText: Take <color=#FFB430>{Fragile*10}%</color> more damage.
   - specialKeyword: 8
     header: Pursuit
-    contentText: Perform an extra <color=#FFB430>X</color> damage attack when launching
-      an attack instance.
+    contentText: Perform an extra <color=#FFB430>{Pursuit}</color> damage attack
+      when launching an attack instance.
   - specialKeyword: 9
     header: Ward
     contentText: Consume <color=#FFB430>1</color> stack to negate an incoming <color=#FFB430>Infliction</color>.
@@ -48,11 +48,13 @@ MonoBehaviour:
       (<color=#FFB430>Unstackable</color>).
   - specialKeyword: 11
     header: Nephilim
-    contentText: Refunds 1 <color=#FFB430>Mana</color> and 1 <color=#FFB430>Health</color>
-      when using 2+ cost <color=#FFB430>Mana</color> cards. (<color=#FFB430>Unstackable</color>).
+    contentText: Refunds <color=#FFB430>1 Mana</color> and <color=#FFB430>1 Health</color>
+      when using <color=#FFB430>2+</color> cost <color=#FFB430>Mana</color> cards.
+      (<color=#FFB430>Unstackable</color>).
   - specialKeyword: 2
     header: Poison
-    contentText: At the end of the turn, take <color=#FFB430>X Piercing</color> damage.
+    contentText: At the end of the turn, take <color=#FFB430>{Poison} Piercing</color>
+      damage.
   - specialKeyword: 12
     header: Bloodletting
     contentText: "Deal bonus damage equal to the target\u2019s <color=#FFB430>Bleeding</color>."
@@ -65,17 +67,21 @@ MonoBehaviour:
     contentText: Consumes <color=#FFB430>1</color> stack to nulify an attack instance.
   - specialKeyword: 15
     header: Frostbite
-    contentText: "At the end of the turn, take <color=#FFB430>X \xD7 25%</color>
-      of <color=#FFB430>Proficiency</color> as Block-ignoring damage.\nConsume <color=#FFB430>5</color>
-      stacks to inflict <color=#FFB430>Frozen</color>."
+    contentText: 'At the end of the turn, take <color=#FFB430>{Frostbite*25}%</color>
+      of <color=#FFB430>Proficiency</color> as <color=#FFB430>Piercing</color> damage.
+
+      Consume
+      <color=#FFB430>5</color> stacks to inflict <color=#FFB430>Frozen</color>.'
   - specialKeyword: 16
     header: Burning
-    contentText: "At the end of the turn, take <color=#FFB430>X \xD7 25%</color>
-      of <color=#FFB430>Proficiency</color> as Block-ignoring damage.\nConsume <color=#FFB430>5</color>
-      stacks to inflict <color=#FFB430>Combustion</color>."
+    contentText: 'At the end of the turn, take <color=#FFB430>{Burning*25}%</color>
+      of <color=#FFB430>Proficiency</color> as <color=#FFB430>Piercing</color> damage.
+
+      Consume
+      <color=#FFB430>5</color> stacks to inflict <color=#FFB430>Combustion</color>.'
   - specialKeyword: 18
     header: Combustion
-    contentText: Deal damage equal to (<color=#FFB430>Strength  + 5x Proficiency</color>
+    contentText: Deal damage equal to (<color=#FFB430>Strength + 5x Proficiency</color>
       and apply <color=#FFB430>1 Burning</color> to <color=#FFB430>All</color> enemies.
   - specialKeyword: 17
     header: Frozen
@@ -85,7 +91,7 @@ MonoBehaviour:
   - specialKeyword: 19
     header: Fortitude
     contentText: Increase the <color=#FFB430>Base</color> Block granted by cards
-      by <color=#FFB430>X</color>.
+      by <color=#FFB430>{Fortitude}</color>.
   - specialKeyword: 20
     header: Frozen Mirror
     contentText: When attacked, apply <color=#FFB430>1 Frostbite</color> to the attacker.
@@ -102,27 +108,46 @@ MonoBehaviour:
       Mana</color>.
   - specialKeyword: 24
     header: Steady Barricade
-    contentText: "At the start of each turn, retain up to <color=#FFB430>10 \xD7
-      X Block</color>."
+    contentText: At the start of each turn, retain up to <color=#FFB430>{SteadyBarricade*10}
+      Block</color>.
   - specialKeyword: 25
     header: The Mastermind
-    contentText: At the start of each turn, draw <color=#FFB430>X</color> additional
-      cards.
+    contentText: At the start of each turn, draw <color=#FFB430>{Mastermind}</color>
+      additional cards.
   - specialKeyword: 26
     header: Weakness
-    contentText: "Deal <color=#FFB430>30%</color> less damage.\nFurther reduced by
-      <color=#FFB430>2% \xD7 X</color>."
+    contentText: 'Deal <color=#FFB430>30%</color> less damage.
+
+      Further reduced
+      by <color=#FFB430>{Weak*2}%</color>.'
   - specialKeyword: 27
     header: Judged
     contentText: Damage taken will ignore <color=#FFB430>Block</color> and <color=#FFB430>Armor</color>.
   - specialKeyword: 28
     header: Shield-Plated Blade
-    contentText: "When attacking:\nDeal bonus damage equal to <color=#FFB430>20%
-      \xD7 X Block</color>.\nLose <color=#FFB430>10% \xD7 X Block</color>."
+    contentText: 'When attacking:
+
+      Deal bonus damage equal to <color=#FFB430>{TheBestDefense*20}%
+      Block</color>.
+
+      Lose <color=#FFB430>{TheBestDefense*10}% Block</color>.'
   - specialKeyword: 29
     header: Blinded
     contentText: Cards drawn this turn are <color=#FFB430>Indistinguishable</color>.
   - specialKeyword: 30
     header: Sabotaged
     contentText: When attacking, consume <color=#FFB430>1</color> stack to inflict
-      <color=#FFB430>X</color> damage to self.
+      <color=#FFB430>{Sabotaged}</color> damage to self.
+  - specialKeyword: 31
+    header: Hazy
+    contentText: This card is removed from your deck at the end of combat.
+  - specialKeyword: 32
+    header: Slimed
+    contentText: 'whenever you play a card, increase stack by <color=#FFB430>1</color>
+      .
+
+      Deal <color=#FFB430>25%</color> less damage for every <color=#FFB430>3</color>
+      stacks of <color=#FFB430>Slimed</color>. <color=#FFB430>Temporary</color>.'
+  - specialKeyword: 33
+    header: Temporary
+    contentText: <color=#FFB430>Clears</color> itself at the end of a turn.

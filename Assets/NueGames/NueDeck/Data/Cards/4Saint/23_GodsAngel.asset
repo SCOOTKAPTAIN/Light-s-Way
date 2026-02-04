@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 4_6_GodsAngel
   cardName: God's Angel
-  manaCost: 1
+  manaCost: 6
   cardSprite: {fileID: 6984721119955742929, guid: a66393335239d444abfc2bb5c1a3233b, type: 3}
   rarity: 3
   usableWithoutTarget: 1

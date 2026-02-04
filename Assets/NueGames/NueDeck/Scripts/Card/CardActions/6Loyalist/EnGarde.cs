@@ -17,7 +17,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
            newTarget.CharacterStats.ApplyStatus(StatusType.Armor,1);
 
-                    newTarget.CharacterStats.ApplyStatus(StatusType.Pursuit,10);
+                    newTarget.CharacterStats.ApplyStatus(StatusType.Pursuit,8);
 
             if (FxManager != null)
                 FxManager.PlayFx(newTarget.transform, FxType.EnGarde);

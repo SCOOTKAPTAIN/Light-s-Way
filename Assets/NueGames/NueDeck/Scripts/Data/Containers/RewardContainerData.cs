@@ -20,12 +20,8 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
         {
             rewardData = CardRewardDataList.RandomItem();
             
-            List<CardData> cardList = new List<CardData>();
-            
-            foreach (var cardData in rewardData.RewardCardList)
-                cardList.Add(cardData);
-
-            return cardList;
+            // Use weighted random selection - typically 3 cards per reward
+            return rewardData.GetWeightedRandomCards(3);
         } 
         public int GetRandomGoldReward(out GoldRewardData rewardData)
         { 

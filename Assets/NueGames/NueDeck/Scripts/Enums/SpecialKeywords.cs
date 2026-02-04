@@ -32,7 +32,10 @@
         Judged,
         TheBestDefence,
         Blind,
-        Sabotaged
+        Sabotaged,
+        Hazy,
+        Slimed,
+        Temporary
 
 
 

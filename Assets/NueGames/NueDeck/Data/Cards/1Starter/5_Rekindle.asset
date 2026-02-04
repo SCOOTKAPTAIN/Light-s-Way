@@ -18,16 +18,16 @@ MonoBehaviour:
   cardSprite: {fileID: -2508936760440499138, guid: d4ccbd799d8c62745891531ffa9b5ae3, type: 3}
   rarity: 2
   usableWithoutTarget: 1
-  exhaustAfterPlay: 0
+  exhaustAfterPlay: 1
   cardActionDataList:
   - cardActionType: 20
     actionTargetType: 1
     actionValue: 0
     actionDelay: 0
-  removeAfterBattle: 0
+  removeAfterBattle: 1
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: Use 10 <color=#FFB430>Light</color>
+  - descriptionText: 'Refills '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -36,7 +36,25 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: ' to refill <color=#FFB430>Mana</color> and'
+  - descriptionText: Mana.
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: ' Exhaust'
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: '. '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -45,7 +63,16 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: ' <color=#FFB430>Draw</color>'
+  - descriptionText: Hazy
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: .
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -54,14 +81,5 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: ' 3 cards.'
-    enableOverrideColor: 0
-    overrideColor: {r: 0, g: 0, b: 0, a: 1}
-    useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
-  specialKeywordsList: 04000000
+  specialKeywordsList: 04000000030000001f000000
   audioType: 15

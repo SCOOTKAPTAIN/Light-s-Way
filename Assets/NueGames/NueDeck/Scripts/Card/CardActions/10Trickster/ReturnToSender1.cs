@@ -20,7 +20,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             StatusType.NoDraw,
             StatusType.NoGainMana,
             StatusType.Judged,
-            StatusType.Obscured
+            StatusType.Obscured,
+            StatusType.Slimed,
+            StatusType.Ablazed
         };
 
         // Static dictionary to store cleared debuffs for ReturnToSender2

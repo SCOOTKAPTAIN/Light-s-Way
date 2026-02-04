@@ -11,7 +11,16 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
         public override void DoAction(EnemyActionParameters actionParameters)
         {
             if (!actionParameters.TargetCharacter) return;
-            var value = Mathf.RoundToInt(actionParameters.Value +
+            
+            float baseValue = actionParameters.Value;
+            
+            // Apply Light-based damage multiplier if action has flag enabled (uses cached value from combat start)
+            if (actionParameters.ActionData != null && actionParameters.ActionData.ApplyLightMultiplier)
+            {
+                baseValue *= CombatManager.Instance.CombatLightMultiplier;
+            }
+            
+            var value = Mathf.RoundToInt(baseValue +
                                          actionParameters.SelfCharacter.CharacterStats.StatusDict[StatusType.Strength]
                                              .StatusValue);
 

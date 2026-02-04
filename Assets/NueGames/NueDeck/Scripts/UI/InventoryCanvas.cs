@@ -61,6 +61,12 @@ namespace NueGames.NueDeck.Scripts.UI
             base.OpenCanvas();
             if (CollectionManager)
                 CollectionManager.HandController.DisableDragging();
+            
+            // Also disable card selection
+            if (GameManager != null && GameManager.PersistentGameplayData != null)
+            {
+                GameManager.PersistentGameplayData.CanSelectCards = false;
+            }
         }
 
         public override void CloseCanvas()
@@ -68,6 +74,12 @@ namespace NueGames.NueDeck.Scripts.UI
             base.CloseCanvas();
             if (CollectionManager)
                 CollectionManager.HandController.EnableDragging();
+            
+            // Re-enable card selection
+            if (GameManager != null && GameManager.PersistentGameplayData != null)
+            {
+                GameManager.PersistentGameplayData.CanSelectCards = true;
+            }
 
             // 🔑 Cleanup removal listeners so cards go back to neutral
             foreach (var card in _spawnedCardList)

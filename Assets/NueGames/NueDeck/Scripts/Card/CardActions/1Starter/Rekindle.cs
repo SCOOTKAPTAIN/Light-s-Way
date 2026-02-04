@@ -14,17 +14,17 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var selfCharacter = actionParameters.SelfCharacter;
             
 
-            if (GameManager.PersistentGameplayData.light < 10)
-            {
-                CollectionManager.DrawCards(Mathf.RoundToInt(1));
-                FxManager.PlayFx(actionParameters.SelfCharacter.transform, FxType.NoLight);
-                AudioManager.PlayOneShot(AudioActionType.NoLight);
-                return;
-            }
+            // if (GameManager.PersistentGameplayData.light < 10)
+            // {
+            //     CollectionManager.DrawCards(Mathf.RoundToInt(1));
+            //     FxManager.PlayFx(actionParameters.SelfCharacter.transform, FxType.NoLight);
+            //     AudioManager.PlayOneShot(AudioActionType.NoLight);
+            //     return;
+            // }
 
-            CollectionManager.DrawCards(Mathf.RoundToInt(3));
+         //   CollectionManager.DrawCards(Mathf.RoundToInt(3));
             CombatManager.IncreaseMana(Mathf.RoundToInt(GameManager.PersistentGameplayData.MaxMana));
-            GameManager.PersistentGameplayData.ChangeLight(-10);
+           // GameManager.PersistentGameplayData.ChangeLight(-10);
             FxManager.PlayFx(actionParameters.SelfCharacter.transform, FxType.Rekindle);
           
             if (AudioManager != null) 

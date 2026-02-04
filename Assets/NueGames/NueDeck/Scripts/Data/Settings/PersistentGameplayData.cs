@@ -25,6 +25,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private int currentStageId;
         [SerializeField] private int currentEncounterId;
         [SerializeField] private bool isFinalEncounter;
+        [SerializeField] private int currentEncounterTypeIndex; // 0=Normal, 1=Elite, 2=Boss, 3=Special
         [SerializeField] private List<CardData> currentCardsList;
         [SerializeField] private List<AllyHealthData> allyHealthDataDataList;
 
@@ -37,6 +38,9 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private int BonusMaxHealth;
 
        [SerializeField] public bool Restevent;
+       
+       // Boss tracking
+       [SerializeField] private List<string> defeatedBossIds; // Tracks bosses defeated this run
 
         public PersistentGameplayData(GameplayData gameplayData)
         {
@@ -101,6 +105,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             lightLoss = 2;
             ActAlreadyPlayed = false;
             BonusMaxHealth = 0;
+            defeatedBossIds = new List<string>(); // Initialize defeated boss list
             if (PostFXManager.Instance != null)
                 PostFXManager.Instance.UpdateEffects(light);
         }
@@ -169,6 +174,12 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             set => isFinalEncounter = value;
         }
 
+        public int CurrentEncounterTypeIndex
+        {
+            get => currentEncounterTypeIndex;
+            set => currentEncounterTypeIndex = value;
+        }
+
         public List<CardData> CurrentCardsList
         {
             get => currentCardsList;
@@ -229,6 +240,32 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             get => Restevent;
             set => Restevent = value;
         }
+        public List<string> DefeatedBossIds
+        {
+            get => defeatedBossIds;
+            set => defeatedBossIds = value;
+        }
+        
+        /// <summary>
+        /// Marks a boss as defeated so it won't appear in future acts
+        /// </summary>
+        public void MarkBossAsDefeated(string bossId)
+        {
+            if (!defeatedBossIds.Contains(bossId))
+            {
+                defeatedBossIds.Add(bossId);
+                Debug.Log($"Boss '{bossId}' marked as defeated. Won't appear again this run.");
+            }
+        }
+        
+        /// <summary>
+        /// Checks if a boss has been defeated this run
+        /// </summary>
+        public bool IsBossDefeated(string bossId)
+        {
+            return defeatedBossIds.Contains(bossId);
+        }
+        
         
         
         #endregion

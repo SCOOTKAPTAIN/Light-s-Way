@@ -8,6 +8,45 @@ namespace NueGames.NueDeck.Scripts.Utils
     public static class DamageEffects
     {
         /// <summary>
+        /// Gets the Light-based damage multiplier for enemies based on current Light level.
+        /// 100-80: 1.0x (no buff), 79-50: 1.1x, 49-25: 1.15x, 24-10: 1.25x, 9-1: 1.4x, 0: 1.5x
+        /// </summary>
+        public static float GetLightDamageMultiplier()
+        {
+            int light = GameManager.Instance?.PersistentGameplayData?.light ?? 100;
+            
+            return light switch
+            {
+                >= 80 and <= 100 => 1.0f,   // No buff
+                >= 50 and <= 79 => 1.10f,   // +10%
+                >= 25 and <= 49 => 1.15f,   // +15%
+                >= 10 and <= 24 => 1.25f,   // +25%
+                >= 1 and <= 9 => 1.40f,     // +40%
+                0 => 1.50f,                  // +50%
+                _ => 1.0f
+            };
+        }
+        
+        /// <summary>
+        /// Gets the Light-based health multiplier for enemies based on current Light level.
+        /// Uses same thresholds as damage multiplier.
+        /// </summary>
+        public static float GetLightHealthMultiplier()
+        {
+            return GetLightDamageMultiplier(); // Same scaling for now
+        }
+        
+        /// <summary>
+        /// Calculates mutation chance based on Light level.
+        /// 100 Light = 0% chance, 0 Light = 50% chance (gradual).
+        /// </summary>
+        public static float GetMutationChance()
+        {
+            int light = GameManager.Instance?.PersistentGameplayData?.light ?? 100;
+            return (100 - light) / 2f; // 0% at 100 Light, 50% at 0 Light
+        }
+        
+        /// <summary>
         /// Applies all damage modifiers including Fragile, Weak, Pursuit, and The Best Defence.
         /// Flow:
         /// 1. Add The Best Defence bonus (20% of attacker's block) to base damage
@@ -71,12 +110,29 @@ namespace NueGames.NueDeck.Scripts.Utils
                 
                 Debug.Log($"[DamageEffects] Attacker Weakness stacks: {weaknessStacks}, multiplier: {weaknessMultiplier}");
             }
+            
+            // Slimed: 25% damage reduction per tier (every 3 stacks), up to 100% at 12 stacks
+            float slimedMultiplier = 1f;
+            if (attacker != null && attacker.CharacterStats.StatusDict.ContainsKey(StatusType.Slimed))
+            {
+                var slimedStacks = attacker.CharacterStats.StatusDict[StatusType.Slimed].StatusValue;
+                if (slimedStacks > 0)
+                {
+                    // Calculate tier: 3 stacks = tier 1 (25%), 6 = tier 2 (50%), 9 = tier 3 (75%), 12+ = tier 4 (100%)
+                    int tier = slimedStacks / 3;
+                    if (tier > 4) tier = 4; // Cap at 100% reduction
+                    float reductionPercent = tier * 0.25f;
+                    slimedMultiplier = 1f - reductionPercent;
+                    
+                    Debug.Log($"[DamageEffects] Attacker Slimed stacks: {slimedStacks}, tier: {tier}, reduction: {reductionPercent * 100}%, multiplier: {slimedMultiplier}");
+                }
+            }
 
-            // Combine both multipliers and apply to adjusted base value (now including The Best Defence bonus)
-            float combinedMultiplier = fragileMultiplier * weaknessMultiplier;
+            // Combine all multipliers and apply to adjusted base value (now including The Best Defence bonus)
+            float combinedMultiplier = fragileMultiplier * weaknessMultiplier * slimedMultiplier;
             float adjustedValue = Mathf.RoundToInt(adjustedBaseValue * combinedMultiplier);
             
-            Debug.Log($"[DamageEffects] Fragile×Weak: {fragileMultiplier} × {weaknessMultiplier} = {combinedMultiplier}, Adjusted: {adjustedBaseValue} × {combinedMultiplier} = {adjustedValue}");
+            Debug.Log($"[DamageEffects] Fragile×Weak×Slimed: {fragileMultiplier} × {weaknessMultiplier} × {slimedMultiplier} = {combinedMultiplier}, Adjusted: {adjustedBaseValue} × {combinedMultiplier} = {adjustedValue}");
 
             // Pursuit: Deal additional damage based on stacks and multipliers
             if (attacker != null && attacker.CharacterStats.StatusDict[StatusType.Pursuit].StatusValue > 0)

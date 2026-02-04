@@ -17,8 +17,16 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             
             if (!newTarget) return;
             
+            float blockValue = actionParameters.Value;
+            
+            // Apply Light-based multiplier if action has flag enabled (uses cached value from combat start)
+            if (actionParameters.ActionData != null && actionParameters.ActionData.ApplyLightMultiplier)
+            {
+                blockValue *= CombatManager.Instance.CombatLightMultiplier;
+            }
+            
             newTarget.CharacterStats.ApplyStatus(StatusType.Block,
-                Mathf.RoundToInt(actionParameters.Value + actionParameters.SelfCharacter.CharacterStats
+                Mathf.RoundToInt(blockValue + actionParameters.SelfCharacter.CharacterStats
                     .StatusDict[StatusType.Fortitude].StatusValue));
             
             if (FxManager != null)

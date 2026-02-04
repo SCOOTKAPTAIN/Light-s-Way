@@ -46,12 +46,12 @@ public class DialogueAudioManager : MonoBehaviour
         {
             switch(GameManager.Instance.PersistentGameplayData.light)
             {
-                case >= 90 and <= 100:
+                case >= 80 and <= 100:
                 PlayMusic("100LightBattle");
                 break;
 
-                case >= 50 and <= 89:
-                PlayMusic("89LightBattle");                
+                case >= 50 and <= 79:
+                PlayMusic("79LightBattle");                
                 break;
 
                 case >= 25 and <= 49:
@@ -77,12 +77,12 @@ public class DialogueAudioManager : MonoBehaviour
         {
             switch(GameManager.Instance.PersistentGameplayData.light)
             {
-                case >= 90 and <= 100:
+                case >= 80 and <= 100:
                 PlayMusic("100LightMap");
                 break;
                 
-                case >= 50 and <= 89:
-                PlayMusic("89LightMap");                
+                case >= 50 and <= 79:
+                PlayMusic("79LightMap");                
                 break;
 
                 case >= 25 and <= 49:

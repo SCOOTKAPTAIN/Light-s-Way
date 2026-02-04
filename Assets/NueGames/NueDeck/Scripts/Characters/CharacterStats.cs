@@ -35,7 +35,7 @@ namespace NueGames.NueDeck.Scripts.Characters
     { 
         // Shared list of status types considered debuffs.
         // Keep in one place so new logic (ClearDebuffs and debuff blocking) can reuse it.
-        private static readonly StatusType[] DebuffTypes = new[]
+        public static readonly StatusType[] DebuffTypes = new[]
         {
             StatusType.Poison,
             StatusType.Stun,
@@ -48,7 +48,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusType.NoDraw,
             StatusType.NoGainMana,
             StatusType.Judged,
-            StatusType.Obscured
+            StatusType.Obscured,
+            StatusType.Slimed,
+            StatusType.Ablazed
         };
         private const float FrostbitePercentPerStack = 0.25f; // 25% proficiency per stack
         private const float BurningPercentPerStack = 0.25f; // 25% proficiency per stack
@@ -160,6 +162,13 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.Obscured].TriggerAtTurnEnd = true;
             StatusDict[StatusType.Obscured].DecreaseOverTurn = true;
 
+            // Slimed: player debuff that increases on card use, clears at turn end
+            StatusDict[StatusType.Slimed].ClearAtNextTurn = true;
+            StatusDict[StatusType.Slimed].TriggerAtTurnEnd = true;
+            
+            // Ablazed: deals damage on card use, reduces by 1 per card, clears at turn end
+            StatusDict[StatusType.Ablazed].ClearAtNextTurn = true;
+            StatusDict[StatusType.Ablazed].TriggerAtTurnEnd = true;
             
         }
         #endregion
@@ -529,8 +538,8 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (CurrentHealth <= 0)
             {
                 CurrentHealth = 0;
+                IsDeath = true;  // Set flag BEFORE invoking to prevent double-death
                 OnDeath?.Invoke();
-                IsDeath = true;
             }
             
             // Spawn damage text based on actual health change (damage taken = health_before - health_after).

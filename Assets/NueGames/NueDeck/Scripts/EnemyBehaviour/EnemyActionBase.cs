@@ -24,12 +24,14 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour
         public readonly float Value;
         public readonly CharacterBase TargetCharacter;
         public readonly CharacterBase SelfCharacter;
+        public readonly Data.Characters.EnemyActionData ActionData;
 
-        public EnemyActionParameters(float value,CharacterBase target, CharacterBase self)
+        public EnemyActionParameters(float value, CharacterBase target, CharacterBase self, Data.Characters.EnemyActionData actionData = null)
         {
             Value = value;
             TargetCharacter = target;
             SelfCharacter = self;
+            ActionData = actionData;
         }
     }
     

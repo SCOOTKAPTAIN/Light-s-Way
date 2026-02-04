@@ -104,6 +104,7 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
         /// <summary>
         /// Returns content with dynamic status values substituted based on the provided character stats.
         /// Replaces placeholders like {Block}, {Strength}, {Poison}, etc. with actual status values.
+        /// Also supports formula placeholders like {Fragile*10} for calculated values.
         /// </summary>
         public string GetContentWithStatusValues(NueGames.NueDeck.Scripts.Characters.CharacterStats characterStats, string overrideContent = "")
         {
@@ -112,7 +113,77 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
 
             string content = GetContent(overrideContent);
 
-            // Replace all status type placeholders with actual values
+            // First pass: Replace formula placeholders (e.g., {Fragile*10})
+            foreach (StatusType statusType in System.Enum.GetValues(typeof(StatusType)))
+            {
+                if (statusType == StatusType.None) continue;
+
+                if (characterStats.StatusDict.ContainsKey(statusType))
+                {
+                    int statusValue = characterStats.StatusDict[statusType].StatusValue;
+                    string statusName = statusType.ToString();
+                    
+                    // Check for multiplication formulas: {StatusType*number}
+                    string multiplyPattern = "{" + statusName + "*";
+                    int startIndex = 0;
+                    while (startIndex < content.Length && (startIndex = content.IndexOf(multiplyPattern, startIndex)) != -1)
+                    {
+                        int endIndex = content.IndexOf("}", startIndex);
+                        if (endIndex != -1)
+                        {
+                            string fullPlaceholder = content.Substring(startIndex, endIndex - startIndex + 1);
+                            string formula = fullPlaceholder.Substring(multiplyPattern.Length, fullPlaceholder.Length - multiplyPattern.Length - 1);
+                            
+                            if (int.TryParse(formula, out int multiplier))
+                            {
+                                int result = statusValue * multiplier;
+                                content = content.Replace(fullPlaceholder, result.ToString());
+                                // Restart search from beginning since content changed
+                                startIndex = 0;
+                            }
+                            else
+                            {
+                                startIndex = endIndex + 1;
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    
+                    // Check for division formulas: {StatusType/number}
+                    string dividePattern = "{" + statusName + "/";
+                    startIndex = 0;
+                    while (startIndex < content.Length && (startIndex = content.IndexOf(dividePattern, startIndex)) != -1)
+                    {
+                        int endIndex = content.IndexOf("}", startIndex);
+                        if (endIndex != -1)
+                        {
+                            string fullPlaceholder = content.Substring(startIndex, endIndex - startIndex + 1);
+                            string formula = fullPlaceholder.Substring(dividePattern.Length, fullPlaceholder.Length - dividePattern.Length - 1);
+                            
+                            if (int.TryParse(formula, out int divisor) && divisor != 0)
+                            {
+                                int result = statusValue / divisor;
+                                content = content.Replace(fullPlaceholder, result.ToString());
+                                // Restart search from beginning since content changed
+                                startIndex = 0;
+                            }
+                            else
+                            {
+                                startIndex = endIndex + 1;
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Second pass: Replace simple status placeholders (e.g., {Strength})
             foreach (StatusType statusType in System.Enum.GetValues(typeof(StatusType)))
             {
                 if (statusType == StatusType.None) continue;

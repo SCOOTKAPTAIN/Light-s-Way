@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Data.Collection;
+using NueGames.NueDeck.Scripts.Data.Collection.RewardData;
 using NueGames.NueDeck.Scripts.Data.Containers;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.NueExtentions;
@@ -33,6 +34,39 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
         {
             rewardPanelRoot.gameObject.SetActive(true);
         }
+        
+        /// <summary>
+        /// Builds rewards based on encounter configuration, or uses defaults if none specified.
+        /// </summary>
+        public void BuildRewardsForEncounter(EnemyEncounter encounter)
+        {
+            if (encounter == null || !encounter.HasCustomRewards)
+            {
+                // Use default rewards
+                BuildReward(RewardType.Gold);
+                BuildReward(RewardType.Card);
+                return;
+            }
+            
+            // Build custom gold rewards
+            if (encounter.CustomGoldRewards != null)
+            {
+                foreach (var goldRewardData in encounter.CustomGoldRewards)
+                {
+                    BuildCustomGoldReward(goldRewardData);
+                }
+            }
+            
+            // Build custom card rewards
+            if (encounter.CustomCardRewards != null)
+            {
+                foreach (var cardRewardData in encounter.CustomCardRewards)
+                {
+                    BuildCustomCardReward(cardRewardData);
+                }
+            }
+        }
+        
         public void BuildReward(RewardType rewardType)
         {
             var rewardClone = Instantiate(rewardContainerPrefab, rewardRoot);
@@ -89,6 +123,32 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
         #endregion
         
         #region Private Methods
+        
+        private void BuildCustomGoldReward(GoldRewardData goldRewardData)
+        {
+            var rewardClone = Instantiate(rewardContainerPrefab, rewardRoot);
+            _currentRewardsList.Add(rewardClone);
+            
+            var goldAmount = UnityEngine.Random.Range(goldRewardData.MinGold, goldRewardData.MaxGold);
+            rewardClone.BuildReward(goldRewardData.RewardSprite, goldRewardData.RewardDescription);
+            rewardClone.RewardButton.onClick.AddListener(() => GetGoldReward(rewardClone, goldAmount));
+        }
+        
+        private void BuildCustomCardReward(CardRewardData cardRewardData)
+        {
+            var rewardClone = Instantiate(rewardContainerPrefab, rewardRoot);
+            _currentRewardsList.Add(rewardClone);
+            
+            // Use weighted random selection for card rewards
+            _cardRewardList.Clear();
+            var selectedCards = cardRewardData.GetWeightedRandomCards(3);
+            foreach (var cardData in selectedCards)
+                _cardRewardList.Add(cardData);
+            
+            rewardClone.BuildReward(cardRewardData.RewardSprite, cardRewardData.RewardDescription);
+            rewardClone.RewardButton.onClick.AddListener(() => GetCardReward(rewardClone, 3));
+        }
+        
         private void GetGoldReward(RewardContainer rewardContainer,int amount)
         {
             GameManager.PersistentGameplayData.CurrentGold += amount;

@@ -108,12 +108,12 @@ namespace Map
         {
             switch(value)
             {
-                case >= 90 and <= 100:
+                case >= 80 and <= 100:
                 spotlightOuterRadius = 32f;
                 spotlight.pointLightInnerRadius = 16f; 
                 spotlight.pointLightOuterRadius = 32f;
                 break;
-                case >= 50 and <= 89:
+                case >= 50 and <= 79:
                 spotlightOuterRadius = 20f;
                 spotlight.pointLightInnerRadius = 10f; 
                 spotlight.pointLightOuterRadius = 20f;

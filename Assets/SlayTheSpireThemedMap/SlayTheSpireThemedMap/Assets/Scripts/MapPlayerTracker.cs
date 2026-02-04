@@ -189,11 +189,11 @@ namespace Map
             MapNode currentnode = view.GetNode(currentPoint);
             switch(GameManager.Instance.PersistentGameplayData.light)
             {
-                case >= 90 and <= 100:
+                case >= 80 and <= 100:
                 currentnode.spotlight.pointLightInnerRadius = 16f; 
                 currentnode.spotlight.pointLightOuterRadius = 32f;
                 break;
-                case >= 50 and <= 89:
+                case >= 50 and <= 79:
                 currentnode.spotlight.pointLightInnerRadius = 10f; 
                 currentnode.spotlight.pointLightOuterRadius = 20f;
                 break;
@@ -302,7 +302,7 @@ namespace Map
             {
                 case NodeType.MinorEnemy:
                 Debug.Log("Go to a normal battle!");
-                EncounterManager.instance.EncounterSelector();
+                EncounterManager.instance.SelectEncounter(EncounterType.Normal);
 
                 DialogueAudioManager.instance.PlaySFX("enterbattle");
                 DialogueAudioManager.instance.DynamicMusic("battle");
@@ -312,7 +312,7 @@ namespace Map
                     break;
                 case NodeType.EliteEnemy:
                 Debug.Log("Go to a dangerous battle!");
-                EncounterManager.instance.EliteEncounterSelector();
+                EncounterManager.instance.SelectEncounter(EncounterType.Elite);
 
                 DialogueAudioManager.instance.PlaySFX("enterbattle");
                 DialogueAudioManager.instance.DynamicMusic("battle");
@@ -337,8 +337,8 @@ namespace Map
                     break;
                 case NodeType.Boss:
                 Debug.Log("Go to a boss battle!");
-                GameManager.Instance.PersistentGameplayData.ActNumber++;
-                EncounterManager.instance.BossSelector();
+                // Select boss encounter BEFORE incrementing act (so Act 1 boss uses Act 1 data)
+                EncounterManager.instance.SelectEncounter(EncounterType.Boss);
                 GameManager.Instance.PersistentGameplayData.actalreadyplayed = false;
                 
                 DialogueAudioManager.instance.PlaySFX("enterbattle");

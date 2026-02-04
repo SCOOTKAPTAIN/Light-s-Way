@@ -30,7 +30,9 @@
         Judged,
         TheBestDefense,
         Obscured,
-        Sabotaged
+        Sabotaged,
+        Slimed,
+        Ablazed
         
 
     }

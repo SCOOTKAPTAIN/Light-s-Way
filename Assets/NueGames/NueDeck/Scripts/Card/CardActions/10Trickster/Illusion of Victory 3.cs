@@ -27,6 +27,13 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                 }
             }
             
+            // Clear the saved context so it doesn't persist for the next card play
+            // Only clear after processing the last enemy to avoid clearing mid-execution
+            if (CombatManager.CurrentEnemiesList.IndexOf(targetCharacter as NueGames.NueDeck.Scripts.Characters.EnemyBase) == CombatManager.CurrentEnemiesList.Count - 1)
+            {
+                CombatManager.Instance.TryConsumeActionContext<int>("LostStrength", out _);
+            }
+            
 
             if (FxManager != null)
                  FxManager.PlayFx(anchor.transform, FxType.IllusionOfVictory3, new Vector3(0f, 0.4f, 0f));             

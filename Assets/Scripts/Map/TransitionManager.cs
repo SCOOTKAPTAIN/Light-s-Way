@@ -58,30 +58,24 @@ public class TransitionManager : MonoBehaviour
 
     public void PlayAct()
     {
-
+        // Simplified act system:
         // 0 - start
-        // 1 - Act 1
-        // 2 - Act 1 Boss
-        // 3 - Act 2
-        // 4 - Act 2 Boss
-        // 5 - Act 3
-        // 6 - Act 3 Boss
-        // 7 - Act 4 
-        // 8 - Act 4 Boss
-        // 9 - Final Act
-        // 10 - Final Boss
+        // 1 - Act 1 (includes normal encounters and bosses)
+        // 2 - Act 2 (includes normal encounters and bosses)
+        // 3 - Act 3
+        // 4 - Act 4
+        // 5 - Final Act
         switch(GameManager.Instance.PersistentGameplayData.ActNumber)
         {
-            case 3:
+            case 2:
            
-
             ActText.text = "Chapter 2";
             ActDescription.text = "\"The life of my past, all asunder. I shall not look back, for I must push forward.\"";
             transistionanimator.Play("Act2");
             GameManager.Instance.PersistentGameplayData.actalreadyplayed = true;
             break;
 
-            case 5:
+            case 3:
            
             ActText.text = "Chapter 3";
             ActDescription.text = "\"Echoes of sorrow sings in my ear, but I won't crumble, for even in the darkest night, a spark of hope shall bring me light.\"";
@@ -89,7 +83,7 @@ public class TransitionManager : MonoBehaviour
             GameManager.Instance.PersistentGameplayData.actalreadyplayed = true;
             break;
 
-            case 7:
+            case 4:
            
             ActText.text = "Chapter 4";
             ActDescription.text = "\"Countless thoughts flood my mind; my heart grows weary and teary, yet I shall cling to the shadow of hope.\"";
@@ -97,7 +91,7 @@ public class TransitionManager : MonoBehaviour
             GameManager.Instance.PersistentGameplayData.actalreadyplayed = true;
             break;
 
-            case 9:
+            case 5:
            
             ActText.text = "Final Chapter";
             ActDescription.text = "\"Through torment and darkness, I persist, now my journey draws near it's end, an end to wandering, an end to fear.\"";

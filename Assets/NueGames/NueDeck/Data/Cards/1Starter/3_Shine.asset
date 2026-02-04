@@ -18,16 +18,16 @@ MonoBehaviour:
   cardSprite: {fileID: 2813274282232148420, guid: 1f00d8dc6df0a00499f7426aab7fa14a, type: 3}
   rarity: 2
   usableWithoutTarget: 0
-  exhaustAfterPlay: 0
+  exhaustAfterPlay: 1
   cardActionDataList:
   - cardActionType: 18
     actionTargetType: 0
     actionValue: 29
     actionDelay: 0
-  removeAfterBattle: 0
+  removeAfterBattle: 1
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: ' Use 10 <color=#FFB430>Light</color> to deal '
+  - descriptionText: 'Deal '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -54,7 +54,16 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: <color=#FFB430>Draw</color> 1 card.
+  - descriptionText: Exhaust
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: '. '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -63,5 +72,23 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  specialKeywordsList: 04000000
+  - descriptionText: Hazy
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: .
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  specialKeywordsList: 04000000030000001f000000
   audioType: 13
