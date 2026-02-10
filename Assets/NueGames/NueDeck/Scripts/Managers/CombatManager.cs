@@ -396,8 +396,18 @@ namespace NueGames.NueDeck.Scripts.Managers
             if (NueGames.NueDeck.ThirdParty.NueTooltip.Core.TooltipManager.Instance != null)
                 NueGames.NueDeck.ThirdParty.NueTooltip.Core.TooltipManager.Instance.HideTooltip();
 
-            UIManager.CombatCanvas.gameObject.SetActive(true);
-            UIManager.CombatCanvas.CombatLosePanel.SetActive(true);
+            // Play death animation instead of showing panel directly
+            var deathAnimation = UIManager.CombatCanvas.GetComponent<UI.PlayerDeathAnimation>();
+            if (deathAnimation != null)
+            {
+                deathAnimation.PlayDeathAnimation();
+            }
+            else
+            {
+                // Fallback to old behavior if animation component not found
+                UIManager.CombatCanvas.gameObject.SetActive(true);
+                UIManager.CombatCanvas.CombatLosePanel.SetActive(true);
+            }
         }
         private void WinCombat()
         {
