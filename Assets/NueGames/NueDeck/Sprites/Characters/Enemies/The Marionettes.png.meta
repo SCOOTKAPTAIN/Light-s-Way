@@ -1,0 +1,220 @@
+fileFormatVersion: 2
+guid: 7144bc57a676d74428a1370cc3d5ab06
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5018053619491211591
+    second: The Marionettes_0
+  - first:
+      213: -7312982118553837465
+    second: The Marionettes_1
+  - first:
+      213: 5946224758353787009
+    second: The Marionettes_2
+  - first:
+      213: 5570288402207284183
+    second: The Marionettes_3
+  - first:
+      213: -4131765654039243228
+    second: The Marionettes_4
+  - first:
+      213: 2299050957876486435
+    second: The Marionettes_5
+  - first:
+      213: -6141714749862656409
+    second: The Marionettes_6
+  - first:
+      213: -1618568481633791520
+    second: The Marionettes_7
+  - first:
+      213: 5432844012504765900
+    second: The Marionettes_8
+  - first:
+      213: 169377797467424231
+    second: The Marionettes_9
+  - first:
+      213: -4228825879895224440
+    second: The Marionettes_10
+  - first:
+      213: 726409627031316836
+    second: The Marionettes_11
+  - first:
+      213: 7762734779114881409
+    second: The Marionettes_12
+  - first:
+      213: 9125745983098709111
+    second: The Marionettes_13
+  - first:
+      213: -3594063153174386653
+    second: The Marionettes_14
+  - first:
+      213: -4216599745108116613
+    second: The Marionettes_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: The Marionettes_0
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 2012
+        height: 3736
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b6fc52e1da4c5ab0800000000000000
+      internalID: -5018053619491211591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: The Marionettes_2
+      rect:
+        serializedVersion: 2
+        x: 3673
+        y: 0
+        width: 2059
+        height: 3736
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1887f4cc9eb358250800000000000000
+      internalID: 5946224758353787009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: a67cfec4b8c5d8b4f83f5d344ace8845
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      The Marionettes_0: -5018053619491211591
+      The Marionettes_1: -7312982118553837465
+      The Marionettes_10: -4228825879895224440
+      The Marionettes_11: 726409627031316836
+      The Marionettes_12: 7762734779114881409
+      The Marionettes_13: 9125745983098709111
+      The Marionettes_14: -3594063153174386653
+      The Marionettes_15: -4216599745108116613
+      The Marionettes_2: 5946224758353787009
+      The Marionettes_3: 5570288402207284183
+      The Marionettes_4: -4131765654039243228
+      The Marionettes_5: 2299050957876486435
+      The Marionettes_6: -6141714749862656409
+      The Marionettes_7: -1618568481633791520
+      The Marionettes_8: 5432844012504765900
+      The Marionettes_9: 169377797467424231
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

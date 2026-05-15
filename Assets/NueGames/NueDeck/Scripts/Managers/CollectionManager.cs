@@ -122,11 +122,23 @@ namespace NueGames.NueDeck.Scripts.Managers
         }
         public void OnCardPlayed(CardBase targetCard)
         {
-            if (targetCard.CardData.ExhaustAfterPlay)
+            // If the card requested to be returned to hand after play, add it back instead of discarding/exhausting
+            if (targetCard.ReturnToHandAfterPlay)
+            {
+                // Visual: add the card GameObject back to hand controller
+                HandController.AddCardToHand(targetCard);
+                // Update UI
+                UIManager.CombatCanvas.SetPileTexts();
+            }
+            else if (targetCard.CardData.ExhaustAfterPlay)
+            {
                 targetCard.Exhaust();
+            }
             else
+            {
                 targetCard.Discard();
-          
+            }
+
             foreach (var cardObject in HandController.hand)
                 cardObject.UpdateCardText();
         }

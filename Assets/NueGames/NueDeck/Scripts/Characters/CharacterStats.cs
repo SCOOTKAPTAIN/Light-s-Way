@@ -50,6 +50,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusType.Judged,
             StatusType.Obscured,
             StatusType.Slimed,
+            StatusType.ManaDrain,
+            StatusType.Burden,
+            StatusType.CloggedCircuits,
             StatusType.Ablazed
         };
         private const float FrostbitePercentPerStack = 0.25f; // 25% proficiency per stack
@@ -103,6 +106,7 @@ namespace NueGames.NueDeck.Scripts.Characters
            
 
             StatusDict[StatusType.Block].ClearAtNextTurn = true;
+            StatusDict[StatusType.Weak].TriggerAtTurnEnd = true;
 
             // Armor: consumable counts that nullify one incoming non-piercing attack per stack
             StatusDict[StatusType.Armor].IsActive = false;
@@ -111,6 +115,11 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.NoDraw].DecreaseOverTurn = true;
 
             StatusDict[StatusType.NoGainMana].DecreaseOverTurn = true;
+
+            // New debuffs
+            StatusDict[StatusType.ManaDrain].DecreaseOverTurn = true; // reduces by 1 each turn
+            StatusDict[StatusType.Burden].DecreaseOverTurn = true; // increases card costs, decays
+            StatusDict[StatusType.CloggedCircuits].DecreaseOverTurn = true; // prevents mana gains from effects
 
             // Steady Barricade: persists for the combat; each stack retains +10 Block at turn start
             StatusDict[StatusType.SteadyBarricade].IsPermanent = true;
@@ -566,6 +575,16 @@ namespace NueGames.NueDeck.Scripts.Characters
                         FxManager.Instance.SpawnFloatingTextYellow(spawnRoot, displayDamage.ToString());
                     else
                         FxManager.Instance.SpawnFloatingText(spawnRoot, displayDamage.ToString());
+                }
+
+                // Small visual feedback: play a brief jitter on the character when actual (unblocked) damage occurs
+                try
+                {
+                    charBase?.PlayHitJitter();
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogWarning($"PlayHitJitter failed: {ex.Message}");
                 }
             }
             

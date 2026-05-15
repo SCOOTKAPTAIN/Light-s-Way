@@ -47,6 +47,10 @@ namespace NueGames.NueDeck.Scripts.Card
         
         public bool IsExhausted { get; private set; }
         public bool IsObscured { get; private set; }
+        // If true, card will be returned to hand instead of being discarded/exhausted after play
+        public bool ReturnToHandAfterPlay { get; set; }
+        // Number of times this card instance has been played in the current turn
+        private int timesPlayedThisTurn = 0;
 
         #endregion
         
@@ -55,6 +59,37 @@ namespace NueGames.NueDeck.Scripts.Card
         {
             CachedTransform = transform;
             CachedWaitFrame = new WaitForEndOfFrame();
+            // Reset per-turn counters when ally turn starts
+            if (CombatManager != null)
+                CombatManager.OnAllyTurnStarted += ResetTurnCounters;
+        }
+
+        private void OnDestroy()
+        {
+            if (CombatManager != null)
+                CombatManager.OnAllyTurnStarted -= ResetTurnCounters;
+        }
+
+        private void ResetTurnCounters()
+        {
+            timesPlayedThisTurn = 0;
+        }
+
+        // Returns the effective mana cost for this card instance (accounts for per-instance cost increases and EmergencyDodge)
+        public int GetEffectiveCost()
+        {
+            var effective = CardData.ManaCost + timesPlayedThisTurn;
+            // Burden: increases card cost for this turn
+            var mainAlly = CombatManager?.CurrentMainAlly;
+            if (mainAlly != null && mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.Burden) && mainAlly.CharacterStats.StatusDict[StatusType.Burden].IsActive && mainAlly.CharacterStats.StatusDict[StatusType.Burden].StatusValue > 0)
+            {
+                // Burden increases cost by 1 while active; stacks only control duration
+                effective += 1;
+            }
+
+            if (CardData.CardActionDataList != null && CardData.CardActionDataList.Exists(a => a.CardActionType == CardActionType.EmergencyDodge) && GameManager != null)
+                effective = GameManager.PersistentGameplayData.MaxMana;
+            return effective;
         }
 
         public virtual void SetCard(CardData targetProfile,bool isPlayable = true)
@@ -64,8 +99,11 @@ namespace NueGames.NueDeck.Scripts.Card
             nameTextField.text = CardData.CardName;
             descTextField.text = CardData.MyDescription;
             // Show 0 cost when the player currently has a FreeNextCard status active (QoL overlay)
-            var displayCost = CardData.ManaCost;
+            var displayCost = CardData.ManaCost + timesPlayedThisTurn;
+            // Apply Burden (temporary cost increase)
             var mainAlly = CombatManager?.CurrentMainAlly;
+            if (mainAlly != null && mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.Burden) && mainAlly.CharacterStats.StatusDict[StatusType.Burden].IsActive && mainAlly.CharacterStats.StatusDict[StatusType.Burden].StatusValue > 0)
+                displayCost += 1;
             // Emergency Dodge: dynamic cost equal to player's maximum mana
             if (CardData.CardActionDataList != null && CardData.CardActionDataList.Exists(a => a.CardActionType == CardActionType.EmergencyDodge) && GameManager != null)
                 displayCost = GameManager.PersistentGameplayData.MaxMana;
@@ -95,10 +133,8 @@ namespace NueGames.NueDeck.Scripts.Card
             var prevCanSelect = GameManager.PersistentGameplayData.CanSelectCards;
             GameManager.PersistentGameplayData.CanSelectCards = false;
 
-            // Determine effective cost (Emergency Dodge uses player's MaxMana)
-            var effectiveCost = CardData.ManaCost;
-            if (CardData.CardActionDataList != null && CardData.CardActionDataList.Exists(a => a.CardActionType == CardActionType.EmergencyDodge) && GameManager != null)
-                effectiveCost = GameManager.PersistentGameplayData.MaxMana;
+            // Determine effective cost (includes Burden and per-instance increases)
+            var effectiveCost = GetEffectiveCost();
             SpendMana(effectiveCost);
             // Animate the card to the play anchor (for visual feedback) before running actions.
             Transform playAnchor = CombatManager.playAnchor;
@@ -151,6 +187,8 @@ namespace NueGames.NueDeck.Scripts.Card
                 }
             }
             
+            // Increment per-card play counter for cost-scaling and then notify collection manager
+            timesPlayedThisTurn++;
             CollectionManager.OnCardPlayed(this);
 
             // Restore previous selection state (usually true during player's turn).
@@ -301,8 +339,10 @@ namespace NueGames.NueDeck.Scripts.Card
             CardData.UpdateDescription();
             nameTextField.text = CardData.CardName;
             descTextField.text = CardData.MyDescription;
-            var displayCost = CardData.ManaCost;
+            var displayCost = CardData.ManaCost + timesPlayedThisTurn;
             var mainAlly = CombatManager?.CurrentMainAlly;
+            if (mainAlly != null && mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.Burden) && mainAlly.CharacterStats.StatusDict[StatusType.Burden].IsActive && mainAlly.CharacterStats.StatusDict[StatusType.Burden].StatusValue > 0)
+                displayCost += 1;
             if (CardData.CardActionDataList != null && CardData.CardActionDataList.Exists(a => a.CardActionType == CardActionType.EmergencyDodge) && GameManager != null)
                 displayCost = GameManager.PersistentGameplayData.MaxMana;
             if (mainAlly != null && mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.FreeNextCard) && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].IsActive && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].StatusValue > 0)
@@ -409,22 +449,22 @@ namespace NueGames.NueDeck.Scripts.Card
             if (IsObscured) return; // Don't show tooltips when card is obscured
            
             var tooltipManager = TooltipManager.Instance;
-            var mainAlly = CombatManager?.CurrentMainAlly;
+            
+            // Use card-specific keyword data that doesn't pull from character status
+            if (tooltipManager.CardKeywordData == null)
+            {
+                Debug.LogWarning("CardKeywordData is not assigned in TooltipManager. Please assign it in the inspector.");
+                return;
+            }
             
             foreach (var cardDataSpecialKeyword in CardData.KeywordsList)
             {
-                var specialKeyword = tooltipManager.SpecialKeywordData.SpecialKeywordBaseList.Find(x=>x.SpecialKeyword == cardDataSpecialKeyword);
-                if (specialKeyword != null)
+                var cardKeyword = tooltipManager.CardKeywordData.CardKeywordBaseList.Find(x => x.SpecialKeyword == cardDataSpecialKeyword);
+                if (cardKeyword != null)
                 {
-                    // Get content with dynamic status values if character context is available
-                    string content = mainAlly != null 
-                        ? specialKeyword.GetContentWithStatusValues(mainAlly.CharacterStats)
-                        : specialKeyword.GetContent();
-                    
-                    // Get header with status value if character context is available
-                    string header = mainAlly != null
-                        ? specialKeyword.GetHeaderWithStatusValue(mainAlly.CharacterStats)
-                        : specialKeyword.GetHeader();
+                    // Get static content and header (no dynamic character values)
+                    string content = cardKeyword.GetContent();
+                    string header = cardKeyword.GetHeader();
                     
                     ShowTooltipInfo(tooltipManager, content, header, descriptionRoot, CursorType.Default, CollectionManager ? CollectionManager.HandController.cam : Camera.main);
                 }

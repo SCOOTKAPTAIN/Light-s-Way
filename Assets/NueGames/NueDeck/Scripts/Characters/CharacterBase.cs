@@ -48,5 +48,39 @@ namespace NueGames.NueDeck.Scripts.Characters
         {
             return CharacterType;
         }
+
+        // Small hit jitter to give feedback when this character takes unblocked damage.
+        private Coroutine _hitJitterCoroutine;
+        public void PlayHitJitter(float intensity = 0.06f, float duration = 0.12f)
+        {
+            if (!gameObject.activeInHierarchy) return;
+            if (_hitJitterCoroutine != null)
+                StopCoroutine(_hitJitterCoroutine);
+            _hitJitterCoroutine = StartCoroutine(HitJitterRoutine(intensity, duration));
+        }
+
+        private System.Collections.IEnumerator HitJitterRoutine(float intensity, float duration)
+        {
+            var original = transform.localPosition;
+            var elapsed = 0f;
+            while (elapsed < duration)
+            {
+                var t = elapsed / duration;
+                var strength = Mathf.Lerp(intensity, 0f, t);
+
+                // Bias jitter to be more horizontal: X larger, Y smaller, Z minimal
+                var horizontal = UnityEngine.Random.Range(-1f, 1f) * 1.25f; // emphasize X
+                var vertical = UnityEngine.Random.Range(-0.2f, 0.2f); // small Y movement
+                var depth = UnityEngine.Random.Range(-0.05f, 0.05f); // minimal Z
+
+                var offset = new Vector3(horizontal, vertical, depth) * strength;
+                transform.localPosition = original + offset;
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.localPosition = original;
+            _hitJitterCoroutine = null;
+        }
     }
 }

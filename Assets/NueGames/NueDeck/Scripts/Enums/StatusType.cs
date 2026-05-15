@@ -32,7 +32,10 @@
         Obscured,
         Sabotaged,
         Slimed,
-        Ablazed
+        Ablazed,
+         ManaDrain,
+        Burden,
+        CloggedCircuits
         
 
     }

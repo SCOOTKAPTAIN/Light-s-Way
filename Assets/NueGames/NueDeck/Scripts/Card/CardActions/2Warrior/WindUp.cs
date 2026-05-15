@@ -15,8 +15,12 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             
             if (!newTarget) return;
 
-            newTarget.CharacterStats.ApplyStatus(StatusType.Strength, Mathf.RoundToInt(actionParameters.Value));
-            CollectionManager.DrawCards(Mathf.RoundToInt(1));
+            // Gain 1 Strength
+            newTarget.CharacterStats.ApplyStatus(StatusType.Strength, 1);
+
+            // Return this card to the player's hand after play
+            if (actionParameters.CardBase != null)
+                actionParameters.CardBase.ReturnToHandAfterPlay = true;
 
 
 

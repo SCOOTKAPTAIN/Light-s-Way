@@ -15,6 +15,9 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             if (!newTarget) return;
             
             newTarget.CharacterStats.ApplyStatus(StatusType.Slimed,Mathf.RoundToInt(actionParameters.Value));
+            newTarget.CharacterStats.ApplyStatus(StatusType.Burden,Mathf.RoundToInt(actionParameters.Value));
+            newTarget.CharacterStats.ApplyStatus(StatusType.CloggedCircuits,Mathf.RoundToInt(actionParameters.Value));
+             newTarget.CharacterStats.ApplyStatus(StatusType.ManaDrain,Mathf.RoundToInt(actionParameters.Value));
 
            
             // Apply Sabotaged effect (deals damage to self, then reduces Sabotaged by 1)

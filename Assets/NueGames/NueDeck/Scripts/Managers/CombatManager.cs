@@ -186,6 +186,16 @@ namespace NueGames.NueDeck.Scripts.Managers
                     {
                         GameManager.PersistentGameplayData.CurrentMana = GameManager.PersistentGameplayData.MaxMana;
                     }
+
+                    // Mana Drain: while active it reduces starting mana by 1 (stacks only extend duration)
+                    if (CurrentMainAlly != null && CurrentMainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.ManaDrain) && CurrentMainAlly.CharacterStats.StatusDict[StatusType.ManaDrain].IsActive && CurrentMainAlly.CharacterStats.StatusDict[StatusType.ManaDrain].StatusValue > 0)
+                    {
+                        var drain = 1;
+                        GameManager.PersistentGameplayData.CurrentMana -= drain;
+                        if (GameManager.PersistentGameplayData.CurrentMana < 0) GameManager.PersistentGameplayData.CurrentMana = 0;
+                        if (FxManager != null)
+                            FxManager.SpawnStaticText(CurrentMainAlly.transform, "-" + drain + " Mana", 0, 1);
+                    }
                     CollectionManager.DrawCards(GameManager.PersistentGameplayData.DrawCount);
                     
                     GameManager.PersistentGameplayData.CanSelectCards = true;
@@ -256,6 +266,14 @@ namespace NueGames.NueDeck.Scripts.Managers
             {
                 if (FxManager != null)
                     FxManager.SpawnStaticText(CurrentMainAlly.transform, "No Mana Gain", 0, 1);
+                return;
+            }
+
+            // Respect CloggedCircuits: prevents mana gain from cards/effects (but not per-turn refill)
+            if (CurrentMainAlly != null && CurrentMainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.CloggedCircuits) && CurrentMainAlly.CharacterStats.StatusDict[StatusType.CloggedCircuits].IsActive)
+            {
+                if (FxManager != null)
+                    FxManager.SpawnStaticText(CurrentMainAlly.transform, "Clogged Circuits", 0, 1);
                 return;
             }
 
