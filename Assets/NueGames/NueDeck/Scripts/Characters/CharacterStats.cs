@@ -61,6 +61,8 @@ namespace NueGames.NueDeck.Scripts.Characters
         public int CurrentHealth { get; set; }
         public bool IsStunned { get;  set; }
         public bool IsDeath { get; private set; }
+        // Tracks if Block was applied or refreshed in the current turn
+        private bool _blockAppliedThisTurn = false;
        
         public Action OnDeath;
         public Action<int, int> OnHealthChanged;
@@ -102,9 +104,11 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.Poison].DecreaseOverTurn = true;
             StatusDict[StatusType.Poison].OnTriggerAction += DamagePoison;
             // Poison should trigger at turn end so it can be blocked by Block gained during the turn
-            StatusDict[StatusType.Poison].TriggerAtTurnEnd = true;
+            //StatusDict[StatusType.Poison].TriggerAtTurnEnd = true;
            
 
+            // Block should persist through the current turn and into the opponent's turn.
+            // It clears at the START of the next turn via the normal ClearAtNextTurn mechanism in TriggerAllStatus().
             StatusDict[StatusType.Block].ClearAtNextTurn = true;
             StatusDict[StatusType.Weak].TriggerAtTurnEnd = true;
 
@@ -213,6 +217,11 @@ namespace NueGames.NueDeck.Scripts.Characters
                 OnStatusChanged?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
                 OnStatusChangedPublic?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
                 
+                // If Block is being increased this turn, mark it so it won't clear this turn
+                if (targetStatus == StatusType.Block)
+                {
+                    _blockAppliedThisTurn = true;
+                }
             }
             else
             {
@@ -220,6 +229,12 @@ namespace NueGames.NueDeck.Scripts.Characters
                 StatusDict[targetStatus].IsActive = true;
                 OnStatusApplied?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
                 OnStatusChangedPublic?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
+                
+                // Mark Block as applied this turn so it won't clear this turn
+                if (targetStatus == StatusType.Block)
+                {
+                    _blockAppliedThisTurn = true;
+                }
             }
 
             // If this was Block, notify listeners about positive net gains
@@ -367,6 +382,11 @@ namespace NueGames.NueDeck.Scripts.Characters
         }
         public void TriggerAllStatus()
         {
+            // Reset Block flag at the start of this character's turn
+            // If Block was applied in a PREVIOUS turn, it will now be cleared in TriggerStatus
+            // If Block is applied THIS turn, the flag will be set again
+            _blockAppliedThisTurn = false;
+            
             // Evaluate stun state for this turn BEFORE any decrement/clear happens, so stacks map to full turns.
             var willStunThisTurn =
                 (StatusDict.ContainsKey(StatusType.Stun) && StatusDict[StatusType.Stun].StatusValue > 0) ||
@@ -388,7 +408,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         }
         
         /// <summary>
-        /// Triggers statuses that should activate at the END of a turn (e.g., Obscured).
+        /// Triggers statuses that should activate at the END of a turn (e.g., Obscured, Bleeding).
         /// Call this at the end of a turn before transitioning to the next character's turn.
         /// </summary>
         public void TriggerEndOfTurnStatuses()
@@ -719,6 +739,12 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[targetStatus].IsActive = false;
             StatusDict[targetStatus].StatusValue = 0;
             OnStatusCleared?.Invoke(targetStatus);
+            
+            // Reset block tracking if Block is cleared
+            if (targetStatus == StatusType.Block)
+            {
+                _blockAppliedThisTurn = false;
+            }
         }
 
         #endregion
@@ -728,11 +754,13 @@ namespace NueGames.NueDeck.Scripts.Characters
         {
             StatusDict[targetStatus].OnTriggerAction?.Invoke();
             
-            //One turn only statuses
-            if (StatusDict[targetStatus].ClearAtNextTurn)
+            // Special handling for Block: clear it if it was applied in a previous turn
+            // (not the current turn), so it persists through the opponent's actions but expires after
+            if (targetStatus == StatusType.Block && StatusDict[targetStatus].IsActive && !_blockAppliedThisTurn)
             {
-                // Special behavior for Block: if SteadyBarricade stacks exist, preserve up to 10 * stacks of Block instead of clearing fully
-                if (targetStatus == StatusType.Block && StatusDict.ContainsKey(StatusType.SteadyBarricade) && StatusDict[StatusType.SteadyBarricade].IsActive && StatusDict[StatusType.SteadyBarricade].StatusValue > 0)
+                // Block was applied in a previous turn, so clear it now (at the start of this character's turn)
+                // Apply SteadyBarricade retention logic before clearing
+                if (StatusDict.ContainsKey(StatusType.SteadyBarricade) && StatusDict[StatusType.SteadyBarricade].IsActive && StatusDict[StatusType.SteadyBarricade].StatusValue > 0)
                 {
                     var stacks = StatusDict[StatusType.SteadyBarricade].StatusValue;
                     var retainCap = stacks * 10;
@@ -742,22 +770,27 @@ namespace NueGames.NueDeck.Scripts.Characters
                     if (newBlock <= 0)
                     {
                         ClearStatus(StatusType.Block);
-                        OnStatusChanged?.Invoke(StatusType.Block, 0);
                     }
                     else
                     {
                         StatusDict[StatusType.Block].StatusValue = newBlock;
                         OnStatusChanged?.Invoke(StatusType.Block, newBlock);
                     }
-
-                    return;
                 }
                 else
                 {
-                    ClearStatus(targetStatus);
-                    OnStatusChanged?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
-                    return;
+                    ClearStatus(StatusType.Block);
                 }
+
+                return;
+            }
+            
+            //One turn only statuses (for non-Block statuses)
+            if (StatusDict[targetStatus].ClearAtNextTurn)
+            {
+                ClearStatus(targetStatus);
+                OnStatusChanged?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
+                return;
             }
             
             //Check status

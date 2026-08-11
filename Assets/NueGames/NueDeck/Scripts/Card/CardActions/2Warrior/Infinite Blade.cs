@@ -15,6 +15,10 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var targetCharacter = actionParameters.TargetCharacter;
             var selfCharacter = actionParameters.SelfCharacter;
 
+            var shouldReturn = Random.value <= 0.4f;
+            actionParameters.CardBase.ReturnToHandAfterPlay = shouldReturn;
+            actionParameters.CardBase.ResetPlayCountWhenReturnedToHand = shouldReturn;
+
             var value = GameManager.PersistentGameplayData.proficiency + actionParameters.Value
              + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue;
 
@@ -23,7 +27,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
-            CollectionManager.DrawCards(Mathf.RoundToInt(1));
+           // CollectionManager.DrawCards(Mathf.RoundToInt(1));
 
 
            

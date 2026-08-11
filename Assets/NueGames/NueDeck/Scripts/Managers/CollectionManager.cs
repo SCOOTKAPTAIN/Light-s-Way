@@ -125,6 +125,11 @@ namespace NueGames.NueDeck.Scripts.Managers
             // If the card requested to be returned to hand after play, add it back instead of discarding/exhausting
             if (targetCard.ReturnToHandAfterPlay)
             {
+                if (targetCard.ResetPlayCountWhenReturnedToHand)
+                {
+                    // Reset any per-turn play-cost scaling when the card returns to hand.
+                    targetCard.ResetPlayCountThisTurn();
+                }
                 // Visual: add the card GameObject back to hand controller
                 HandController.AddCardToHand(targetCard);
                 // Update UI
@@ -138,6 +143,10 @@ namespace NueGames.NueDeck.Scripts.Managers
             {
                 targetCard.Discard();
             }
+
+            // Reset the flags after the card has been processed so they do not persist on the same instance.
+            targetCard.ReturnToHandAfterPlay = false;
+            targetCard.ResetPlayCountWhenReturnedToHand = false;
 
             foreach (var cardObject in HandController.hand)
                 cardObject.UpdateCardText();

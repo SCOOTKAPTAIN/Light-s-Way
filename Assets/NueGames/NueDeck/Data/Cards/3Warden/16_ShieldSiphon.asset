@@ -18,7 +18,7 @@ MonoBehaviour:
   cardSprite: {fileID: -3273723934467286461, guid: 38590472344f5764c9172165355719d5, type: 3}
   rarity: 2
   usableWithoutTarget: 0
-  exhaustAfterPlay: 1
+  exhaustAfterPlay: 0
   cardActionDataList:
   - cardActionType: 31
     actionTargetType: 0
@@ -81,24 +81,6 @@ MonoBehaviour:
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 1
   - descriptionText: ' damage. '
-    enableOverrideColor: 0
-    overrideColor: {r: 0, g: 0, b: 0, a: 1}
-    useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
-  - descriptionText: Exhaust
-    enableOverrideColor: 1
-    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
-    useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
-  - descriptionText: .
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0

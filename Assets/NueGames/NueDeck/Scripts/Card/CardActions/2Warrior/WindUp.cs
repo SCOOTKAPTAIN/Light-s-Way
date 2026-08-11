@@ -18,7 +18,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             // Gain 1 Strength
             newTarget.CharacterStats.ApplyStatus(StatusType.Strength, 1);
 
-            // Return this card to the player's hand after play
+            // Return this card to the player's hand after play.
+            // Do not reset per-turn cost scaling, so the cost increases correctly each time it is played.
             if (actionParameters.CardBase != null)
                 actionParameters.CardBase.ReturnToHandAfterPlay = true;
 

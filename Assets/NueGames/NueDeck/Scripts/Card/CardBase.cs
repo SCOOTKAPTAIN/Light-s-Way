@@ -49,8 +49,15 @@ namespace NueGames.NueDeck.Scripts.Card
         public bool IsObscured { get; private set; }
         // If true, card will be returned to hand instead of being discarded/exhausted after play
         public bool ReturnToHandAfterPlay { get; set; }
+        // Only true for cards that should keep their cost constant when returned to hand
+        public bool ResetPlayCountWhenReturnedToHand { get; set; }
         // Number of times this card instance has been played in the current turn
         private int timesPlayedThisTurn = 0;
+
+        public void ResetPlayCountThisTurn()
+        {
+            timesPlayedThisTurn = 0;
+        }
 
         #endregion
         
