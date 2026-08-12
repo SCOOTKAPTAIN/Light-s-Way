@@ -56,6 +56,7 @@ MonoBehaviour:
   enemyCharacterData: {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
   enemyCanvas: {fileID: 7422249267346903092}
   deathSoundProfileData: {fileID: 11400000, guid: 7e15e2a10065ab54c8eaf26154af0156, type: 2}
+  spriteRenderer: {fileID: 0}
 --- !u!54 &735061151
 Rigidbody:
   m_ObjectHideFlags: 0
