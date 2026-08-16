@@ -213,6 +213,23 @@ namespace Map
             }
         }
 
+        public void SetSelectionVisual(bool selected)
+        {
+            float targetScale = selected ? initialScale * HoverScaleFactor : initialScale;
+
+            if (sr != null)
+            {
+                sr.transform.DOKill();
+                sr.transform.DOScale(targetScale, 0.18f);
+            }
+
+            if (image != null)
+            {
+                image.transform.DOKill();
+                image.transform.DOScale(targetScale, 0.18f);
+            }
+        }
+
         public void EncounterDetails()
         {
             // Vector2 Mouseposistion = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -268,36 +285,25 @@ namespace Map
 
         public void OnPointerEnter(PointerEventData data)
         {
-           // HighlightNode(true);
-            EncounterDetails();
-            if (sr != null)
+            if (MapKeyboardNavigator.Instance != null)
             {
-                sr.transform.DOKill();
-                sr.transform.DOScale(initialScale * HoverScaleFactor, 0.3f);
+                MapKeyboardNavigator.Instance.SetSelectionFromNode(this);
             }
 
-            if (image != null)
-            {
-                image.transform.DOKill();
-                image.transform.DOScale(initialScale * HoverScaleFactor, 0.3f);
-            }
+            EncounterDetails();
+            SetSelectionVisual(true);
         }
 
         public void OnPointerExit(PointerEventData data)
         {
-           // HighlightNode(false);
-            MapView.Instance.NodeDetails.SetActive(false);
-            if (sr != null)
+            if (MapKeyboardNavigator.Instance != null && MapKeyboardNavigator.Instance.IsCurrentSelection(this))
             {
-                sr.transform.DOKill();
-                sr.transform.DOScale(initialScale, 0.3f);
+                SetSelectionVisual(true);
+                return;
             }
 
-            if (image != null)
-            {
-                image.transform.DOKill();
-                image.transform.DOScale(initialScale, 0.3f);
-            }
+            MapView.Instance.NodeDetails.SetActive(false);
+            SetSelectionVisual(false);
         }
 
         public void OnPointerDown(PointerEventData data)

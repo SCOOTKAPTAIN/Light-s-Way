@@ -8,13 +8,19 @@ using UnityEngine;
 
 public class TransitionManager : MonoBehaviour
 {
+    public static TransitionManager Instance { get; private set; }
+    public bool IsBlockingInput { get; private set; }
 
     //public int ActNumber = 1;
     public Animator transistionanimator;
     public TextMeshProUGUI ActText;
     public TextMeshProUGUI ActDescription;
-   
-    
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         Debug.Log("initial value: " + GameManager.Instance.PersistentGameplayData.ActNumber);
@@ -48,8 +54,10 @@ public class TransitionManager : MonoBehaviour
 
     IEnumerator Act1()
     {
+        IsBlockingInput = true;
         transistionanimator.Play("Act1");
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.5f);
+        IsBlockingInput = false;
         DialogueAudioManager.instance.DynamicMusic("map");
         UIManager.Instance.InformationCanvas.gameObject.SetActive(true);
         GameManager.Instance.PersistentGameplayData.ActNumber++;
@@ -58,6 +66,8 @@ public class TransitionManager : MonoBehaviour
 
     public void PlayAct()
     {
+        IsBlockingInput = true;
+        StartCoroutine(ReleaseInputAfterDelay(1.5f));
         // Simplified act system:
         // 0 - start
         // 1 - Act 1 (includes normal encounters and bosses)
@@ -103,5 +113,11 @@ public class TransitionManager : MonoBehaviour
             break;
         }
 
+    }
+
+    private IEnumerator ReleaseInputAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        IsBlockingInput = false;
     }
 }

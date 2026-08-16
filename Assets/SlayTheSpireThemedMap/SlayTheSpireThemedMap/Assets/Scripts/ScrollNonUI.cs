@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Map
 {
@@ -11,6 +12,7 @@ namespace Map
         public FloatMinMax xConstraints = new FloatMinMax();
         public bool freezeY;
         public FloatMinMax yConstraints = new FloatMinMax();
+        public bool allowDragging = true;
         private Vector2 offset;
         // distance from the center of this Game Object to the point where we clicked to start dragging 
         private Vector3 pointerDisplacement;
@@ -26,6 +28,12 @@ namespace Map
 
         public void OnMouseDown()
         {
+            if (!allowDragging)
+                return;
+
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+                return;
+
             pointerDisplacement = -transform.position + MouseInWorldCoords();
             transform.DOKill();
             dragging = true;
@@ -39,7 +47,13 @@ namespace Map
 
         private void Update()
         {
-            if (!dragging) return;
+            if (!dragging || !allowDragging) return;
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                dragging = false;
+                TweenBack();
+                return;
+            }
 
             Vector3 mousePos = MouseInWorldCoords();
             //Debug.Log(mousePos);
