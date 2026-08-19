@@ -238,6 +238,7 @@ public class MapKeyboardNavigator : MonoBehaviour
 
             bool isSelected = i == currentIndex;
             node.SetSelectionVisual(isSelected);
+            node.SetHoverPulse(isSelected);
 
             if (isSelected && MapView.Instance != null && MapView.Instance.NodeDetails != null)
             {

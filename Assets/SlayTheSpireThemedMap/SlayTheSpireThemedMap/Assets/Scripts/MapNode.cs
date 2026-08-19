@@ -37,6 +37,7 @@ namespace Map
         private float initialScale;
         private const float HoverScaleFactor = 1.2f;
         private float mouseDownTime;
+        private NodeStates currentState;
 
         private const float MaxClickDuration = 0.5f;
 
@@ -140,6 +141,8 @@ namespace Map
 
         public void SetState(NodeStates state)
         {
+            currentState = state;
+
             if (visitedCircle != null) visitedCircle.gameObject.SetActive(false);
             if (circleImage != null) circleImage.gameObject.SetActive(false);
             
@@ -187,7 +190,6 @@ namespace Map
                     if (circleImage != null) circleImage.gameObject.SetActive(true);
                     break;
                 case NodeStates.Attainable:
-                    // start pulsating from visited to locked color:
                     LightState(GameManager.Instance.PersistentGameplayData.light);
                     if(spotlight != null)
                     {
@@ -195,16 +197,14 @@ namespace Map
                     }
                     if (sr != null)
                     {
-                        sr.color = MapView.Instance.lockedColor;
                         sr.DOKill();
-                        sr.DOColor(MapView.Instance.visitedColor, 0.5f).SetLoops(-1, LoopType.Yoyo);
+                        sr.color = MapView.Instance.visitedColor;
                     }
                     
                     if (image != null)
                     {
-                        image.color = MapView.Instance.lockedColor;
                         image.DOKill();
-                        image.DOColor(MapView.Instance.visitedColor, 0.5f).SetLoops(-1, LoopType.Yoyo);
+                        image.color = MapView.Instance.visitedColor;
                     }
                     
                     break;
@@ -227,6 +227,43 @@ namespace Map
             {
                 image.transform.DOKill();
                 image.transform.DOScale(targetScale, 0.18f);
+            }
+        }
+
+        public void SetHoverPulse(bool hovered)
+        {
+            if (currentState != NodeStates.Attainable)
+                return;
+
+            Color activeColor = MapView.Instance != null ? MapView.Instance.visitedColor : Color.white;
+            Color pulseColor = MapView.Instance != null ? MapView.Instance.lockedColor : Color.gray;
+
+            if (sr != null)
+            {
+                sr.DOKill();
+                if (hovered)
+                {
+                    sr.color = activeColor;
+                    sr.DOColor(pulseColor, 0.5f).SetLoops(-1, LoopType.Yoyo);
+                }
+                else
+                {
+                    sr.color = activeColor;
+                }
+            }
+
+            if (image != null)
+            {
+                image.DOKill();
+                if (hovered)
+                {
+                    image.color = activeColor;
+                    image.DOColor(pulseColor, 0.5f).SetLoops(-1, LoopType.Yoyo);
+                }
+                else
+                {
+                    image.color = activeColor;
+                }
             }
         }
 
@@ -292,18 +329,18 @@ namespace Map
 
             EncounterDetails();
             SetSelectionVisual(true);
+            SetHoverPulse(true);
         }
 
         public void OnPointerExit(PointerEventData data)
         {
-            if (MapKeyboardNavigator.Instance != null && MapKeyboardNavigator.Instance.IsCurrentSelection(this))
+            if (MapView.Instance != null && MapView.Instance.NodeDetails != null)
             {
-                SetSelectionVisual(true);
-                return;
+                MapView.Instance.NodeDetails.SetActive(false);
             }
 
-            MapView.Instance.NodeDetails.SetActive(false);
             SetSelectionVisual(false);
+            SetHoverPulse(false);
         }
 
         public void OnPointerDown(PointerEventData data)

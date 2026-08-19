@@ -43,6 +43,7 @@ namespace NueGames.NueDeck.Scripts.Collection
        
         private int _selected = -1; // Card index that is nearest to mouse
         private int _dragged = -1; // Card index that is held by mouse (inside of hand)
+        private int _clickSelected = -1;
         private CardBase _heldCard; // Card that is held by mouse (when outside of hand)
         private Vector3 _heldCardOffset;
         private Vector2 _heldCardTilt;
@@ -50,6 +51,7 @@ namespace NueGames.NueDeck.Scripts.Collection
         private Vector3 _mouseWorldPos;
         private Vector2 _prevMousePos;
         private Vector2 _mousePosDelta;
+        private bool _keyboardSelectionActive;
 
         private Rect _handBounds;
         private bool _mouseInsideHand;
@@ -117,6 +119,8 @@ namespace NueGames.NueDeck.Scripts.Collection
             // --------------------------------------------------------
 
             HandleDraggedCardOutsideHand(mouseButton, mousePos);
+
+            HandleSelectedCardTargetClick(mousePos);
         }
         #endregion
         
@@ -127,6 +131,8 @@ namespace NueGames.NueDeck.Scripts.Collection
         private Vector2 HandleMouseInput(out int count, out float sqrDistance, out bool mouseButton)
         {
             Vector2 mousePos = Input.mousePosition;
+
+            HandleKeyboardSelection();
 
             // Allows mouse to go outside game window but keeps cards within window
             // If mouse doesn't need to go outside, could use "Cursor.lockState = CursorLockMode.Confined;" instead
@@ -184,7 +190,7 @@ namespace NueGames.NueDeck.Scripts.Collection
                 var d = (p - _mouseWorldPos).sqrMagnitude;
                 var mouseCloseToCard = d < 0.5f;
                 var mouseHoveringOnSelected =
-                    onSelectedCard && mouseCloseToCard && _mouseInsideHand; //  && mouseInsideHand
+                    onSelectedCard && (mouseCloseToCard && _mouseInsideHand || _keyboardSelectionActive || _clickSelected == i);
 
                 // Handle Card Position & Rotation
                 //Vector3 cardUp = p - (transform.position + Vector3.down * 7);
@@ -330,14 +336,7 @@ namespace NueGames.NueDeck.Scripts.Collection
                 var heldRequiredMana = _heldCard.GetEffectiveCost();
                 if (GameManager.PersistentGameplayData.CanUseCards && (GameManager.PersistentGameplayData.CurrentMana >= heldRequiredMana || hasFree))
             {
-                var mainRay = _mainCam.ScreenPointToRay(mousePos);
-                var _canUse = false;
-                CharacterBase selfCharacter = CombatManager.CurrentMainAlly;
-                CharacterBase targetCharacter = null;
-
-                _canUse = _heldCard.CardData.UsableWithoutTarget || CheckPlayOnCharacter(mainRay, _canUse, ref selfCharacter, ref targetCharacter);
-                
-                if (_canUse)
+                if (TryUseCard(_heldCard, mousePos, out var selfCharacter, out var targetCharacter))
                 {
                     backToHand = false;
                     _heldCard.Use(selfCharacter,targetCharacter,CombatManager.CurrentEnemiesList,CombatManager.CurrentAlliesList);
@@ -350,8 +349,95 @@ namespace NueGames.NueDeck.Scripts.Collection
             _heldCard = null;
         }
 
-        private bool CheckPlayOnCharacter(Ray mainRay, bool _canUse, ref CharacterBase selfCharacter,
-            ref CharacterBase targetCharacter)
+        private void HandleKeyboardSelection()
+        {
+            if (!GameManager.PersistentGameplayData.CanSelectCards || hand.Count == 0)
+                return;
+
+            var direction = 0;
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+                direction = -1;
+            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+                direction = 1;
+
+            if (direction == 0)
+                return;
+
+            _selected = _selected < 0 ? (direction < 0 ? hand.Count - 1 : 0) : (_selected + direction + hand.Count) % hand.Count;
+            _clickSelected = _selected;
+            _keyboardSelectionActive = true;
+        }
+
+        private void HandleCardClick(int cardIndex, Vector2 mousePos)
+        {
+            if (cardIndex < 0 || cardIndex >= hand.Count)
+                return;
+
+            _keyboardSelectionActive = false;
+            _selected = cardIndex;
+
+            if (_clickSelected == cardIndex && hand[cardIndex].CardData.UsableWithoutTarget)
+            {
+                TryUseSelectedCard(mousePos);
+                return;
+            }
+
+            _clickSelected = cardIndex;
+        }
+
+        private void HandleSelectedCardTargetClick(Vector2 mousePos)
+        {
+            if (!Input.GetMouseButtonUp(0) || _mouseInsideHand || _clickSelected < 0 || _clickSelected >= hand.Count)
+                return;
+
+            if (!hand[_clickSelected].CardData.UsableWithoutTarget)
+                TryUseSelectedCard(mousePos);
+        }
+
+        private void TryUseSelectedCard(Vector2 mousePos)
+        {
+            if (_clickSelected < 0 || _clickSelected >= hand.Count)
+                return;
+
+            var card = hand[_clickSelected];
+            if (!TryUseCard(card, mousePos, out var selfCharacter, out var targetCharacter))
+                return;
+
+            var cardIndex = _clickSelected;
+            RemoveCardFromHand(cardIndex);
+            _clickSelected = -1;
+            _selected = hand.Count == 0 ? -1 : Mathf.Clamp(cardIndex, 0, hand.Count - 1);
+            card.Use(selfCharacter, targetCharacter, CombatManager.CurrentEnemiesList, CombatManager.CurrentAlliesList);
+        }
+
+        private bool TryUseCard(CardBase card, Vector2 mousePos, out CharacterBase selfCharacter,
+            out CharacterBase targetCharacter)
+        {
+            selfCharacter = CombatManager.CurrentMainAlly;
+            targetCharacter = null;
+
+            if (!GameManager.PersistentGameplayData.CanUseCards)
+                return false;
+
+            var hasFree = false;
+            if (CombatManager != null && CombatManager.CurrentMainAlly != null)
+            {
+                var stats = CombatManager.CurrentMainAlly.CharacterStats;
+                hasFree = stats.StatusDict.ContainsKey(StatusType.FreeNextCard) && stats.StatusDict[StatusType.FreeNextCard].IsActive && stats.StatusDict[StatusType.FreeNextCard].StatusValue > 0;
+            }
+
+            if (GameManager.PersistentGameplayData.CurrentMana < card.GetEffectiveCost() && !hasFree)
+                return false;
+
+            var canUse = card.CardData.UsableWithoutTarget;
+            if (!canUse)
+                canUse = CheckPlayOnCharacter(_mainCam.ScreenPointToRay(mousePos), ref selfCharacter, ref targetCharacter, card);
+
+            return canUse;
+        }
+
+        private bool CheckPlayOnCharacter(Ray mainRay, ref CharacterBase selfCharacter,
+            ref CharacterBase targetCharacter, CardBase card)
         {
             RaycastHit hit;
             if (Physics.Raycast(mainRay, out hit, 1000, targetLayer))
@@ -360,27 +446,31 @@ namespace NueGames.NueDeck.Scripts.Collection
 
                 if (character != null)
                 {
-                    var checkEnemy = (_heldCard.CardData.CardActionDataList[0].ActionTargetType == ActionTargetType.Enemy &&
+                    var checkEnemy = (card.CardData.CardActionDataList[0].ActionTargetType == ActionTargetType.Enemy &&
                                       character.GetCharacterType() == CharacterType.Enemy);
-                    var checkAlly = (_heldCard.CardData.CardActionDataList[0].ActionTargetType == ActionTargetType.Ally &&
+                    var checkAlly = (card.CardData.CardActionDataList[0].ActionTargetType == ActionTargetType.Ally &&
                                      character.GetCharacterType() == CharacterType.Ally);
 
                     if (checkEnemy || checkAlly)
                     {
-                        _canUse = true;
+                        selfCharacter = CombatManager.CurrentMainAlly;
                         selfCharacter = CombatManager.CurrentMainAlly;
                         targetCharacter = character.GetCharacterBase();
+                        return true;
                     }
                 }
             }
 
-            return _canUse;
+            return false;
         }
 
         private void HandleDraggedCardInsideHand(bool mouseButton, int count)
         {
             if (!mouseButton)
             {
+                if (Input.GetMouseButtonUp(0) && _dragged != -1 && _dragged == _selected)
+                    HandleCardClick(_dragged, Input.mousePosition);
+
                 // Stop dragging
                 _heldCardOffset = Vector3.zero;
                 _dragged = -1;
