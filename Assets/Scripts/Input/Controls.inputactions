@@ -216,6 +216,17 @@
                 },
                 {
                     "name": "",
+                    "id": "7b0a9f55-6a8f-4a56-9f42-6c1ce7c8c2c1",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f9d25899-877b-4bf7-bf3a-681cd6f3bd68",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",

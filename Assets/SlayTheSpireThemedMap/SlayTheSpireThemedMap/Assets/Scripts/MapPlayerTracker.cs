@@ -248,26 +248,20 @@ namespace Map
 
         private bool CanTravelToNode(Node to, Node from)
         {
-            bool isSameColumnMove = from.point.y == to.point.y;
-            int travelCost = isSameColumnMove ? 10 : GameManager.Instance.PersistentGameplayData.LightLoss;
-
-            if (isSameColumnMove && GameManager.Instance.PersistentGameplayData.light < travelCost)
-            {
+            bool isConnectedMove = from.outgoing.Any(point => point.Equals(to.point));
+            bool isLaneChange = !isConnectedMove && from.point.y == to.point.y;
+            if (!isConnectedMove && !isLaneChange)
                 return false;
-            }
 
-            if (!isSameColumnMove && GameManager.Instance.PersistentGameplayData.light < travelCost)
-            {
+            if (isLaneChange && GameManager.Instance.PersistentGameplayData.light < 10)
                 return false;
-            }
 
             if (mapManager.CurrentMap.movedOnSameLayer)
             {
-                return from.outgoing.Any(point => point.Equals(to.point));
+                return isConnectedMove;
             }
             
-            return from.outgoing.Any(point => point.Equals(to.point)) ||
-                   isSameColumnMove; 
+            return isConnectedMove || isLaneChange;
             // (optionally use this instead of (from.point.y == to.point.y), but it can prevent movement to the side if the neighbor node is absent)
             // from.point.y == to.point.y && Mathf.Abs(from.point.x - to.point.x) == 1;
         }
@@ -284,15 +278,14 @@ namespace Map
 
         private void SendPlayerToNode(MapNode mapNode)
         {
-            bool isSameColumnMove = IsSameColumnMove(mapNode);
-            int travelCost = isSameColumnMove ? 10 : GameManager.Instance.PersistentGameplayData.LightLoss;
+            bool hasPreviousNode = mapManager.CurrentMap.path.Count > 0;
+            bool isConnectedMove = hasPreviousNode && mapManager.CurrentMap.GetNode(mapManager.CurrentMap.path[^1]).outgoing.Any(point => point.Equals(mapNode.Node.point));
+            bool isLaneChange = hasPreviousNode && !isConnectedMove && IsSameColumnMove(mapNode);
+            int travelCost = !hasPreviousNode || isConnectedMove ? GameManager.Instance.PersistentGameplayData.LightLoss : 10;
 
-            if (GameManager.Instance.PersistentGameplayData.light < travelCost)
+            if (isLaneChange && GameManager.Instance.PersistentGameplayData.light < travelCost)
             {
-                if (isSameColumnMove)
-                {
-                    PlayWarningThatNodeCannotBeAccessed();
-                }
+                PlayWarningThatNodeCannotBeAccessed();
                 return;
             }
 
@@ -332,7 +325,6 @@ namespace Map
         {
             // we have access to blueprint name here as well
             Debug.Log("Entering node: " + mapNode.Node.blueprintName + " of type: " + mapNode.Node.nodeType);
-            bool isSameColumnMove = MapPlayerTracker.Instance != null && MapPlayerTracker.Instance.IsSameColumnMove(mapNode);
 
             // load appropriate scene with context based on nodeType:
             // or show appropriate GUI over the map: 
@@ -346,8 +338,6 @@ namespace Map
                 DialogueAudioManager.instance.PlaySFX("enterbattle");
                 DialogueAudioManager.instance.DynamicMusic("battle");
 
-                if (!isSameColumnMove)
-                    MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenCombatScene();
                     break;
                 case NodeType.EliteEnemy:
@@ -357,15 +347,11 @@ namespace Map
                 DialogueAudioManager.instance.PlaySFX("enterbattle");
                 DialogueAudioManager.instance.DynamicMusic("battle");
 
-                if (!isSameColumnMove)
-                    MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenCombatScene();
                     break;
                 case NodeType.RestSite:
                 Debug.Log("Go to a resting place.");
                 DialogueAudioManager.instance.PlaySFX("enterevent");
-                if (!isSameColumnMove)
-                    MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenDialogueScene();
                 GameManager.Instance.PersistentGameplayData.restevent = true;
                     break;
@@ -374,8 +360,6 @@ namespace Map
                 case NodeType.Store:
                 Debug.Log("hmm shady merchant");
                 DialogueAudioManager.instance.PlaySFX("enterevent");
-                if (!isSameColumnMove)
-                    MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenMerchantScene();
                     break;
                 case NodeType.Boss:
@@ -386,13 +370,11 @@ namespace Map
                 
                 DialogueAudioManager.instance.PlaySFX("enterbattle");
                 DialogueAudioManager.instance.BossMusic();
-                MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenCombatScene();
                     break;
                 case NodeType.Mystery:
                 Debug.Log("Events happening!");
                 DialogueAudioManager.instance.PlaySFX("enterevent");
-                MapPlayerTracker.Instance.NaturalLightLoss();
                 MapPlayerTracker.Instance.OpenDialogueScene();
                     break;
                 default:

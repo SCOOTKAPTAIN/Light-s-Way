@@ -24,10 +24,10 @@ MonoBehaviour:
   useActBasedScaling: 1
   actConfigurations:
   - actNumber: 1
-    maxHealth: 10
+    maxHealth: 5
     startingStatuses:
     - statusType: 1
-      statusValue: 28
+      statusValue: 1
     enemyAbilityList:
     - name: Attack
       intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}

@@ -4,7 +4,9 @@ using NueGames.NueDeck.Scripts.Characters;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Interfaces;
 using NueGames.NueDeck.Scripts.Managers;
+using Lightsway.InputSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace NueGames.NueDeck.Scripts.Collection
 {
@@ -52,6 +54,9 @@ namespace NueGames.NueDeck.Scripts.Collection
         private Vector2 _prevMousePos;
         private Vector2 _mousePosDelta;
         private bool _keyboardSelectionActive;
+        private bool _keyboardTargeting;
+        private int _keyboardTargetIndex;
+        private GameControls _controls;
 
         private Rect _handBounds;
         private bool _mouseInsideHand;
@@ -69,11 +74,86 @@ namespace NueGames.NueDeck.Scripts.Collection
         private void Awake()
         {
             _mainCam = Camera.main;
+            _controls = new GameControls();
         }
 
         private void Start()
         {
             InitHand();
+        }
+
+        private void OnEnable()
+        {
+            _controls.Map.MoveSelection.performed += OnKeyboardMove;
+            _controls.Map.Confirm.performed += OnKeyboardConfirm;
+            _controls.Map.Cancel.performed += OnKeyboardCancel;
+            _controls.Map.Enable();
+        }
+
+        private void OnDisable()
+        {
+            if (_controls == null)
+                return;
+
+            _controls.Map.MoveSelection.performed -= OnKeyboardMove;
+            _controls.Map.Confirm.performed -= OnKeyboardConfirm;
+            _controls.Map.Cancel.performed -= OnKeyboardCancel;
+            _controls.Map.Disable();
+        }
+
+        private void OnDestroy()
+        {
+            if (_controls == null)
+                return;
+
+            _controls.Disable();
+            _controls.Dispose();
+            _controls = null;
+        }
+
+        private void OnKeyboardMove(InputAction.CallbackContext context)
+        {
+            if (!GameManager.PersistentGameplayData.CanSelectCards || hand.Count == 0)
+                return;
+
+            Vector2 value = context.ReadValue<Vector2>();
+            if (value.x > 0.5f)
+                MoveKeyboardSelection(-1);
+            else if (value.x < -0.5f)
+                MoveKeyboardSelection(1);
+        }
+
+        private void OnKeyboardConfirm(InputAction.CallbackContext context)
+        {
+            if (!GameManager.PersistentGameplayData.CanSelectCards || _selected < 0 || _selected >= hand.Count)
+                return;
+
+            if (_keyboardTargeting)
+            {
+                TryUseKeyboardTarget();
+                return;
+            }
+
+            var card = hand[_selected];
+            _clickSelected = _selected;
+            if (card.CardData.UsableWithoutTarget)
+                TryUseSelectedCard(Input.mousePosition);
+            else if (GetKeyboardTargetCount(card) > 0)
+            {
+                _keyboardTargeting = true;
+                _keyboardTargetIndex = 0;
+                HighlightKeyboardTarget(card);
+            }
+        }
+
+        private void OnKeyboardCancel(InputAction.CallbackContext context)
+        {
+            if (!_keyboardTargeting)
+                return;
+
+            _keyboardTargeting = false;
+            _clickSelected = -1;
+            HighlightSelectedCardTarget(hand[_selected]);
         }
 
         private void InitHand()
@@ -131,8 +211,6 @@ namespace NueGames.NueDeck.Scripts.Collection
         private Vector2 HandleMouseInput(out int count, out float sqrDistance, out bool mouseButton)
         {
             Vector2 mousePos = Input.mousePosition;
-
-            HandleKeyboardSelection();
 
             // Allows mouse to go outside game window but keeps cards within window
             // If mouse doesn't need to go outside, could use "Cursor.lockState = CursorLockMode.Confined;" instead
@@ -220,11 +298,14 @@ namespace NueGames.NueDeck.Scripts.Collection
                     Quaternion.LookRotation(cardForward, cardUp), 80f * Time.deltaTime);
 
                 // Handle Start Dragging
-                if (mouseHoveringOnSelected)
+                if (mouseCloseToCard && _mouseInsideHand)
                 {
                     var mouseButtonDown = Input.GetMouseButtonDown(0);
                     if (mouseButtonDown)
                     {
+                        _selected = i;
+                        _keyboardSelectionActive = false;
+                        _keyboardTargeting = false;
                         _dragged = i;
                         _heldCardOffset = cardTransform.position - _mouseWorldPos;
                         _heldCardOffset.z = -0.1f;
@@ -245,7 +326,7 @@ namespace NueGames.NueDeck.Scripts.Collection
                 }
 
                 // Get Selected Card
-                if (GameManager.PersistentGameplayData.CanSelectCards)
+                if (GameManager.PersistentGameplayData.CanSelectCards && !_keyboardSelectionActive && _clickSelected < 0)
                 {
                     //float d = (p - mouseWorldPos).sqrMagnitude;
                     if (d < sqrDistance)
@@ -254,10 +335,12 @@ namespace NueGames.NueDeck.Scripts.Collection
                         _selected = i;
                     }
                 }
-                else
+                else if (!GameManager.PersistentGameplayData.CanSelectCards)
                 {
                     _selected = -1;
                     _dragged = -1;
+                    _clickSelected = -1;
+                    _keyboardSelectionActive = false;
                 }
 
                 // Debug Gizmos
@@ -304,6 +387,8 @@ namespace NueGames.NueDeck.Scripts.Collection
                     _dragged = _selected;
                     _selected = -1;
                     _heldCard = null;
+                    _clickSelected = -1;
+                    _keyboardSelectionActive = false;
 
                     CombatManager.DeactivateCardHighlights();
 
@@ -347,25 +432,27 @@ namespace NueGames.NueDeck.Scripts.Collection
                 AddCardToHand(_heldCard, _selected);
 
             _heldCard = null;
+            _clickSelected = -1;
+            _keyboardSelectionActive = false;
         }
 
-        private void HandleKeyboardSelection()
+        private void MoveKeyboardSelection(int direction)
         {
-            if (!GameManager.PersistentGameplayData.CanSelectCards || hand.Count == 0)
+            if (_keyboardTargeting)
+            {
+                var targetCount = GetKeyboardTargetCount(hand[_selected]);
+                if (targetCount > 0)
+                {
+                    _keyboardTargetIndex = (_keyboardTargetIndex + direction + targetCount) % targetCount;
+                    HighlightKeyboardTarget(hand[_selected]);
+                }
                 return;
-
-            var direction = 0;
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-                direction = -1;
-            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-                direction = 1;
-
-            if (direction == 0)
-                return;
+            }
 
             _selected = _selected < 0 ? (direction < 0 ? hand.Count - 1 : 0) : (_selected + direction + hand.Count) % hand.Count;
-            _clickSelected = _selected;
+            _clickSelected = -1;
             _keyboardSelectionActive = true;
+            HighlightSelectedCardTarget(hand[_selected]);
         }
 
         private void HandleCardClick(int cardIndex, Vector2 mousePos)
@@ -383,15 +470,98 @@ namespace NueGames.NueDeck.Scripts.Collection
             }
 
             _clickSelected = cardIndex;
+            HighlightSelectedCardTarget(hand[cardIndex]);
+        }
+
+        private void HighlightSelectedCardTarget(CardBase card)
+        {
+            CombatManager.DeactivateCardHighlights();
+            if (!card.CardData.UsableWithoutTarget)
+                CombatManager.HighlightCardTarget(card.CardData.CardActionDataList[0].ActionTargetType);
+        }
+
+        private void HighlightKeyboardTarget(CardBase card)
+        {
+            CombatManager.DeactivateCardHighlights();
+            var target = GetKeyboardTarget(card);
+            if (target == null)
+                return;
+
+            if (target is EnemyBase enemy)
+                enemy.EnemyCanvas.SetHighlight(true);
+            else if (target is AllyBase ally)
+                ally.AllyCanvas.SetHighlight(true);
+        }
+
+        private int GetKeyboardTargetCount(CardBase card)
+        {
+            switch (card.CardData.CardActionDataList[0].ActionTargetType)
+            {
+                case ActionTargetType.Enemy:
+                case ActionTargetType.RandomEnemy:
+                case ActionTargetType.AllEnemies:
+                    return CombatManager.CurrentEnemiesList.Count;
+                case ActionTargetType.Ally:
+                case ActionTargetType.RandomAlly:
+                case ActionTargetType.AllAllies:
+                    return CombatManager.CurrentAlliesList.Count;
+                default:
+                    return 0;
+            }
+        }
+
+        private CharacterBase GetKeyboardTarget(CardBase card)
+        {
+            var targetCount = GetKeyboardTargetCount(card);
+            if (targetCount == 0)
+                return null;
+
+            var targetType = card.CardData.CardActionDataList[0].ActionTargetType;
+            switch (targetType)
+            {
+                case ActionTargetType.Enemy:
+                case ActionTargetType.RandomEnemy:
+                case ActionTargetType.AllEnemies:
+                    return CombatManager.CurrentEnemiesList[_keyboardTargetIndex % targetCount];
+                case ActionTargetType.Ally:
+                case ActionTargetType.RandomAlly:
+                case ActionTargetType.AllAllies:
+                    return CombatManager.CurrentAlliesList[_keyboardTargetIndex % targetCount];
+                default:
+                    return null;
+            }
+        }
+
+        private void TryUseKeyboardTarget()
+        {
+            if (_selected < 0 || _selected >= hand.Count)
+                return;
+
+            var card = hand[_selected];
+            var target = GetKeyboardTarget(card);
+            if (target == null || !CanUseCard(card))
+                return;
+
+            RemoveCardFromHand(_selected);
+            _keyboardTargeting = false;
+            _clickSelected = -1;
+            _keyboardSelectionActive = false;
+            _selected = hand.Count == 0 ? -1 : Mathf.Clamp(_selected, 0, hand.Count - 1);
+            CombatManager.DeactivateCardHighlights();
+            card.Use(CombatManager.CurrentMainAlly, target, CombatManager.CurrentEnemiesList, CombatManager.CurrentAlliesList);
         }
 
         private void HandleSelectedCardTargetClick(Vector2 mousePos)
         {
-            if (!Input.GetMouseButtonUp(0) || _mouseInsideHand || _clickSelected < 0 || _clickSelected >= hand.Count)
+            var selectedCard = _clickSelected >= 0 ? _clickSelected : (_keyboardSelectionActive ? _selected : -1);
+            if (!Input.GetMouseButtonUp(0) || _mouseInsideHand || selectedCard < 0 || selectedCard >= hand.Count)
                 return;
 
-            if (!hand[_clickSelected].CardData.UsableWithoutTarget)
+            if (!hand[selectedCard].CardData.UsableWithoutTarget && !_mouseInsideHand)
+            {
+                _clickSelected = selectedCard;
                 TryUseSelectedCard(mousePos);
+            }
         }
 
         private void TryUseSelectedCard(Vector2 mousePos)
@@ -416,6 +586,18 @@ namespace NueGames.NueDeck.Scripts.Collection
             selfCharacter = CombatManager.CurrentMainAlly;
             targetCharacter = null;
 
+            if (!CanUseCard(card))
+                return false;
+
+            var canUse = card.CardData.UsableWithoutTarget;
+            if (!canUse)
+                canUse = CheckPlayOnCharacter(_mainCam.ScreenPointToRay(mousePos), ref selfCharacter, ref targetCharacter, card);
+
+            return canUse;
+        }
+
+        private bool CanUseCard(CardBase card)
+        {
             if (!GameManager.PersistentGameplayData.CanUseCards)
                 return false;
 
@@ -426,14 +608,7 @@ namespace NueGames.NueDeck.Scripts.Collection
                 hasFree = stats.StatusDict.ContainsKey(StatusType.FreeNextCard) && stats.StatusDict[StatusType.FreeNextCard].IsActive && stats.StatusDict[StatusType.FreeNextCard].StatusValue > 0;
             }
 
-            if (GameManager.PersistentGameplayData.CurrentMana < card.GetEffectiveCost() && !hasFree)
-                return false;
-
-            var canUse = card.CardData.UsableWithoutTarget;
-            if (!canUse)
-                canUse = CheckPlayOnCharacter(_mainCam.ScreenPointToRay(mousePos), ref selfCharacter, ref targetCharacter, card);
-
-            return canUse;
+            return GameManager.PersistentGameplayData.CurrentMana >= card.GetEffectiveCost() || hasFree;
         }
 
         private bool CheckPlayOnCharacter(Ray mainRay, ref CharacterBase selfCharacter,

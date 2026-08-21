@@ -459,6 +459,9 @@ namespace NueGames.NueDeck.Scripts.Managers
                     {
                         GameManager.PersistentGameplayData.MarkBossAsDefeated(CurrentEncounter.EncounterId);
                     }
+
+                    GameManager.PersistentGameplayData.ActNumber++;
+                    GameManager.PersistentGameplayData.actalreadyplayed = false;
                 }
                 
                 // Clear statuses for all allies so combat-only effects are reverted

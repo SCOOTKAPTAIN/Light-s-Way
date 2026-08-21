@@ -1,0 +1,19 @@
+2026-08-20 23:09:51.623 +07:00 [INF] Initializing Coplay services
+2026-08-20 23:09:52.448 +07:00 [DBG] Found 1 glTF importer(s), no conflict detected
+2026-08-20 23:09:52.452 +07:00 [INF] Initializing EditorThreadHelper
+2026-08-20 23:09:52.452 +07:00 [INF] EditorThreadHelper initialized successfully
+2026-08-20 23:09:52.468 +07:00 [INF] Enabling console error detection
+2026-08-20 23:09:52.480 +07:00 [INF] ConsoleDebugButtonService initializing
+2026-08-20 23:09:52.485 +07:00 [INF] ConsoleDebugButtonService initialized
+2026-08-20 23:09:52.485 +07:00 [INF] RunInBackgroundStartupTask initialized - will enable background execution in play mode
+2026-08-20 23:10:06.414 +07:00 [INF] No existing action records JSON file found.
+2026-08-20 23:10:07.855 +07:00 [INF] Subscribed to error detection
+2026-08-20 23:10:09.298 +07:00 [INF] Found 1 startup errors via direct console query - caching for downstream use
+2026-08-20 23:10:09.369 +07:00 [DBG] Cannot update visibility - UI elements are null
+2026-08-20 23:10:18.788 +07:00 [DBG] Cannot update visibility - UI elements are null
+2026-08-20 23:10:48.407 +07:00 [DBG] Compilation finished, refreshing error state
+2026-08-20 23:10:49.292 +07:00 [DBG] Compilation finished, refreshing error state
+2026-08-20 23:10:49.861 +07:00 [INF] Deinitializing Coplay services
+2026-08-20 23:10:49.863 +07:00 [INF] ConsoleDebugButtonService disposing
+2026-08-20 23:10:49.868 +07:00 [INF] Unsubscribed from error detection
+2026-08-20 23:10:49.894 +07:00 [INF] EditorThreadHelper disposed

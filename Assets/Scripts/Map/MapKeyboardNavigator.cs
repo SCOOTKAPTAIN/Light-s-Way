@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Lightsway.InputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Map;
 
 public class MapKeyboardNavigator : MonoBehaviour
@@ -12,41 +14,25 @@ public class MapKeyboardNavigator : MonoBehaviour
     [SerializeField] private MapView mapView;
     [SerializeField] private MapPlayerTracker mapPlayerTracker;
 
-    [Header("Input Actions")]
-    [SerializeField] private InputActionReference moveSelection;
-    [SerializeField] private InputActionReference confirm;
-    [SerializeField] private InputActionReference cancel;
-
     [Header("UI")]
     [SerializeField] private GameObject exitConfirm;
 
     private List<MapNode> selectableNodes = new List<MapNode>();
     private int currentIndex;
+    private GameControls controls;
 
     private void Awake()
     {
         Instance = this;
+        controls = new GameControls();
     }
 
     private void OnEnable()
     {
-        if (moveSelection != null)
-        {
-            moveSelection.action.performed += OnMoveSelection;
-            moveSelection.action.Enable();
-        }
-
-        if (confirm != null)
-        {
-            confirm.action.performed += OnConfirm;
-            confirm.action.Enable();
-        }
-
-        if (cancel != null)
-        {
-            cancel.action.performed += OnCancel;
-            cancel.action.Enable();
-        }
+        controls.Map.MoveSelection.performed += OnMoveSelection;
+        controls.Map.Confirm.performed += OnConfirm;
+        controls.Map.Cancel.performed += OnCancel;
+        controls.Map.Enable();
 
         RefreshSelectionList();
         SelectFirstAvailableNode();
@@ -54,28 +40,28 @@ public class MapKeyboardNavigator : MonoBehaviour
 
     private void OnDisable()
     {
-        if (moveSelection != null)
-        {
-            moveSelection.action.performed -= OnMoveSelection;
-            moveSelection.action.Disable();
-        }
+        if (controls == null)
+            return;
 
-        if (confirm != null)
-        {
-            confirm.action.performed -= OnConfirm;
-            confirm.action.Disable();
-        }
+        controls.Map.MoveSelection.performed -= OnMoveSelection;
+        controls.Map.Confirm.performed -= OnConfirm;
+        controls.Map.Cancel.performed -= OnCancel;
+        controls.Map.Disable();
+    }
 
-        if (cancel != null)
-        {
-            cancel.action.performed -= OnCancel;
-            cancel.action.Disable();
-        }
+    private void OnDestroy()
+    {
+        if (controls == null)
+            return;
+
+        controls.Disable();
+        controls.Dispose();
+        controls = null;
     }
 
     private void OnMoveSelection(InputAction.CallbackContext context)
     {
-        if (mapView == null || mapPlayerTracker == null)
+        if (!IsMapSceneActive() || mapView == null || mapPlayerTracker == null)
             return;
 
         if (mapPlayerTracker.Locked)
@@ -95,7 +81,7 @@ public class MapKeyboardNavigator : MonoBehaviour
 
     private void OnConfirm(InputAction.CallbackContext context)
     {
-        if (mapView == null || mapPlayerTracker == null)
+        if (!IsMapSceneActive() || mapView == null || mapPlayerTracker == null)
             return;
 
         if (mapPlayerTracker.Locked)
@@ -109,10 +95,15 @@ public class MapKeyboardNavigator : MonoBehaviour
 
     private void OnCancel(InputAction.CallbackContext context)
     {
-        if (exitConfirm == null)
+        if (!IsMapSceneActive() || exitConfirm == null)
             return;
 
         exitConfirm.SetActive(!exitConfirm.activeSelf);
+    }
+
+    private bool IsMapSceneActive()
+    {
+        return isActiveAndEnabled && gameObject.scene == SceneManager.GetActiveScene();
     }
 
     private void RefreshSelectionList()

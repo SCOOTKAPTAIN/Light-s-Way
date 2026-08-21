@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Data.Containers;
 using NueGames.NueDeck.ThirdParty.NueTooltip.CursorSystem;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace NueGames.NueDeck.ThirdParty.NueTooltip.Core
 {
@@ -38,6 +39,7 @@ namespace NueGames.NueDeck.ThirdParty.NueTooltip.Core
                 transform.parent = null;
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+                SceneManager.sceneLoaded += OnSceneLoaded;
             }
             else
             {
@@ -45,6 +47,17 @@ namespace NueGames.NueDeck.ThirdParty.NueTooltip.Core
                 return;
             }
             
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            HideTooltip();
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this)
+                SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         private IEnumerator ShowRoutine(float delay = 0)
