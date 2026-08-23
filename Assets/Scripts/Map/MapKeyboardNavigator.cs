@@ -29,7 +29,7 @@ public class MapKeyboardNavigator : MonoBehaviour
 
     private void OnEnable()
     {
-        controls.Map.MoveSelection.performed += OnMoveSelection;
+        controls.Map.NavigateNodes.performed += OnMoveSelection;
         controls.Map.Confirm.performed += OnConfirm;
         controls.Map.Cancel.performed += OnCancel;
         controls.Map.Enable();
@@ -43,7 +43,7 @@ public class MapKeyboardNavigator : MonoBehaviour
         if (controls == null)
             return;
 
-        controls.Map.MoveSelection.performed -= OnMoveSelection;
+        controls.Map.NavigateNodes.performed -= OnMoveSelection;
         controls.Map.Confirm.performed -= OnConfirm;
         controls.Map.Cancel.performed -= OnCancel;
         controls.Map.Disable();

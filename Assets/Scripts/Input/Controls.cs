@@ -26,22 +26,13 @@ namespace Lightsway.InputSystem
     ""name"": ""Controls"",
     ""maps"": [
         {
-            ""name"": ""Gameplay"",
+            ""name"": ""Global"",
             ""id"": ""a33c5b47-d50e-4796-ac69-0f49c7953fcb"",
             ""actions"": [
                 {
-                    ""name"": ""Click"",
+                    ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""0f18b582-ed28-4083-b4b6-da1a9ad5b7b1"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Map"",
-                    ""type"": ""Button"",
-                    ""id"": ""e122acc3-040c-4bc3-9f19-f46862009e2e"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -52,11 +43,200 @@ namespace Lightsway.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""14299792-b78f-4468-82a1-62a4df1f2075"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Click"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""9aa34db9-a686-42e7-8533-b11b8e2ba90f"",
+            ""actions"": [
+                {
+                    ""name"": ""Navigate"",
+                    ""type"": ""Value"",
+                    ""id"": ""8546e3ff-5ce8-49c6-bad0-f52d881ebc79"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""31bb3925-1175-4d1f-bc72-cee166a67ce6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""a084121a-5deb-4f82-821a-bd67e7a10fda"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""16be79d3-22bf-4918-b5da-0159d6e96f20"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""8f1630b2-9a84-460a-a9d0-ee7b70db8363"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""feaa1649-2340-4174-8412-ad0b4d2ef91f"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""0b66357b-a9c9-49c0-807b-0544bf303f34"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""5ad00486-4999-4fb5-b185-0f78ab9d27f1"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""00b7f56e-1ddf-45e1-94e2-cda4588b61a4"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""495f3490-b926-44db-8ff1-db10edebedce"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""994a9255-2b45-4bb0-9f7d-3de6aceffd6d"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""cdbb15d8-25b6-4b28-a4fa-8c1d3f0bd991"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""88cc2ba5-1800-4915-a12c-116a8b3e2ee2"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15e680ee-7d04-4936-9c87-38bab4308a12"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df3c00d3-631b-451e-b88b-620181c4d3e7"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a392a2e-7a65-47b4-81d2-2ca0d4565e71"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5beb1acc-a1b0-41c3-95f2-d7dd096397b9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -67,7 +247,7 @@ namespace Lightsway.InputSystem
             ""id"": ""22d94a0c-ccbc-4353-bac7-088964cd6deb"",
             ""actions"": [
                 {
-                    ""name"": ""MoveSelection"",
+                    ""name"": ""NavigateNodes"",
                     ""type"": ""Value"",
                     ""id"": ""7a8fef3c-1327-458c-96a2-e646a873299b"",
                     ""expectedControlType"": ""Vector2"",
@@ -102,7 +282,7 @@ namespace Lightsway.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveSelection"",
+                    ""action"": ""NavigateNodes"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -113,7 +293,7 @@ namespace Lightsway.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveSelection"",
+                    ""action"": ""NavigateNodes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -124,7 +304,7 @@ namespace Lightsway.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveSelection"",
+                    ""action"": ""NavigateNodes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -135,7 +315,7 @@ namespace Lightsway.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveSelection"",
+                    ""action"": ""NavigateNodes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -146,7 +326,7 @@ namespace Lightsway.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveSelection"",
+                    ""action"": ""NavigateNodes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -157,7 +337,7 @@ namespace Lightsway.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveSelection"",
+                    ""action"": ""NavigateNodes"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -168,7 +348,7 @@ namespace Lightsway.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveSelection"",
+                    ""action"": ""NavigateNodes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -179,7 +359,7 @@ namespace Lightsway.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveSelection"",
+                    ""action"": ""NavigateNodes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -190,7 +370,7 @@ namespace Lightsway.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveSelection"",
+                    ""action"": ""NavigateNodes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -201,7 +381,7 @@ namespace Lightsway.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MoveSelection"",
+                    ""action"": ""NavigateNodes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -251,12 +431,774 @@ namespace Lightsway.InputSystem
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f9d25899-877b-4bf7-bf3a-681cd6f3bd68"",
+                    ""id"": ""d453ab3e-d1fc-4c0e-a00e-9a3808156b22"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Combat"",
+            ""id"": ""8adfe81e-0b8a-41de-8b63-55c45612171e"",
+            ""actions"": [
+                {
+                    ""name"": ""NavigateCards"",
+                    ""type"": ""Value"",
+                    ""id"": ""c135253c-3810-4f11-adb3-78911e84fa4c"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""NavigateTargets"",
+                    ""type"": ""Value"",
+                    ""id"": ""3f94853d-c164-4d58-a1cc-f57b947e6ef7"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""NavigateLightCard"",
+                    ""type"": ""Value"",
+                    ""id"": ""1b5099af-a3a0-430d-a8a1-7eec42b925ca"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ConfirmCard"",
+                    ""type"": ""Button"",
+                    ""id"": ""8d0b2f02-f074-4709-88eb-8f09a4cefb2a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ConfirmTarget"",
+                    ""type"": ""Button"",
+                    ""id"": ""f20b4a91-c8c3-49ec-8ab9-ed034d9f4d30"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CancelCard"",
+                    ""type"": ""Button"",
+                    ""id"": ""d2a1a988-956b-4d3b-b7af-43d7b65dac01"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EndTurn"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ae0188e-cafc-4f88-bb17-efe82ee1845c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenDrawPile"",
+                    ""type"": ""Button"",
+                    ""id"": ""301f568f-89e3-4e25-92b5-068cd7567ed9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenDiscardPile"",
+                    ""type"": ""Button"",
+                    ""id"": ""39d5b8e2-85fb-406e-b202-ff053de6a421"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenExhaustPile"",
+                    ""type"": ""Button"",
+                    ""id"": ""2166d7fd-799a-4682-a058-0d686213be5a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenLightCreation"",
+                    ""type"": ""Button"",
+                    ""id"": ""3e5e9c96-594b-4ea2-a78c-9f3d3ceb231c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectCard1"",
+                    ""type"": ""Button"",
+                    ""id"": ""c9b33e59-15e5-4b22-8ca5-7c86b5eb0248"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectCard2"",
+                    ""type"": ""Button"",
+                    ""id"": ""5cec5c8a-3340-41eb-a0d2-061aa29050cc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectCard3"",
+                    ""type"": ""Button"",
+                    ""id"": ""e9665919-73c9-4857-be41-8467babc65a8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectCard4"",
+                    ""type"": ""Button"",
+                    ""id"": ""d7c419df-22c6-43a8-99b1-b1bdfd4caa55"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectCard5"",
+                    ""type"": ""Button"",
+                    ""id"": ""d63b2da9-96bb-49a9-9a88-e979c259a37c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectCard6"",
+                    ""type"": ""Button"",
+                    ""id"": ""b39be11f-5aeb-4288-bfda-e8e5fe223e71"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectCard7"",
+                    ""type"": ""Button"",
+                    ""id"": ""a1e5530e-5d91-4d2c-b580-efd9d0777aef"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectCard8"",
+                    ""type"": ""Button"",
+                    ""id"": ""0d8d470f-c13d-49ec-8e57-f3049d698080"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectCard9"",
+                    ""type"": ""Button"",
+                    ""id"": ""a260d5fd-7e0c-46ce-a890-ad1c69d9a295"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectCard10"",
+                    ""type"": ""Button"",
+                    ""id"": ""30e11a6a-12b3-4529-8d37-021407182570"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""9da08f6d-c299-441c-9994-72d37d6c259c"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateCards"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""960b1ae7-5b2c-43cd-8211-0d5a77a9ba96"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateCards"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""d8519d3e-211a-42c0-a7fe-1cdd38382469"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateCards"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""7e0bd7ac-7515-43c2-ae47-90c9f7865ce3"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateCards"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""c4f0907d-0526-414b-972d-b36109664a39"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateCards"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""c2f39442-6f0e-4472-98d0-eebca8d8c1a8"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateTargets"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""07584d90-c5ca-435f-8af1-5b4d938c05f1"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateTargets"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""284ede57-7365-45aa-b696-7695a9fc55a8"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateTargets"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4a0dd93f-7633-41f1-9915-313168d47db0"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateTargets"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""1fd43ca1-d9aa-4959-83aa-a4ad90a557c1"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateTargets"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""2c91c5ee-6414-45f7-9de6-1f82278c9714"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateLightCard"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""e3abdfc4-b4f6-4b39-a920-dce4b20fe2e7"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateLightCard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""aba89cc9-8ec5-43bc-a84b-aadd7f881f4e"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateLightCard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""1a22f856-6c13-4c96-a8ff-06c65eef9a18"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateLightCard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""42e33a5c-0444-4e6b-8c8e-2eefad2be106"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateLightCard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82647a7d-aec4-4f2b-ac0a-53a3084d5b39"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ConfirmCard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""13c0f8c7-12ec-494d-8c05-d37e94910597"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ConfirmCard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da7a0949-88ce-4c86-a33b-f0f07070565c"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ConfirmTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2182b547-f6a7-4441-95bb-31b373b56812"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ConfirmTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0471232-ce15-4a2e-b0ad-c386f85b92ff"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelCard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1b1e8cd-ad24-4b3c-a643-d5f4d34b8432"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelCard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5abf13de-5ccf-40a0-84c8-4ba166021000"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelCard"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ace94092-f6c1-4705-8de6-e8b9d146b3ff"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Hold(duration=0.3)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EndTurn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f7dd1589-fae4-4e89-80d9-b5fcd24eac04"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenDrawPile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c75ed4b-d7f9-4a6d-a7ab-5d93d6294890"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenDiscardPile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""786ea1c2-2f38-4f72-b598-be1ddd42fc6a"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenExhaustPile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08fb43ae-135f-4d3a-890b-cb6f71afedff"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenLightCreation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3ccbb92f-e0a7-4e10-8cc2-ebca215a6026"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectCard1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1e4135e-d0ed-431f-86b8-b72252013ec8"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectCard2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c987fbce-9ac1-4440-9c43-a1e358107899"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectCard3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e309e9f5-d020-4cba-8003-a409276d6042"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectCard4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""013c0b2c-6325-45cc-a8fa-7edb783b1206"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectCard5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""50ef8165-c24f-4f08-9a8b-cb9580cadd73"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectCard6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fcbf41b2-aad4-48f3-96c5-c415a762e9a5"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectCard7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fecc050-fcd6-4861-a9da-8614d511ed4b"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectCard8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25a03c72-6490-4d22-99a3-fca9e12b247e"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectCard9"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a979bb6-c81e-43c8-bd4d-93e4515ebc80"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectCard10"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Dialogue"",
+            ""id"": ""2c335efb-66c8-4f07-b7ef-8f46c61c3eda"",
+            ""actions"": [
+                {
+                    ""name"": ""NavigateChoices"",
+                    ""type"": ""Value"",
+                    ""id"": ""9099d30e-cb5c-41b9-95c3-304a8adbda36"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""AdvanceText/ConfirmChoices"",
+                    ""type"": ""Button"",
+                    ""id"": ""ceb20569-be2b-428e-823d-71a92d591f57"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""e30167d5-c31b-4951-8d2a-cf2aa63e192b"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateChoices"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""ad58dc35-cb86-4c5e-a26c-207df5016f87"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateChoices"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""089d6552-e820-4588-a56c-861be3dac533"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateChoices"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""60e55890-d3e6-4e97-9ef6-4fad6e61e212"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateChoices"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""75a624e0-5dc5-489f-9e71-92b2f98f93ea"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateChoices"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""00346b5e-de74-4d87-9730-fc7a0eb1668f"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateChoices"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""7a9616e7-2fb8-444c-908e-829274333af0"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateChoices"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""da247704-3681-4304-88a9-83592dc3fadf"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateChoices"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""460ff8a3-5b8a-482f-8025-3eab09a5a11b"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateChoices"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""fcf70eaa-be0c-42be-999c-39abc7ab27f3"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NavigateChoices"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""45c0c0f2-7786-4c03-b973-7ffbeb6224bb"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdvanceText/ConfirmChoices"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""221b569a-a84f-4776-b555-1891a3751507"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdvanceText/ConfirmChoices"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -282,21 +1224,55 @@ namespace Lightsway.InputSystem
         }
     ]
 }");
-            // Gameplay
-            m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-            m_Gameplay_Click = m_Gameplay.FindAction("Click", throwIfNotFound: true);
-            m_Gameplay_Map = m_Gameplay.FindAction("Map", throwIfNotFound: true);
+            // Global
+            m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
+            m_Global_Pause = m_Global.FindAction("Pause", throwIfNotFound: true);
+            // Menu
+            m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+            m_Menu_Navigate = m_Menu.FindAction("Navigate", throwIfNotFound: true);
+            m_Menu_Submit = m_Menu.FindAction("Submit", throwIfNotFound: true);
+            m_Menu_Cancel = m_Menu.FindAction("Cancel", throwIfNotFound: true);
             // Map
             m_Map = asset.FindActionMap("Map", throwIfNotFound: true);
-            m_Map_MoveSelection = m_Map.FindAction("MoveSelection", throwIfNotFound: true);
+            m_Map_NavigateNodes = m_Map.FindAction("NavigateNodes", throwIfNotFound: true);
             m_Map_Confirm = m_Map.FindAction("Confirm", throwIfNotFound: true);
             m_Map_Cancel = m_Map.FindAction("Cancel", throwIfNotFound: true);
+            // Combat
+            m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
+            m_Combat_NavigateCards = m_Combat.FindAction("NavigateCards", throwIfNotFound: true);
+            m_Combat_NavigateTargets = m_Combat.FindAction("NavigateTargets", throwIfNotFound: true);
+            m_Combat_NavigateLightCard = m_Combat.FindAction("NavigateLightCard", throwIfNotFound: true);
+            m_Combat_ConfirmCard = m_Combat.FindAction("ConfirmCard", throwIfNotFound: true);
+            m_Combat_ConfirmTarget = m_Combat.FindAction("ConfirmTarget", throwIfNotFound: true);
+            m_Combat_CancelCard = m_Combat.FindAction("CancelCard", throwIfNotFound: true);
+            m_Combat_EndTurn = m_Combat.FindAction("EndTurn", throwIfNotFound: true);
+            m_Combat_OpenDrawPile = m_Combat.FindAction("OpenDrawPile", throwIfNotFound: true);
+            m_Combat_OpenDiscardPile = m_Combat.FindAction("OpenDiscardPile", throwIfNotFound: true);
+            m_Combat_OpenExhaustPile = m_Combat.FindAction("OpenExhaustPile", throwIfNotFound: true);
+            m_Combat_OpenLightCreation = m_Combat.FindAction("OpenLightCreation", throwIfNotFound: true);
+            m_Combat_SelectCard1 = m_Combat.FindAction("SelectCard1", throwIfNotFound: true);
+            m_Combat_SelectCard2 = m_Combat.FindAction("SelectCard2", throwIfNotFound: true);
+            m_Combat_SelectCard3 = m_Combat.FindAction("SelectCard3", throwIfNotFound: true);
+            m_Combat_SelectCard4 = m_Combat.FindAction("SelectCard4", throwIfNotFound: true);
+            m_Combat_SelectCard5 = m_Combat.FindAction("SelectCard5", throwIfNotFound: true);
+            m_Combat_SelectCard6 = m_Combat.FindAction("SelectCard6", throwIfNotFound: true);
+            m_Combat_SelectCard7 = m_Combat.FindAction("SelectCard7", throwIfNotFound: true);
+            m_Combat_SelectCard8 = m_Combat.FindAction("SelectCard8", throwIfNotFound: true);
+            m_Combat_SelectCard9 = m_Combat.FindAction("SelectCard9", throwIfNotFound: true);
+            m_Combat_SelectCard10 = m_Combat.FindAction("SelectCard10", throwIfNotFound: true);
+            // Dialogue
+            m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
+            m_Dialogue_NavigateChoices = m_Dialogue.FindAction("NavigateChoices", throwIfNotFound: true);
+            m_Dialogue_AdvanceTextConfirmChoices = m_Dialogue.FindAction("AdvanceText/ConfirmChoices", throwIfNotFound: true);
         }
 
         ~@GameControls()
         {
-            UnityEngine.Debug.Assert(!m_Gameplay.enabled, "This will cause a leak and performance issues, GameControls.Gameplay.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Global.enabled, "This will cause a leak and performance issues, GameControls.Global.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Menu.enabled, "This will cause a leak and performance issues, GameControls.Menu.Disable() has not been called.");
             UnityEngine.Debug.Assert(!m_Map.enabled, "This will cause a leak and performance issues, GameControls.Map.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Combat.enabled, "This will cause a leak and performance issues, GameControls.Combat.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Dialogue.enabled, "This will cause a leak and performance issues, GameControls.Dialogue.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -355,71 +1331,125 @@ namespace Lightsway.InputSystem
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // Gameplay
-        private readonly InputActionMap m_Gameplay;
-        private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
-        private readonly InputAction m_Gameplay_Click;
-        private readonly InputAction m_Gameplay_Map;
-        public struct GameplayActions
+        // Global
+        private readonly InputActionMap m_Global;
+        private List<IGlobalActions> m_GlobalActionsCallbackInterfaces = new List<IGlobalActions>();
+        private readonly InputAction m_Global_Pause;
+        public struct GlobalActions
         {
             private @GameControls m_Wrapper;
-            public GameplayActions(@GameControls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Click => m_Wrapper.m_Gameplay_Click;
-            public InputAction @Map => m_Wrapper.m_Gameplay_Map;
-            public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
+            public GlobalActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Pause => m_Wrapper.m_Global_Pause;
+            public InputActionMap Get() { return m_Wrapper.m_Global; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(GameplayActions set) { return set.Get(); }
-            public void AddCallbacks(IGameplayActions instance)
+            public static implicit operator InputActionMap(GlobalActions set) { return set.Get(); }
+            public void AddCallbacks(IGlobalActions instance)
             {
-                if (instance == null || m_Wrapper.m_GameplayActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_GameplayActionsCallbackInterfaces.Add(instance);
-                @Click.started += instance.OnClick;
-                @Click.performed += instance.OnClick;
-                @Click.canceled += instance.OnClick;
-                @Map.started += instance.OnMap;
-                @Map.performed += instance.OnMap;
-                @Map.canceled += instance.OnMap;
+                if (instance == null || m_Wrapper.m_GlobalActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_GlobalActionsCallbackInterfaces.Add(instance);
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
 
-            private void UnregisterCallbacks(IGameplayActions instance)
+            private void UnregisterCallbacks(IGlobalActions instance)
             {
-                @Click.started -= instance.OnClick;
-                @Click.performed -= instance.OnClick;
-                @Click.canceled -= instance.OnClick;
-                @Map.started -= instance.OnMap;
-                @Map.performed -= instance.OnMap;
-                @Map.canceled -= instance.OnMap;
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
             }
 
-            public void RemoveCallbacks(IGameplayActions instance)
+            public void RemoveCallbacks(IGlobalActions instance)
             {
-                if (m_Wrapper.m_GameplayActionsCallbackInterfaces.Remove(instance))
+                if (m_Wrapper.m_GlobalActionsCallbackInterfaces.Remove(instance))
                     UnregisterCallbacks(instance);
             }
 
-            public void SetCallbacks(IGameplayActions instance)
+            public void SetCallbacks(IGlobalActions instance)
             {
-                foreach (var item in m_Wrapper.m_GameplayActionsCallbackInterfaces)
+                foreach (var item in m_Wrapper.m_GlobalActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
-                m_Wrapper.m_GameplayActionsCallbackInterfaces.Clear();
+                m_Wrapper.m_GlobalActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
             }
         }
-        public GameplayActions @Gameplay => new GameplayActions(this);
+        public GlobalActions @Global => new GlobalActions(this);
+
+        // Menu
+        private readonly InputActionMap m_Menu;
+        private List<IMenuActions> m_MenuActionsCallbackInterfaces = new List<IMenuActions>();
+        private readonly InputAction m_Menu_Navigate;
+        private readonly InputAction m_Menu_Submit;
+        private readonly InputAction m_Menu_Cancel;
+        public struct MenuActions
+        {
+            private @GameControls m_Wrapper;
+            public MenuActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Navigate => m_Wrapper.m_Menu_Navigate;
+            public InputAction @Submit => m_Wrapper.m_Menu_Submit;
+            public InputAction @Cancel => m_Wrapper.m_Menu_Cancel;
+            public InputActionMap Get() { return m_Wrapper.m_Menu; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+            public void AddCallbacks(IMenuActions instance)
+            {
+                if (instance == null || m_Wrapper.m_MenuActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_MenuActionsCallbackInterfaces.Add(instance);
+                @Navigate.started += instance.OnNavigate;
+                @Navigate.performed += instance.OnNavigate;
+                @Navigate.canceled += instance.OnNavigate;
+                @Submit.started += instance.OnSubmit;
+                @Submit.performed += instance.OnSubmit;
+                @Submit.canceled += instance.OnSubmit;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
+            }
+
+            private void UnregisterCallbacks(IMenuActions instance)
+            {
+                @Navigate.started -= instance.OnNavigate;
+                @Navigate.performed -= instance.OnNavigate;
+                @Navigate.canceled -= instance.OnNavigate;
+                @Submit.started -= instance.OnSubmit;
+                @Submit.performed -= instance.OnSubmit;
+                @Submit.canceled -= instance.OnSubmit;
+                @Cancel.started -= instance.OnCancel;
+                @Cancel.performed -= instance.OnCancel;
+                @Cancel.canceled -= instance.OnCancel;
+            }
+
+            public void RemoveCallbacks(IMenuActions instance)
+            {
+                if (m_Wrapper.m_MenuActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IMenuActions instance)
+            {
+                foreach (var item in m_Wrapper.m_MenuActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_MenuActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public MenuActions @Menu => new MenuActions(this);
 
         // Map
         private readonly InputActionMap m_Map;
         private List<IMapActions> m_MapActionsCallbackInterfaces = new List<IMapActions>();
-        private readonly InputAction m_Map_MoveSelection;
+        private readonly InputAction m_Map_NavigateNodes;
         private readonly InputAction m_Map_Confirm;
         private readonly InputAction m_Map_Cancel;
         public struct MapActions
         {
             private @GameControls m_Wrapper;
             public MapActions(@GameControls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @MoveSelection => m_Wrapper.m_Map_MoveSelection;
+            public InputAction @NavigateNodes => m_Wrapper.m_Map_NavigateNodes;
             public InputAction @Confirm => m_Wrapper.m_Map_Confirm;
             public InputAction @Cancel => m_Wrapper.m_Map_Cancel;
             public InputActionMap Get() { return m_Wrapper.m_Map; }
@@ -431,9 +1461,9 @@ namespace Lightsway.InputSystem
             {
                 if (instance == null || m_Wrapper.m_MapActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_MapActionsCallbackInterfaces.Add(instance);
-                @MoveSelection.started += instance.OnMoveSelection;
-                @MoveSelection.performed += instance.OnMoveSelection;
-                @MoveSelection.canceled += instance.OnMoveSelection;
+                @NavigateNodes.started += instance.OnNavigateNodes;
+                @NavigateNodes.performed += instance.OnNavigateNodes;
+                @NavigateNodes.canceled += instance.OnNavigateNodes;
                 @Confirm.started += instance.OnConfirm;
                 @Confirm.performed += instance.OnConfirm;
                 @Confirm.canceled += instance.OnConfirm;
@@ -444,9 +1474,9 @@ namespace Lightsway.InputSystem
 
             private void UnregisterCallbacks(IMapActions instance)
             {
-                @MoveSelection.started -= instance.OnMoveSelection;
-                @MoveSelection.performed -= instance.OnMoveSelection;
-                @MoveSelection.canceled -= instance.OnMoveSelection;
+                @NavigateNodes.started -= instance.OnNavigateNodes;
+                @NavigateNodes.performed -= instance.OnNavigateNodes;
+                @NavigateNodes.canceled -= instance.OnNavigateNodes;
                 @Confirm.started -= instance.OnConfirm;
                 @Confirm.performed -= instance.OnConfirm;
                 @Confirm.canceled -= instance.OnConfirm;
@@ -470,6 +1500,266 @@ namespace Lightsway.InputSystem
             }
         }
         public MapActions @Map => new MapActions(this);
+
+        // Combat
+        private readonly InputActionMap m_Combat;
+        private List<ICombatActions> m_CombatActionsCallbackInterfaces = new List<ICombatActions>();
+        private readonly InputAction m_Combat_NavigateCards;
+        private readonly InputAction m_Combat_NavigateTargets;
+        private readonly InputAction m_Combat_NavigateLightCard;
+        private readonly InputAction m_Combat_ConfirmCard;
+        private readonly InputAction m_Combat_ConfirmTarget;
+        private readonly InputAction m_Combat_CancelCard;
+        private readonly InputAction m_Combat_EndTurn;
+        private readonly InputAction m_Combat_OpenDrawPile;
+        private readonly InputAction m_Combat_OpenDiscardPile;
+        private readonly InputAction m_Combat_OpenExhaustPile;
+        private readonly InputAction m_Combat_OpenLightCreation;
+        private readonly InputAction m_Combat_SelectCard1;
+        private readonly InputAction m_Combat_SelectCard2;
+        private readonly InputAction m_Combat_SelectCard3;
+        private readonly InputAction m_Combat_SelectCard4;
+        private readonly InputAction m_Combat_SelectCard5;
+        private readonly InputAction m_Combat_SelectCard6;
+        private readonly InputAction m_Combat_SelectCard7;
+        private readonly InputAction m_Combat_SelectCard8;
+        private readonly InputAction m_Combat_SelectCard9;
+        private readonly InputAction m_Combat_SelectCard10;
+        public struct CombatActions
+        {
+            private @GameControls m_Wrapper;
+            public CombatActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @NavigateCards => m_Wrapper.m_Combat_NavigateCards;
+            public InputAction @NavigateTargets => m_Wrapper.m_Combat_NavigateTargets;
+            public InputAction @NavigateLightCard => m_Wrapper.m_Combat_NavigateLightCard;
+            public InputAction @ConfirmCard => m_Wrapper.m_Combat_ConfirmCard;
+            public InputAction @ConfirmTarget => m_Wrapper.m_Combat_ConfirmTarget;
+            public InputAction @CancelCard => m_Wrapper.m_Combat_CancelCard;
+            public InputAction @EndTurn => m_Wrapper.m_Combat_EndTurn;
+            public InputAction @OpenDrawPile => m_Wrapper.m_Combat_OpenDrawPile;
+            public InputAction @OpenDiscardPile => m_Wrapper.m_Combat_OpenDiscardPile;
+            public InputAction @OpenExhaustPile => m_Wrapper.m_Combat_OpenExhaustPile;
+            public InputAction @OpenLightCreation => m_Wrapper.m_Combat_OpenLightCreation;
+            public InputAction @SelectCard1 => m_Wrapper.m_Combat_SelectCard1;
+            public InputAction @SelectCard2 => m_Wrapper.m_Combat_SelectCard2;
+            public InputAction @SelectCard3 => m_Wrapper.m_Combat_SelectCard3;
+            public InputAction @SelectCard4 => m_Wrapper.m_Combat_SelectCard4;
+            public InputAction @SelectCard5 => m_Wrapper.m_Combat_SelectCard5;
+            public InputAction @SelectCard6 => m_Wrapper.m_Combat_SelectCard6;
+            public InputAction @SelectCard7 => m_Wrapper.m_Combat_SelectCard7;
+            public InputAction @SelectCard8 => m_Wrapper.m_Combat_SelectCard8;
+            public InputAction @SelectCard9 => m_Wrapper.m_Combat_SelectCard9;
+            public InputAction @SelectCard10 => m_Wrapper.m_Combat_SelectCard10;
+            public InputActionMap Get() { return m_Wrapper.m_Combat; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(CombatActions set) { return set.Get(); }
+            public void AddCallbacks(ICombatActions instance)
+            {
+                if (instance == null || m_Wrapper.m_CombatActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_CombatActionsCallbackInterfaces.Add(instance);
+                @NavigateCards.started += instance.OnNavigateCards;
+                @NavigateCards.performed += instance.OnNavigateCards;
+                @NavigateCards.canceled += instance.OnNavigateCards;
+                @NavigateTargets.started += instance.OnNavigateTargets;
+                @NavigateTargets.performed += instance.OnNavigateTargets;
+                @NavigateTargets.canceled += instance.OnNavigateTargets;
+                @NavigateLightCard.started += instance.OnNavigateLightCard;
+                @NavigateLightCard.performed += instance.OnNavigateLightCard;
+                @NavigateLightCard.canceled += instance.OnNavigateLightCard;
+                @ConfirmCard.started += instance.OnConfirmCard;
+                @ConfirmCard.performed += instance.OnConfirmCard;
+                @ConfirmCard.canceled += instance.OnConfirmCard;
+                @ConfirmTarget.started += instance.OnConfirmTarget;
+                @ConfirmTarget.performed += instance.OnConfirmTarget;
+                @ConfirmTarget.canceled += instance.OnConfirmTarget;
+                @CancelCard.started += instance.OnCancelCard;
+                @CancelCard.performed += instance.OnCancelCard;
+                @CancelCard.canceled += instance.OnCancelCard;
+                @EndTurn.started += instance.OnEndTurn;
+                @EndTurn.performed += instance.OnEndTurn;
+                @EndTurn.canceled += instance.OnEndTurn;
+                @OpenDrawPile.started += instance.OnOpenDrawPile;
+                @OpenDrawPile.performed += instance.OnOpenDrawPile;
+                @OpenDrawPile.canceled += instance.OnOpenDrawPile;
+                @OpenDiscardPile.started += instance.OnOpenDiscardPile;
+                @OpenDiscardPile.performed += instance.OnOpenDiscardPile;
+                @OpenDiscardPile.canceled += instance.OnOpenDiscardPile;
+                @OpenExhaustPile.started += instance.OnOpenExhaustPile;
+                @OpenExhaustPile.performed += instance.OnOpenExhaustPile;
+                @OpenExhaustPile.canceled += instance.OnOpenExhaustPile;
+                @OpenLightCreation.started += instance.OnOpenLightCreation;
+                @OpenLightCreation.performed += instance.OnOpenLightCreation;
+                @OpenLightCreation.canceled += instance.OnOpenLightCreation;
+                @SelectCard1.started += instance.OnSelectCard1;
+                @SelectCard1.performed += instance.OnSelectCard1;
+                @SelectCard1.canceled += instance.OnSelectCard1;
+                @SelectCard2.started += instance.OnSelectCard2;
+                @SelectCard2.performed += instance.OnSelectCard2;
+                @SelectCard2.canceled += instance.OnSelectCard2;
+                @SelectCard3.started += instance.OnSelectCard3;
+                @SelectCard3.performed += instance.OnSelectCard3;
+                @SelectCard3.canceled += instance.OnSelectCard3;
+                @SelectCard4.started += instance.OnSelectCard4;
+                @SelectCard4.performed += instance.OnSelectCard4;
+                @SelectCard4.canceled += instance.OnSelectCard4;
+                @SelectCard5.started += instance.OnSelectCard5;
+                @SelectCard5.performed += instance.OnSelectCard5;
+                @SelectCard5.canceled += instance.OnSelectCard5;
+                @SelectCard6.started += instance.OnSelectCard6;
+                @SelectCard6.performed += instance.OnSelectCard6;
+                @SelectCard6.canceled += instance.OnSelectCard6;
+                @SelectCard7.started += instance.OnSelectCard7;
+                @SelectCard7.performed += instance.OnSelectCard7;
+                @SelectCard7.canceled += instance.OnSelectCard7;
+                @SelectCard8.started += instance.OnSelectCard8;
+                @SelectCard8.performed += instance.OnSelectCard8;
+                @SelectCard8.canceled += instance.OnSelectCard8;
+                @SelectCard9.started += instance.OnSelectCard9;
+                @SelectCard9.performed += instance.OnSelectCard9;
+                @SelectCard9.canceled += instance.OnSelectCard9;
+                @SelectCard10.started += instance.OnSelectCard10;
+                @SelectCard10.performed += instance.OnSelectCard10;
+                @SelectCard10.canceled += instance.OnSelectCard10;
+            }
+
+            private void UnregisterCallbacks(ICombatActions instance)
+            {
+                @NavigateCards.started -= instance.OnNavigateCards;
+                @NavigateCards.performed -= instance.OnNavigateCards;
+                @NavigateCards.canceled -= instance.OnNavigateCards;
+                @NavigateTargets.started -= instance.OnNavigateTargets;
+                @NavigateTargets.performed -= instance.OnNavigateTargets;
+                @NavigateTargets.canceled -= instance.OnNavigateTargets;
+                @NavigateLightCard.started -= instance.OnNavigateLightCard;
+                @NavigateLightCard.performed -= instance.OnNavigateLightCard;
+                @NavigateLightCard.canceled -= instance.OnNavigateLightCard;
+                @ConfirmCard.started -= instance.OnConfirmCard;
+                @ConfirmCard.performed -= instance.OnConfirmCard;
+                @ConfirmCard.canceled -= instance.OnConfirmCard;
+                @ConfirmTarget.started -= instance.OnConfirmTarget;
+                @ConfirmTarget.performed -= instance.OnConfirmTarget;
+                @ConfirmTarget.canceled -= instance.OnConfirmTarget;
+                @CancelCard.started -= instance.OnCancelCard;
+                @CancelCard.performed -= instance.OnCancelCard;
+                @CancelCard.canceled -= instance.OnCancelCard;
+                @EndTurn.started -= instance.OnEndTurn;
+                @EndTurn.performed -= instance.OnEndTurn;
+                @EndTurn.canceled -= instance.OnEndTurn;
+                @OpenDrawPile.started -= instance.OnOpenDrawPile;
+                @OpenDrawPile.performed -= instance.OnOpenDrawPile;
+                @OpenDrawPile.canceled -= instance.OnOpenDrawPile;
+                @OpenDiscardPile.started -= instance.OnOpenDiscardPile;
+                @OpenDiscardPile.performed -= instance.OnOpenDiscardPile;
+                @OpenDiscardPile.canceled -= instance.OnOpenDiscardPile;
+                @OpenExhaustPile.started -= instance.OnOpenExhaustPile;
+                @OpenExhaustPile.performed -= instance.OnOpenExhaustPile;
+                @OpenExhaustPile.canceled -= instance.OnOpenExhaustPile;
+                @OpenLightCreation.started -= instance.OnOpenLightCreation;
+                @OpenLightCreation.performed -= instance.OnOpenLightCreation;
+                @OpenLightCreation.canceled -= instance.OnOpenLightCreation;
+                @SelectCard1.started -= instance.OnSelectCard1;
+                @SelectCard1.performed -= instance.OnSelectCard1;
+                @SelectCard1.canceled -= instance.OnSelectCard1;
+                @SelectCard2.started -= instance.OnSelectCard2;
+                @SelectCard2.performed -= instance.OnSelectCard2;
+                @SelectCard2.canceled -= instance.OnSelectCard2;
+                @SelectCard3.started -= instance.OnSelectCard3;
+                @SelectCard3.performed -= instance.OnSelectCard3;
+                @SelectCard3.canceled -= instance.OnSelectCard3;
+                @SelectCard4.started -= instance.OnSelectCard4;
+                @SelectCard4.performed -= instance.OnSelectCard4;
+                @SelectCard4.canceled -= instance.OnSelectCard4;
+                @SelectCard5.started -= instance.OnSelectCard5;
+                @SelectCard5.performed -= instance.OnSelectCard5;
+                @SelectCard5.canceled -= instance.OnSelectCard5;
+                @SelectCard6.started -= instance.OnSelectCard6;
+                @SelectCard6.performed -= instance.OnSelectCard6;
+                @SelectCard6.canceled -= instance.OnSelectCard6;
+                @SelectCard7.started -= instance.OnSelectCard7;
+                @SelectCard7.performed -= instance.OnSelectCard7;
+                @SelectCard7.canceled -= instance.OnSelectCard7;
+                @SelectCard8.started -= instance.OnSelectCard8;
+                @SelectCard8.performed -= instance.OnSelectCard8;
+                @SelectCard8.canceled -= instance.OnSelectCard8;
+                @SelectCard9.started -= instance.OnSelectCard9;
+                @SelectCard9.performed -= instance.OnSelectCard9;
+                @SelectCard9.canceled -= instance.OnSelectCard9;
+                @SelectCard10.started -= instance.OnSelectCard10;
+                @SelectCard10.performed -= instance.OnSelectCard10;
+                @SelectCard10.canceled -= instance.OnSelectCard10;
+            }
+
+            public void RemoveCallbacks(ICombatActions instance)
+            {
+                if (m_Wrapper.m_CombatActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(ICombatActions instance)
+            {
+                foreach (var item in m_Wrapper.m_CombatActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_CombatActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public CombatActions @Combat => new CombatActions(this);
+
+        // Dialogue
+        private readonly InputActionMap m_Dialogue;
+        private List<IDialogueActions> m_DialogueActionsCallbackInterfaces = new List<IDialogueActions>();
+        private readonly InputAction m_Dialogue_NavigateChoices;
+        private readonly InputAction m_Dialogue_AdvanceTextConfirmChoices;
+        public struct DialogueActions
+        {
+            private @GameControls m_Wrapper;
+            public DialogueActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @NavigateChoices => m_Wrapper.m_Dialogue_NavigateChoices;
+            public InputAction @AdvanceTextConfirmChoices => m_Wrapper.m_Dialogue_AdvanceTextConfirmChoices;
+            public InputActionMap Get() { return m_Wrapper.m_Dialogue; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(DialogueActions set) { return set.Get(); }
+            public void AddCallbacks(IDialogueActions instance)
+            {
+                if (instance == null || m_Wrapper.m_DialogueActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_DialogueActionsCallbackInterfaces.Add(instance);
+                @NavigateChoices.started += instance.OnNavigateChoices;
+                @NavigateChoices.performed += instance.OnNavigateChoices;
+                @NavigateChoices.canceled += instance.OnNavigateChoices;
+                @AdvanceTextConfirmChoices.started += instance.OnAdvanceTextConfirmChoices;
+                @AdvanceTextConfirmChoices.performed += instance.OnAdvanceTextConfirmChoices;
+                @AdvanceTextConfirmChoices.canceled += instance.OnAdvanceTextConfirmChoices;
+            }
+
+            private void UnregisterCallbacks(IDialogueActions instance)
+            {
+                @NavigateChoices.started -= instance.OnNavigateChoices;
+                @NavigateChoices.performed -= instance.OnNavigateChoices;
+                @NavigateChoices.canceled -= instance.OnNavigateChoices;
+                @AdvanceTextConfirmChoices.started -= instance.OnAdvanceTextConfirmChoices;
+                @AdvanceTextConfirmChoices.performed -= instance.OnAdvanceTextConfirmChoices;
+                @AdvanceTextConfirmChoices.canceled -= instance.OnAdvanceTextConfirmChoices;
+            }
+
+            public void RemoveCallbacks(IDialogueActions instance)
+            {
+                if (m_Wrapper.m_DialogueActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IDialogueActions instance)
+            {
+                foreach (var item in m_Wrapper.m_DialogueActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_DialogueActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public DialogueActions @Dialogue => new DialogueActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         public InputControlScheme KeyboardMouseScheme
         {
@@ -479,16 +1769,50 @@ namespace Lightsway.InputSystem
                 return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
             }
         }
-        public interface IGameplayActions
+        public interface IGlobalActions
         {
-            void OnClick(InputAction.CallbackContext context);
-            void OnMap(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
+        }
+        public interface IMenuActions
+        {
+            void OnNavigate(InputAction.CallbackContext context);
+            void OnSubmit(InputAction.CallbackContext context);
+            void OnCancel(InputAction.CallbackContext context);
         }
         public interface IMapActions
         {
-            void OnMoveSelection(InputAction.CallbackContext context);
+            void OnNavigateNodes(InputAction.CallbackContext context);
             void OnConfirm(InputAction.CallbackContext context);
             void OnCancel(InputAction.CallbackContext context);
+        }
+        public interface ICombatActions
+        {
+            void OnNavigateCards(InputAction.CallbackContext context);
+            void OnNavigateTargets(InputAction.CallbackContext context);
+            void OnNavigateLightCard(InputAction.CallbackContext context);
+            void OnConfirmCard(InputAction.CallbackContext context);
+            void OnConfirmTarget(InputAction.CallbackContext context);
+            void OnCancelCard(InputAction.CallbackContext context);
+            void OnEndTurn(InputAction.CallbackContext context);
+            void OnOpenDrawPile(InputAction.CallbackContext context);
+            void OnOpenDiscardPile(InputAction.CallbackContext context);
+            void OnOpenExhaustPile(InputAction.CallbackContext context);
+            void OnOpenLightCreation(InputAction.CallbackContext context);
+            void OnSelectCard1(InputAction.CallbackContext context);
+            void OnSelectCard2(InputAction.CallbackContext context);
+            void OnSelectCard3(InputAction.CallbackContext context);
+            void OnSelectCard4(InputAction.CallbackContext context);
+            void OnSelectCard5(InputAction.CallbackContext context);
+            void OnSelectCard6(InputAction.CallbackContext context);
+            void OnSelectCard7(InputAction.CallbackContext context);
+            void OnSelectCard8(InputAction.CallbackContext context);
+            void OnSelectCard9(InputAction.CallbackContext context);
+            void OnSelectCard10(InputAction.CallbackContext context);
+        }
+        public interface IDialogueActions
+        {
+            void OnNavigateChoices(InputAction.CallbackContext context);
+            void OnAdvanceTextConfirmChoices(InputAction.CallbackContext context);
         }
     }
 }

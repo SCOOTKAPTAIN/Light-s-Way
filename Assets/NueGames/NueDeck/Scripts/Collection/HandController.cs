@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Characters;
+using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Interfaces;
 using NueGames.NueDeck.Scripts.Managers;
@@ -56,7 +57,12 @@ namespace NueGames.NueDeck.Scripts.Collection
         private bool _keyboardSelectionActive;
         private bool _keyboardTargeting;
         private int _keyboardTargetIndex;
+        private int _lastKeyboardConfirmFrame = -1;
+        private int _lastNumericCardNumber = -1;
+        private float _lastNumericCardPressTime = float.NegativeInfinity;
         private GameControls _controls;
+
+        private const float NumericDoublePressWindow = 0.35f;
 
         private Rect _handBounds;
         private bool _mouseInsideHand;
@@ -84,10 +90,28 @@ namespace NueGames.NueDeck.Scripts.Collection
 
         private void OnEnable()
         {
-            _controls.Map.MoveSelection.performed += OnKeyboardMove;
-            _controls.Map.Confirm.performed += OnKeyboardConfirm;
-            _controls.Map.Cancel.performed += OnKeyboardCancel;
-            _controls.Map.Enable();
+            _controls.Combat.NavigateCards.performed += OnKeyboardMove;
+            _controls.Combat.NavigateTargets.performed += OnKeyboardTargetMove;
+            _controls.Combat.NavigateLightCard.performed += OnKeyboardLightCardMove;
+            _controls.Combat.ConfirmCard.performed += OnKeyboardConfirm;
+            _controls.Combat.ConfirmTarget.performed += OnKeyboardConfirm;
+            _controls.Combat.CancelCard.performed += OnKeyboardCancel;
+            _controls.Combat.EndTurn.performed += OnKeyboardEndTurn;
+            _controls.Combat.OpenDrawPile.performed += OnKeyboardOpenDrawPile;
+            _controls.Combat.OpenDiscardPile.performed += OnKeyboardOpenDiscardPile;
+            _controls.Combat.OpenExhaustPile.performed += OnKeyboardOpenExhaustPile;
+            _controls.Combat.OpenLightCreation.performed += OnKeyboardOpenLightCreation;
+            _controls.Combat.SelectCard1.performed += OnKeyboardSelectCard1;
+            _controls.Combat.SelectCard2.performed += OnKeyboardSelectCard2;
+            _controls.Combat.SelectCard3.performed += OnKeyboardSelectCard3;
+            _controls.Combat.SelectCard4.performed += OnKeyboardSelectCard4;
+            _controls.Combat.SelectCard5.performed += OnKeyboardSelectCard5;
+            _controls.Combat.SelectCard6.performed += OnKeyboardSelectCard6;
+            _controls.Combat.SelectCard7.performed += OnKeyboardSelectCard7;
+            _controls.Combat.SelectCard8.performed += OnKeyboardSelectCard8;
+            _controls.Combat.SelectCard9.performed += OnKeyboardSelectCard9;
+            _controls.Combat.SelectCard10.performed += OnKeyboardSelectCard10;
+            _controls.Combat.Enable();
         }
 
         private void OnDisable()
@@ -95,10 +119,28 @@ namespace NueGames.NueDeck.Scripts.Collection
             if (_controls == null)
                 return;
 
-            _controls.Map.MoveSelection.performed -= OnKeyboardMove;
-            _controls.Map.Confirm.performed -= OnKeyboardConfirm;
-            _controls.Map.Cancel.performed -= OnKeyboardCancel;
-            _controls.Map.Disable();
+            _controls.Combat.NavigateCards.performed -= OnKeyboardMove;
+            _controls.Combat.NavigateTargets.performed -= OnKeyboardTargetMove;
+            _controls.Combat.NavigateLightCard.performed -= OnKeyboardLightCardMove;
+            _controls.Combat.ConfirmCard.performed -= OnKeyboardConfirm;
+            _controls.Combat.ConfirmTarget.performed -= OnKeyboardConfirm;
+            _controls.Combat.CancelCard.performed -= OnKeyboardCancel;
+            _controls.Combat.EndTurn.performed -= OnKeyboardEndTurn;
+            _controls.Combat.OpenDrawPile.performed -= OnKeyboardOpenDrawPile;
+            _controls.Combat.OpenDiscardPile.performed -= OnKeyboardOpenDiscardPile;
+            _controls.Combat.OpenExhaustPile.performed -= OnKeyboardOpenExhaustPile;
+            _controls.Combat.OpenLightCreation.performed -= OnKeyboardOpenLightCreation;
+            _controls.Combat.SelectCard1.performed -= OnKeyboardSelectCard1;
+            _controls.Combat.SelectCard2.performed -= OnKeyboardSelectCard2;
+            _controls.Combat.SelectCard3.performed -= OnKeyboardSelectCard3;
+            _controls.Combat.SelectCard4.performed -= OnKeyboardSelectCard4;
+            _controls.Combat.SelectCard5.performed -= OnKeyboardSelectCard5;
+            _controls.Combat.SelectCard6.performed -= OnKeyboardSelectCard6;
+            _controls.Combat.SelectCard7.performed -= OnKeyboardSelectCard7;
+            _controls.Combat.SelectCard8.performed -= OnKeyboardSelectCard8;
+            _controls.Combat.SelectCard9.performed -= OnKeyboardSelectCard9;
+            _controls.Combat.SelectCard10.performed -= OnKeyboardSelectCard10;
+            _controls.Combat.Disable();
         }
 
         private void OnDestroy()
@@ -113,18 +155,54 @@ namespace NueGames.NueDeck.Scripts.Collection
 
         private void OnKeyboardMove(InputAction.CallbackContext context)
         {
-            if (!GameManager.PersistentGameplayData.CanSelectCards || hand.Count == 0)
+            if (!GameManager.PersistentGameplayData.CanSelectCards || _keyboardTargeting || hand.Count == 0)
                 return;
 
             Vector2 value = context.ReadValue<Vector2>();
             if (value.x > 0.5f)
+            {
+                ResetNumericPressState();
                 MoveKeyboardSelection(-1);
+            }
             else if (value.x < -0.5f)
+            {
+                ResetNumericPressState();
                 MoveKeyboardSelection(1);
+            }
+        }
+
+        private void OnKeyboardTargetMove(InputAction.CallbackContext context)
+        {
+            if (!GameManager.PersistentGameplayData.CanSelectCards || !_keyboardTargeting || _selected < 0 || _selected >= hand.Count)
+                return;
+
+            Vector2 value = context.ReadValue<Vector2>();
+            if (value.x > 0.5f)
+            {
+                ResetNumericPressState();
+                MoveKeyboardSelection(-1);
+            }
+            else if (value.x < -0.5f)
+            {
+                ResetNumericPressState();
+                MoveKeyboardSelection(1);
+            }
         }
 
         private void OnKeyboardConfirm(InputAction.CallbackContext context)
         {
+            if (_lastKeyboardConfirmFrame == Time.frameCount)
+                return;
+            _lastKeyboardConfirmFrame = Time.frameCount;
+            ResetNumericPressState();
+
+            var lightCardPanel = UIManager.CombatCanvas.LightCardSelectionPanel;
+            if (lightCardPanel != null && lightCardPanel.IsOpen)
+            {
+                lightCardPanel.ConfirmKeyboardSelection();
+                return;
+            }
+
             if (!GameManager.PersistentGameplayData.CanSelectCards || _selected < 0 || _selected >= hand.Count)
                 return;
 
@@ -153,7 +231,122 @@ namespace NueGames.NueDeck.Scripts.Collection
 
             _keyboardTargeting = false;
             _clickSelected = -1;
+            ResetNumericPressState();
             HighlightSelectedCardTarget(hand[_selected]);
+        }
+
+        private void OnKeyboardLightCardMove(InputAction.CallbackContext context)
+        {
+            var lightCardPanel = UIManager.CombatCanvas.LightCardSelectionPanel;
+            if (lightCardPanel == null || !lightCardPanel.IsOpen)
+                return;
+
+            Vector2 value = context.ReadValue<Vector2>();
+            if (value.x > 0.5f)
+                lightCardPanel.MoveKeyboardSelection(1);
+            else if (value.x < -0.5f)
+                lightCardPanel.MoveKeyboardSelection(-1);
+        }
+
+        private void OnKeyboardEndTurn(InputAction.CallbackContext context)
+        {
+            if (GameManager.PersistentGameplayData.CanSelectCards && !_keyboardTargeting)
+                CombatManager.EndTurn();
+        }
+
+        private void OnKeyboardOpenDrawPile(InputAction.CallbackContext context) => OpenPile(CollectionManager.DrawPile, "Draw Pile");
+        private void OnKeyboardOpenDiscardPile(InputAction.CallbackContext context) => OpenPile(CollectionManager.DiscardPile, "Discard Pile");
+        private void OnKeyboardOpenExhaustPile(InputAction.CallbackContext context) => OpenPile(CollectionManager.ExhaustPile, "Exhaust Pile");
+
+        private void OnKeyboardOpenLightCreation(InputAction.CallbackContext context)
+        {
+            var lightCardPanel = UIManager.CombatCanvas.LightCardSelectionPanel;
+            if (lightCardPanel != null && lightCardPanel.IsOpen)
+            {
+                lightCardPanel.CloseCanvas();
+                return;
+            }
+
+            if (GameManager.PersistentGameplayData.CanSelectCards)
+                UIManager.CombatCanvas.OpenLightCardSelection();
+        }
+
+        private void OnKeyboardSelectCard1(InputAction.CallbackContext context) => SelectCardByNumber(1);
+        private void OnKeyboardSelectCard2(InputAction.CallbackContext context) => SelectCardByNumber(2);
+        private void OnKeyboardSelectCard3(InputAction.CallbackContext context) => SelectCardByNumber(3);
+        private void OnKeyboardSelectCard4(InputAction.CallbackContext context) => SelectCardByNumber(4);
+        private void OnKeyboardSelectCard5(InputAction.CallbackContext context) => SelectCardByNumber(5);
+        private void OnKeyboardSelectCard6(InputAction.CallbackContext context) => SelectCardByNumber(6);
+        private void OnKeyboardSelectCard7(InputAction.CallbackContext context) => SelectCardByNumber(7);
+        private void OnKeyboardSelectCard8(InputAction.CallbackContext context) => SelectCardByNumber(8);
+        private void OnKeyboardSelectCard9(InputAction.CallbackContext context) => SelectCardByNumber(9);
+        private void OnKeyboardSelectCard10(InputAction.CallbackContext context) => SelectCardByNumber(10);
+
+        private void SelectCardByNumber(int cardNumber)
+        {
+            if (!GameManager.PersistentGameplayData.CanSelectCards || _keyboardTargeting)
+                return;
+
+            var isDoublePress = _lastNumericCardNumber == cardNumber &&
+                                Time.unscaledTime - _lastNumericCardPressTime <= NumericDoublePressWindow;
+            _lastNumericCardNumber = cardNumber;
+            _lastNumericCardPressTime = Time.unscaledTime;
+
+            // The hand list is rendered from curveStart to curveEnd, which is right to left.
+            var cardIndex = hand.Count - cardNumber;
+            if (cardIndex < 0 || cardIndex >= hand.Count)
+                return;
+
+            SelectCardByIndex(cardIndex);
+            if (!isDoublePress)
+                return;
+
+            var card = hand[_selected];
+            _clickSelected = _selected;
+            if (card.CardData.UsableWithoutTarget)
+            {
+                TryUseSelectedCard(Input.mousePosition);
+            }
+            else if (GetKeyboardTargetCount(card) > 0)
+            {
+                _keyboardTargeting = true;
+                _keyboardTargetIndex = 0;
+                HighlightKeyboardTarget(card);
+                TryUseKeyboardTarget();
+            }
+        }
+
+        private void SelectCardByIndex(int cardIndex)
+        {
+            if (!GameManager.PersistentGameplayData.CanSelectCards || _keyboardTargeting || cardIndex >= hand.Count)
+                return;
+
+            _selected = cardIndex;
+            _clickSelected = -1;
+            _keyboardSelectionActive = true;
+            HighlightSelectedCardTarget(hand[_selected]);
+        }
+
+        private void ResetNumericPressState()
+        {
+            _lastNumericCardNumber = -1;
+            _lastNumericCardPressTime = float.NegativeInfinity;
+        }
+
+        private void OpenPile(List<CardData> pile, string title)
+        {
+            var lightCardPanel = UIManager.CombatCanvas.LightCardSelectionPanel;
+            var inventoryCanvas = UIManager.InventoryCanvas;
+            if (inventoryCanvas != null && inventoryCanvas.gameObject.activeInHierarchy)
+            {
+                if (inventoryCanvas.TitleTextField != null && inventoryCanvas.TitleTextField.text == title)
+                    inventoryCanvas.CloseCanvas();
+
+                return;
+            }
+
+            if (GameManager.PersistentGameplayData.CanSelectCards && !_keyboardTargeting && (lightCardPanel == null || !lightCardPanel.IsOpen))
+                UIManager.OpenInventory(pile, title);
         }
 
         private void InitHand()
@@ -303,6 +496,7 @@ namespace NueGames.NueDeck.Scripts.Collection
                     var mouseButtonDown = Input.GetMouseButtonDown(0);
                     if (mouseButtonDown)
                     {
+                        ResetNumericPressState();
                         _selected = i;
                         _keyboardSelectionActive = false;
                         _keyboardTargeting = false;
@@ -438,6 +632,7 @@ namespace NueGames.NueDeck.Scripts.Collection
 
         private void MoveKeyboardSelection(int direction)
         {
+            ResetNumericPressState();
             if (_keyboardTargeting)
             {
                 var targetCount = GetKeyboardTargetCount(hand[_selected]);
@@ -460,6 +655,7 @@ namespace NueGames.NueDeck.Scripts.Collection
             if (cardIndex < 0 || cardIndex >= hand.Count)
                 return;
 
+            ResetNumericPressState();
             _keyboardSelectionActive = false;
             _selected = cardIndex;
 
@@ -806,6 +1002,7 @@ namespace NueGames.NueDeck.Scripts.Collection
         /// </summary>
         public void RemoveCardFromHand(int index)
         {
+            ResetNumericPressState();
             if (updateHierarchyOrder)
             {
                 CardBase card = hand[index];

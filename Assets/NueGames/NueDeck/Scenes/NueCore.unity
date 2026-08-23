@@ -2257,7 +2257,7 @@ MonoBehaviour:
   - name: 79LightBattle
     clip: {fileID: 8300000, guid: fc703e0aa2a7c0f409b7e01f7f5081d7, type: 3}
   - name: 49LightBattle
-    clip: {fileID: 8300000, guid: d3341732e36d4f94f8bf4e5e6e3f82fa, type: 3}
+    clip: {fileID: 8300000, guid: e9aaede971146324a95892a21413ec58, type: 3}
   - name: 24LightBattle
     clip: {fileID: 8300000, guid: 03c3102a285f41a4c878df13433213f8, type: 3}
   - name: 9LightBattle

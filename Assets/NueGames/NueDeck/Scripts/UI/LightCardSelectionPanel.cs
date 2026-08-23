@@ -30,6 +30,9 @@ namespace NueGames.NueDeck.Scripts.UI
         [SerializeField] private float cardHeight = 280f;
         
         private List<ChoiceCard> _displayedCards = new List<ChoiceCard>();
+        private int _keyboardSelectedIndex;
+
+        public bool IsOpen => gameObject.activeInHierarchy;
         
         private void Awake()
         {
@@ -48,6 +51,8 @@ namespace NueGames.NueDeck.Scripts.UI
             
             // Create the 3 cards
             CreateLightCards();
+            _keyboardSelectedIndex = 0;
+            RefreshKeyboardSelection();
             
             // Pause card selection during panel
             if (GameManager != null && GameManager.PersistentGameplayData != null)
@@ -67,6 +72,23 @@ namespace NueGames.NueDeck.Scripts.UI
             }
             
             base.CloseCanvas(); // Deactivates the entire Canvas GameObject
+        }
+
+        public void MoveKeyboardSelection(int direction)
+        {
+            if (_displayedCards.Count == 0)
+                return;
+
+            _keyboardSelectedIndex = (_keyboardSelectedIndex + direction + _displayedCards.Count) % _displayedCards.Count;
+            RefreshKeyboardSelection();
+        }
+
+        public void ConfirmKeyboardSelection()
+        {
+            if (_keyboardSelectedIndex < 0 || _keyboardSelectedIndex >= _displayedCards.Count)
+                return;
+
+            _displayedCards[_keyboardSelectedIndex].ConfirmChoice();
         }
         
         /// <summary>
@@ -174,6 +196,12 @@ namespace NueGames.NueDeck.Scripts.UI
             }
             
             _displayedCards.Clear();
+        }
+
+        private void RefreshKeyboardSelection()
+        {
+            for (var index = 0; index < _displayedCards.Count; index++)
+                _displayedCards[index].SetKeyboardSelected(index == _keyboardSelectedIndex, cardScale);
         }
         
         private void OnDestroy()

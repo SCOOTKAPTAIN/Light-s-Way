@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.UI;
 using NueGames.NueDeck.Scripts.UI.Reward;
+using Lightsway.InputSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 namespace NueGames.NueDeck.Scripts.Managers
 {
@@ -25,6 +27,8 @@ namespace NueGames.NueDeck.Scripts.Managers
         [SerializeField] private CanvasGroup fader;
         [SerializeField] private float fadeSpeed = 1f;
 
+        private GameControls _controls;
+
 
         #region Cache
         public CombatCanvas CombatCanvas => combatCanvas;
@@ -41,12 +45,53 @@ namespace NueGames.NueDeck.Scripts.Managers
                 transform.parent = null;
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+                _controls = new GameControls();
             }
             else
             {
                 Destroy(gameObject);
             }
-           
+        }
+
+        private void OnEnable()
+        {
+            if (_controls == null)
+                return;
+
+            _controls.Global.Pause.performed += OnEscapePressed;
+            _controls.Global.Enable();
+        }
+
+        private void OnDisable()
+        {
+            if (_controls == null)
+                return;
+
+            _controls.Global.Pause.performed -= OnEscapePressed;
+            _controls.Global.Disable();
+        }
+
+        private void OnDestroy()
+        {
+            if (_controls == null)
+                return;
+
+            _controls.Disable();
+            _controls.Dispose();
+            _controls = null;
+        }
+
+        private void OnEscapePressed(InputAction.CallbackContext context)
+        {
+            if (InventoryCanvas != null && InventoryCanvas.gameObject.activeInHierarchy)
+            {
+                InventoryCanvas.CloseCanvas();
+                return;
+            }
+
+            var lightCardPanel = CombatCanvas != null ? CombatCanvas.LightCardSelectionPanel : null;
+            if (lightCardPanel != null && lightCardPanel.IsOpen)
+                lightCardPanel.CloseCanvas();
         }
         #endregion
 

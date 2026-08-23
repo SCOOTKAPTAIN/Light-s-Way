@@ -34,6 +34,16 @@ namespace NueGames.NueDeck.Scripts.Card
             OnCardChose?.Invoke();
         }
 
+        public void ConfirmChoice()
+        {
+            OnChoice();
+        }
+
+        public void SetKeyboardSelected(bool selected, float baseScale)
+        {
+            transform.localScale = Vector3.one * baseScale * (selected ? showScaleRate : 1f);
+        }
+
 
         public void OnPointerEnter(PointerEventData eventData)
         {
