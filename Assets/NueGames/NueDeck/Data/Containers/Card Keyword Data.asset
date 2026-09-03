@@ -138,7 +138,7 @@ MonoBehaviour:
       <color=#FFB430>X</color> damage to self.
   - specialKeyword: 31
     header: Hazy
-    contentText: This card is removed from your deck at the end of combat.
+    contentText: Removed from deck at the end of combat.
   - specialKeyword: 32
     header: Slimed
     contentText: 'whenever you play a card, increase stack by <color=#FFB430>1</color>
@@ -149,3 +149,6 @@ MonoBehaviour:
   - specialKeyword: 33
     header: Temporary
     contentText: <color=#FFB430>Clears</color> itself at the end of a turn.
+  - specialKeyword: 34
+    header: Retain
+    contentText: Not discarded at the end of a turn.

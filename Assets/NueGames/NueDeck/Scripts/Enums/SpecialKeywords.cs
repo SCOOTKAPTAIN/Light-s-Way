@@ -35,7 +35,9 @@
         Sabotaged,
         Hazy,
         Slimed,
-        Temporary
+        Temporary,
+        Retain
+        
 
 
 

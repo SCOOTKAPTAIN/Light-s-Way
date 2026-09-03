@@ -109,7 +109,9 @@
         Burning,
         Shatter,
         PerfectHarmonySlash,
-        Sabotaged
+        Sabotaged,
+        ArmGun,
+        QuickDraw
         
 
 

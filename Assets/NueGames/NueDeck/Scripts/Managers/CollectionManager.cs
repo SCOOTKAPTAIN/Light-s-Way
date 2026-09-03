@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Collection;
 using NueGames.NueDeck.Scripts.Data.Collection;
+using NueGames.NueDeck.Scripts.Enums;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Managers
@@ -101,10 +102,21 @@ namespace NueGames.NueDeck.Scripts.Managers
         }
         public void DiscardHand()
         {
-            foreach (var cardBase in HandController.hand) 
+            var cardsToDiscard = new List<CardBase>();
+
+            foreach (var cardBase in new List<CardBase>(HandController.hand))
+            {
+                if (cardBase == null || cardBase.CardData == null || cardBase.CardData.Retain)
+                    continue;
+
                 cardBase.Discard();
-            
-            HandController.hand.Clear();
+                cardsToDiscard.Add(cardBase);
+            }
+
+            foreach (var cardBase in cardsToDiscard)
+                HandController.hand.Remove(cardBase);
+
+            HandController.ClampSelectionState();
         }
         
         public void OnCardDiscarded(CardBase targetCard)

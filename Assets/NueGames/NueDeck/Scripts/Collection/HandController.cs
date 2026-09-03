@@ -48,6 +48,7 @@ namespace NueGames.NueDeck.Scripts.Collection
         private int _dragged = -1; // Card index that is held by mouse (inside of hand)
         private int _clickSelected = -1;
         private CardBase _heldCard; // Card that is held by mouse (when outside of hand)
+        private int _heldCardIndex = -1;
         private Vector3 _heldCardOffset;
         private Vector2 _heldCardTilt;
         private Vector2 _force;
@@ -520,7 +521,7 @@ namespace NueGames.NueDeck.Scripts.Collection
                 }
 
                 // Get Selected Card
-                if (GameManager.PersistentGameplayData.CanSelectCards && !_keyboardSelectionActive && _clickSelected < 0)
+                if (GameManager.PersistentGameplayData.CanSelectCards && !_keyboardSelectionActive && _clickSelected < 0 && !Input.GetMouseButtonDown(0))
                 {
                     //float d = (p - mouseWorldPos).sqrMagnitude;
                     if (d < sqrDistance)
@@ -577,10 +578,13 @@ namespace NueGames.NueDeck.Scripts.Collection
                 {
                     //  || sqrDistance <= 2
                     // Card has gone back into hand
-                    AddCardToHand(_heldCard, _selected);
-                    _dragged = _selected;
+                    var returnedCard = _heldCard;
+                    var returnedIndex = Mathf.Clamp(_heldCardIndex, 0, hand.Count);
+                    AddCardToHand(returnedCard, returnedIndex);
+                    _dragged = returnedIndex;
                     _selected = -1;
                     _heldCard = null;
+                    _heldCardIndex = -1;
                     _clickSelected = -1;
                     _keyboardSelectionActive = false;
 
@@ -623,9 +627,14 @@ namespace NueGames.NueDeck.Scripts.Collection
             }
 
             if (backToHand) // Cannot use card / Not enough mana! Return card to hand!
-                AddCardToHand(_heldCard, _selected);
+            {
+                var returnedCard = _heldCard;
+                var returnedIndex = Mathf.Clamp(_heldCardIndex, 0, hand.Count);
+                AddCardToHand(returnedCard, returnedIndex);
+            }
 
             _heldCard = null;
+            _heldCardIndex = -1;
             _clickSelected = -1;
             _keyboardSelectionActive = false;
         }
@@ -857,6 +866,7 @@ namespace NueGames.NueDeck.Scripts.Collection
                     // Card is outside of the hand, so is considered "held" ready to be used
                     // Remove from hand, so that cards in hand fill the hole that the card left
                     _heldCard = card;
+                    _heldCardIndex = _dragged;
                     RemoveCardFromHand(_dragged);
                     count--;
                     _dragged = -1;
@@ -1011,6 +1021,29 @@ namespace NueGames.NueDeck.Scripts.Collection
             }
 
             hand.RemoveAt(index);
+            ClampSelectionState();
+        }
+
+        public void ClampSelectionState()
+        {
+            if (hand.Count == 0)
+            {
+                _selected = -1;
+                _dragged = -1;
+                _clickSelected = -1;
+                if (_heldCard == null)
+                    _heldCardIndex = -1;
+                _keyboardSelectionActive = false;
+                _keyboardTargeting = false;
+                return;
+            }
+
+            _selected = Mathf.Clamp(_selected, 0, hand.Count - 1);
+            _dragged = _dragged >= 0 && _dragged < hand.Count ? _dragged : -1;
+            _clickSelected = _clickSelected >= 0 && _clickSelected < hand.Count ? _clickSelected : -1;
+            _keyboardSelectionActive = _selected >= 0 && _selected < hand.Count && _keyboardSelectionActive;
+            if (!_keyboardSelectionActive)
+                _keyboardTargeting = false;
         }
 
         #endregion

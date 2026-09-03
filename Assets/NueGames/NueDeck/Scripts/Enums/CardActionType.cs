@@ -105,7 +105,9 @@
         IllusionOfVictory3,
         ReturnToSender2,
         ReapersHarvest3,
-        FollowThrough3
+        FollowThrough3,
+        ArmGun,
+        QuickDraw
     
 
 

@@ -104,7 +104,9 @@
         Frostbite,
         Burning,
         Shatter,
-        PerfectHarmonySlash
+        PerfectHarmonySlash,
+        ArmGun,
+        QuickDraw
 
 
 

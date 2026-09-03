@@ -51,9 +51,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         public bool ExhaustAfterPlay => exhaustAfterPlay;
         public bool RemoveAfterBattle => removeAfterBattle;
         public int RequiredLight => requiredLight;
-
-        
-
+        public bool Retain => specialKeywordsList != null && specialKeywordsList.Contains(SpecialKeywords.Retain);
 
         #endregion
 
