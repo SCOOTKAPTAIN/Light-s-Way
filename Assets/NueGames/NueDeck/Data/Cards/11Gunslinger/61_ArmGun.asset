@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6903f06e96c43789549f142f8956d64, type: 3}
   m_Name: 61_ArmGun
   m_EditorClassIdentifier: 
-  id: 11_1_ArmGun
-  cardName: Arm Gun
+  id: 11_1_FreshRounds
+  cardName: Fresh Rounds
   manaCost: 1
-  cardSprite: {fileID: -8602648355053398798, guid: dd82896eb5906a646896955fbb589a08, type: 3}
+  cardSprite: {fileID: 8081809019058553179, guid: bdda8b7097c0c3241ae97b52bba4bcf0, type: 3}
   rarity: 0
   usableWithoutTarget: 1
   exhaustAfterPlay: 0

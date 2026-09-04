@@ -24,7 +24,7 @@ MonoBehaviour:
   useActBasedScaling: 1
   actConfigurations:
   - actNumber: 1
-    maxHealth: 5
+    maxHealth: 400
     startingStatuses:
     - statusType: 1
       statusValue: 1
@@ -36,11 +36,6 @@ MonoBehaviour:
       - actionType: 0
         minActionValue: 10
         maxActionValue: 10
-        targetRestriction: 0
-        applyLightMultiplier: 1
-      - actionType: 2
-        minActionValue: 1
-        maxActionValue: 2
         targetRestriction: 0
         applyLightMultiplier: 1
       repeatCount: 1

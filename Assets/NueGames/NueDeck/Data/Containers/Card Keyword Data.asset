@@ -152,3 +152,7 @@ MonoBehaviour:
   - specialKeyword: 34
     header: Retain
     contentText: Not discarded at the end of a turn.
+  - specialKeyword: 35
+    header: Deadstock
+    contentText: Increase damage dealt by <color=#FFB430>X * 5%</color> for each
+      card in the <color=#FFB430>Exhaust</color> pile.

@@ -110,8 +110,14 @@
         Shatter,
         PerfectHarmonySlash,
         Sabotaged,
-        ArmGun,
-        QuickDraw
+        FreshRounds,
+        QuickDraw,
+        OneLastBullet,
+        FullSalvo,
+        AmmoPouch,
+        GunManifestation,
+        DeadmansArsenal,
+        OneLastBullet2
         
 
 

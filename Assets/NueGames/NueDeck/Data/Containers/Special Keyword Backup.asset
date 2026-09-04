@@ -151,3 +151,6 @@ MonoBehaviour:
   - specialKeyword: 33
     header: Temporary
     contentText: <color=#FFB430>Clears</color> itself at the end of a turn.
+  - specialKeyword: 33
+    header: Temporary
+    contentText: <color=#FFB430>Clears</color> itself at the end of a turn.

@@ -51,9 +51,14 @@ namespace NueGames.NueDeck.Scripts.Characters
 
         // Small hit jitter to give feedback when this character takes unblocked damage.
         private Coroutine _hitJitterCoroutine;
+        private Vector3 _hitJitterBasePosition;
         public void PlayHitJitter(float intensity = 0.06f, float duration = 0.12f)
         {
             if (!gameObject.activeInHierarchy) return;
+
+            if (_hitJitterCoroutine == null)
+                _hitJitterBasePosition = transform.localPosition;
+
             if (_hitJitterCoroutine != null)
                 StopCoroutine(_hitJitterCoroutine);
             _hitJitterCoroutine = StartCoroutine(HitJitterRoutine(intensity, duration));
@@ -61,7 +66,7 @@ namespace NueGames.NueDeck.Scripts.Characters
 
         private System.Collections.IEnumerator HitJitterRoutine(float intensity, float duration)
         {
-            var original = transform.localPosition;
+            var original = _hitJitterBasePosition;
             var elapsed = 0f;
             while (elapsed < duration)
             {
@@ -80,6 +85,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
 
             transform.localPosition = original;
+            _hitJitterBasePosition = original;
             _hitJitterCoroutine = null;
         }
     }

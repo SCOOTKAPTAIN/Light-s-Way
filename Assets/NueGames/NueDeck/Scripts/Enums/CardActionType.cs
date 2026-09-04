@@ -106,8 +106,14 @@
         ReturnToSender2,
         ReapersHarvest3,
         FollowThrough3,
-        ArmGun,
-        QuickDraw
+        FreshRounds,
+        QuickDraw,
+        OneLastBullet,
+        FullSalvo,
+        AmmoPouch,
+        GunManifestation,
+        DeadmansArsenal,
+        OneLastBullet2,
     
 
 

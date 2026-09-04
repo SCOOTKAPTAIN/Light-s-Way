@@ -26,6 +26,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         
         public List<CardData> ExhaustPile { get; private set; } = new List<CardData>();
         public HandController HandController => handController;
+        public int CardsPlayedThisTurn { get; private set; }
         protected FxManager FxManager => FxManager.Instance;
         protected AudioManager AudioManager => AudioManager.Instance;
         protected GameManager GameManager => GameManager.Instance;
@@ -47,6 +48,28 @@ namespace NueGames.NueDeck.Scripts.Managers
             {
                 Instance = this;
             }
+        }
+
+        private void Start()
+        {
+            if (CombatManager != null)
+                CombatManager.OnAllyTurnStarted += ResetCardsPlayedThisTurn;
+        }
+
+        private void OnDisable()
+        {
+            if (CombatManager != null)
+                CombatManager.OnAllyTurnStarted -= ResetCardsPlayedThisTurn;
+        }
+
+        public void RegisterCardPlayed()
+        {
+            CardsPlayedThisTurn++;
+        }
+
+        private void ResetCardsPlayedThisTurn()
+        {
+            CardsPlayedThisTurn = 0;
         }
 
         #endregion

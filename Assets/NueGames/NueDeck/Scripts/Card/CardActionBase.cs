@@ -1,4 +1,5 @@
-﻿using NueGames.NueDeck.Scripts.Characters;
+﻿using System.Collections;
+using NueGames.NueDeck.Scripts.Characters;
 using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
@@ -26,6 +27,12 @@ namespace NueGames.NueDeck.Scripts.Card
         protected CardActionBase(){}
         public abstract CardActionType ActionType { get;}
         public abstract void DoAction(CardActionParameters actionParameters);
+
+        public virtual IEnumerator DoActionRoutine(CardActionParameters actionParameters)
+        {
+            DoAction(actionParameters);
+            yield break;
+        }
         
         protected FxManager FxManager => FxManager.Instance;
         protected AudioManager AudioManager => AudioManager.Instance;

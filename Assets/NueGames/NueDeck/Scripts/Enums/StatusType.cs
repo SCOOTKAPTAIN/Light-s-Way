@@ -35,7 +35,8 @@
         Ablazed,
          ManaDrain,
         Burden,
-        CloggedCircuits
+        CloggedCircuits,
+        Deadstock
         
 
     }

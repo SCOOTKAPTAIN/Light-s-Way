@@ -151,3 +151,7 @@ MonoBehaviour:
   - specialKeyword: 33
     header: Temporary
     contentText: <color=#FFB430>Clears</color> itself at the end of a turn.
+  - specialKeyword: 35
+    header: Deadstock
+    contentText: Increase damage dealt by <color=#FFB430>{Deadstock*5}%</color> for
+      each card in the <color=#FFB430>Exhaust</color> pile.

@@ -62,6 +62,17 @@ namespace NueGames.NueDeck.Scripts.Utils
 
             float adjustedBaseValue = baseValue;
 
+            // Ammo Pouch: each stack adds 5% damage per card in the exhaust pile.
+            if (attacker != null && attacker.CharacterStats.StatusDict.ContainsKey(StatusType.Deadstock))
+            {
+                var ammoPouchStacks = attacker.CharacterStats.StatusDict[StatusType.Deadstock].StatusValue;
+                var exhaustCount = CollectionManager.Instance != null ? CollectionManager.Instance.ExhaustPile.Count : 0;
+                var ammoPouchMultiplier = 1f + (0.05f * ammoPouchStacks * exhaustCount);
+                adjustedBaseValue *= ammoPouchMultiplier;
+
+                Debug.Log($"[DamageEffects] Ammo Pouch stacks: {ammoPouchStacks}, exhaust cards: {exhaustCount}, multiplier: {ammoPouchMultiplier}");
+            }
+
             // The Best Defence: Add 20% of attacker's current block to damage per stack
             // With 2 stacks: 40% bonus. With 3 stacks: 60% bonus, etc.
             if (attacker != null && attacker.CharacterStats.StatusDict.ContainsKey(StatusType.TheBestDefense) &&

@@ -131,6 +131,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Mastermind: increases draw count for the combat while active; keep as combat-permanent
             StatusDict[StatusType.Mastermind].IsPermanent = true;
 
+            // Ammo Pouch: each stack grants an exhaust-pile-scaled damage bonus for the combat
+            StatusDict[StatusType.Deadstock].IsPermanent = true;
+
             StatusDict[StatusType.Strength].CanNegativeStack = true;
             StatusDict[StatusType.Fortitude].CanNegativeStack = true;
             

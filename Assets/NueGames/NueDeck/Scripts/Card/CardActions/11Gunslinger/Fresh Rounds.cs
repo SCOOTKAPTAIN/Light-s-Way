@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
 {
-    public class ArmGun: CardActionBase
+    public class FreshRounds: CardActionBase
     {
-        public override CardActionType ActionType => CardActionType.ArmGun;
+        public override CardActionType ActionType => CardActionType.FreshRounds;
 
         public override void DoAction(CardActionParameters actionParameters)
         {
@@ -19,7 +19,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var quickDrawCardData = FindQuickDrawCard();
             if (quickDrawCardData == null)
             {
-                Debug.LogWarning("[ArmGun] Quick Draw is not included in Gameplay Settings > All Cards List.");
+                Debug.LogWarning("[FreshRounds] Quick Draw is not included in Gameplay Settings > All Cards List.");
                 return;
             }
 
@@ -47,7 +47,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (UIManager.Instance != null)
                 UIManager.Instance.CombatCanvas.SetPileTexts();
 
-            FxManager.PlayFx(selfCharacter.transform, FxType.ArmGun, new Vector3(0f, 0.4f, 0f));
+            FxManager.PlayFx(selfCharacter.transform, FxType.FreshRounds, new Vector3(0f, 0.4f, 0f));
 
             if (AudioManager != null)
                 AudioManager.PlayOneShot(actionParameters.CardData.AudioType);

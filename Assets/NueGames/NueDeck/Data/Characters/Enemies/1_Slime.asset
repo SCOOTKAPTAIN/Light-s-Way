@@ -24,7 +24,7 @@ MonoBehaviour:
   useActBasedScaling: 1
   actConfigurations:
   - actNumber: 1
-    maxHealth: 5
+    maxHealth: 400
     startingStatuses:
     - statusType: 1
       statusValue: 1

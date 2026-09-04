@@ -17,7 +17,7 @@ MonoBehaviour:
   initalAllyList:
   - {fileID: 2835035829204582327, guid: 6472d62dc90afc04db103b9a3f293860, type: 3}
   initalDeck: {fileID: 11400000, guid: 1f1db59d6dc1c1046b2ad72c336c615e, type: 2}
-  maxCardOnHand: 25
+  maxCardOnHand: 15
   allCardsList:
   - {fileID: 11400000, guid: 1e43cdb39f5836b44942f367125cadde, type: 2}
   - {fileID: 11400000, guid: e1783ca46b526944c969405b4c0a29ec, type: 2}

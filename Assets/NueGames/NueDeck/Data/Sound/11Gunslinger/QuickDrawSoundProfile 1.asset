@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioType: 109
   randomClipList:
-  - {fileID: 8300000, guid: a4b8668d374b2594480394f344e98009, type: 3}
-  - {fileID: 8300000, guid: aeaefd218cff57e4cbc30e5b17f63494, type: 3}
+  - {fileID: 8300000, guid: 7d17a7d9b63e9fe4d8034bfaa9732140, type: 3}

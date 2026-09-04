@@ -36,7 +36,8 @@
         Hazy,
         Slimed,
         Temporary,
-        Retain
+        Retain,
+        Deadstock
         
 
 

@@ -143,6 +143,7 @@ namespace NueGames.NueDeck.Scripts.Card
             // Determine effective cost (includes Burden and per-instance increases)
             var effectiveCost = GetEffectiveCost();
             SpendMana(effectiveCost);
+            CollectionManager.RegisterCardPlayed();
             // Animate the card to the play anchor (for visual feedback) before running actions.
             Transform playAnchor = CombatManager.playAnchor;
             if (playAnchor == null && CollectionManager != null && CollectionManager.HandController != null)
@@ -178,8 +179,8 @@ namespace NueGames.NueDeck.Scripts.Card
                 var targetList = DetermineTargets(targetCharacter, allEnemies, allAllies, playerAction);
 
                 foreach (var target in targetList)
-                    CardActionProcessor.GetAction(playerAction.CardActionType)
-                        .DoAction(new CardActionParameters(playerAction.ActionValue,
+                    yield return CardActionProcessor.GetAction(playerAction.CardActionType)
+                        .DoActionRoutine(new CardActionParameters(playerAction.ActionValue,
                             target,self,CardData,this));
             }
             

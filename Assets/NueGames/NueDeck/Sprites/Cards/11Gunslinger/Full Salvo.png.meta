@@ -103,10 +103,10 @@ TextureImporter:
       name: Unload Gun_0
       rect:
         serializedVersion: 2
-        x: 51
-        y: 82
-        width: 164
-        height: 126
+        x: 71
+        y: 90
+        width: 132
+        height: 110
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
