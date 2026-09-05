@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Card;
+using NueGames.NueDeck.Scripts.Characters;
 using NueGames.NueDeck.Scripts.Collection;
 using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Enums;
@@ -123,6 +124,53 @@ namespace NueGames.NueDeck.Scripts.Managers
             foreach (var cardObject in HandController.hand)
                 cardObject.UpdateCardText();
         }
+
+        public void AddEndlessChambersCards(CharacterBase ally)
+        {
+            if (ally == null || GameManager == null || GameManager.GameplayData == null ||
+                GameManager.GameplayData.AllCardsList == null || HandController == null)
+                return;
+
+            var endlessChambers = ally.CharacterStats.StatusDict[StatusType.EndlessChambers];
+            if (!endlessChambers.IsActive || endlessChambers.StatusValue <= 0)
+                return;
+
+            CardData quickDrawCard = null;
+            foreach (var card in GameManager.GameplayData.AllCardsList)
+            {
+                if (card == null) continue;
+
+                if (string.Equals(card.Id, "11_2_QuickDraw", System.StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(card.CardName, "Quick Draw", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    quickDrawCard = card;
+                    break;
+                }
+            }
+
+            if (quickDrawCard == null)
+            {
+                Debug.LogWarning("[EndlessChambers] Quick Draw is not included in Gameplay Settings > All Cards List.");
+                return;
+            }
+
+            for (var index = 0; index < endlessChambers.StatusValue; index++)
+            {
+                if (GameManager.GameplayData.MaxCardOnHand <= HandPile.Count)
+                    break;
+
+                var cardClone = GameManager.BuildAndGetCard(quickDrawCard, HandController.transform);
+                HandController.AddCardToHand(cardClone);
+                HandPile.Add(quickDrawCard);
+            }
+
+            foreach (var cardObject in HandController.hand)
+                cardObject.UpdateCardText();
+
+            if (UIManager != null && UIManager.CombatCanvas != null)
+                UIManager.CombatCanvas.SetPileTexts();
+        }
+
         public void DiscardHand()
         {
             var cardsToDiscard = new List<CardBase>();

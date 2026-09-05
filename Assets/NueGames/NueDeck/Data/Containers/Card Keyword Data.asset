@@ -156,3 +156,12 @@ MonoBehaviour:
     header: Deadstock
     contentText: Increase damage dealt by <color=#FFB430>X * 5%</color> for each
       card in the <color=#FFB430>Exhaust</color> pile.
+  - specialKeyword: 36
+    header: Endless Chambers
+    contentText: Add <color=#FFB430>X * 1</color> "<color=#FFB430>Quick Draw</color>"
+      to your hand each turn.
+  - specialKeyword: 37
+    header: Firing Line
+    contentText: At the end of your turn, deal <color=#FFB430>X * 3</color> damage
+      to <color=#FFB430>All</color> enemies. Damage is multiplied by the number of
+      cards in your <color=#FFB430>Exhaust</color> pile.

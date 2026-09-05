@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using NueGames.NueDeck.Scripts.Enums;
 using UnityEngine;
 
@@ -96,6 +97,9 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 SpecialKeywords.Weakness => StatusType.Weak,
                 SpecialKeywords.Judged => StatusType.Judged,
                 SpecialKeywords.Sabotaged => StatusType.Sabotaged,
+                SpecialKeywords.Deadstock => StatusType.Deadstock,
+                SpecialKeywords.EndlessChambers => StatusType.EndlessChambers,
+                SpecialKeywords.FiringLine => StatusType.FiringLine,
                // SpecialKeywords.TheBestDefence => StatusType.TheBestDefense,
                 _ => StatusType.None
             };
@@ -112,6 +116,12 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 return GetContent(overrideContent);
 
             string content = GetContent(overrideContent);
+
+            // Enum identifiers cannot contain spaces, so accept the designer-friendly
+            // placeholder form as well as {EndlessChambers}.
+            content = content.Replace("{Endless Chambers", "{EndlessChambers");
+            content = content.Replace("{Firing Line", "{FiringLine");
+            content = Regex.Replace(content, @"\{\s*([A-Za-z]+)\s*([*/])\s*(-?\d+)\s*\}", "{$1$2$3}");
 
             // First pass: Replace formula placeholders (e.g., {Fragile*10})
             foreach (StatusType statusType in System.Enum.GetValues(typeof(StatusType)))

@@ -36,7 +36,10 @@
          ManaDrain,
         Burden,
         CloggedCircuits,
-        Deadstock
+        Deadstock,
+        EndlessChambers,
+        FiringLine,
+        Fortification
         
 
     }

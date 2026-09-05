@@ -110,9 +110,11 @@
         OneLastBullet,
         FullSalvo,
         AmmoPouch,
-        GunManifestation,
+        EtherealSlinger,
         DeadmansArsenal,
-        OneLastBullet2
+        OneLastBullet2,
+        FiringLine,
+        DeadmansArsenal2,
 
 
 

@@ -13,10 +13,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (selfCharacter == null)
                 return;
 
-            var stacks = Mathf.Max(1, Mathf.RoundToInt(actionParameters.Value));
-            selfCharacter.CharacterStats.ApplyStatus(StatusType.EndlessChambers, stacks);
+            selfCharacter.CharacterStats.ApplyStatus(StatusType.EndlessChambers, 1);
 
-            FxManager.PlayFx(selfCharacter.transform, FxType.AmmoPouch, new Vector3(0f, 0.4f, 0f));
+            FxManager.PlayFx(selfCharacter.transform, FxType.EtherealSlinger, new Vector3(0f, 0.4f, 0f));
 
             if (AudioManager != null)
                 AudioManager.PlayOneShot(actionParameters.CardData.AudioType);

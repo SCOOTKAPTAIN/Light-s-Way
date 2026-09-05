@@ -25,6 +25,9 @@ namespace NueGames.NueDeck.Scripts.Managers
     public Transform playAnchor;
     [Tooltip("How long (seconds) a card takes to move to the play anchor. Set to 0 to disable the move animation.")]
     public float cardPlayMoveDuration = 0.12f;
+    [Header("Combat Timing")]
+    [SerializeField] [Tooltip("Seconds to wait after Firing Line triggers before the enemy turn begins.")]
+    private float firingLinePostDelay = 0.5f;
     [SerializeField] [Tooltip("Optional: assign an invisible Transform in the scene where group FX (eg. AllEnemies) should spawn.")]
     private Transform enemiesFxAnchor;
  
@@ -65,6 +68,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         }
         
         private CombatStateType _currentCombatStateType;
+        private bool _isEndingTurn;
         protected FxManager FxManager => FxManager.Instance;
         protected AudioManager AudioManager => AudioManager.Instance;
         protected GameManager GameManager => GameManager.Instance;
@@ -197,6 +201,7 @@ namespace NueGames.NueDeck.Scripts.Managers
                             FxManager.SpawnStaticText(CurrentMainAlly.transform, "-" + drain + " Mana", 0, 1);
                     }
                     CollectionManager.DrawCards(GameManager.PersistentGameplayData.DrawCount);
+                    CollectionManager.AddEndlessChambersCards(CurrentMainAlly);
                     
                     GameManager.PersistentGameplayData.CanSelectCards = true;
                     
@@ -226,13 +231,60 @@ namespace NueGames.NueDeck.Scripts.Managers
         #region Public Methods
         public void EndTurn()
         {
-            // Trigger end-of-turn statuses for the current ally before switching to enemy turn
-            if (CurrentMainAlly != null)
+            if (_isEndingTurn || CurrentCombatStateType != CombatStateType.AllyTurn)
+                return;
+
+            StartCoroutine(EndTurnRoutine());
+        }
+
+        private IEnumerator EndTurnRoutine()
+        {
+            _isEndingTurn = true;
+            GameManager.PersistentGameplayData.CanSelectCards = false;
+
+            var ally = CurrentMainAlly;
+            if (ally != null)
+                ally.CharacterStats.TriggerEndOfTurnStatuses();
+
+            var firingLine = ally != null
+                ? ally.CharacterStats.StatusDict[StatusType.FiringLine]
+                : null;
+
+            if (firingLine != null && firingLine.IsActive && firingLine.StatusValue > 0)
             {
-                CurrentMainAlly.CharacterStats.TriggerEndOfTurnStatuses();
+                yield return new WaitForSeconds(0.3f);
+                TriggerFiringLine(ally, firingLine.StatusValue);
+                yield return new WaitForSeconds(firingLinePostDelay);
             }
-            
+
+            _isEndingTurn = false;
             CurrentCombatStateType = CombatStateType.EnemyTurn;
+        }
+
+        private void TriggerFiringLine(AllyBase ally, int stacks)
+        {
+            if (ally == null || CollectionManager == null)
+                return;
+
+            var damage = 3 * CollectionManager.ExhaustPile.Count * stacks;
+            var enemies = CurrentEnemiesList.ToList();
+
+            foreach (var enemy in enemies)
+            {
+                if (enemy == null || enemy.CharacterStats == null)
+                    continue;
+
+                var modifiedDamage = Mathf.RoundToInt(
+                    NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(
+                        enemy, ally, damage));
+
+                if (!enemy)
+                    continue;
+
+                FxManager?.PlayFxAtPosition(enemy.transform.position, FxType.FiringLine);
+                AudioManager?.PlayOneShot(AudioActionType.FiringLine);
+                enemy.CharacterStats.Damage(modifiedDamage, false, "red", ally);
+            }
         }
         public void OnAllyDeath(AllyBase targetAlly)
         {

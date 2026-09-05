@@ -131,8 +131,18 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Mastermind: increases draw count for the combat while active; keep as combat-permanent
             StatusDict[StatusType.Mastermind].IsPermanent = true;
 
-            // Ammo Pouch: each stack grants an exhaust-pile-scaled damage bonus for the combat
+            // Endless Chambers: each stack adds one Quick Draw to the hand at the start of each turn.
+            StatusDict[StatusType.EndlessChambers].IsPermanent = true;
+
+            // Deadstock persists for the combat.
             StatusDict[StatusType.Deadstock].IsPermanent = true;
+
+            // Firing Line: triggers at the end of the player's turn and persists for combat.
+            StatusDict[StatusType.FiringLine].IsPermanent = true;
+
+            // Fortification: grants its stored Block value at the next ally turn, then clears.
+            StatusDict[StatusType.Fortification].ClearAtNextTurn = true;
+            StatusDict[StatusType.Fortification].OnTriggerAction += GrantFortificationBlock;
 
             StatusDict[StatusType.Strength].CanNegativeStack = true;
             StatusDict[StatusType.Fortitude].CanNegativeStack = true;
@@ -827,6 +837,15 @@ namespace NueGames.NueDeck.Scripts.Characters
         {
             if (StatusDict[StatusType.Poison].StatusValue <= 0) return;
             Damage(StatusDict[StatusType.Poison].StatusValue, true);
+        }
+
+        private void GrantFortificationBlock()
+        {
+            var fortification = StatusDict[StatusType.Fortification];
+            if (!fortification.IsActive || fortification.StatusValue <= 0)
+                return;
+
+            ApplyStatus(StatusType.Block, fortification.StatusValue);
         }
 
         private void DamageBleeding()

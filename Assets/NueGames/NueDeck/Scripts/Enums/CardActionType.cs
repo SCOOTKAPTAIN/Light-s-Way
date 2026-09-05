@@ -111,9 +111,10 @@
         OneLastBullet,
         FullSalvo,
         AmmoPouch,
-        GunManifestation,
+        EtherealSlinger,
         DeadmansArsenal,
         OneLastBullet2,
+        DefensePreparation,
     
 
 

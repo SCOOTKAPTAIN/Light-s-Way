@@ -37,7 +37,9 @@
         Slimed,
         Temporary,
         Retain,
-        Deadstock
+        Deadstock,
+        EndlessChambers,
+        FiringLine
         
 
 
