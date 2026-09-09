@@ -140,9 +140,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Firing Line: triggers at the end of the player's turn and persists for combat.
             StatusDict[StatusType.FiringLine].IsPermanent = true;
 
-            // Fortification: grants its stored Block value at the next ally turn, then clears.
-            StatusDict[StatusType.Fortification].ClearAtNextTurn = true;
-            StatusDict[StatusType.Fortification].OnTriggerAction += GrantFortificationBlock;
+            // Vigilance: grants its stored Block value at the next ally turn, then clears.
+            StatusDict[StatusType.Vigilance].ClearAtNextTurn = true;
+            StatusDict[StatusType.Vigilance].OnTriggerAction += GrantVigilanceBlock;
 
             StatusDict[StatusType.Strength].CanNegativeStack = true;
             StatusDict[StatusType.Fortitude].CanNegativeStack = true;
@@ -839,13 +839,26 @@ namespace NueGames.NueDeck.Scripts.Characters
             Damage(StatusDict[StatusType.Poison].StatusValue, true);
         }
 
-        private void GrantFortificationBlock()
+        private void GrantVigilanceBlock()
         {
-            var fortification = StatusDict[StatusType.Fortification];
-            if (!fortification.IsActive || fortification.StatusValue <= 0)
+            var vigilance = StatusDict[StatusType.Vigilance];
+            if (!vigilance.IsActive || vigilance.StatusValue <= 0)
                 return;
 
-            ApplyStatus(StatusType.Block, fortification.StatusValue);
+            var blockValue = vigilance.StatusValue
+                + StatusDict[StatusType.Fortitude].StatusValue;
+
+            ApplyStatus(StatusType.Block, blockValue);
+
+            var character = _characterCanvas != null
+                ? _characterCanvas.GetComponentInParent<CharacterBase>()
+                : null;
+
+            if (character != null && FxManager.Instance != null)
+                FxManager.Instance.PlayFx(character.transform, FxType.Guard);
+
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayOneShot(AudioActionType.SwordandShield2);
         }
 
         private void DamageBleeding()

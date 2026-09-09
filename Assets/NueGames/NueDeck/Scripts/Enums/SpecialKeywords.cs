@@ -39,7 +39,8 @@
         Retain,
         Deadstock,
         EndlessChambers,
-        FiringLine
+        FiringLine,
+        Vigilance
         
 
 

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8f29259e87442338a016acd10256ddc, type: 3}
-  m_Name: DeadmansArsenalSoundProfile
+  m_Name: DefensePreparationSoundProfile
   m_EditorClassIdentifier: 
-  audioType: 114
+  audioType: 117
   randomClipList:
-  - {fileID: 8300000, guid: 4f45a024a82805746ba823efcb2bb589, type: 3}
+  - {fileID: 8300000, guid: 585cfd4ea225e4540ad27e2c93babc90, type: 3}

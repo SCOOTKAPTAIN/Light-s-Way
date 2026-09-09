@@ -164,3 +164,7 @@ MonoBehaviour:
     contentText: At the end of your turn, deal <color=#FFB430>{Firing Line * 3}</color>
       damage to <color=#FFB430>All</color> enemies. Damage is multiplied by the number
       of cards in your <color=#FFB430>Exhaust</color> pile.
+  - specialKeyword: 38
+    header: Vigilance
+    contentText: At the start of your next turn, gain <color=#FFB430>{Vigilance}
+      Block</color>. Then remove all <color=#FFB430>Vigilance</color>.

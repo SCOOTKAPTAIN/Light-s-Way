@@ -118,7 +118,8 @@
         EtherealSlinger,
         DeadmansArsenal,
         OneLastBullet2,
-        FiringLine
+        FiringLine,
+        DefensePreparation
         
 
 

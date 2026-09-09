@@ -13,10 +13,12 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (!selfCharacter) return;
 
             selfCharacter.CharacterStats.ApplyStatus(StatusType.Fortitude, 1);
-            selfCharacter.CharacterStats.ApplyStatus(StatusType.Fortification, 12);
+            selfCharacter.CharacterStats.ApplyStatus(
+                StatusType.Vigilance,
+                Mathf.RoundToInt(actionParameters.Value + GameManager.PersistentGameplayData.proficiency));
 
             if (FxManager != null)
-                FxManager.PlayFx(selfCharacter.transform, FxType.Guard);
+                FxManager.PlayFx(selfCharacter.transform, FxType.DefensePreparation);
             
             if (AudioManager != null) 
                 AudioManager.PlayOneShot(actionParameters.CardData.AudioType);

@@ -33,7 +33,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             for (var attackIndex = 0; attackIndex < attackCount; attackIndex++)
             {
                 if (attackIndex > 0)
-                    yield return new WaitForSeconds(0.1f);
+                    yield return new WaitForSeconds(0.15f);
 
                 if (!targetCharacter)
                     yield break;

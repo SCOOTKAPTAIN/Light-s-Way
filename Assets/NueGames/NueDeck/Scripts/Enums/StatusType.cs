@@ -39,7 +39,7 @@
         Deadstock,
         EndlessChambers,
         FiringLine,
-        Fortification
+        Vigilance
         
 
     }
