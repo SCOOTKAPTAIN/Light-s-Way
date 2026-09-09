@@ -115,6 +115,7 @@
         DeadmansArsenal,
         OneLastBullet2,
         DefensePreparation,
+        NewPlates
     
 
 

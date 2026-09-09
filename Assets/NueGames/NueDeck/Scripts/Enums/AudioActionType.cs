@@ -119,7 +119,8 @@
         DeadmansArsenal,
         OneLastBullet2,
         FiringLine,
-        DefensePreparation
+        DefensePreparation,
+        NewPlates
         
 
 

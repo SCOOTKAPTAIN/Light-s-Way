@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 15a6397f5074762428084c44bffe0702
+guid: 8fc4aa056c5d7cf48a24e4ba076918db
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5976374457776883361
-    second: Steady Barricade_0
+      213: -8493983013080071167
+    second: attached-shield_0
   - first:
-      213: -6719040781397722760
-    second: Steady Barricade_1
+      213: 2967849845338067275
+    second: attached-shield_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -49,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -103,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Steady Barricade_0
+      name: attached-shield_0
       rect:
         serializedVersion: 2
         x: 19
@@ -117,14 +117,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a64288b7e850f250800000000000000
-      internalID: 5976374457776883361
+      spriteID: 1040921e37f4f1a80800000000000000
+      internalID: -8493983013080071167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Steady Barricade_1
+      name: attached-shield_1
       rect:
         serializedVersion: 2
         x: 31
@@ -138,8 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 879fc61220c21c2a0800000000000000
-      internalID: -6719040781397722760
+      spriteID: b41d212c5bbef2920800000000000000
+      internalID: 2967849845338067275
       vertices: []
       indices: 
       edges: []
@@ -147,7 +147,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -155,8 +155,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Steady Barricade_0: 5976374457776883361
-      Steady Barricade_1: -6719040781397722760
+      attached-shield_0: -8493983013080071167
+      attached-shield_1: 2967849845338067275
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

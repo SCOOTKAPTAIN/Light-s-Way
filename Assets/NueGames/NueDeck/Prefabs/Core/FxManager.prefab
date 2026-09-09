@@ -273,6 +273,8 @@ MonoBehaviour:
     fxPrefab: {fileID: 4931249800145279701, guid: 8ab08161d0ae4514a959a75bfc411fda, type: 3}
   - fxType: 113
     fxPrefab: {fileID: 4931249800145279701, guid: bf1bd637b24e7d9448fede0bff6d542b, type: 3}
+  - fxType: 114
+    fxPrefab: {fileID: 4931249800145279701, guid: 0bc2c50caa747ac46853e34515f8044f, type: 3}
   floatingTextPrefabRed: {fileID: 5875565574366412673, guid: 563cc02ed8f797e498bc5cf11e33e894, type: 3}
   floatingTextPrefabGreen: {fileID: 5875565574366412673, guid: 3ac7e93a64ff77c449b3430cfaacbf1a, type: 3}
   floatingTextPrefabBlue: {fileID: 5875565574366412673, guid: 82a85b92f4e688449be2134a8730df5c, type: 3}
