@@ -120,7 +120,13 @@
         OneLastBullet2,
         FiringLine,
         DefensePreparation,
-        NewPlates
+        NewPlates,
+        StalwartBuffer,
+        PolishShield,
+        ReflectiveAegis,
+        Reverberation,
+        KnightsPride,
+        VanguardStance
         
 
 

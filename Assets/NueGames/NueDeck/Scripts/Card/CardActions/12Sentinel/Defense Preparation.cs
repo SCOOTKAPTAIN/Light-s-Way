@@ -12,10 +12,11 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var selfCharacter = actionParameters.SelfCharacter;
             if (!selfCharacter) return;
 
-            selfCharacter.CharacterStats.ApplyStatus(StatusType.Fortitude, 1);
+            
             selfCharacter.CharacterStats.ApplyStatus(
                 StatusType.Vigilance,
-                Mathf.RoundToInt(actionParameters.Value + GameManager.PersistentGameplayData.proficiency));
+                Mathf.RoundToInt(actionParameters.Value + GameManager.PersistentGameplayData.proficiency + selfCharacter.CharacterStats.StatusDict[StatusType.Fortitude].StatusValue));
+                selfCharacter.CharacterStats.ApplyStatus(StatusType.Fortitude, 1);
 
             if (FxManager != null)
                 FxManager.PlayFx(selfCharacter.transform, FxType.DefensePreparation);

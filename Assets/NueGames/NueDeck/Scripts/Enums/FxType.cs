@@ -116,7 +116,15 @@
         FiringLine,
         DeadmansArsenal2,
         DefensePreparation,
-        NewPlates
+        NewPlates,
+        StalwartBuffer,
+        Vigilance,
+        Bastion,
+        PolishShield,
+        ReflectiveAegis,
+        Reverberation,
+        KnightsPride,
+        VanguardStance
 
 
 

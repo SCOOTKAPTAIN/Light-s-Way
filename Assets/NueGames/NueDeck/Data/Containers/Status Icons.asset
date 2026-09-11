@@ -169,3 +169,13 @@ MonoBehaviour:
     showValue: 1
     specialKeywords: 26000000
     displayPriority: 2
+  - iconStatus: 38
+    iconSprite: {fileID: 21300000, guid: f3abece18ca3dc64b9aa25648808e3eb, type: 3}
+    showValue: 1
+    specialKeywords: 27000000
+    displayPriority: 2
+  - iconStatus: 39
+    iconSprite: {fileID: 21300000, guid: 200b5f99fe3b0e844b7c1d0f717bd732, type: 3}
+    showValue: 1
+    specialKeywords: 28000000
+    displayPriority: 3

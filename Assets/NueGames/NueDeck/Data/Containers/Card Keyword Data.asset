@@ -169,3 +169,10 @@ MonoBehaviour:
     header: Vigilance
     contentText: At the start of your next turn, gain <color=#FFB430>X Block</color>.
       Then remove all <color=#FFB430>Vigilance</color>.
+  - specialKeyword: 39
+    header: Bastion
+    contentText: At the start of each turn, gain <color=#FFB430>X Block</color>.
+  - specialKeyword: 40
+    header: Reverberation
+    contentText: Deal <color=#FFB430>X</color> damage to <color=#FFB430>All</color>
+      enemies whenever you gain <color=#FFB430>Block</color>.

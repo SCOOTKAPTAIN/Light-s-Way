@@ -21,6 +21,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         [SerializeField] private InformationCanvas informationCanvas;
         [SerializeField] private RewardCanvas rewardCanvas;
         [SerializeField] private InventoryCanvas inventoryCanvas;
+        [SerializeField] private CardSelectionCanvas cardSelectionCanvas;
         
 
         [Header("Fader")]
@@ -35,6 +36,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         public InformationCanvas InformationCanvas => informationCanvas;
         public RewardCanvas RewardCanvas => rewardCanvas;
         public InventoryCanvas InventoryCanvas => inventoryCanvas;
+        public CardSelectionCanvas CardSelectionCanvas => cardSelectionCanvas;
         #endregion
 
         #region Setup
@@ -83,6 +85,12 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         private void OnEscapePressed(InputAction.CallbackContext context)
         {
+            if (CardSelectionCanvas != null && CardSelectionCanvas.gameObject.activeInHierarchy)
+            {
+                CardSelectionCanvas.CloseCanvas();
+                return;
+            }
+
             if (InventoryCanvas != null && InventoryCanvas.gameObject.activeInHierarchy)
             {
                 InventoryCanvas.CloseCanvas();

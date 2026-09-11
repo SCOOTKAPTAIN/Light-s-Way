@@ -100,6 +100,9 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 SpecialKeywords.Deadstock => StatusType.Deadstock,
                 SpecialKeywords.EndlessChambers => StatusType.EndlessChambers,
                 SpecialKeywords.FiringLine => StatusType.FiringLine,
+                SpecialKeywords.Vigilance => StatusType.Vigilance,
+                SpecialKeywords.Bastion => StatusType.Bastion,
+                SpecialKeywords.Reverberation => StatusType.Reverberation,
                // SpecialKeywords.TheBestDefence => StatusType.TheBestDefense,
                 _ => StatusType.None
             };

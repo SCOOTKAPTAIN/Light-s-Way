@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6903f06e96c43789549f142f8956d64, type: 3}
   m_Name: 69_NewPlates
   m_EditorClassIdentifier: 
-  id: 21_2_NewPlates
+  id: 12_2_NewPlates
   cardName: New Plates
   manaCost: 2
   cardSprite: {fileID: -1534732016845768387, guid: fe3abfef2f803134c908ae47ceb7e2ae, type: 3}

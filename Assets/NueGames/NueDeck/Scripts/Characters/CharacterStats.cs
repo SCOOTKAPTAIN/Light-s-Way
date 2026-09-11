@@ -1,3 +1,4 @@
+using System.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,8 @@ namespace NueGames.NueDeck.Scripts.Characters
     }
     public class CharacterStats
     { 
+        private const float VigilanceTriggerDelay = 0.5f;
+
         // Shared list of status types considered debuffs.
         // Keep in one place so new logic (ClearDebuffs and debuff blocking) can reuse it.
         public static readonly StatusType[] DebuffTypes = new[]
@@ -143,6 +146,14 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Vigilance: grants its stored Block value at the next ally turn, then clears.
             StatusDict[StatusType.Vigilance].ClearAtNextTurn = true;
             StatusDict[StatusType.Vigilance].OnTriggerAction += GrantVigilanceBlock;
+
+            // Bastion: grants its stored Block value at the start of every turn and persists for combat.
+            StatusDict[StatusType.Bastion].IsPermanent = true;
+            StatusDict[StatusType.Bastion].OnTriggerAction += GrantBastionBlock;
+
+            // Reverberation: deals its stored damage to all enemies whenever Block is gained.
+            StatusDict[StatusType.Reverberation].IsPermanent = true;
+            OnShieldGained += TriggerReverberation;
 
             StatusDict[StatusType.Strength].CanNegativeStack = true;
             StatusDict[StatusType.Fortitude].CanNegativeStack = true;
@@ -408,6 +419,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             for (int i = 0; i < Enum.GetNames(typeof(StatusType)).Length; i++)
             {
                 var statusType = (StatusType)i;
+                if (statusType == StatusType.Bastion || statusType == StatusType.Vigilance)
+                    continue;
+
                 // Skip turn-end statuses - they'll be handled in TriggerEndOfTurnStatuses()
                 if (StatusDict[statusType].TriggerAtTurnEnd)
                     continue;
@@ -415,9 +429,23 @@ namespace NueGames.NueDeck.Scripts.Characters
                 TriggerStatus(statusType);
             }
 
+            // Bastion resolves first; Vigilance follows after a short visual delay.
+            TriggerStatus(StatusType.Bastion);
+            var combatManager = CombatManager.Instance;
+            if (combatManager != null)
+                combatManager.StartCoroutine(TriggerVigilanceAfterDelay());
+            else
+                TriggerStatus(StatusType.Vigilance);
+
             // After processing all statuses (including decrement/clear), lock in the stun state for this turn
             // based on the pre-decrement snapshot so Stun stacks translate to full skipped turns.
             IsStunned = willStunThisTurn;
+        }
+
+        private IEnumerator TriggerVigilanceAfterDelay()
+        {
+            yield return new WaitForSeconds(VigilanceTriggerDelay);
+            TriggerStatus(StatusType.Vigilance);
         }
         
         /// <summary>
@@ -845,20 +873,70 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (!vigilance.IsActive || vigilance.StatusValue <= 0)
                 return;
 
-            var blockValue = vigilance.StatusValue
-                + StatusDict[StatusType.Fortitude].StatusValue;
-
-            ApplyStatus(StatusType.Block, blockValue);
+            ApplyStatus(StatusType.Block, vigilance.StatusValue);
 
             var character = _characterCanvas != null
                 ? _characterCanvas.GetComponentInParent<CharacterBase>()
                 : null;
 
             if (character != null && FxManager.Instance != null)
-                FxManager.Instance.PlayFx(character.transform, FxType.Guard);
+                FxManager.Instance.PlayFx(character.transform, FxType.Vigilance);
 
             if (AudioManager.Instance != null)
                 AudioManager.Instance.PlayOneShot(AudioActionType.SwordandShield2);
+        }
+
+        private void GrantBastionBlock()
+        {
+            var bastion = StatusDict[StatusType.Bastion];
+            if (!bastion.IsActive || bastion.StatusValue <= 0)
+                return;
+
+            ApplyStatus(StatusType.Block, bastion.StatusValue);
+
+            var character = _characterCanvas != null
+                ? _characterCanvas.GetComponentInParent<CharacterBase>()
+                : null;
+
+            if (character != null && FxManager.Instance != null)
+                FxManager.Instance.PlayFx(character.transform, FxType.Bastion);
+
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayOneShot(AudioActionType.Guard);
+        }
+
+        private void TriggerReverberation(int blockGained)
+        {
+            if (blockGained <= 0)
+                return;
+
+            var reverberation = StatusDict[StatusType.Reverberation];
+            if (!reverberation.IsActive || reverberation.StatusValue <= 0)
+                return;
+
+            var combatManager = CombatManager.Instance;
+            var character = _characterCanvas != null
+                ? _characterCanvas.GetComponentInParent<CharacterBase>()
+                : null;
+            var playerCharacter = combatManager != null ? combatManager.CurrentMainAlly : null;
+
+            if (character == null || playerCharacter == null)
+                return;
+
+            if (FxManager.Instance != null)
+                FxManager.Instance.PlayFx(playerCharacter.transform, FxType.Reverberation, new Vector3(0.8f,0.3f,0f));
+
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayOneShot(AudioActionType.Reverberation);
+
+            if (combatManager == null)
+                return;
+
+            foreach (var enemy in combatManager.CurrentEnemiesList.ToList())
+            {
+                if (enemy != null && enemy.CharacterStats != null && !enemy.CharacterStats.IsDeath)
+                    enemy.CharacterStats.Damage(reverberation.StatusValue, false, "red", character);
+            }
         }
 
         private void DamageBleeding()

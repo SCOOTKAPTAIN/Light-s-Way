@@ -13,6 +13,8 @@ namespace NueGames.NueDeck.Scripts.UI
     /// </summary>
     public class LightCardSelectionPanel : CanvasBase
     {
+        protected override bool BlocksBackgroundInput => true;
+
         [Header("References")]
         [SerializeField] private Transform cardContainer;
         [SerializeField] private ChoiceCard choiceCardPrefab;

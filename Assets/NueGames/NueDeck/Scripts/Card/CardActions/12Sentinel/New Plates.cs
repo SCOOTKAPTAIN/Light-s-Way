@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
@@ -18,43 +17,24 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (!selfCharacter || CollectionManager == null || CollectionManager.HandController == null)
                 yield break;
 
-            var inventoryCanvas = UIManager.Instance != null ? UIManager.Instance.InventoryCanvas : null;
-            if (inventoryCanvas == null)
+            var selectionCanvas = UIManager.Instance != null ? UIManager.Instance.CardSelectionCanvas : null;
+            if (selectionCanvas == null)
             {
                 DoAction(actionParameters);
                 yield break;
             }
 
-            var selectedCards = new List<CardBase>();
-            var selectionComplete = false;
-            var uiManager = UIManager.Instance;
-            uiManager.SetCanvas(inventoryCanvas, true, true);
-            inventoryCanvas.ChangeTitle("Discard up to 4 cards");
-            inventoryCanvas.BeginHandMultiSelection(
-                new List<CardBase>(CollectionManager.HandController.hand),
-                4,
-                cards =>
-                {
-                    selectedCards = cards;
-                    selectionComplete = true;
-                    GameManager.PersistentGameplayData.CanSelectCards = false;
-                });
+            List<CardBase> discardedCards = null;
+            selectionCanvas.BeginSelection("Discard up to 4 cards", 4, cards => discardedCards = cards);
 
-            while (!selectionComplete)
+            while (discardedCards == null)
                 yield return null;
 
-            foreach (var card in selectedCards.OrderByDescending(card => CollectionManager.HandController.hand.IndexOf(card)))
-            {
-                var cardIndex = CollectionManager.HandController.hand.IndexOf(card);
-                if (cardIndex < 0)
-                    continue;
-
-                CollectionManager.HandController.RemoveCardFromHand(cardIndex);
+            foreach (var card in discardedCards)
                 card.Discard();
-            }
 
-            if (selectedCards.Count > 0)
-                selfCharacter.CharacterStats.ApplyStatus(StatusType.Armor, selectedCards.Count);
+            if (discardedCards.Count > 0)
+                selfCharacter.CharacterStats.ApplyStatus(StatusType.Armor, discardedCards.Count);
 
             if (FxManager != null)
                 FxManager.PlayFx(selfCharacter.transform, FxType.NewPlates);

@@ -40,7 +40,10 @@
         Deadstock,
         EndlessChambers,
         FiringLine,
-        Vigilance
+        Vigilance,
+        Bastion,
+        Reverberation,
+        Honor
         
 
 

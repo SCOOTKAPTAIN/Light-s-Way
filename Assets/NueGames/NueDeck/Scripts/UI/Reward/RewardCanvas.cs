@@ -12,6 +12,8 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
 {
     public class RewardCanvas : CanvasBase
     {
+        protected override bool BlocksBackgroundInput => true;
+
         [Header("References")]
         [SerializeField] private RewardContainerData rewardContainerData;
         [SerializeField] private Transform rewardRoot;

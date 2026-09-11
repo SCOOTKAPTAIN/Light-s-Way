@@ -115,7 +115,14 @@
         DeadmansArsenal,
         OneLastBullet2,
         DefensePreparation,
-        NewPlates
+        NewPlates,
+        StalwartBuffer,
+        PolishShield,
+        ReflectiveAegis,
+        KnightsPride,
+        VanguardStance
+
+        
     
 
 

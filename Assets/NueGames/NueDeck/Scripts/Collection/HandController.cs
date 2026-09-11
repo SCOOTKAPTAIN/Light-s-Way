@@ -49,6 +49,7 @@ namespace NueGames.NueDeck.Scripts.Collection
         private int _clickSelected = -1;
         private CardBase _heldCard; // Card that is held by mouse (when outside of hand)
         private int _heldCardIndex = -1;
+        private ICardDropTarget _activeCardDropTarget; // Optional UI panel that can accept a dragged-out card
         private Vector3 _heldCardOffset;
         private Vector2 _heldCardTilt;
         private Vector2 _force;
@@ -401,6 +402,7 @@ namespace NueGames.NueDeck.Scripts.Collection
         #region Methods
         public void EnableDragging() => IsDraggingActive = true;
         public void DisableDragging() => IsDraggingActive = false;
+        public void SetActiveCardDropTarget(ICardDropTarget target) => _activeCardDropTarget = target;
 
         private Vector2 HandleMouseInput(out int count, out float sqrDistance, out bool mouseButton)
         {
@@ -573,6 +575,16 @@ namespace NueGames.NueDeck.Scripts.Collection
 
                 CombatManager.HighlightCardTarget(_heldCard.CardData.CardActionDataList[0].ActionTargetType);
 
+                if (Input.GetMouseButtonUp(0) && TryAcceptByDropTarget(_heldCard, mousePos))
+                {
+                    CombatManager.DeactivateCardHighlights();
+                    _heldCard = null;
+                    _heldCardIndex = -1;
+                    _clickSelected = -1;
+                    _keyboardSelectionActive = false;
+                    return;
+                }
+
                 //if (!canSelectCards || cardTransform.position.y <= transform.position.y + 0.5f) {
                 if (!GameManager.PersistentGameplayData.CanSelectCards || _mouseInsideHand)
                 {
@@ -595,6 +607,20 @@ namespace NueGames.NueDeck.Scripts.Collection
 
                 PlayCard(mousePos);
             }
+        }
+
+        private bool TryAcceptByDropTarget(CardBase card, Vector2 screenPos)
+        {
+            if (_activeCardDropTarget == null) return false;
+
+            var dropZone = _activeCardDropTarget.DropZone;
+            if (dropZone == null) return false;
+
+            var canvas = dropZone.GetComponentInParent<Canvas>();
+            var cam = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+
+            return RectTransformUtility.RectangleContainsScreenPoint(dropZone, screenPos, cam)
+                   && _activeCardDropTarget.TryAcceptCard(card);
         }
 
         

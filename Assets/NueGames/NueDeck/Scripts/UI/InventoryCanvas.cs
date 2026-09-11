@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System;
 using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Managers;
@@ -11,6 +10,8 @@ namespace NueGames.NueDeck.Scripts.UI
 {
     public class InventoryCanvas : CanvasBase
     {
+        protected override bool BlocksBackgroundInput => true;
+
         [SerializeField] private TextMeshProUGUI titleTextField;
         [SerializeField] private LayoutGroup cardSpawnRoot;
         [SerializeField] private CardBase cardUIPrefab;
@@ -19,23 +20,6 @@ namespace NueGames.NueDeck.Scripts.UI
         public LayoutGroup CardSpawnRoot => cardSpawnRoot;
 
         private List<CardBase> _spawnedCardList = new List<CardBase>();
-        private readonly List<CardBase> _selectedCards = new List<CardBase>();
-        private Action<List<CardBase>> _multiSelectionCallback;
-        private int _multiSelectionLimit;
-        private Button _returnButton;
-        private bool _multiSelectionActive;
-
-        private void Awake()
-        {
-            foreach (var button in GetComponentsInChildren<Button>(true))
-            {
-                if (button.gameObject.name == "ReturnButton")
-                {
-                    _returnButton = button;
-                    break;
-                }
-            }
-        }
 
         public void ChangeTitle(string newTitle) => TitleTextField.text = newTitle;
 
@@ -89,17 +73,6 @@ namespace NueGames.NueDeck.Scripts.UI
 
         public override void CloseCanvas()
         {
-            var cancelledSelectionCallback = _multiSelectionActive ? _multiSelectionCallback : null;
-            _multiSelectionActive = false;
-
-            if (_returnButton != null)
-            {
-                _returnButton.onClick.RemoveAllListeners();
-                _returnButton.onClick.AddListener(CloseCanvas);
-            }
-
-            _multiSelectionCallback = null;
-            _selectedCards.Clear();
             base.CloseCanvas();
             if (CollectionManager)
                 CollectionManager.HandController.EnableDragging();
@@ -124,8 +97,6 @@ namespace NueGames.NueDeck.Scripts.UI
                 if (img != null)
                     img.raycastTarget = false;
             }
-
-                    cancelledSelectionCallback?.Invoke(new List<CardBase>());
         }
 
 
@@ -169,75 +140,6 @@ namespace NueGames.NueDeck.Scripts.UI
                 _spawnedCardList.Add(cardBase);
             }
             ResetScrollToTop();
-        }
-
-        public void BeginHandMultiSelection(List<CardBase> cards, int maximumCards, Action<List<CardBase>> onComplete)
-        {
-            _selectedCards.Clear();
-            _multiSelectionLimit = Mathf.Max(0, maximumCards);
-            _multiSelectionCallback = onComplete;
-            _multiSelectionActive = true;
-
-            if (_returnButton != null)
-            {
-                _returnButton.onClick.RemoveAllListeners();
-                _returnButton.onClick.AddListener(ConfirmMultiSelection);
-            }
-
-            foreach (var card in _spawnedCardList)
-                Destroy(card.gameObject);
-            _spawnedCardList.Clear();
-
-            foreach (var card in cards)
-            {
-                if (card == null || card.CardData == null)
-                    continue;
-
-                var cardBase = Instantiate(cardUIPrefab, CardSpawnRoot.transform);
-                cardBase.SetCard(card.CardData, false);
-
-                var image = cardBase.GetComponent<Image>();
-                if (image == null)
-                    image = cardBase.gameObject.AddComponent<Image>();
-                image.raycastTarget = true;
-
-                var button = cardBase.GetComponent<Button>();
-                if (button == null)
-                    button = cardBase.gameObject.AddComponent<Button>();
-
-                button.transition = Selectable.Transition.ColorTint;
-                var selectedCard = card;
-                button.onClick.RemoveAllListeners();
-                button.onClick.AddListener(() => ToggleMultiSelection(selectedCard, button));
-                _spawnedCardList.Add(cardBase);
-            }
-
-            ResetScrollToTop();
-        }
-
-        private void ToggleMultiSelection(CardBase card, Button button)
-        {
-            if (_selectedCards.Contains(card))
-            {
-                _selectedCards.Remove(card);
-                button.image.color = Color.white;
-                return;
-            }
-
-            if (_selectedCards.Count >= _multiSelectionLimit)
-                return;
-
-            _selectedCards.Add(card);
-            button.image.color = new Color(0.55f, 1f, 0.55f, 1f);
-        }
-
-        private void ConfirmMultiSelection()
-        {
-            var callback = _multiSelectionCallback;
-            var selectedCards = new List<CardBase>(_selectedCards);
-            _multiSelectionActive = false;
-            CloseCanvas();
-            callback?.Invoke(selectedCards);
         }
         
         
