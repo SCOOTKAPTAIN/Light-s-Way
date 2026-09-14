@@ -43,7 +43,8 @@
         Vigilance,
         Bastion,
         Reverberation,
-        Honor
+        Honor,
+        VanguardStance
         
 
 

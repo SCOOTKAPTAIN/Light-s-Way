@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: c77595b2d8a8afa4e834383b27e8c9c1
+guid: 5861d8dbb52295a4194ce96d1160addf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1615681761416102687
-    second: bell-shield_0
+      213: -7006777749704288525
+    second: Vanguard Stance_0
   - first:
-      213: 8628607940333363826
-    second: bell-shield_1
+      213: 6099124121138883216
+    second: Vanguard Stance_1
+  - first:
+      213: 1969913063612073891
+    second: Vanguard Stance_2
+  - first:
+      213: -3815115720432156854
+    second: Vanguard Stance_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bell-shield_0
+      name: Vanguard Stance_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 17
-        width: 477
-        height: 474
+        x: 41
+        y: 62
+        width: 280
+        height: 308
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,20 +123,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1ec37bc8ff1f399e0800000000000000
-      internalID: -1615681761416102687
+      spriteID: 3f6d3c892cce2ce90800000000000000
+      internalID: -7006777749704288525
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bell-shield_1
+      name: Vanguard Stance_1
       rect:
         serializedVersion: 2
-        x: 171
-        y: 91
-        width: 171
-        height: 402
+        x: 256
+        y: 343
+        width: 65
+        height: 95
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,8 +144,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2726fa59439feb770800000000000000
-      internalID: 8628607940333363826
+      spriteID: 09aef79d21174a450800000000000000
+      internalID: 6099124121138883216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vanguard Stance_2
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 209
+        width: 159
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a7cffa8e79865b10800000000000000
+      internalID: 1969913063612073891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vanguard Stance_3
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 291
+        width: 23
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4ff1a2377cfd0bc0800000000000000
+      internalID: -3815115720432156854
       vertices: []
       indices: 
       edges: []
@@ -155,8 +203,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bell-shield_0: -1615681761416102687
-      bell-shield_1: 8628607940333363826
+      Vanguard Stance_0: -7006777749704288525
+      Vanguard Stance_1: 6099124121138883216
+      Vanguard Stance_2: 1969913063612073891
+      Vanguard Stance_3: -3815115720432156854
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

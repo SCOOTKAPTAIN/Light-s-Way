@@ -451,6 +451,7 @@ namespace NueGames.NueDeck.Scripts.Managers
             
             CurrentCombatStateType = CombatStateType.EndCombat;
             
+            CollectionManager.RestoreVanguardStanceCardsToGuard();
             CollectionManager.DiscardHand();
             CollectionManager.DiscardPile.Clear();
             CollectionManager.DrawPile.Clear();
@@ -484,6 +485,8 @@ namespace NueGames.NueDeck.Scripts.Managers
             if (CurrentCombatStateType == CombatStateType.EndCombat) return;
 
             CurrentCombatStateType = CombatStateType.EndCombat;
+
+            CollectionManager.RestoreVanguardStanceCardsToGuard();
             
             // Hide any stuck tooltips
             if (NueGames.NueDeck.ThirdParty.NueTooltip.Core.TooltipManager.Instance != null)

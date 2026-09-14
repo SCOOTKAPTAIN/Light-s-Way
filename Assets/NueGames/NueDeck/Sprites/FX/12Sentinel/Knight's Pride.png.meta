@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: c77595b2d8a8afa4e834383b27e8c9c1
+guid: ede3fd02c67b0ea4db7bba9dd5cc022e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1615681761416102687
-    second: bell-shield_0
+      213: -2753523353689635543
+    second: Knight's Pride_0
   - first:
-      213: 8628607940333363826
-    second: bell-shield_1
+      213: 3319622904663121218
+    second: Knight's Pride_1
+  - first:
+      213: 3979274271442127796
+    second: Knight's Pride_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bell-shield_0
+      name: Knight's Pride_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 17
-        width: 477
-        height: 474
+        x: 19
+        y: 317
+        width: 478
+        height: 176
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,20 +120,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1ec37bc8ff1f399e0800000000000000
-      internalID: -1615681761416102687
+      spriteID: 925469e391589c9d0800000000000000
+      internalID: -2753523353689635543
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bell-shield_1
+      name: Knight's Pride_1
       rect:
         serializedVersion: 2
-        x: 171
-        y: 91
-        width: 171
-        height: 402
+        x: 19
+        y: 15
+        width: 190
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,8 +141,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2726fa59439feb770800000000000000
-      internalID: 8628607940333363826
+      spriteID: 24d12b4917ba11e20800000000000000
+      internalID: 3319622904663121218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Knight's Pride_2
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 15
+        width: 199
+        height: 275
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bbc825edd8393730800000000000000
+      internalID: 3979274271442127796
       vertices: []
       indices: 
       edges: []
@@ -155,8 +179,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bell-shield_0: -1615681761416102687
-      bell-shield_1: 8628607940333363826
+      Knight's Pride_0: -2753523353689635543
+      Knight's Pride_1: 3319622904663121218
+      Knight's Pride_2: 3979274271442127796
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

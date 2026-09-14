@@ -103,6 +103,7 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 SpecialKeywords.Vigilance => StatusType.Vigilance,
                 SpecialKeywords.Bastion => StatusType.Bastion,
                 SpecialKeywords.Reverberation => StatusType.Reverberation,
+                SpecialKeywords.Honor => StatusType.Honor,
                // SpecialKeywords.TheBestDefence => StatusType.TheBestDefense,
                 _ => StatusType.None
             };

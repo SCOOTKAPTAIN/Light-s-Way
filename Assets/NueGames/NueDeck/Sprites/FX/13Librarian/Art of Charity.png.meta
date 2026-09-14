@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: c77595b2d8a8afa4e834383b27e8c9c1
+guid: 6d36f07a7d5f21541a42f102df016250
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1615681761416102687
-    second: bell-shield_0
+      213: -3456348636334921869
+    second: Art of Charity_0
   - first:
-      213: 8628607940333363826
-    second: bell-shield_1
+      213: 1708980864659164278
+    second: Art of Charity_1
+  - first:
+      213: -6911002811357074358
+    second: Art of Charity_2
+  - first:
+      213: 5523758619921033043
+    second: Art of Charity_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bell-shield_0
+      name: Art of Charity_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 17
-        width: 477
-        height: 474
+        x: 97
+        y: 40
+        width: 311
+        height: 262
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,20 +123,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1ec37bc8ff1f399e0800000000000000
-      internalID: -1615681761416102687
+      spriteID: 377e95f4a359800d0800000000000000
+      internalID: -3456348636334921869
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bell-shield_1
+      name: Art of Charity_1
       rect:
         serializedVersion: 2
-        x: 171
-        y: 91
-        width: 171
-        height: 402
+        x: 161
+        y: 281
+        width: 191
+        height: 191
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,8 +144,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2726fa59439feb770800000000000000
-      internalID: 8628607940333363826
+      spriteID: 67c03f5ba0587b710800000000000000
+      internalID: 1708980864659164278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art of Charity_2
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 101
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4ce5532f8f2710a0800000000000000
+      internalID: -6911002811357074358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Art of Charity_3
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 101
+        width: 113
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 357256dd23558ac40800000000000000
+      internalID: 5523758619921033043
       vertices: []
       indices: 
       edges: []
@@ -155,8 +203,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bell-shield_0: -1615681761416102687
-      bell-shield_1: 8628607940333363826
+      Art of Charity_0: -3456348636334921869
+      Art of Charity_1: 1708980864659164278
+      Art of Charity_2: -6911002811357074358
+      Art of Charity_3: 5523758619921033043
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

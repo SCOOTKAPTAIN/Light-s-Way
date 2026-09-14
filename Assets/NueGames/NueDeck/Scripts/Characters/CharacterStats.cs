@@ -155,6 +155,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.Reverberation].IsPermanent = true;
             OnShieldGained += TriggerReverberation;
 
+            // Honor: decays by 1 each turn; does not consume on activation (checked directly in Damage()).
+            StatusDict[StatusType.Honor].DecreaseOverTurn = true;
+
             StatusDict[StatusType.Strength].CanNegativeStack = true;
             StatusDict[StatusType.Fortitude].CanNegativeStack = true;
             
@@ -528,19 +531,30 @@ namespace NueGames.NueDeck.Scripts.Characters
                         if (StatusDict[StatusType.Block].IsActive)
                         {
                             blockBefore = StatusDict[StatusType.Block].StatusValue;
-                            ApplyStatus(StatusType.Block, -value);
 
-                            remainingDamage = 0;
-                            if (StatusDict[StatusType.Block].StatusValue <= 0)
+                            // Honor: damage that does not exceed current Block does not consume Block at all.
+                            var hasHonor = StatusDict.ContainsKey(StatusType.Honor) && StatusDict[StatusType.Honor].IsActive && StatusDict[StatusType.Honor].StatusValue > 0;
+                            if (hasHonor && value <= blockBefore)
                             {
-                                remainingDamage = StatusDict[StatusType.Block].StatusValue * -1;
-                                ClearStatus(StatusType.Block);
-                            }
-                            
-                            // Check if all damage was absorbed by block
-                            if (blockBefore >= value)
-                            {
+                                remainingDamage = 0;
                                 wasBlockedCompletely = true;
+                            }
+                            else
+                            {
+                                ApplyStatus(StatusType.Block, -value);
+
+                                remainingDamage = 0;
+                                if (StatusDict[StatusType.Block].StatusValue <= 0)
+                                {
+                                    remainingDamage = StatusDict[StatusType.Block].StatusValue * -1;
+                                    ClearStatus(StatusType.Block);
+                                }
+
+                                // Check if all damage was absorbed by block
+                                if (blockBefore >= value)
+                                {
+                                    wasBlockedCompletely = true;
+                                }
                             }
                         }
                     }

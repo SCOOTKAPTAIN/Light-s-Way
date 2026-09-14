@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: c77595b2d8a8afa4e834383b27e8c9c1
+guid: 02f56b5c718af33418a9761805b82bb3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1615681761416102687
-    second: bell-shield_0
+      213: 7329166963554797710
+    second: Vast Library_0
   - first:
-      213: 8628607940333363826
-    second: bell-shield_1
+      213: 5568101616854363113
+    second: Vast Library_1
+  - first:
+      213: -5799724844969829315
+    second: Vast Library_2
+  - first:
+      213: 2431596746786513412
+    second: Vast Library_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,12 +109,75 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bell-shield_0
+      name: Vast Library_0
       rect:
         serializedVersion: 2
-        x: 18
+        x: 17
         y: 17
-        width: 477
+        width: 207
+        height: 425
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e884632958e66b560800000000000000
+      internalID: 7329166963554797710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vast Library_1
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 336
+        width: 305
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ebe1e16beed54d40800000000000000
+      internalID: 5568101616854363113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vast Library_2
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 115
+        width: 246
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3cd0945bfc338fa0800000000000000
+      internalID: -5799724844969829315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vast Library_3
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 17
+        width: 211
         height: 474
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -117,29 +186,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1ec37bc8ff1f399e0800000000000000
-      internalID: -1615681761416102687
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bell-shield_1
-      rect:
-        serializedVersion: 2
-        x: 171
-        y: 91
-        width: 171
-        height: 402
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2726fa59439feb770800000000000000
-      internalID: 8628607940333363826
+      spriteID: 402a439ab54ceb120800000000000000
+      internalID: 2431596746786513412
       vertices: []
       indices: 
       edges: []
@@ -155,8 +203,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bell-shield_0: -1615681761416102687
-      bell-shield_1: 8628607940333363826
+      Vast Library_0: 7329166963554797710
+      Vast Library_1: 5568101616854363113
+      Vast Library_2: -5799724844969829315
+      Vast Library_3: 2431596746786513412
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

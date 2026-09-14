@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: c77595b2d8a8afa4e834383b27e8c9c1
+guid: 36e8eb9788eeed142b2ee147368eb1b9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1615681761416102687
-    second: bell-shield_0
+      213: -2368471058402613755
+    second: Bookworm Exchange_0
   - first:
-      213: 8628607940333363826
-    second: bell-shield_1
+      213: 189192807502867336
+    second: Bookworm Exchange_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bell-shield_0
+      name: Bookworm Exchange_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 17
-        width: 477
-        height: 474
+        x: 24
+        y: 104
+        width: 464
+        height: 341
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,20 +117,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1ec37bc8ff1f399e0800000000000000
-      internalID: -1615681761416102687
+      spriteID: 5066e1ffe10812fd0800000000000000
+      internalID: -2368471058402613755
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bell-shield_1
+      name: Bookworm Exchange_1
       rect:
         serializedVersion: 2
-        x: 171
-        y: 91
-        width: 171
-        height: 402
+        x: 344
+        y: 19
+        width: 106
+        height: 158
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,8 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2726fa59439feb770800000000000000
-      internalID: 8628607940333363826
+      spriteID: 88b64452bd520a200800000000000000
+      internalID: 189192807502867336
       vertices: []
       indices: 
       edges: []
@@ -155,8 +155,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bell-shield_0: -1615681761416102687
-      bell-shield_1: 8628607940333363826
+      Bookworm Exchange_0: -2368471058402613755
+      Bookworm Exchange_1: 189192807502867336
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

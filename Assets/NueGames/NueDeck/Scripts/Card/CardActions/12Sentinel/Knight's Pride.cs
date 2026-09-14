@@ -15,10 +15,11 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             
             if (!newTarget) return;
 
-
+            if (CollectionManager != null)
+                CollectionManager.ConvertGuardCardsToVanguardStance();
 
             if (FxManager != null)
-                FxManager.PlayFx(newTarget.transform, FxType.KnightsPride, new Vector3(0.3f, 0.5f, 0f));
+                FxManager.PlayFx(newTarget.transform, FxType.KnightsPride, new Vector3(0f, 0f, 0f));
 
             if (AudioManager != null)
                 AudioManager.PlayOneShot(actionParameters.CardData.AudioType);

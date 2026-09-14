@@ -194,6 +194,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         {
             HandPile.Remove(targetCard.CardData);
             DiscardPile.Add(targetCard.CardData);
+            RevertVanguardStanceEntry(DiscardPile);
             UIManager.CombatCanvas.SetPileTexts();
         }
         
@@ -201,8 +202,63 @@ namespace NueGames.NueDeck.Scripts.Managers
         {
             HandPile.Remove(targetCard.CardData);
             ExhaustPile.Add(targetCard.CardData);
+            RevertVanguardStanceEntry(ExhaustPile);
             UIManager.CombatCanvas.SetPileTexts();
         }
+
+        // Knight's Pride: converts every "Guard" card into "Vanguard Stance" across the deck/hand/discard piles.
+        public void ConvertGuardCardsToVanguardStance()
+        {
+            var guardCard = FindCardDataByName(GuardCardName);
+            var vanguardCard = FindCardDataByName(VanguardStanceCardName);
+            if (guardCard == null || vanguardCard == null)
+                return;
+
+            ReplaceCardDataInPile(DrawPile, guardCard, vanguardCard);
+            ReplaceCardDataInPile(HandPile, guardCard, vanguardCard);
+            ReplaceCardDataInPile(DiscardPile, guardCard, vanguardCard);
+
+            if (HandController != null && HandController.hand != null)
+            {
+                foreach (var cardBase in HandController.hand)
+                {
+                    if (cardBase != null && cardBase.CardData == guardCard)
+                    {
+                        cardBase.SetCard(vanguardCard, cardBase.IsPlayable);
+                        cardBase.UpdateCardText();
+                    }
+                }
+            }
+        }
+
+        public void RestoreVanguardStanceCardsToGuard()
+        {
+            var guardCard = FindCardDataByName(GuardCardName);
+            var vanguardCard = FindCardDataByName(VanguardStanceCardName);
+            if (guardCard == null || vanguardCard == null)
+                return;
+
+            ReplaceCardDataInPile(DrawPile, vanguardCard, guardCard);
+            ReplaceCardDataInPile(HandPile, vanguardCard, guardCard);
+            ReplaceCardDataInPile(DiscardPile, vanguardCard, guardCard);
+            ReplaceCardDataInPile(ExhaustPile, vanguardCard, guardCard);
+
+            var currentCards = GameManager?.PersistentGameplayData?.CurrentCardsList;
+            ReplaceCardDataInPile(currentCards, vanguardCard, guardCard);
+
+            if (HandController != null && HandController.hand != null)
+            {
+                foreach (var cardBase in HandController.hand)
+                {
+                    if (cardBase != null && cardBase.CardData == vanguardCard)
+                    {
+                        cardBase.SetCard(guardCard, cardBase.IsPlayable);
+                        cardBase.UpdateCardText();
+                    }
+                }
+            }
+        }
+
         public void OnCardPlayed(CardBase targetCard)
         {
             // If the card requested to be returned to hand after play, add it back instead of discarding/exhausting
@@ -264,6 +320,50 @@ namespace NueGames.NueDeck.Scripts.Managers
                 DiscardPile.Add(i);
             
             DrawPile.Clear();
+        }
+
+        // Vanguard Stance is a single-use enhancement: once played, the copy that goes to the
+        // discard/exhaust pile reverts back into a plain Guard card.
+        private const string GuardCardName = "Guard";
+        private const string VanguardStanceCardName = "Vanguard Stance";
+
+        private void RevertVanguardStanceEntry(List<CardData> pile)
+        {
+            if (pile == null || pile.Count == 0)
+                return;
+
+            var lastIndex = pile.Count - 1;
+            var lastEntry = pile[lastIndex];
+            if (lastEntry == null || !string.Equals(lastEntry.CardName, VanguardStanceCardName, System.StringComparison.OrdinalIgnoreCase))
+                return;
+
+            var guardCard = FindCardDataByName(GuardCardName);
+            if (guardCard != null)
+                pile[lastIndex] = guardCard;
+        }
+
+        private static void ReplaceCardDataInPile(List<CardData> pile, CardData from, CardData to)
+        {
+            if (pile == null) return;
+            for (var i = 0; i < pile.Count; i++)
+            {
+                if (pile[i] == from)
+                    pile[i] = to;
+            }
+        }
+
+        private CardData FindCardDataByName(string cardName)
+        {
+            if (GameManager == null || GameManager.GameplayData == null || GameManager.GameplayData.AllCardsList == null)
+                return null;
+
+            foreach (var card in GameManager.GameplayData.AllCardsList)
+            {
+                if (card != null && string.Equals(card.CardName, cardName, System.StringComparison.OrdinalIgnoreCase))
+                    return card;
+            }
+
+            return null;
         }
         #endregion
 

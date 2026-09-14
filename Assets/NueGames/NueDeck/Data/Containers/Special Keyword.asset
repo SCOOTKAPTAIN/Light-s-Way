@@ -175,3 +175,15 @@ MonoBehaviour:
     header: Reverberation
     contentText: Deal <color=#FFB430>{Reverberation}</color> damage to <color=#FFB430>All</color>
       enemies whenever you gain <color=#FFB430>Block</color>.
+  - specialKeyword: 41
+    header: Honor
+    contentText: Damage that does not exceed your <color=#FFB430>Block</color> does
+      not consume it.
+  - specialKeyword: 42
+    header: Vanguard Stance
+    contentText: '- Cost 0 <color=#FFB430>Mana</color>
+
+      - +2 <color=#FFB430>Block</color>
+
+      -
+      Gain 1 <color=#FFB430>Honor</color>'
