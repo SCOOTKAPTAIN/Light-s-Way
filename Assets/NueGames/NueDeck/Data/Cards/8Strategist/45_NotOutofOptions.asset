@@ -65,3 +65,4 @@ MonoBehaviour:
     overrideColorOnValueScaled: 0
   specialKeywordsList: 03000000
   audioType: 55
+  cardCategory: 1

@@ -124,7 +124,13 @@
         ReflectiveAegis,
         Reverberation,
         KnightsPride,
-        VanguardStance
+        VanguardStance,
+        Bookmark,
+        LiteratureSelection,
+        ArtOfCharity,
+        BookwormExchange,
+        PiquedInterest,
+        VastLibrary
 
 
 

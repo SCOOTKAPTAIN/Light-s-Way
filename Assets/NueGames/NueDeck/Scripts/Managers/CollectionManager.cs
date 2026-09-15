@@ -125,6 +125,48 @@ namespace NueGames.NueDeck.Scripts.Managers
                 cardObject.UpdateCardText();
         }
 
+        public int DrawAllCopies(CardData targetCard)
+        {
+            if (targetCard == null || HandController == null || GameManager == null || GameManager.GameplayData == null)
+                return 0;
+
+            var drawnCount = DrawMatchingCopies(DrawPile, targetCard);
+            drawnCount += DrawMatchingCopies(DiscardPile, targetCard);
+            drawnCount += DrawMatchingCopies(ExhaustPile, targetCard);
+
+            foreach (var cardObject in HandController.hand)
+                cardObject.UpdateCardText();
+
+            if (UIManager != null && UIManager.CombatCanvas != null)
+                UIManager.CombatCanvas.SetPileTexts();
+
+            return drawnCount;
+        }
+
+        public bool MoveDrawCardToHand(CardData targetCard)
+        {
+            if (targetCard == null || HandController == null || GameManager == null ||
+                GameManager.GameplayData == null || HandPile.Count >= GameManager.GameplayData.MaxCardOnHand)
+                return false;
+
+            var drawIndex = DrawPile.IndexOf(targetCard);
+            if (drawIndex < 0)
+                return false;
+
+            DrawPile.RemoveAt(drawIndex);
+            var cardClone = GameManager.BuildAndGetCard(targetCard, HandController.drawTransform);
+            HandController.AddCardToHand(cardClone);
+            HandPile.Add(targetCard);
+
+            foreach (var cardObject in HandController.hand)
+                cardObject.UpdateCardText();
+
+            if (UIManager != null && UIManager.CombatCanvas != null)
+                UIManager.CombatCanvas.SetPileTexts();
+
+            return true;
+        }
+
         public void AddEndlessChambersCards(CharacterBase ally)
         {
             if (ally == null || GameManager == null || GameManager.GameplayData == null ||
@@ -177,7 +219,7 @@ namespace NueGames.NueDeck.Scripts.Managers
 
             foreach (var cardBase in new List<CardBase>(HandController.hand))
             {
-                if (cardBase == null || cardBase.CardData == null || cardBase.CardData.Retain)
+                if (cardBase == null || cardBase.CardData == null || cardBase.CardData.Retain || cardBase.TemporaryRetain)
                     continue;
 
                 cardBase.Discard();
@@ -188,6 +230,74 @@ namespace NueGames.NueDeck.Scripts.Managers
                 HandController.hand.Remove(cardBase);
 
             HandController.ClampSelectionState();
+        }
+
+        public int ExhaustHandAndDraw()
+        {
+            if (HandController == null)
+                return 0;
+
+            var cardsToExhaust = new List<CardBase>();
+            foreach (var cardBase in new List<CardBase>(HandController.hand))
+            {
+                if (cardBase != null && cardBase.CardData != null)
+                    cardsToExhaust.Add(cardBase);
+            }
+
+            foreach (var cardBase in cardsToExhaust)
+                cardBase.Exhaust();
+
+            foreach (var cardBase in cardsToExhaust)
+                HandController.hand.Remove(cardBase);
+
+            HandController.ClampSelectionState();
+            DrawCards(cardsToExhaust.Count);
+            return cardsToExhaust.Count;
+        }
+
+        // Piqued Interest: discards the selected Attack/Buff cards, then draws the same number of
+        // opposite-category cards from the draw pile (falling back to a random card if the draw pile lacks one).
+        public int ExchangeCardsForOppositeCategory(List<CardBase> selectedCards)
+        {
+            if (selectedCards == null || selectedCards.Count == 0 || HandController == null ||
+                GameManager == null || GameManager.GameplayData == null)
+                return 0;
+
+            var neededCategories = new List<CardCategoryType>();
+            foreach (var cardBase in selectedCards)
+            {
+                if (cardBase == null || cardBase.CardData == null)
+                    continue;
+
+                neededCategories.Add(GetOppositeCategory(cardBase.CardData.Category));
+                cardBase.Discard();
+            }
+
+            var drawnCount = 0;
+            var maxHandSize = GameManager.GameplayData.MaxCardOnHand;
+
+            foreach (var category in neededCategories)
+            {
+                if (HandPile.Count >= maxHandSize)
+                    break;
+
+                var cardData = PopRandomCardOfCategory(DrawPile, category) ?? PopRandomCard(DrawPile);
+                if (cardData == null)
+                    continue;
+
+                var clone = GameManager.BuildAndGetCard(cardData, HandController.drawTransform);
+                HandController.AddCardToHand(clone);
+                HandPile.Add(cardData);
+                drawnCount++;
+            }
+
+            foreach (var cardObject in HandController.hand)
+                cardObject.UpdateCardText();
+
+            if (UIManager != null && UIManager.CombatCanvas != null)
+                UIManager.CombatCanvas.SetPileTexts();
+
+            return drawnCount;
         }
         
         public void OnCardDiscarded(CardBase targetCard)
@@ -307,6 +417,64 @@ namespace NueGames.NueDeck.Scripts.Managers
         #endregion
 
         #region Private Methods
+        private static CardCategoryType GetOppositeCategory(CardCategoryType category) =>
+            category == CardCategoryType.Attack ? CardCategoryType.Skill : CardCategoryType.Attack;
+
+        private static CardData PopRandomCardOfCategory(List<CardData> pile, CardCategoryType category)
+        {
+            List<int> matchIndexes = null;
+            for (var i = 0; i < pile.Count; i++)
+            {
+                if (pile[i] != null && pile[i].Category == category)
+                {
+                    matchIndexes ??= new List<int>();
+                    matchIndexes.Add(i);
+                }
+            }
+
+            if (matchIndexes == null || matchIndexes.Count == 0)
+                return null;
+
+            var index = matchIndexes[Random.Range(0, matchIndexes.Count)];
+            var cardData = pile[index];
+            pile.RemoveAt(index);
+            return cardData;
+        }
+
+        private static CardData PopRandomCard(List<CardData> pile)
+        {
+            if (pile.Count == 0)
+                return null;
+
+            var index = Random.Range(0, pile.Count);
+            var cardData = pile[index];
+            pile.RemoveAt(index);
+            return cardData;
+        }
+
+        private int DrawMatchingCopies(List<CardData> sourcePile, CardData targetCard)
+        {
+            var drawnCount = 0;
+            var maxHandSize = GameManager.GameplayData.MaxCardOnHand;
+
+            for (var index = sourcePile.Count - 1; index >= 0; index--)
+            {
+                if (HandPile.Count >= maxHandSize)
+                    break;
+
+                if (sourcePile[index] != targetCard)
+                    continue;
+
+                sourcePile.RemoveAt(index);
+                var cardClone = GameManager.BuildAndGetCard(targetCard, HandController.drawTransform);
+                HandController.AddCardToHand(cardClone);
+                HandPile.Add(targetCard);
+                drawnCount++;
+            }
+
+            return drawnCount;
+        }
+
         private void ReshuffleDiscardPile()
         {
             foreach (var i in DiscardPile) 

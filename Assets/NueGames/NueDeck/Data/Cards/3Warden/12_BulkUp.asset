@@ -101,3 +101,4 @@ MonoBehaviour:
     overrideColorOnValueScaled: 0
   specialKeywordsList: 01000000
   audioType: 22
+  cardCategory: 1

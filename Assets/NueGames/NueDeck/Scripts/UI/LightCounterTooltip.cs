@@ -20,6 +20,22 @@ namespace NueGames.NueDeck.Scripts.UI
         [SerializeField] private List<LightThreshold> lightThresholds = new List<LightThreshold>();
         
         private GameManager GameManager => GameManager.Instance;
+
+        private RectTransform CounterRect => transform as RectTransform;
+
+        private void Update()
+        {
+            if (tooltipPanel == null || !tooltipPanel.activeSelf || CounterRect == null)
+                return;
+
+            var canvas = GetComponentInParent<Canvas>();
+            var eventCamera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay
+                ? canvas.worldCamera
+                : null;
+
+            if (!RectTransformUtility.RectangleContainsScreenPoint(CounterRect, Input.mousePosition, eventCamera))
+                HideTooltip();
+        }
         
         private void Start()
         {

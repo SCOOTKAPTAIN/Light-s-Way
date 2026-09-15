@@ -187,3 +187,7 @@ MonoBehaviour:
 
       -
       Gain 1 <color=#FFB430>Honor</color>'
+  - specialKeyword: 43
+    header: Retain
+    contentText: This card will remain in your <color=#FFB430>Hand</color> after
+      the turn ends.

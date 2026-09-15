@@ -31,6 +31,7 @@ namespace NueGames.NueDeck.Scripts.UI
         private readonly List<RaycastResult> _raycastResults = new List<RaycastResult>();
         private int _maxCards;
         private Action<List<CardBase>> _onSelectionComplete;
+        private Func<CardBase, bool> _cardFilter;
         private bool _confirmed;
         private bool _previousCanUseCards;
         private bool _previousCanSelectCards;
@@ -80,11 +81,13 @@ namespace NueGames.NueDeck.Scripts.UI
         /// <summary>
         /// Opens the panel and lets the player drag up to maxCards from hand into the drop zone.
         /// onSelectionComplete receives the confirmed cards, or an empty list if the player cancels.
+        /// An optional cardFilter restricts which hand cards may be dragged into the drop zone.
         /// </summary>
-        public void BeginSelection(string title, int maxCards, Action<List<CardBase>> onSelectionComplete)
+        public void BeginSelection(string title, int maxCards, Action<List<CardBase>> onSelectionComplete, Func<CardBase, bool> cardFilter = null)
         {
             _maxCards = Mathf.Max(0, maxCards);
             _onSelectionComplete = onSelectionComplete;
+            _cardFilter = cardFilter;
             _confirmed = false;
             _stagedCards.Clear();
             _selectionIsOpen = true;
@@ -108,6 +111,9 @@ namespace NueGames.NueDeck.Scripts.UI
         public bool TryAcceptCard(CardBase card)
         {
             if (card == null || _stagedCards.Count >= _maxCards)
+                return false;
+
+            if (_cardFilter != null && !_cardFilter(card))
                 return false;
 
             _stagedCards.Add(card);
@@ -152,6 +158,7 @@ namespace NueGames.NueDeck.Scripts.UI
             var stagedCards = new List<CardBase>(_stagedCards);
             _stagedCards.Clear();
             _onSelectionComplete = null;
+            _cardFilter = null;
             _confirmed = false;
 
             if (CollectionManager != null && CollectionManager.HandController != null)

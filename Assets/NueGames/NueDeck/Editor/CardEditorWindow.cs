@@ -41,6 +41,7 @@ namespace NueGames.NueDeck.Editor
         private AudioActionType AudioType{ get; set; }
         
         private RarityType CardRarity { get; set; }
+        private CardCategoryType CardCategory { get; set; }
 
     // EditorPrefs keys to persist foldout state between sessions
     private const string PrefKey_GeneralFoldout = "NueDeck_CardEditor_GeneralFoldout";
@@ -63,6 +64,7 @@ namespace NueGames.NueDeck.Editor
             CardRarity = SelectedCardData.Rarity;
             RemoveAfterBattle = SelectedCardData.RemoveAfterBattle;
             RequiredLight = SelectedCardData.RequiredLight;
+            CardCategory = SelectedCardData.Category;
 
 
         }
@@ -82,6 +84,7 @@ namespace NueGames.NueDeck.Editor
             CardRarity = RarityType.Common;
             RemoveAfterBattle = false;
             RequiredLight = 0;
+            CardCategory = CardCategoryType.Attack;
 
 
         }
@@ -302,6 +305,7 @@ namespace NueGames.NueDeck.Editor
             ChangeManaCost();
             ChangeRequiredLight();
             ChangeRarity();
+            ChangeCardCategory();
             ChangeUsableWithoutTarget();
             ChangeExhaustAfterPlay();
             ChangeRemoveAfterBattle();
@@ -541,6 +545,11 @@ namespace NueGames.NueDeck.Editor
             AudioType = (AudioActionType)EditorGUILayout.EnumPopup("Audio Type:",AudioType);
         }
 
+        private void ChangeCardCategory()
+        {
+            CardCategory = (CardCategoryType)EditorGUILayout.EnumPopup("Category:", CardCategory);
+        }
+
        
         private void SaveCardData()
         {
@@ -559,6 +568,7 @@ namespace NueGames.NueDeck.Editor
             SelectedCardData.EditCardDescriptionDataList(CardDescriptionDataList);
             SelectedCardData.EditSpecialKeywordsList(SpecialKeywordsList);
             SelectedCardData.EditAudioType(AudioType);
+            SelectedCardData.EditCardCategory(CardCategory);
             EditorUtility.SetDirty(SelectedCardData);
             AssetDatabase.SaveAssets();
         }

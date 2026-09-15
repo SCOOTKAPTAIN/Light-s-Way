@@ -27,16 +27,7 @@ MonoBehaviour:
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: Each time this card is played in this combat,
-    enableOverrideColor: 0
-    overrideColor: {r: 0, g: 0, b: 0, a: 1}
-    useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
-  - descriptionText: ' Increase the maximum '
+  - descriptionText: 'Increase the maximum '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -83,3 +74,4 @@ MonoBehaviour:
     overrideColorOnValueScaled: 0
   specialKeywordsList: 1800000000000000
   audioType: 56
+  cardCategory: 1

@@ -27,15 +27,6 @@ MonoBehaviour:
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: 'In this combat, '
-    enableOverrideColor: 0
-    overrideColor: {r: 0, g: 0, b: 0, a: 1}
-    useModifier: 0
-    modifiedActionValueIndex: 0
-    modiferStats: 0
-    usePrefixOnModifiedValue: 0
-    modifiedValuePrefix: '*'
-    overrideColorOnValueScaled: 0
   - descriptionText: '"Slash" '
     enableOverrideColor: 1
     overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
@@ -92,3 +83,4 @@ MonoBehaviour:
     overrideColorOnValueScaled: 0
   specialKeywordsList: 1200000011000000100000000f000000
   audioType: 52
+  cardCategory: 1

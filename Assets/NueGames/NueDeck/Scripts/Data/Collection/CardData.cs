@@ -35,6 +35,9 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         [Header("Fx")]
         [SerializeField] private AudioActionType audioType;
 
+        [Header("Category")]
+        [SerializeField] private CardCategoryType cardCategory = CardCategoryType.Attack;
+
         #region Cache
         public string Id => id;
         public bool UsableWithoutTarget => usableWithoutTarget;
@@ -47,6 +50,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         public AudioActionType AudioType => audioType;
         public string MyDescription { get; set; }
         public RarityType Rarity => rarity;
+        public CardCategoryType Category => cardCategory;
 
         public bool ExhaustAfterPlay => exhaustAfterPlay;
         public bool RemoveAfterBattle => removeAfterBattle;
@@ -90,6 +94,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         public void EditSpecialKeywordsList(List<SpecialKeywords> newSpecialKeywordsList) =>
             specialKeywordsList = newSpecialKeywordsList;
         public void EditAudioType(AudioActionType newAudioActionType) => audioType = newAudioActionType;
+        public void EditCardCategory(CardCategoryType newCategory) => cardCategory = newCategory;
 #endif
 
         #endregion

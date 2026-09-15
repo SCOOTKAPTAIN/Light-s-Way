@@ -191,3 +191,7 @@ MonoBehaviour:
     header: Honor
     contentText: Damage that does not exceed your <color=#FFB430>Block</color> does
       not consume it.
+  - specialKeyword: 43
+    header: Retain
+    contentText: This card will remain in your <color=#FFB430>Hand</color> after
+      the turn ends.

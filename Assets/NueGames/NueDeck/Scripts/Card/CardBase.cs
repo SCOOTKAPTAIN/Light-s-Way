@@ -47,6 +47,8 @@ namespace NueGames.NueDeck.Scripts.Card
         
         public bool IsExhausted { get; private set; }
         public bool IsObscured { get; private set; }
+        public bool TemporaryRetain { get; private set; }
+        private const string TemporaryRetainDescription = "\n<color=#FFB430>Retain.</color>";
         // If true, card will be returned to hand instead of being discarded/exhausted after play
         public bool ReturnToHandAfterPlay { get; set; }
         // Only true for cards that should keep their cost constant when returned to hand
@@ -57,6 +59,12 @@ namespace NueGames.NueDeck.Scripts.Card
         public void ResetPlayCountThisTurn()
         {
             timesPlayedThisTurn = 0;
+        }
+
+        public void SetTemporaryRetain(bool retained)
+        {
+            TemporaryRetain = retained;
+            RefreshDescriptionText();
         }
 
         #endregion
@@ -104,7 +112,7 @@ namespace NueGames.NueDeck.Scripts.Card
             CardData = targetProfile;
             IsPlayable = isPlayable;
             nameTextField.text = CardData.CardName;
-            descTextField.text = CardData.MyDescription;
+            RefreshDescriptionText();
             // Show 0 cost when the player currently has a FreeNextCard status active (QoL overlay)
             var displayCost = CardData.ManaCost + timesPlayedThisTurn;
             // Apply Burden (temporary cost increase)
@@ -139,6 +147,7 @@ namespace NueGames.NueDeck.Scripts.Card
             // Prevent the player from selecting or dragging other cards while this card's actions run.
             var prevCanSelect = GameManager.PersistentGameplayData.CanSelectCards;
             GameManager.PersistentGameplayData.CanSelectCards = false;
+            TemporaryRetain = false;
 
             // Determine effective cost (includes Burden and per-instance increases)
             var effectiveCost = GetEffectiveCost();
@@ -344,9 +353,8 @@ namespace NueGames.NueDeck.Scripts.Card
         
         public virtual void UpdateCardText()
         {
-            CardData.UpdateDescription();
             nameTextField.text = CardData.CardName;
-            descTextField.text = CardData.MyDescription;
+            RefreshDescriptionText();
             var displayCost = CardData.ManaCost + timesPlayedThisTurn;
             var mainAlly = CombatManager?.CurrentMainAlly;
             if (mainAlly != null && mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.Burden) && mainAlly.CharacterStats.StatusDict[StatusType.Burden].IsActive && mainAlly.CharacterStats.StatusDict[StatusType.Burden].StatusValue > 0)
@@ -356,6 +364,16 @@ namespace NueGames.NueDeck.Scripts.Card
             if (mainAlly != null && mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.FreeNextCard) && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].IsActive && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].StatusValue > 0)
                 displayCost = 0;
             manaTextField.text = displayCost.ToString();
+        }
+
+        private void RefreshDescriptionText()
+        {
+            if (CardData == null || descTextField == null) return;
+
+            CardData.UpdateDescription();
+            descTextField.text = CardData.MyDescription;
+            if (TemporaryRetain)
+                descTextField.text += TemporaryRetainDescription;
         }
         
         #endregion
@@ -453,8 +471,14 @@ namespace NueGames.NueDeck.Scripts.Card
         protected virtual void ShowTooltipInfo()
         {
             if (!descriptionRoot) return;
-            if (CardData.KeywordsList.Count<=0) return;
             if (IsObscured) return; // Don't show tooltips when card is obscured
+
+            var keywords = new List<SpecialKeywords>();
+            if (CardData.KeywordsList != null)
+                keywords.AddRange(CardData.KeywordsList);
+            if (TemporaryRetain && !keywords.Contains(SpecialKeywords.RetainExplanation))
+                keywords.Add(SpecialKeywords.RetainExplanation);
+            if (keywords.Count <= 0) return;
            
             var tooltipManager = TooltipManager.Instance;
             
@@ -465,7 +489,7 @@ namespace NueGames.NueDeck.Scripts.Card
                 return;
             }
             
-            foreach (var cardDataSpecialKeyword in CardData.KeywordsList)
+            foreach (var cardDataSpecialKeyword in keywords)
             {
                 var cardKeyword = tooltipManager.CardKeywordData.CardKeywordBaseList.Find(x => x.SpecialKeyword == cardDataSpecialKeyword);
                 if (cardKeyword != null)

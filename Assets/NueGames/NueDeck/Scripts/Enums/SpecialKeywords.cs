@@ -12,7 +12,7 @@
         Bleeding,
         Pursuit,
         Ward,
-        Inspiration,
+        Cantrip,
         Nephilim,
         Bloodletting,
         Detonate,
@@ -44,7 +44,8 @@
         Bastion,
         Reverberation,
         Honor,
-        VanguardStance
+        VanguardStance,
+        RetainExplanation
         
 
 

@@ -113,6 +113,11 @@ namespace NueGames.NueDeck.Scripts.UI
 
         public void SetCardsForRemoval(List<CardData> cardDataList, System.Action<CardData> onCardChosen)
         {
+            SetCardsForSelection(cardDataList, onCardChosen);
+        }
+
+        public void SetCardsForSelection(List<CardData> cardDataList, System.Action<CardData> onCardChosen)
+        {
             // Clear existing UI
             foreach (var card in _spawnedCardList)
                 Destroy(card.gameObject);
