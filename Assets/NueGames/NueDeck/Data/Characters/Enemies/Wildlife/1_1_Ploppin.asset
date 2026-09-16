@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
-  m_Name: 1_2_BouncyPloppin
+  m_Name: 1_1_Ploppin
   m_EditorClassIdentifier: 
   characterID: Ploppin
   characterName: Ploppin
@@ -20,14 +20,47 @@ MonoBehaviour:
     scared of you than anything.'
   maxHealth: 70
   enemyPrefab: {fileID: 243822687015991123, guid: 5d9c27c397f4ba442a38545a06118c36, type: 3}
-  mutatedVersion: {fileID: 11400000, guid: 733ff1f5ac368014b8c41eadf82959f7, type: 2}
+  mutatedVersion: {fileID: 11400000, guid: 68b3a6ae6e9d59e44a559d7a8f1b35ec, type: 2}
   chaosificationStatus:
-    modifierName: Bouncy
-    icon: {fileID: 21300000, guid: a5f8a8c067dc5c84a97f4a9c0d5e5af5, type: 3}
-    description: Start the battle with multiple layers of <color=#FFB430>Armor</color>.
-      /nReduce Max Health by color=#FFB430>80%</color>.
+    modifierName: 
+    icon: {fileID: 0}
+    description: 
   useActBasedScaling: 1
   actConfigurations:
+  - actNumber: 0
+    maxHealth: 60
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Tackle
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal {value} damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 4
+        minActionValue: 14
+        maxActionValue: 16
+        targetRestriction: 0
+        applyLightMultiplier: 1
+      repeatCount: 0
+      conditions: []
+      weight: 7
+      maxConsecutiveUses: 3
+    - name: Goo Spit
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal {value} damage. Apply 1 <color=#FFB430>Slimed</color>.
+      keywords: 20000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 4
+        minActionValue: 9
+        maxActionValue: 12
+        targetRestriction: 0
+        applyLightMultiplier: 1
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 2
   - actNumber: 1
     maxHealth: 60
     startingStatuses: []

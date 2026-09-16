@@ -42,7 +42,8 @@
         Vigilance,
         Bastion,
         Reverberation,
-        Honor
+        Honor,
+        ChaosificationBouncy
         
 
     }

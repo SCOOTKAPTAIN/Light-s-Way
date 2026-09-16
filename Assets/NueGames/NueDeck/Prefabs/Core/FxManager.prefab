@@ -303,9 +303,21 @@ MonoBehaviour:
     fxPrefab: {fileID: 4931249800145279701, guid: 5eee10b816f2e0e4bb17d06e8ad234ee, type: 3}
   - fxType: 128
     fxPrefab: {fileID: 4931249800145279701, guid: 0bf778e7bd1ea73489a5d2172ff34231, type: 3}
+  - fxType: 129
+    fxPrefab: {fileID: 4931249800145279701, guid: 1875128db2ac06048ad2bb84473249a0, type: 3}
+  - fxType: 130
+    fxPrefab: {fileID: 4931249800145279701, guid: 9a9a5ac54707b404db1054a03cb1835b, type: 3}
+  scaleToPlayerSprite: 1
+  referencePlayerSpriteHeight: 0.98
+  minimumCombatFxScale: 0.25
+  maximumCombatFxScale: 4
   floatingTextPrefabRed: {fileID: 5875565574366412673, guid: 563cc02ed8f797e498bc5cf11e33e894, type: 3}
   floatingTextPrefabGreen: {fileID: 5875565574366412673, guid: 3ac7e93a64ff77c449b3430cfaacbf1a, type: 3}
   floatingTextPrefabBlue: {fileID: 5875565574366412673, guid: 82a85b92f4e688449be2134a8730df5c, type: 3}
   floatingTextPrefabYellow: {fileID: 5875565574366412673, guid: ff5e71a98d9a7364e9d9fbe0d5a58c35, type: 3}
   floatingTextPrefabGrey: {fileID: 0}
   floatingTextPrefabOrange: {fileID: 0}
+  statusGainTextScale: 0.55
+  statusGainIconScale: 0.2
+  overrideStatusGainTextColor: 0
+  statusGainTextColor: {r: 1, g: 1, b: 1, a: 1}

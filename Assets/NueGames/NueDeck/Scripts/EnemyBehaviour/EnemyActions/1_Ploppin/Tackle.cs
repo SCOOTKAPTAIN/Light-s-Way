@@ -37,8 +37,8 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             }
 
             if (AudioManager != null)
-                AudioManager.PlayOneShot(AudioActionType.Attack);
-           
+                AudioManager.PlayOneShot(AudioActionType.Tackle);
+           //jj//
         }
     }
 }

@@ -44,8 +44,13 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [Header("Mutation System")]
         [Tooltip("Mutated version of this enemy that can spawn at low Light levels. Leave empty if no mutation exists.")]
         [SerializeField] private EnemyCharacterData mutatedVersion;
+
+        [Header("Chaosification Display")]
+        [Tooltip("Display-only modifier shown as a status-style icon. It has no gameplay behavior.")]
+        [SerializeField] private ChaosificationStatusData chaosificationStatus;
         
         public EnemyCharacterData MutatedVersion => mutatedVersion;
+        public ChaosificationStatusData ChaosificationStatus => chaosificationStatus;
         
         [Header("Act-Based Scaling")]
         [Tooltip("Enable to use act-specific configurations. When enabled, parameters below are FALLBACK values if act data is missing.")]
@@ -74,6 +79,9 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
 
         public EnemyBase EnemyPrefab => enemyPrefab;
         public bool UseActBasedScaling => useActBasedScaling;
+        public bool FollowAbilityPattern => followAbilityPattern;
+        public bool UseWeightedSelection => useWeightedSelection;
+        public bool PreventRepeatAbility => preventRepeatAbility;
         
         /// <summary>
         /// Gets act-specific data for the current act.
@@ -184,6 +192,19 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
             return availableAbilities[availableAbilities.Count - 1];
         }
     }
+
+    [Serializable]
+    public class ChaosificationStatusData
+    {
+        [SerializeField] private string modifierName;
+        [SerializeField] private Sprite icon;
+        [SerializeField, TextArea(2, 5)] private string description;
+
+        public string ModifierName => modifierName;
+        public Sprite Icon => icon;
+        public string Description => description;
+        public bool IsConfigured => !string.IsNullOrWhiteSpace(modifierName) || !string.IsNullOrWhiteSpace(description) || icon != null;
+    }
     
     [Serializable]
     public class EnemyAbilityData
@@ -194,6 +215,8 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [TextArea(2, 4)]
         [Tooltip("Description shown when hovering the enemy intention. Use {value}, {action}, and {repeat} for dynamic values. Leave empty for an automatic description.")]
         [SerializeField] private string description;
+        [Tooltip("Status and mechanic tooltips shown while hovering this intention.")]
+        [SerializeField] private List<SpecialKeywords> keywords = new List<SpecialKeywords>();
         [SerializeField] private bool hideActionValue;
         [SerializeField] private List<EnemyActionData> actionList;
         
@@ -208,15 +231,21 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [Header("Weighted Selection")]
         [Tooltip("Higher weight = higher chance to be selected. Default is 1 (equal probability).")]
         [SerializeField] private float weight = 1f;
+
+        [Min(0)]
+        [Tooltip("Maximum consecutive times this ability can be used. 0 means unlimited.")]
+        [SerializeField] private int maxConsecutiveUses;
         
         public string Name => name;
         public EnemyIntentionData Intention => intention;
         public string Description => description;
+        public List<SpecialKeywords> Keywords => keywords;
         public List<EnemyActionData> ActionList => actionList;
         public bool HideActionValue => hideActionValue;
         public int RepeatCount => repeatCount;
         public List<AbilityCondition> Conditions => conditions;
         public float Weight => weight;
+        public int MaxConsecutiveUses => maxConsecutiveUses;
     }
     
     [Serializable]

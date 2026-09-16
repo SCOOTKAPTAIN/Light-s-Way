@@ -43,6 +43,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         {
             base.BuildCharacter();
             EnemyCanvas.InitCanvas();
+            EnemyCanvas.SetChaosificationStatus(EnemyCharacterData.ChaosificationStatus);
             
             // Use act-specific max health if act-based scaling is enabled
             int maxHealth = EnemyCharacterData.GetMaxHealth(_currentAct);
@@ -135,6 +136,7 @@ namespace NueGames.NueDeck.Scripts.Characters
 
         private int _usedAbilityCount;
         private EnemyAbilityData _lastUsedAbility; // Per-instance tracking
+        private int _lastAbilityConsecutiveUses;
         
         private void ShowNextAbility()
         {
@@ -150,6 +152,11 @@ namespace NueGames.NueDeck.Scripts.Characters
             
             // Pass the last used ability to prevent repeats (per-instance)
             NextAbility = GetActSpecificAbility(abilityList, _lastUsedAbility, _usedAbilityCount);
+            if (NextAbility == _lastUsedAbility)
+                _lastAbilityConsecutiveUses++;
+            else
+                _lastAbilityConsecutiveUses = 1;
+
             _lastUsedAbility = NextAbility; // Update last used ability for this instance
             
             // Reset cached action values for all actions in this ability
@@ -197,22 +204,17 @@ namespace NueGames.NueDeck.Scripts.Characters
                 // Check if pattern mode is enabled (use original GetAbility logic)
                 var characterData = EnemyCharacterData as EnemyCharacterData;
                 
-                // Use reflection to access private fields (followAbilityPattern, useWeightedSelection, preventRepeatAbility)
-                var followPattern = (bool)typeof(EnemyCharacterData)
-                    .GetField("followAbilityPattern", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                    ?.GetValue(characterData);
-                var useWeighted = (bool)typeof(EnemyCharacterData)
-                    .GetField("useWeightedSelection", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                    ?.GetValue(characterData);
-                var preventRepeat = (bool)typeof(EnemyCharacterData)
-                    .GetField("preventRepeatAbility", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                    ?.GetValue(characterData);
+                var followPattern = characterData.FollowAbilityPattern;
+                var useWeighted = characterData.UseWeightedSelection;
+                var preventRepeat = characterData.PreventRepeatAbility;
                 
                 // Pattern mode: cycle through abilities sequentially (filtered by conditions)
                 if (followPattern)
                 {
                     // Filter abilities by conditions
-                    var patternAbilities = abilityList.Where(a => AreConditionsMet(a)).ToList();
+                    var patternAbilities = abilityList
+                        .Where(a => AreConditionsMet(a) && !IsAtConsecutiveLimit(a, lastUsedAbility))
+                        .ToList();
                     
                     // If no abilities meet conditions, use all abilities as fallback
                     if (patternAbilities.Count == 0)
@@ -229,7 +231,9 @@ namespace NueGames.NueDeck.Scripts.Characters
                 }
                 
                 // Random selection (no pattern, no weights) - filtered by conditions
-                var randomAbilities = abilityList.Where(a => AreConditionsMet(a)).ToList();
+                var randomAbilities = abilityList
+                    .Where(a => AreConditionsMet(a) && !IsAtConsecutiveLimit(a, lastUsedAbility))
+                    .ToList();
                 
                 // If no abilities meet conditions, use all abilities as fallback
                 if (randomAbilities.Count == 0)
@@ -239,7 +243,29 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
             
             // Fallback to original method if not using act-based scaling
-            return EnemyCharacterData.GetAbility(lastUsedAbility, usedAbilityCount);
+            if (EnemyCharacterData.FollowAbilityPattern)
+            {
+                var patternAbilities = abilityList
+                    .Where(a => AreConditionsMet(a) && !IsAtConsecutiveLimit(a, lastUsedAbility))
+                    .ToList();
+
+                if (patternAbilities.Count == 0)
+                    patternAbilities = abilityList;
+
+                return patternAbilities[usedAbilityCount % patternAbilities.Count];
+            }
+
+            if (EnemyCharacterData.UseWeightedSelection)
+                return GetWeightedAbilityFromList(abilityList, lastUsedAbility, EnemyCharacterData.PreventRepeatAbility);
+
+            var randomAbilitiesWithoutWeights = abilityList
+                .Where(a => AreConditionsMet(a) && !IsAtConsecutiveLimit(a, lastUsedAbility))
+                .ToList();
+
+            if (randomAbilitiesWithoutWeights.Count == 0)
+                randomAbilitiesWithoutWeights = abilityList;
+
+            return randomAbilitiesWithoutWeights[Random.Range(0, randomAbilitiesWithoutWeights.Count)];
         }
         
         /// <summary>
@@ -254,7 +280,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             
             // Further filter by conditions - only include abilities whose conditions are ALL met
             availableAbilities = availableAbilities
-                .Where(ability => AreConditionsMet(ability))
+                .Where(ability => AreConditionsMet(ability) && !IsAtConsecutiveLimit(ability, lastUsedAbility))
                 .ToList();
             
             // If no abilities meet their conditions, fallback to all available (ignoring conditions)
@@ -263,6 +289,10 @@ namespace NueGames.NueDeck.Scripts.Characters
                 availableAbilities = preventRepeat && lastUsedAbility != null && abilityList.Count > 1
                     ? abilityList.Where(a => a != lastUsedAbility).ToList()
                     : new List<EnemyAbilityData>(abilityList);
+
+                availableAbilities = availableAbilities
+                    .Where(ability => !IsAtConsecutiveLimit(ability, lastUsedAbility))
+                    .ToList();
             }
             
             // Safety check: if still empty, just return first ability
@@ -297,6 +327,13 @@ namespace NueGames.NueDeck.Scripts.Characters
             
             // Fallback
             return availableAbilities[availableAbilities.Count - 1];
+        }
+
+        private bool IsAtConsecutiveLimit(EnemyAbilityData ability, EnemyAbilityData lastUsedAbility)
+        {
+            return ability == lastUsedAbility &&
+                   ability.MaxConsecutiveUses > 0 &&
+                   _lastAbilityConsecutiveUses >= ability.MaxConsecutiveUses;
         }
         
         /// <summary>
@@ -509,6 +546,11 @@ namespace NueGames.NueDeck.Scripts.Characters
                 .Replace("{action}", actionName)
                 .Replace("{repeat}", repeatText);
         }
+
+            public List<SpecialKeywords> GetNextAbilityKeywords()
+            {
+                return NextAbility?.Keywords ?? new List<SpecialKeywords>();
+            }
         
         /// <summary>
         /// Updates the intention damage value when player statuses change (Fragile, Pursuit, etc).
