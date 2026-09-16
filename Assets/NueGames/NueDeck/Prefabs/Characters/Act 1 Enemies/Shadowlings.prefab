@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 491162778199269420}
   - {fileID: 1385074832727238964}
@@ -56,6 +56,7 @@ MonoBehaviour:
   enemyCharacterData: {fileID: 11400000, guid: 4ac5b90c63d0f0947b4b3e0b63a4905b, type: 2}
   enemyCanvas: {fileID: 7422249267346903092}
   deathSoundProfileData: {fileID: 11400000, guid: 7e15e2a10065ab54c8eaf26154af0156, type: 2}
+  spriteRenderer: {fileID: 0}
 --- !u!54 &735061151
 Rigidbody:
   m_ObjectHideFlags: 0

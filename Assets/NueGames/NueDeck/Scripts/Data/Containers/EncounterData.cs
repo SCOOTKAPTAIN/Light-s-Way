@@ -116,6 +116,10 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
     {
         [SerializeField] private string encounterId; // Unique ID for boss tracking
         [SerializeField] private List<EnemyCharacterData> enemyList;
+
+        [Header("Enemy Spawn Positions (Optional)")]
+        [Tooltip("When populated, each entry controls which Combat Manager enemy position is used. Position Number is 1-based; leave it at 0 to use the entry order.")]
+        [SerializeField] private List<EnemySpawnEntry> enemySpawnEntries;
         
         [Header("Custom Rewards (Optional)")]
         [Tooltip("If empty, uses default rewards (1 gold, 1 card)")]
@@ -124,11 +128,22 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
         
         public string EncounterId => encounterId;
         public List<EnemyCharacterData> EnemyList => enemyList;
+        public List<EnemySpawnEntry> EnemySpawnEntries => enemySpawnEntries;
         
         public bool HasCustomRewards => (customGoldRewards != null && customGoldRewards.Count > 0) || 
                                          (customCardRewards != null && customCardRewards.Count > 0);
         public List<GoldRewardData> CustomGoldRewards => customGoldRewards;
         public List<CardRewardData> CustomCardRewards => customCardRewards;
+    }
+
+    [Serializable]
+    public class EnemySpawnEntry
+    {
+        [SerializeField] private EnemyCharacterData enemy;
+        [SerializeField] [Min(0)] private int positionNumber;
+
+        public EnemyCharacterData Enemy => enemy;
+        public int PositionNumber => positionNumber;
     }
     
     [Serializable]

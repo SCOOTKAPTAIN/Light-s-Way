@@ -217,16 +217,42 @@ namespace NueGames.NueDeck.Scripts.Characters
             var spawnRoot = charBase != null ? charBase.TextSpawnRoot : transform;
             FxManager.SpawnFloatingTextBlue(spawnRoot, amount.ToString());
         }
+
+        public void SpawnStatusGainedPopup(StatusType statusType, int amount)
+        {
+            if (amount <= 0 || statusIconsData == null)
+                return;
+
+            var statusData = statusIconsData.StatusIconList.FirstOrDefault(x => x.IconStatus == statusType);
+            if (statusData == null || statusData.IconSprite == null || statusIconsData.StatusIconBasePrefab == null)
+            {
+                if (statusType == StatusType.Block)
+                    SpawnShieldGainedText(amount);
+                return;
+            }
+
+            var characterBase = GetComponentInParent<CharacterBase>();
+            var spawnRoot = characterBase != null ? characterBase.TextSpawnRoot : transform;
+            if (spawnRoot == null || FxManager == null)
+                return;
+
+            FxManager.SpawnFloatingTextWithStatusIcon(
+                spawnRoot,
+                $"+{amount}",
+                statusData.IconSprite,
+                statusIconsData.StatusIconBasePrefab,
+                statusType == StatusType.Block);
+        }
        
         #endregion
 
         #region Pointer Events
-        public void OnPointerEnter(PointerEventData eventData)
+        public virtual void OnPointerEnter(PointerEventData eventData)
         {
             ShowTooltipInfo();
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public virtual void OnPointerExit(PointerEventData eventData)
         {
             HideTooltipInfo(TooltipManager.Instance);
         }

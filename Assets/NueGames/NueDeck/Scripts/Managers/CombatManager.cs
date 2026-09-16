@@ -20,6 +20,9 @@ namespace NueGames.NueDeck.Scripts.Managers
         [SerializeField] private BackgroundContainer backgroundContainer;
         [SerializeField] private List<Transform> enemyPosList;
         [SerializeField] private List<Transform> allyPosList;
+        [Header("Editor Position Gizmos")]
+        [SerializeField] private bool showEnemyPositionGizmos = true;
+        [SerializeField] [Min(0.05f)] private float enemyPositionGizmoSize = 0.5f;
     [Header("UX Anchors")]
     [Tooltip("Designer: optional transform where played cards should animate to when used. If empty, card will animate to discardTransform.")]
     public Transform playAnchor;
@@ -403,17 +406,48 @@ namespace NueGames.NueDeck.Scripts.Managers
             Debug.Log($"Building enemies for Stage {GameManager.PersistentGameplayData.CurrentStageId}, Type {encounterType}, Index {specificIndex}");
             
             var enemyList = CurrentEncounter.EnemyList;
+            var spawnEntries = CurrentEncounter.EnemySpawnEntries;
             int currentAct = GameManager.PersistentGameplayData.ActNumber;
             float mutationChance = Utils.DamageEffects.GetMutationChance();
+
+            if (EnemyPosList == null || EnemyPosList.Count == 0)
+            {
+                Debug.LogError("Cannot build enemies because no enemy position transforms are configured on CombatManager.");
+                return;
+            }
+
+            var enemyCount = spawnEntries != null && spawnEntries.Count > 0
+                ? spawnEntries.Count
+                : enemyList != null ? enemyList.Count : 0;
             
             // Cache Light multiplier at combat start - won't update if Light changes mid-combat
             CombatLightMultiplier = Utils.DamageEffects.GetLightHealthMultiplier();
             Debug.Log($"[Light Scaling] Combat starting at {GameManager.PersistentGameplayData.light} Light. Multiplier locked at {CombatLightMultiplier}x for this combat.");
             
-            for (var i = 0; i < enemyList.Count; i++)
+            for (var i = 0; i < enemyCount; i++)
             {
                 // Check for mutation: each enemy rolls independently
-                var enemyData = enemyList[i];
+                var spawnEntry = spawnEntries != null && spawnEntries.Count > 0 ? spawnEntries[i] : null;
+                var enemyData = spawnEntry != null ? spawnEntry.Enemy : enemyList[i];
+                if (enemyData == null)
+                {
+                    Debug.LogWarning($"Skipping empty enemy entry at index {i} in encounter '{CurrentEncounter.EncounterId}'.");
+                    continue;
+                }
+
+                var positionIndex = spawnEntry != null && spawnEntry.PositionNumber > 0
+                    ? spawnEntry.PositionNumber - 1
+                    : i;
+
+                if (positionIndex < 0 || positionIndex >= EnemyPosList.Count)
+                {
+                    Debug.LogWarning($"Enemy '{enemyData.CharacterName}' requested position {positionIndex + 1}, but only {EnemyPosList.Count} enemy positions are configured. Using position 1.");
+                    positionIndex = 0;
+                }
+
+                if (CurrentEnemiesList.Exists(enemy => enemy.transform.parent == EnemyPosList[positionIndex]))
+                    Debug.LogWarning($"Multiple enemies in encounter '{CurrentEncounter.EncounterId}' are assigned to enemy position {positionIndex + 1}.");
+
                 if (enemyData.MutatedVersion != null && UnityEngine.Random.Range(0f, 100f) < mutationChance)
                 {
                     // Spawn mutated version instead
@@ -427,7 +461,7 @@ namespace NueGames.NueDeck.Scripts.Managers
                     enemyData = enemyData.MutatedVersion;
                 }
                 
-                var clone = Instantiate(enemyData.EnemyPrefab, EnemyPosList.Count >= i ? EnemyPosList[i] : EnemyPosList[0]);
+                var clone = Instantiate(enemyData.EnemyPrefab, EnemyPosList[positionIndex]);
                 
                 // Set the current act BEFORE building the character
                 clone.SetCurrentAct(currentAct);
@@ -538,6 +572,34 @@ namespace NueGames.NueDeck.Scripts.Managers
         #endregion
         
         #region Routines
+        private void OnDrawGizmos()
+        {
+            if (!showEnemyPositionGizmos || enemyPosList == null)
+                return;
+
+            for (var i = 0; i < enemyPosList.Count; i++)
+            {
+                var position = enemyPosList[i];
+                if (position == null)
+                    continue;
+
+                Gizmos.color = new Color(1f, 0.85f, 0.1f, 0.25f);
+                Gizmos.DrawCube(position.position, Vector3.one * enemyPositionGizmoSize);
+                Gizmos.color = new Color(1f, 0.65f, 0f, 1f);
+                Gizmos.DrawWireCube(position.position, Vector3.one * enemyPositionGizmoSize);
+                Gizmos.DrawLine(
+                    position.position,
+                    position.position + Vector3.up * enemyPositionGizmoSize);
+
+#if UNITY_EDITOR
+                UnityEditor.Handles.color = Color.white;
+                UnityEditor.Handles.Label(
+                    position.position + Vector3.up * (enemyPositionGizmoSize * 0.6f),
+                    $"Enemy Position {i + 1}");
+#endif
+            }
+        }
+
         private IEnumerator EnemyTurnRoutine()
         {
             var waitDelay = new WaitForSeconds(0.1f);

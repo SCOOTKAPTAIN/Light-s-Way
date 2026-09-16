@@ -470,6 +470,45 @@ namespace NueGames.NueDeck.Scripts.Characters
             
             return Mathf.RoundToInt(value);
         }
+
+        public string GetNextAbilityTooltipHeader()
+        {
+            if (NextAbility == null || NextAbility.ActionList == null || NextAbility.ActionList.Count == 0)
+                return "Enemy action";
+
+            return string.IsNullOrWhiteSpace(NextAbility.Name)
+                ? NextAbility.ActionList[0].ActionType.ToString()
+                : NextAbility.Name;
+        }
+
+        public string GetNextAbilityTooltipContent()
+        {
+            if (NextAbility == null || NextAbility.ActionList == null || NextAbility.ActionList.Count == 0)
+                return string.Empty;
+
+            var action = NextAbility.ActionList[0];
+            var displayedValue = CalculateDisplayedValue(action.ActionValue, action);
+            var actionName = action.ActionType.ToString();
+            var repeatText = NextAbility.RepeatCount > 1 ? $"{NextAbility.RepeatCount} times" : "once";
+            var description = NextAbility.Description;
+
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                description = action.ActionType switch
+                {
+                    EnemyActionType.Attack => "Deal {value} damage.",
+                    EnemyActionType.Heal => "Heal {value} health.",
+                    EnemyActionType.Poison => "Apply {value} Poison.",
+                    EnemyActionType.Block => "Gain {value} Block.",
+                    _ => "Use {action} with a value of {value}."
+                };
+            }
+
+            return description
+                .Replace("{value}", displayedValue.ToString())
+                .Replace("{action}", actionName)
+                .Replace("{repeat}", repeatText);
+        }
         
         /// <summary>
         /// Updates the intention damage value when player statuses change (Fragile, Pursuit, etc).

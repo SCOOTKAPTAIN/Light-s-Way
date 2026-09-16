@@ -1309,6 +1309,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4738070697433486633, guid: e7a9bde70f4f930459240b323a8fcd77, type: 3}
+      propertyPath: statusGainIconScale
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738070697433486633, guid: e7a9bde70f4f930459240b323a8fcd77, type: 3}
+      propertyPath: statusGainTextScale
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738070697433486633, guid: e7a9bde70f4f930459240b323a8fcd77, type: 3}
       propertyPath: floatingTextPrefabRed
       value: 
       objectReference: {fileID: 5875565574366412673, guid: 563cc02ed8f797e498bc5cf11e33e894, type: 3}
@@ -1324,6 +1332,10 @@ PrefabInstance:
       propertyPath: floatingTextPrefabYellow
       value: 
       objectReference: {fileID: 5875565574366412673, guid: 2517d686241edf740b80700421c4b9f8, type: 3}
+    - target: {fileID: 4738070697433486633, guid: e7a9bde70f4f930459240b323a8fcd77, type: 3}
+      propertyPath: overrideStatusGainTextColor
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

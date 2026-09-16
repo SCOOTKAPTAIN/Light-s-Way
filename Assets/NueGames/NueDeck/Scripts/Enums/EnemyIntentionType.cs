@@ -4,8 +4,12 @@
     {
         Attack,
         Defend,
-        Heal,
+        Buff,
         Debuff,
-        Special
+        Heal,
+        Special,
+        AttackMultiHit,
+        AttackPierce
+        
     }
 }

@@ -5,6 +5,14 @@
         Attack,
         Heal,
         Poison,
-        Block
+        Block,
+        Tackle,
+        GooSpit,
+        Claw,
+        Preservation,
+        Evolution,
+        Pound,
+        Regenerate,
+        Desperation
     }
 }

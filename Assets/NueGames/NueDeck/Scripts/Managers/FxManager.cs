@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NueGames.NueDeck.Scripts.UI;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Utils;
 using UnityEngine;
@@ -16,6 +17,13 @@ namespace NueGames.NueDeck.Scripts.Managers
         [Header("References")] 
         [SerializeField] private List<FxBundle> fxList;
 
+        [Header("Combat Visual Scaling")]
+        [SerializeField] private bool scaleToPlayerSprite = true;
+        [Tooltip("Combined world-space height of the player's sprite at the baseline FX scale.")]
+        [SerializeField] [Min(0.01f)] private float referencePlayerSpriteHeight = 0.98f;
+        [SerializeField] [Min(0.01f)] private float minimumCombatFxScale = 0.25f;
+        [SerializeField] [Min(0.01f)] private float maximumCombatFxScale = 4f;
+
         [Header("Floating Text")]
         [SerializeField] private FloatingText floatingTextPrefabRed;
         [SerializeField] private FloatingText floatingTextPrefabGreen;
@@ -23,6 +31,12 @@ namespace NueGames.NueDeck.Scripts.Managers
          [SerializeField] private FloatingText floatingTextPrefabYellow;
         [SerializeField] private FloatingText floatingTextPrefabGrey;
         [SerializeField] private FloatingText floatingTextPrefabOrange;
+
+        [Header("Status Gain Floating Text")]
+        [SerializeField] [Min(0.01f)] private float statusGainTextScale = 0.55f;
+        [SerializeField] [Min(0.01f)] private float statusGainIconScale = 0.2f;
+        [SerializeField] private bool overrideStatusGainTextColor;
+        [SerializeField] private Color statusGainTextColor = Color.white;
 
         public Dictionary<FxType, GameObject> FXDict { get; private set;}= new Dictionary<FxType, GameObject>();
         public List<FxBundle> FXList => fxList;
@@ -54,14 +68,16 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         public void SpawnFloatingText(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
         {
+            var visualScale = GetCombatVisualScale();
             // Damage numbers get a larger spread so multiple hits don't perfectly overlap
             var jitter = new Vector3(
                 Random.Range(-0.35f, 0.35f),
                 Random.Range(0f, 0.25f),
                 Random.Range(-0.05f, 0.05f)
-            );
+            ) * visualScale;
             var spawnPos = targetTransform.position + jitter;
             var cloneText = Instantiate(floatingTextPrefabRed, spawnPos, Quaternion.identity);
+            cloneText.transform.localScale *= visualScale;
 
             if (xDir == 0)
                 xDir = Random.value >= 0.5f ? 2 : -2;
@@ -70,14 +86,16 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         public void SpawnStaticText(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
         {
+            var visualScale = GetCombatVisualScale();
             // Static texts get a small jitter to avoid perfect stacking
             var jitter = new Vector3(
                 Random.Range(-0.12f, 0.12f),
                 Random.Range(0f, 0.1f),
                 Random.Range(-0.02f, 0.02f)
-            );
+            ) * visualScale;
             var spawnPos = targetTransform.position + jitter;
             var cloneText = Instantiate(floatingTextPrefabRed, spawnPos, Quaternion.identity);
+            cloneText.transform.localScale *= visualScale;
 
             if (xDir == 0)
                 xDir = Random.value >= 0.5f ? 2 : -2;
@@ -86,14 +104,16 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         public void SpawnFloatingTextGreen(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
         {
+            var visualScale = GetCombatVisualScale();
             // Healing texts are softer and less spread than damage texts
             var jitter = new Vector3(
                 Random.Range(-0.22f, 0.22f),
                 Random.Range(0f, 0.16f),
                 Random.Range(-0.03f, 0.03f)
-            );
+            ) * visualScale;
             var spawnPos = targetTransform.position + jitter;
             var cloneText = Instantiate(floatingTextPrefabGreen, spawnPos, Quaternion.identity);
+            cloneText.transform.localScale *= visualScale;
 
             if (xDir == 0)
                 xDir = Random.value >= 0.5f ? 2 : -2;
@@ -102,14 +122,43 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         public void SpawnFloatingTextBlue(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
         {
+            var visualScale = GetCombatVisualScale();
             // Block/guard texts should be fairly static and clustered, small jitter only
             var jitter = new Vector3(
                 Random.Range(-0.15f, 0.15f),
                 Random.Range(0f, 0.08f),
                 Random.Range(-0.02f, 0.02f)
-            );
+            ) * visualScale;
             var spawnPos = targetTransform.position + jitter;
             var cloneText = Instantiate(floatingTextPrefabBlue, spawnPos, Quaternion.identity);
+            cloneText.transform.localScale *= visualScale;
+
+            if (xDir == 0)
+                xDir = Random.value >= 0.5f ? 2 : -2;
+            cloneText.PlayText(text, xDir, yDir);
+        }
+
+        public void SpawnFloatingTextWithStatusIcon(Transform targetTransform, string text, Sprite statusSprite, StatusIconBase statusIconPrefab, bool useBlueText = false, int xDir = 0, int yDir = 1)
+        {
+            if (targetTransform == null || statusSprite == null || statusIconPrefab == null)
+                return;
+
+            var visualScale = GetCombatVisualScale();
+            var jitter = new Vector3(
+                Random.Range(-0.15f, 0.15f),
+                Random.Range(0f, 0.08f),
+                Random.Range(-0.02f, 0.02f)
+            ) * visualScale;
+            var spawnPos = targetTransform.position + jitter;
+            var textPrefab = useBlueText ? floatingTextPrefabBlue : floatingTextPrefabGreen;
+            if (textPrefab == null)
+                return;
+
+            var cloneText = Instantiate(textPrefab, spawnPos, Quaternion.identity);
+            cloneText.transform.localScale *= visualScale * statusGainTextScale;
+            if (overrideStatusGainTextColor)
+                cloneText.SetTextColor(statusGainTextColor);
+            cloneText.AttachStatusIcon(statusIconPrefab, statusSprite, statusGainIconScale);
 
             if (xDir == 0)
                 xDir = Random.value >= 0.5f ? 2 : -2;
@@ -118,14 +167,16 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         public void SpawnFloatingTextYellow(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
         {
+            var visualScale = GetCombatVisualScale();
             // Block/guard texts should be fairly static and clustered, small jitter only
             var jitter = new Vector3(
                 Random.Range(-0.15f, 0.15f),
                 Random.Range(0f, 0.08f),
                 Random.Range(-0.02f, 0.02f)
-            );
+            ) * visualScale;
             var spawnPos = targetTransform.position + jitter;
             var cloneText = Instantiate(floatingTextPrefabYellow, spawnPos, Quaternion.identity);
+            cloneText.transform.localScale *= visualScale;
 
             if (xDir == 0)
                 xDir = Random.value >= 0.5f ? 2 : -2;
@@ -134,14 +185,16 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         public void SpawnFloatingTextGrey(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
         {
+            var visualScale = GetCombatVisualScale();
             // Grey text for fully blocked damage
             var jitter = new Vector3(
                 Random.Range(-0.15f, 0.15f),
                 Random.Range(0f, 0.08f),
                 Random.Range(-0.02f, 0.02f)
-            );
+            ) * visualScale;
             var spawnPos = targetTransform.position + jitter;
             var cloneText = Instantiate(floatingTextPrefabGrey, spawnPos, Quaternion.identity);
+            cloneText.transform.localScale *= visualScale;
             if (xDir == 0)
                 xDir = Random.value >= 0.5f ? 2 : -2;
             cloneText.PlayText(text, xDir, yDir);
@@ -149,14 +202,16 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         public void SpawnFloatingTextOrange(Transform targetTransform, string text, int xDir = 0, int yDir = 1)
         {
+            var visualScale = GetCombatVisualScale();
             // Grey text for fully blocked damage
             var jitter = new Vector3(
                 Random.Range(-0.15f, 0.15f),
                 Random.Range(0f, 0.08f),
                 Random.Range(-0.02f, 0.02f)
-            );
+            ) * visualScale;
             var spawnPos = targetTransform.position + jitter;
             var cloneText = Instantiate(floatingTextPrefabOrange, spawnPos, Quaternion.identity);
+            cloneText.transform.localScale *= visualScale;
             if (xDir == 0)
                 xDir = Random.value >= 0.5f ? 2 : -2;
             cloneText.PlayText(text, xDir, yDir);
@@ -175,7 +230,9 @@ namespace NueGames.NueDeck.Scripts.Managers
         public void PlayFx(Transform targetTransform, FxType targetFx, Vector3 offset)
         {
             if (!FXDict.TryGetValue(targetFx, out var prefab) || prefab == null) return;
-            var clone = Instantiate(prefab, targetTransform.position + offset, Quaternion.identity);
+            var visualScale = GetCombatVisualScale();
+            var clone = Instantiate(prefab, targetTransform.position + offset * visualScale, Quaternion.identity);
+            clone.transform.localScale *= visualScale;
             try
             {
                 clone.transform.SetParent(targetTransform, true);
@@ -202,6 +259,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         public void PlayFxAtPosition(Vector3 position, FxType targetFx, Vector3 offset)
         {
             if (!FXDict.TryGetValue(targetFx, out var prefab) || prefab == null) return;
+            var visualScale = GetCombatVisualScale();
             
             // Reset tracking if we're in a new frame
             if (_currentFrame != Time.frameCount)
@@ -222,8 +280,50 @@ namespace NueGames.NueDeck.Scripts.Managers
                 {
                     Debug.Log($"[FxManager] Spawning {targetFx} at {position + offset}");
                 }
-                Instantiate(prefab, position + offset, Quaternion.identity);
+                var clone = Instantiate(prefab, position + offset * visualScale, Quaternion.identity);
+                clone.transform.localScale *= visualScale;
             }
+        }
+
+        private float GetCombatVisualScale()
+        {
+            if (!scaleToPlayerSprite || referencePlayerSpriteHeight <= 0f)
+                return 1f;
+
+            var combatManager = CombatManager.Instance;
+            var player = combatManager != null ? combatManager.CurrentMainAlly : null;
+            if (player == null)
+                return 1f;
+
+            var renderers = player.GetComponentsInChildren<SpriteRenderer>(true);
+            if (renderers == null || renderers.Length == 0)
+                return 1f;
+
+            var hasVisibleRenderer = false;
+            var bounds = default(Bounds);
+            foreach (var renderer in renderers)
+            {
+                if (!renderer.enabled || !renderer.gameObject.activeInHierarchy)
+                    continue;
+
+                if (!hasVisibleRenderer)
+                {
+                    bounds = renderer.bounds;
+                    hasVisibleRenderer = true;
+                }
+                else
+                {
+                    bounds.Encapsulate(renderer.bounds);
+                }
+            }
+
+            if (!hasVisibleRenderer || bounds.size.y <= 0f)
+                return 1f;
+
+            return Mathf.Clamp(
+                bounds.size.y / referencePlayerSpriteHeight,
+                minimumCombatFxScale,
+                maximumCombatFxScale);
         }
         #endregion
         

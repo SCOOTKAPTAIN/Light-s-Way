@@ -10,26 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
-  m_Name: 1_Slime
+  m_Name: 1_Ploppin
   m_EditorClassIdentifier: 
-  characterID: Slime
-  characterName: Slime
-  characterDescription: 'Common Slime found all over the world.
+  characterID: Ploppin
+  characterName: Ploppin
+  characterDescription: 'Common Ploppin found all over the world.
 
     They''re more
     scared of you than anything.'
   maxHealth: 70
   enemyPrefab: {fileID: 243822687015991123, guid: 5d9c27c397f4ba442a38545a06118c36, type: 3}
-  mutatedVersion: {fileID: 11400000, guid: 4ac5b90c63d0f0947b4b3e0b63a4905b, type: 2}
+  mutatedVersion: {fileID: 11400000, guid: 733ff1f5ac368014b8c41eadf82959f7, type: 2}
   useActBasedScaling: 1
   actConfigurations:
   - actNumber: 1
-    maxHealth: 400
-    startingStatuses:
-    - statusType: 1
-      statusValue: 1
+    maxHealth: 60
+    startingStatuses: []
     enemyAbilityList:
-    - name: 
+    - name: Tackle
       intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
       hideActionValue: 0
       actionList:

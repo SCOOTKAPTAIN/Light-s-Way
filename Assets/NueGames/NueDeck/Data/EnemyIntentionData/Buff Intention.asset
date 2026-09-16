@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fad084001f184a46bfe95bcf171cf34d, type: 3}
-  m_Name: Attack Intention
+  m_Name: Buff Intention
   m_EditorClassIdentifier: 
-  enemyIntentionType: 0
-  intentionSprite: {fileID: 21300000, guid: 1a402fc83d6ac0e4f82ac5677a4d693c, type: 3}
+  enemyIntentionType: 2
+  intentionSprite: {fileID: 21300000, guid: c2b4ced3637335a4fae9ba851d20335e, type: 3}

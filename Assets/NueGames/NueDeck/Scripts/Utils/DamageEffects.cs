@@ -153,7 +153,7 @@ namespace NueGames.NueDeck.Scripts.Utils
                 if (pursuitValue > 0)
                 {
                     // Apply pursuit damage with yellow text (passed via damageTextColor parameter)
-                    target.CharacterStats.Damage(Mathf.RoundToInt(pursuitValue), false, "yellow", attacker);
+                    target.CharacterStats.Damage(Mathf.RoundToInt(pursuitValue), false, "yellow", attacker, false);
 
                     // FX / audio
                     if (FxManager.Instance != null)

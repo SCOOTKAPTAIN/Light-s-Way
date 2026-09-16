@@ -191,6 +191,9 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [Header("Settings")]
         [SerializeField] private string name;
         [SerializeField] private EnemyIntentionData intention;
+        [TextArea(2, 4)]
+        [Tooltip("Description shown when hovering the enemy intention. Use {value}, {action}, and {repeat} for dynamic values. Leave empty for an automatic description.")]
+        [SerializeField] private string description;
         [SerializeField] private bool hideActionValue;
         [SerializeField] private List<EnemyActionData> actionList;
         
@@ -208,6 +211,7 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         
         public string Name => name;
         public EnemyIntentionData Intention => intention;
+        public string Description => description;
         public List<EnemyActionData> ActionList => actionList;
         public bool HideActionValue => hideActionValue;
         public int RepeatCount => repeatCount;

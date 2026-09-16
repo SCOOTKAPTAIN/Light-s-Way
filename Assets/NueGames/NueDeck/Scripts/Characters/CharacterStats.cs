@@ -76,6 +76,8 @@ namespace NueGames.NueDeck.Scripts.Characters
         public Action OnTakeDamageAction;
         // Public event for status changes that external systems can subscribe to
         public Action<StatusType, int> OnStatusChangedPublic;
+        // Invoked with the positive amount gained whenever a status is applied.
+        public Action<StatusType, int> OnStatusGained;
         // Invoked when shield (Block) is gained. Passes the positive delta amount.
         public Action<int> OnShieldGained;
         
@@ -95,7 +97,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             OnStatusChanged += characterCanvas.UpdateStatusText;
             OnStatusApplied += characterCanvas.ApplyStatus;
             OnStatusCleared += characterCanvas.ClearStatus;
-            OnShieldGained += characterCanvas.SpawnShieldGainedText;
+            OnStatusGained += characterCanvas.SpawnStatusGainedPopup;
             _characterCanvas = characterCanvas;
         }
         
@@ -263,6 +265,9 @@ namespace NueGames.NueDeck.Scripts.Characters
                     _blockAppliedThisTurn = true;
                 }
             }
+
+            if (value > 0)
+                OnStatusGained?.Invoke(targetStatus, value);
 
             // If this was Block, notify listeners about positive net gains
             if (targetStatus == StatusType.Block)
@@ -478,7 +483,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
         }
         
-        public void Damage(int value, bool canPierceArmor = false, string damageTextColor = "red", NueGames.NueDeck.Scripts.Characters.CharacterBase attacker = null)
+        public void Damage(int value, bool canPierceArmor = false, string damageTextColor = "red", NueGames.NueDeck.Scripts.Characters.CharacterBase attacker = null, bool triggerSabotaged = true)
         {
             if (IsDeath) return;
             OnTakeDamageAction?.Invoke();
@@ -681,16 +686,6 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Reactive statuses: if this character had a FrozenMirror or BlazingSurge reflect active, apply the effects to attacker
             if (attacker != null)
             {
-                // // If attacker has Sabotaged status, deal damage to self equal to Sabotaged value, then reduce Sabotaged by 1
-                // if (attacker.CharacterStats.StatusDict.ContainsKey(StatusType.Sabotaged) && attacker.CharacterStats.StatusDict[StatusType.Sabotaged].IsActive && attacker.CharacterStats.StatusDict[StatusType.Sabotaged].StatusValue > 0)
-                // {
-                //     var sabotageValue = attacker.CharacterStats.StatusDict[StatusType.Sabotaged].StatusValue;
-                //     attacker.CharacterStats.Damage(sabotageValue, false, "red", null);
-                //     // Reduce Sabotaged by 1
-                //     attacker.CharacterStats.ApplyStatus(StatusType.Sabotaged, -1);
-                // }
-
-
                 // Apply 1 Frostbite to the attacker if FrozenMirror is active
                 if (StatusDict.ContainsKey(StatusType.FrozenMirror) && StatusDict[StatusType.FrozenMirror].IsActive && StatusDict[StatusType.FrozenMirror].StatusValue > 0)
                 {
@@ -727,6 +722,10 @@ namespace NueGames.NueDeck.Scripts.Characters
                     AudioManager.Instance.PlayOneShotDebounced(AudioActionType.BlazingSurge2, 0f);
                 }
             }
+
+            // Sabotaged triggers when an attack is performed, even if Block or Armor absorbed it.
+            if (attacker != null && triggerSabotaged)
+                NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplySabotaged(attacker);
 
         }
         

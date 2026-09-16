@@ -22,6 +22,15 @@ MonoBehaviour:
       enemyList:
       - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
       - {fileID: 11400000, guid: 4d851761815dd374484f7d746e4d8826, type: 2}
+      enemySpawnEntries:
+      - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
+        positionNumber: 5
+      - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
+        positionNumber: 6
+      - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
+        positionNumber: 7
+      - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
+        positionNumber: 8
       customGoldRewards: []
       customCardRewards: []
     eliteEncounterList:
@@ -29,6 +38,7 @@ MonoBehaviour:
       encounterId: 
       enemyList:
       - {fileID: 11400000, guid: 4ac5b90c63d0f0947b4b3e0b63a4905b, type: 2}
+      enemySpawnEntries: []
       customGoldRewards: []
       customCardRewards: []
     bossEncounterList:
@@ -36,6 +46,7 @@ MonoBehaviour:
       encounterId: 
       enemyList:
       - {fileID: 11400000, guid: ab4b1aaf78f9c8747a5708430c68f051, type: 2}
+      enemySpawnEntries: []
       customGoldRewards: []
       customCardRewards: []
     specialEncounterList: []

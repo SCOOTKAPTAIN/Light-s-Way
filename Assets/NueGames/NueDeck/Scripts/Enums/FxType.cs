@@ -130,7 +130,11 @@
         ArtOfCharity,
         BookwormExchange,
         PiquedInterest,
-        VastLibrary
+        VastLibrary,
+
+        // Enemy Actions ----------------------------------------------------------------------------------------------------------------//
+        Tackle,
+        GooSpit
 
 
 

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad084001f184a46bfe95bcf171cf34d, type: 3}
   m_Name: Special Intention
   m_EditorClassIdentifier: 
-  enemyIntentionType: 4
-  intentionSprite: {fileID: 2108480542600776156, guid: 1fb0c0cb02c616d49815abb7a9a0fc0f, type: 3}
+  enemyIntentionType: 5
+  intentionSprite: {fileID: 21300000, guid: 743c95dcca49c9b43ac200816967aeae, type: 3}
