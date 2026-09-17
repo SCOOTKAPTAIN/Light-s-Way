@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
 {
-    public class GooSpit: EnemyActionBase
+    public class Claw: EnemyActionBase
     {
-        public override EnemyActionType ActionType => EnemyActionType.GooSpit;
+        public override EnemyActionType ActionType => EnemyActionType.Claw;
         
         public override void DoAction(EnemyActionParameters actionParameters)
         {
@@ -29,10 +29,9 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(actionParameters.TargetCharacter, selfCharacter, value));
                                  
             actionParameters.TargetCharacter.CharacterStats.Damage(value, false, "red", actionParameters.SelfCharacter);
-            actionParameters.TargetCharacter.CharacterStats.ApplyStatus(StatusType.Slimed, 1, selfCharacter);
 
-                        PlayActionFxAtPosition(actionParameters, actionParameters.TargetCharacter.transform.position, FxType.GooSpit);
-                        PlayActionAudio(actionParameters, AudioActionType.GooSpit);
+                        PlayActionFxAtPosition(actionParameters, actionParameters.TargetCharacter.transform.position, FxType.Claw);
+                        PlayActionAudio(actionParameters, AudioActionType.Claw);
            //jj//
         }
     }

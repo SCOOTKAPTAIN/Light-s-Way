@@ -300,6 +300,16 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [Header("Light Scaling")]
         [Tooltip("If true, this action's value scales with Light level (darker = stronger). Use for combat values like damage/block/heal. Set false for status applications like poison stacks.")]
         [SerializeField] private bool applyLightMultiplier = true;
+
+        [Header("Status Effect")]
+        [Tooltip("Status applied by ApplyDebuff or ApplyBuff actions.")]
+        [SerializeField] private StatusType statusType;
+
+        [Header("Presentation Overrides")]
+        [Tooltip("If enabled, use the selected FX and audio instead of the action's default presentation.")]
+        [SerializeField] private bool overridePresentation;
+        [SerializeField] private FxType customFxType;
+        [SerializeField] private AudioActionType customAudioType;
         
         // Cache the rolled value so it stays consistent
         private int _cachedActionValue = -1;
@@ -307,6 +317,10 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         public EnemyActionType ActionType => actionType;
         public EnemyActionTargetType TargetRestriction => targetRestriction;
         public bool ApplyLightMultiplier => applyLightMultiplier;
+        public StatusType StatusType => statusType;
+        public bool OverridePresentation => overridePresentation;
+        public FxType CustomFxType => customFxType;
+        public AudioActionType CustomAudioType => customAudioType;
         public int ActionValue
         {
             get

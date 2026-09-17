@@ -134,7 +134,13 @@
 
         // Enemy Actions ----------------------------------------------------------------------------------------------------------------//
         Tackle,
-        GooSpit
+        GooSpit,
+        Claw,
+        Preservation,
+        Evolution,
+        Pound,
+        Regenerate,
+        Desperation
 
 
 

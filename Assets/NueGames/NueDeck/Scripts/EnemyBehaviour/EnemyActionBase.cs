@@ -1,6 +1,8 @@
 ﻿using NueGames.NueDeck.Scripts.Characters;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Enums;
+using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.EnemyBehaviour
 {
@@ -16,6 +18,39 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour
         protected GameManager GameManager => GameManager.Instance;
         protected CombatManager CombatManager => CombatManager.Instance;
         protected CollectionManager CollectionManager => CollectionManager.Instance;
+
+        protected void PlayActionFx(EnemyActionParameters actionParameters, Transform target, FxType fallback)
+        {
+            if (FxManager == null || target == null)
+                return;
+
+            var fxType = actionParameters.ActionData != null && actionParameters.ActionData.OverridePresentation
+                ? actionParameters.ActionData.CustomFxType
+                : fallback;
+            FxManager.PlayFx(target, fxType);
+        }
+
+        protected void PlayActionFxAtPosition(EnemyActionParameters actionParameters, Vector3 position, FxType fallback)
+        {
+            if (FxManager == null)
+                return;
+
+            var fxType = actionParameters.ActionData != null && actionParameters.ActionData.OverridePresentation
+                ? actionParameters.ActionData.CustomFxType
+                : fallback;
+            FxManager.PlayFxAtPosition(position, fxType);
+        }
+
+        protected void PlayActionAudio(EnemyActionParameters actionParameters, AudioActionType fallback)
+        {
+            if (AudioManager == null)
+                return;
+
+            var audioType = actionParameters.ActionData != null && actionParameters.ActionData.OverridePresentation
+                ? actionParameters.ActionData.CustomAudioType
+                : fallback;
+            AudioManager.PlayOneShot(audioType);
+        }
         
     }
     

@@ -25,11 +25,8 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             
             newTarget.CharacterStats.Heal(Mathf.RoundToInt(healValue));
 
-            if (FxManager != null) 
-                FxManager.PlayFx(newTarget.transform, FxType.Heal);
-            
-            if (AudioManager != null) 
-                AudioManager.PlayOneShot(AudioActionType.Heal);
+            PlayActionFx(actionParameters, newTarget.transform, FxType.Heal);
+            PlayActionAudio(actionParameters, AudioActionType.Heal);
         }
     }
 }

@@ -538,7 +538,9 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             var action = NextAbility.ActionList[0];
             var displayedValue = CalculateDisplayedValue(action.ActionValue, action);
-            var actionName = action.ActionType.ToString();
+            var actionName = action.ActionType == EnemyActionType.ApplyDebuff || action.ActionType == EnemyActionType.ApplyBuff
+                ? action.StatusType.ToString()
+                : action.ActionType.ToString();
             var repeatText = NextAbility.RepeatCount > 1 ? $"{NextAbility.RepeatCount} times" : "once";
             var description = NextAbility.Description;
 
@@ -549,6 +551,8 @@ namespace NueGames.NueDeck.Scripts.Characters
                     EnemyActionType.Attack => "Deal {value} damage.",
                     EnemyActionType.Heal => "Heal {value} health.",
                     EnemyActionType.Poison => "Apply {value} Poison.",
+                    EnemyActionType.ApplyDebuff => "Apply {value} {action}.",
+                    EnemyActionType.ApplyBuff => "Gain {value} {action}.",
                     EnemyActionType.Block => "Gain {value} Block.",
                     _ => "Use {action} with a value of {value}."
                 };

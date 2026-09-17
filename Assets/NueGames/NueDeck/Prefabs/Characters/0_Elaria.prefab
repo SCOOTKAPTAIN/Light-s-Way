@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 1757283783}
   - component: {fileID: 1757283782}
   m_Layer: 8
-  m_Name: Elaria
+  m_Name: 0_Elaria
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

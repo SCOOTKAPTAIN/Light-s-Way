@@ -23,11 +23,8 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             // Apply Sabotaged effect (deals damage to self, then reduces Sabotaged by 1)
            // NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplySabotaged(selfCharacter);
             
-            if (FxManager != null) 
-                FxManager.PlayFx(newTarget.transform, FxType.Poison);
-            
-            if (AudioManager != null) 
-                AudioManager.PlayOneShot(AudioActionType.Poison);
+            PlayActionFx(actionParameters, newTarget.transform, FxType.Poison);
+            PlayActionAudio(actionParameters, AudioActionType.Poison);
         }
     }
 }

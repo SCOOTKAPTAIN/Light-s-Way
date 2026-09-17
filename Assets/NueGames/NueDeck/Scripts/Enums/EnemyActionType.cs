@@ -13,6 +13,8 @@
         Evolution,
         Pound,
         Regenerate,
-        Desperation
+        Desperation,
+        ApplyDebuff,
+        ApplyBuff
     }
 }

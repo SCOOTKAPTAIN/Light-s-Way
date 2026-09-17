@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
+  m_Name: 2_1_Shadowling
+  m_EditorClassIdentifier: 
+  characterID: Shadowling
+  characterName: Shadowling
+  characterDescription: 'Weak, small-fry shadow monsters but their infinite potential
+    must not be ignored.
+
+    Gain Permanent Strength and Fortitude occasionally
+    making them dangerous if left alone
+
+'
+  maxHealth: 70
+  enemyPrefab: {fileID: 243822687015991123, guid: 5d9c27c397f4ba442a38545a06118c36, type: 3}
+  mutatedVersion: {fileID: 11400000, guid: 68b3a6ae6e9d59e44a559d7a8f1b35ec, type: 2}
+  chaosificationStatus:
+    modifierName: 
+    icon: {fileID: 0}
+    description: 
+  useActBasedScaling: 1
+  actConfigurations:
+  - actNumber: 1
+    maxHealth: 60
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Tackle
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 4
+        minActionValue: 14
+        maxActionValue: 16
+        targetRestriction: 0
+        applyLightMultiplier: 1
+      repeatCount: 0
+      conditions: []
+      weight: 7
+      maxConsecutiveUses: 3
+    - name: Goo Spit
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: 'Deal damage. \nApply 1 <color=#FFB430>Slimed</color>. '
+      keywords: 20000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 5
+        minActionValue: 9
+        maxActionValue: 12
+        targetRestriction: 0
+        applyLightMultiplier: 1
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 2
+  followAbilityPattern: 0
+  useWeightedSelection: 1
+  preventRepeatAbility: 0
+  startingStatuses: []
+  enemyAbilityList:
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 0
+      minActionValue: 10
+      maxActionValue: 10
+      targetRestriction: 0
+      applyLightMultiplier: 1
+    repeatCount: 1
+    conditions: []
+    weight: 6
+    maxConsecutiveUses: 0
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 2
+      minActionValue: 2
+      maxActionValue: 2
+      targetRestriction: 0
+      applyLightMultiplier: 1
+    repeatCount: 1
+    conditions: []
+    weight: 5
+    maxConsecutiveUses: 0

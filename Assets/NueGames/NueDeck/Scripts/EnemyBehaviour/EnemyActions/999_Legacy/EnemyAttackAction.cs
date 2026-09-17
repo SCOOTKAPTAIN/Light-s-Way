@@ -30,14 +30,8 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
                                  
             actionParameters.TargetCharacter.CharacterStats.Damage(value, false, "red", actionParameters.SelfCharacter);
 
-            if (FxManager != null)
-            {
-                FxManager.PlayFx(actionParameters.TargetCharacter.transform,FxType.Attack);
-              //  FxManager.SpawnFloatingText(actionParameters.TargetCharacter.TextSpawnRoot,value.ToString());
-            }
-
-            if (AudioManager != null)
-                AudioManager.PlayOneShot(AudioActionType.Attack);
+                        PlayActionFx(actionParameters, actionParameters.TargetCharacter.transform, FxType.Attack);
+                        PlayActionAudio(actionParameters, AudioActionType.Attack);
            
         }
     }

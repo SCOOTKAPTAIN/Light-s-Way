@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
 {
-    public class EnemyBlockAction : EnemyActionBase
+    public class Preservation : EnemyActionBase
     {
-        public override EnemyActionType ActionType => EnemyActionType.Block;
+        public override EnemyActionType ActionType => EnemyActionType.Preservation;
         
         public override void DoAction(EnemyActionParameters actionParameters)
         {
@@ -29,8 +29,8 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
                 Mathf.RoundToInt(blockValue + actionParameters.SelfCharacter.CharacterStats
                     .StatusDict[StatusType.Fortitude].StatusValue));
             
-            PlayActionFx(actionParameters, newTarget.transform, FxType.Block);
-            PlayActionAudio(actionParameters, AudioActionType.Block);
+            PlayActionFx(actionParameters, newTarget.transform, FxType.Preservation);
+            PlayActionAudio(actionParameters, AudioActionType.Preservation);
         }
     }
 }
