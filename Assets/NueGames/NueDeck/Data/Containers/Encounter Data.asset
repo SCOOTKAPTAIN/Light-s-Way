@@ -27,10 +27,8 @@ MonoBehaviour:
         positionNumber: 5
       - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
         positionNumber: 6
-      - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
-        positionNumber: 7
-      - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
-        positionNumber: 8
+      - enemy: {fileID: 11400000, guid: 68b3a6ae6e9d59e44a559d7a8f1b35ec, type: 2}
+        positionNumber: 1
       customGoldRewards: []
       customCardRewards: []
     eliteEncounterList:

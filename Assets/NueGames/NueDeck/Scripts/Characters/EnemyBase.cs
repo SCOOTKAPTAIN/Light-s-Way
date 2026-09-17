@@ -28,6 +28,12 @@ namespace NueGames.NueDeck.Scripts.Characters
         public EnemyCanvas EnemyCanvas => enemyCanvas;
         public SoundProfileData DeathSoundProfileData => deathSoundProfileData;
 
+        public void SetEnemyCharacterData(EnemyCharacterData characterData)
+        {
+            if (characterData != null)
+                enemyCharacterData = characterData;
+        }
+
         #region Setup
         
         /// <summary>
@@ -485,8 +491,8 @@ namespace NueGames.NueDeck.Scripts.Characters
                 value *= CombatManager.CombatLightMultiplier;
             }
             
-            // Attack actions get additional modifiers (Strength, Fragile, Weak, Pursuit)
-            if (actionData.ActionType == EnemyActionType.Attack)
+            // Damage actions get the same modifiers used when the action executes.
+            if (IsDamageAction(actionData.ActionType))
             {
                 if (combatManager.CurrentMainAlly == null)
                     return Mathf.RoundToInt(value);
@@ -506,6 +512,13 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
             
             return Mathf.RoundToInt(value);
+        }
+
+        private bool IsDamageAction(EnemyActionType actionType)
+        {
+            return actionType == EnemyActionType.Attack ||
+                   actionType == EnemyActionType.Tackle ||
+                   actionType == EnemyActionType.GooSpit;
         }
 
         public string GetNextAbilityTooltipHeader()

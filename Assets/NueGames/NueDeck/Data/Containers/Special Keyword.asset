@@ -15,7 +15,7 @@ MonoBehaviour:
   specialKeywordBaseList:
   - specialKeyword: 0
     header: Block
-    contentText: Reduce incoming damage by <color=#FFB430>{Block}</color>. <color=#FFB430>Temporary</color>.
+    contentText: Absorb incoming damage by <color=#FFB430>{Block}</color>. <color=#FFB430>Temporary</color>.
   - specialKeyword: 1
     header: Strength
     contentText: Increase the <color=#FFB430>Base</color> damage of attacks by <color=#FFB430>{Strength}</color>.
@@ -48,7 +48,7 @@ MonoBehaviour:
       (<color=#FFB430>Unstackable</color>).
   - specialKeyword: 11
     header: Nephilim
-    contentText: Refunds <color=#FFB430>1 Mana</color> and <color=#FFB430>1 Health</color>
+    contentText: Refund <color=#FFB430>1 Mana</color> and gain <color=#FFB430>1 Health</color>
       when using <color=#FFB430>2+</color> cost <color=#FFB430>Mana</color> cards.
       (<color=#FFB430>Unstackable</color>).
   - specialKeyword: 2
@@ -64,7 +64,7 @@ MonoBehaviour:
       value, then remove all its stacks."
   - specialKeyword: 14
     header: Armor
-    contentText: Consumes <color=#FFB430>1</color> stack to nulify an attack instance.
+    contentText: Consume <color=#FFB430>1</color> stack to nulify an attack instance.
   - specialKeyword: 15
     header: Frostbite
     contentText: 'At the end of the turn, take <color=#FFB430>{Frostbite*25}%</color>
@@ -107,8 +107,8 @@ MonoBehaviour:
     contentText: <color=#FFB430>Cost</color> is equal to your  <color=#FFB430>Max
       Mana</color>.
   - specialKeyword: 24
-    header: Steady Barricade
-    contentText: At the start of each turn, retain up to <color=#FFB430>{SteadyBarricade*10}
+    header: Entrenched
+    contentText: At the start of each turn, retain up to <color=#FFB430>{Entrenched*10}
       Block</color>.
   - specialKeyword: 25
     header: The Mastermind
@@ -143,11 +143,11 @@ MonoBehaviour:
     contentText: This card is removed from your deck at the end of combat.
   - specialKeyword: 32
     header: Slimed
-    contentText: 'whenever you play a card, increase stack by <color=#FFB430>1</color>
-      .
+    contentText: 'whenever you play a card, increase stack by <color=#FFB430>1</color>.
 
-      Deal <color=#FFB430>25%</color> less damage for every <color=#FFB430>3</color>
-      stacks of <color=#FFB430>Slimed</color>. <color=#FFB430>Temporary</color>.'
+      Deal
+      <color=#FFB430>25%</color> less damage for every <color=#FFB430>3</color> stacks
+      of <color=#FFB430>Slimed</color>. <color=#FFB430>Temporary</color>.'
   - specialKeyword: 33
     header: Temporary
     contentText: <color=#FFB430>Clears</color> itself at the end of a turn.

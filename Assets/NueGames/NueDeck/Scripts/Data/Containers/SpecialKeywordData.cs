@@ -97,6 +97,7 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 SpecialKeywords.Weakness => StatusType.Weak,
                 SpecialKeywords.Judged => StatusType.Judged,
                 SpecialKeywords.Sabotaged => StatusType.Sabotaged,
+                SpecialKeywords.Slimed => StatusType.Slimed,
                 SpecialKeywords.Deadstock => StatusType.Deadstock,
                 SpecialKeywords.EndlessChambers => StatusType.EndlessChambers,
                 SpecialKeywords.FiringLine => StatusType.FiringLine,

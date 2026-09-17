@@ -17,15 +17,28 @@ namespace NueGames.NueDeck.Scripts.Characters
         [SerializeField] private GameObject chaosificationStatusRoot;
         [SerializeField] private Image chaosificationStatusImage;
         [SerializeField] private GameObject intentDescriptionPanel;
-        [SerializeField] private TextMeshProUGUI intentDescriptionHeaderText;
-        [SerializeField] private TextMeshProUGUI intentDescriptionText;
-        [Header("Intent Description Layout")]
-        [SerializeField, Min(0f)] private float intentPanelHorizontalPadding = 24f;
-        [SerializeField, Min(0f)] private float intentPanelVerticalPadding = 20f;
-        [SerializeField, Min(1f)] private float intentPanelMinWidth = 140f;
-        [SerializeField, Min(1f)] private float intentPanelMaxWidth = 360f;
+        [SerializeField] private TooltipText intentDescriptionTooltip;
+        private bool _isPointerOverIntent;
         public Image IntentImage => intentImage;
         public TextMeshProUGUI NextActionValueText => nextActionValueText;
+
+        public void SetIntentDescriptionVisible(bool visible)
+        {
+            var tooltip = GetIntentDescriptionTooltip();
+            if (visible)
+            {
+                var enemyBase = GetComponentInParent<EnemyBase>();
+                if (enemyBase != null)
+                    ShowIntentDescription(enemyBase);
+            }
+            else
+            {
+                if (tooltip != null)
+                    tooltip.gameObject.SetActive(false);
+                else if (intentDescriptionPanel != null)
+                    intentDescriptionPanel.SetActive(false);
+            }
+        }
 
         private ChaosificationStatusData _chaosificationStatus;
 
@@ -96,6 +109,13 @@ namespace NueGames.NueDeck.Scripts.Characters
 
         public override void OnPointerEnter(PointerEventData eventData)
         {
+            _isPointerOverIntent = IsPointerOverIntent(eventData);
+            if (!_isPointerOverIntent)
+            {
+                base.OnPointerEnter(eventData);
+                return;
+            }
+
             var enemyBase = GetComponentInParent<EnemyBase>();
             if (enemyBase == null || intentImage == null)
                 return;
@@ -106,79 +126,58 @@ namespace NueGames.NueDeck.Scripts.Characters
 
         public override void OnPointerExit(PointerEventData eventData)
         {
+            if (!_isPointerOverIntent)
+            {
+                base.OnPointerExit(eventData);
+                return;
+            }
+
+            _isPointerOverIntent = false;
+
             if (TooltipManager.Instance != null)
                 TooltipManager.Instance.HideTooltip();
 
-            if (intentDescriptionPanel != null)
+            var tooltip = GetIntentDescriptionTooltip();
+            if (tooltip != null)
+                tooltip.gameObject.SetActive(false);
+            else if (intentDescriptionPanel != null)
                 intentDescriptionPanel.SetActive(false);
+        }
+
+        private bool IsPointerOverIntent(PointerEventData eventData)
+        {
+            if (intentImage == null || eventData == null || eventData.pointerEnter == null)
+                return false;
+
+            var pointerTransform = eventData.pointerEnter.transform;
+            return pointerTransform == intentImage.transform || pointerTransform.IsChildOf(intentImage.transform);
         }
 
         private void ShowIntentDescription(EnemyBase enemyBase)
         {
-            if (intentDescriptionPanel == null)
+            var tooltip = GetIntentDescriptionTooltip();
+            if (intentDescriptionPanel == null && tooltip == null)
                 return;
 
-            if (intentDescriptionHeaderText != null)
-                intentDescriptionHeaderText.text = enemyBase.GetNextAbilityTooltipHeader();
-
-            if (intentDescriptionText != null)
-                intentDescriptionText.text = enemyBase.GetNextAbilityTooltipContent();
-
-            intentDescriptionPanel.SetActive(true);
-            ResizeIntentDescriptionPanel();
+            if (tooltip != null)
+            {
+                tooltip.SetText(
+                    enemyBase.GetNextAbilityTooltipContent(),
+                    enemyBase.GetNextAbilityTooltipHeader());
+                tooltip.gameObject.SetActive(true);
+            }
+            else
+            {
+                intentDescriptionPanel.SetActive(true);
+            }
         }
 
-        private void ResizeIntentDescriptionPanel()
+        private TooltipText GetIntentDescriptionTooltip()
         {
-            var panelRect = intentDescriptionPanel.GetComponent<RectTransform>();
-            if (panelRect == null)
-                return;
+            if (intentDescriptionTooltip != null)
+                return intentDescriptionTooltip;
 
-            var headerText = intentDescriptionHeaderText != null ? intentDescriptionHeaderText.text : string.Empty;
-            var contentText = intentDescriptionText != null ? intentDescriptionText.text : string.Empty;
-            var availableMaxWidth = Mathf.Max(intentPanelMinWidth, intentPanelMaxWidth - intentPanelHorizontalPadding);
-
-            var headerPreferred = intentDescriptionHeaderText != null
-                ? intentDescriptionHeaderText.GetPreferredValues(headerText, availableMaxWidth, 0f)
-                : Vector2.zero;
-            var contentPreferred = intentDescriptionText != null
-                ? intentDescriptionText.GetPreferredValues(contentText, availableMaxWidth, 0f)
-                : Vector2.zero;
-
-            var textWidth = Mathf.Clamp(
-                Mathf.Max(headerPreferred.x, contentPreferred.x),
-                intentPanelMinWidth - intentPanelHorizontalPadding,
-                availableMaxWidth);
-            var panelWidth = textWidth + intentPanelHorizontalPadding;
-
-            ResizeText(intentDescriptionHeaderText, textWidth);
-            ResizeText(intentDescriptionText, textWidth);
-
-            if (intentDescriptionHeaderText != null)
-                intentDescriptionHeaderText.ForceMeshUpdate();
-            if (intentDescriptionText != null)
-                intentDescriptionText.ForceMeshUpdate();
-
-            var headerHeight = intentDescriptionHeaderText != null
-                ? intentDescriptionHeaderText.GetPreferredValues(headerText, textWidth, 0f).y
-                : 0f;
-            var contentHeight = intentDescriptionText != null
-                ? intentDescriptionText.GetPreferredValues(contentText, textWidth, 0f).y
-                : 0f;
-
-            panelRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, panelWidth);
-            panelRect.SetSizeWithCurrentAnchors(
-                RectTransform.Axis.Vertical,
-                headerHeight + contentHeight + intentPanelVerticalPadding);
-            LayoutRebuilder.ForceRebuildLayoutImmediate(panelRect);
-        }
-
-        private void ResizeText(TextMeshProUGUI text, float width)
-        {
-            if (text == null)
-                return;
-
-            text.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+            return GetComponentInChildren<TooltipText>(true);
         }
 
         private void ShowKeywordTooltips(EnemyBase enemyBase)

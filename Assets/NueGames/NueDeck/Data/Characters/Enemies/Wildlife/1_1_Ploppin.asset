@@ -27,47 +27,13 @@ MonoBehaviour:
     description: 
   useActBasedScaling: 1
   actConfigurations:
-  - actNumber: 0
-    maxHealth: 60
-    startingStatuses: []
-    enemyAbilityList:
-    - name: Tackle
-      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
-      description: Deal {value} damage.
-      keywords: 
-      hideActionValue: 0
-      actionList:
-      - actionType: 4
-        minActionValue: 14
-        maxActionValue: 16
-        targetRestriction: 0
-        applyLightMultiplier: 1
-      repeatCount: 0
-      conditions: []
-      weight: 7
-      maxConsecutiveUses: 3
-    - name: Goo Spit
-      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
-      description: Deal {value} damage. Apply 1 <color=#FFB430>Slimed</color>.
-      keywords: 20000000
-      hideActionValue: 0
-      actionList:
-      - actionType: 4
-        minActionValue: 9
-        maxActionValue: 12
-        targetRestriction: 0
-        applyLightMultiplier: 1
-      repeatCount: 0
-      conditions: []
-      weight: 3
-      maxConsecutiveUses: 2
   - actNumber: 1
     maxHealth: 60
     startingStatuses: []
     enemyAbilityList:
     - name: Tackle
       intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
-      description: Deal {value} damage.
+      description: Deal damage.
       keywords: 
       hideActionValue: 0
       actionList:
@@ -81,12 +47,12 @@ MonoBehaviour:
       weight: 7
       maxConsecutiveUses: 3
     - name: Goo Spit
-      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
-      description: Deal {value} damage. Apply 1 <color=#FFB430>Slimed</color>.
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: 'Deal damage. \nApply 1 <color=#FFB430>Slimed</color>. '
       keywords: 20000000
       hideActionValue: 0
       actionList:
-      - actionType: 4
+      - actionType: 5
         minActionValue: 9
         maxActionValue: 12
         targetRestriction: 0

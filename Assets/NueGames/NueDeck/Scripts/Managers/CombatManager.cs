@@ -72,6 +72,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         
         private CombatStateType _currentCombatStateType;
         private bool _isEndingTurn;
+        private bool _showAllEnemyIntentions;
         protected FxManager FxManager => FxManager.Instance;
         protected AudioManager AudioManager => AudioManager.Instance;
         protected GameManager GameManager => GameManager.Instance;
@@ -80,6 +81,20 @@ namespace NueGames.NueDeck.Scripts.Managers
         protected CollectionManager CollectionManager => CollectionManager.Instance;
 
         #endregion
+
+        private void Update()
+        {
+            var showAllEnemyIntentions = Input.GetButton("Fire3");
+            if (showAllEnemyIntentions == _showAllEnemyIntentions)
+                return;
+
+            _showAllEnemyIntentions = showAllEnemyIntentions;
+            foreach (var enemy in CurrentEnemiesList)
+            {
+                if (enemy != null && !enemy.CharacterStats.IsDeath)
+                    enemy.EnemyCanvas.SetIntentDescriptionVisible(_showAllEnemyIntentions);
+            }
+        }
         
         // Transient action context shared between card actions within a combat.
         // Use SetActionContext to store a value and TryGetActionContext/TryConsumeActionContext to read it.
@@ -463,6 +478,8 @@ namespace NueGames.NueDeck.Scripts.Managers
                 
                 var clone = Instantiate(enemyData.EnemyPrefab, EnemyPosList[positionIndex]);
                 
+                clone.SetEnemyCharacterData(enemyData);
+
                 // Set the current act BEFORE building the character
                 clone.SetCurrentAct(currentAct);
                 
