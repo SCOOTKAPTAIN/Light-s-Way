@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6066001188092397987
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41,7 +41,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -43.5, y: 45.1}
-  m_SizeDelta: {x: 50.99, y: 0}
+  m_SizeDelta: {x: 50.99, y: 20.039999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6796435911758942970
 CanvasRenderer:
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 1
   textSpawnRoot: {fileID: 2463341200963954810}
-  enemyCharacterData: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
+  enemyCharacterData: {fileID: 11400000, guid: 20fed9e9b8f77b64086164ed5868e6dd, type: 2}
   enemyCanvas: {fileID: 7422249267346903092}
   deathSoundProfileData: {fileID: 11400000, guid: 7e15e2a10065ab54c8eaf26154af0156, type: 2}
   spriteRenderer: {fileID: 0}
@@ -500,7 +500,7 @@ Animator:
   m_GameObject: {fileID: 2852618193325743352}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 654df6af6c0a48e46baebf2b2722f61b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 785c7061ae4f46f45b7e9feda231e5c2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -579,7 +579,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 22.305, y: -10.43}
-  m_SizeDelta: {x: 34.61, y: 0}
+  m_SizeDelta: {x: 34.61, y: 5.61}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8154398140554973550
 CanvasRenderer:
@@ -761,7 +761,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 16.1, y: -3}
-  m_SizeDelta: {x: 22.2, y: 0}
+  m_SizeDelta: {x: 22.2, y: 6.73}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3387054202750091903
 CanvasRenderer:

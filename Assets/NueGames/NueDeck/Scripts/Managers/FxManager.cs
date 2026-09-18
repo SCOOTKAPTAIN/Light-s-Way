@@ -24,6 +24,9 @@ namespace NueGames.NueDeck.Scripts.Managers
         [SerializeField] [Min(0.01f)] private float minimumCombatFxScale = 0.25f;
         [SerializeField] [Min(0.01f)] private float maximumCombatFxScale = 4f;
 
+        [Header("Combat FX Sorting")]
+        [SerializeField] private int combatFxSortingOrder = 10;
+
         [Header("Floating Text")]
         [SerializeField] private FloatingText floatingTextPrefabRed;
         [SerializeField] private FloatingText floatingTextPrefabGreen;
@@ -233,6 +236,7 @@ namespace NueGames.NueDeck.Scripts.Managers
             var visualScale = GetCombatVisualScale();
             var clone = Instantiate(prefab, targetTransform.position + offset * visualScale, Quaternion.identity);
             clone.transform.localScale *= visualScale;
+            SetCombatFxSorting(clone);
             try
             {
                 clone.transform.SetParent(targetTransform, true);
@@ -282,7 +286,15 @@ namespace NueGames.NueDeck.Scripts.Managers
                 }
                 var clone = Instantiate(prefab, position + offset * visualScale, Quaternion.identity);
                 clone.transform.localScale *= visualScale;
+                SetCombatFxSorting(clone);
             }
+        }
+
+        private void SetCombatFxSorting(GameObject fxObject)
+        {
+            var renderers = fxObject.GetComponentsInChildren<Renderer>(true);
+            foreach (var renderer in renderers)
+                renderer.sortingOrder = combatFxSortingOrder;
         }
 
         private float GetCombatVisualScale()

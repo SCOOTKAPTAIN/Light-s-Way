@@ -44,7 +44,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         
         #region Setup
 
-        public void InitCanvas()
+        public virtual void InitCanvas()
         {
             highlightRoot.gameObject.SetActive(false);
             

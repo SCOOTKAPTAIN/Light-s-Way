@@ -5380,9 +5380,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapView: {fileID: 1654304202}
   mapPlayerTracker: {fileID: 1181884001}
-  moveSelection: {fileID: -5181261479034014027, guid: b59425b54235ebb4ba020d195a61fe80, type: 3}
-  confirm: {fileID: -2170639700852317283, guid: b59425b54235ebb4ba020d195a61fe80, type: 3}
-  cancel: {fileID: 2396911733648740825, guid: b59425b54235ebb4ba020d195a61fe80, type: 3}
   exitConfirm: {fileID: 844973042}
 --- !u!1 &1888633054
 GameObject:
@@ -6758,6 +6755,46 @@ PrefabInstance:
       propertyPath: config
       value: 
       objectReference: {fileID: 11400000, guid: 19bf411c79e522b4b8e54f82b0140314, type: 2}
+    - target: {fileID: 5337413451174954175, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: actMapConfigs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337413451174954175, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: actMapConfigs.Array.data[0].mapConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 19bf411c79e522b4b8e54f82b0140314, type: 2}
+    - target: {fileID: 5337413451174954175, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: actMapConfigs.Array.data[1].actNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337413451174954175, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: actMapConfigs.Array.data[1].mapConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 19bf411c79e522b4b8e54f82b0140314, type: 2}
+    - target: {fileID: 5337413451174954175, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: actMapConfigs.Array.data[2].actNumber
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337413451174954175, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: actMapConfigs.Array.data[2].mapConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 19bf411c79e522b4b8e54f82b0140314, type: 2}
+    - target: {fileID: 5337413451174954175, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: actMapConfigs.Array.data[3].actNumber
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337413451174954175, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: actMapConfigs.Array.data[3].mapConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 19bf411c79e522b4b8e54f82b0140314, type: 2}
+    - target: {fileID: 5337413451174954175, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: actMapConfigs.Array.data[4].actNumber
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5337413451174954175, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: actMapConfigs.Array.data[4].mapConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 19bf411c79e522b4b8e54f82b0140314, type: 2}
     - target: {fileID: 5337413451386887161, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
       propertyPath: xSize
       value: 15
@@ -6782,6 +6819,10 @@ PrefabInstance:
       propertyPath: NodeDetails
       value: 
       objectReference: {fileID: 1892768712}
+    - target: {fileID: 5337413451386887161, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
+      propertyPath: orientation
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5337413451386887161, guid: 6dc8f4ee6004b5345a5925b01e34cb27, type: 3}
       propertyPath: NodeDescription
       value: 

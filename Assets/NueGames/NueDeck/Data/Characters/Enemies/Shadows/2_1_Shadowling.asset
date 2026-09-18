@@ -22,7 +22,7 @@ MonoBehaviour:
 
 '
   maxHealth: 70
-  enemyPrefab: {fileID: 243822687015991123, guid: 5d9c27c397f4ba442a38545a06118c36, type: 3}
+  enemyPrefab: {fileID: 243822687015991123, guid: 69590612a546c8442bbc210a6b86a830, type: 3}
   mutatedVersion: {fileID: 11400000, guid: 68b3a6ae6e9d59e44a559d7a8f1b35ec, type: 2}
   chaosificationStatus:
     modifierName: 
@@ -31,39 +31,66 @@ MonoBehaviour:
   useActBasedScaling: 1
   actConfigurations:
   - actNumber: 1
-    maxHealth: 60
+    maxHealth: 95
     startingStatuses: []
     enemyAbilityList:
-    - name: Tackle
+    - name: Claw
       intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
-      description: Deal damage.
+      description: Deal <color=#FFB430>{value}</color> damage.
       keywords: 
       hideActionValue: 0
       actionList:
-      - actionType: 4
-        minActionValue: 14
-        maxActionValue: 16
+      - actionType: 6
+        minActionValue: 21
+        maxActionValue: 26
         targetRestriction: 0
         applyLightMultiplier: 1
+        statusType: 0
+        overridePresentation: 0
+        customFxType: 0
+        customAudioType: 0
       repeatCount: 0
       conditions: []
-      weight: 7
+      weight: 4
       maxConsecutiveUses: 3
-    - name: Goo Spit
-      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
-      description: 'Deal damage. \nApply 1 <color=#FFB430>Slimed</color>. '
-      keywords: 20000000
+    - name: Preservation
+      intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+      description: Gain <color=#FFB430>{value} Block</color>.
+      keywords: 00000000
       hideActionValue: 0
       actionList:
-      - actionType: 5
-        minActionValue: 9
-        maxActionValue: 12
-        targetRestriction: 0
+      - actionType: 7
+        minActionValue: 11
+        maxActionValue: 13
+        targetRestriction: 1
         applyLightMultiplier: 1
+        statusType: 0
+        overridePresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 2
+    - name: Evolution
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Gain <color=#FFB430>{value} Strength</color> and <color=#FFB430>Fortitude</color>.
+      keywords: 0100000013000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 8
+        minActionValue: 2
+        maxActionValue: 4
+        targetRestriction: 1
+        applyLightMultiplier: 1
+        statusType: 0
+        overridePresentation: 0
+        customFxType: 0
+        customAudioType: 0
       repeatCount: 0
       conditions: []
       weight: 3
-      maxConsecutiveUses: 2
+      maxConsecutiveUses: 1
   followAbilityPattern: 0
   useWeightedSelection: 1
   preventRepeatAbility: 0
@@ -80,6 +107,10 @@ MonoBehaviour:
       maxActionValue: 10
       targetRestriction: 0
       applyLightMultiplier: 1
+      statusType: 0
+      overridePresentation: 0
+      customFxType: 0
+      customAudioType: 0
     repeatCount: 1
     conditions: []
     weight: 6
@@ -95,6 +126,10 @@ MonoBehaviour:
       maxActionValue: 2
       targetRestriction: 0
       applyLightMultiplier: 1
+      statusType: 0
+      overridePresentation: 0
+      customFxType: 0
+      customAudioType: 0
     repeatCount: 1
     conditions: []
     weight: 5

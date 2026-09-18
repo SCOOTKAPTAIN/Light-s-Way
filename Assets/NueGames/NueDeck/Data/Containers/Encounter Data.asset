@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encounterRandomlyAtStage: 0
   enemyEncounterList:
-  - name: 'Chapter 1 '
+  - name: Act 1
     stageId: 1
     normalEncounterList:
     - targetBackgroundType: 0
@@ -35,7 +35,7 @@ MonoBehaviour:
     - targetBackgroundType: 0
       encounterId: 
       enemyList:
-      - {fileID: 11400000, guid: 4ac5b90c63d0f0947b4b3e0b63a4905b, type: 2}
+      - {fileID: 11400000, guid: 20fed9e9b8f77b64086164ed5868e6dd, type: 2}
       enemySpawnEntries: []
       customGoldRewards: []
       customCardRewards: []
@@ -48,9 +48,17 @@ MonoBehaviour:
       customGoldRewards: []
       customCardRewards: []
     specialEncounterList: []
-  - name: Chapter 1 Boss
+  - name: Act 2
     stageId: 2
-    normalEncounterList: []
+    normalEncounterList:
+    - targetBackgroundType: 0
+      encounterId: 
+      enemyList: []
+      enemySpawnEntries:
+      - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
+        positionNumber: 2
+      customGoldRewards: []
+      customCardRewards: []
     eliteEncounterList: []
     bossEncounterList: []
     specialEncounterList: []

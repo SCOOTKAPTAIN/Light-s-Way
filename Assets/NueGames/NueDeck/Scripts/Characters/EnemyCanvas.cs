@@ -18,9 +18,31 @@ namespace NueGames.NueDeck.Scripts.Characters
         [SerializeField] private Image chaosificationStatusImage;
         [SerializeField] private GameObject intentDescriptionPanel;
         [SerializeField] private TooltipText intentDescriptionTooltip;
+        [SerializeField] private int intentDescriptionSortingOrder = 100;
         private bool _isPointerOverIntent;
         public Image IntentImage => intentImage;
         public TextMeshProUGUI NextActionValueText => nextActionValueText;
+
+        public override void InitCanvas()
+        {
+            base.InitCanvas();
+            SetupIntentDescriptionSorting();
+        }
+
+        private void SetupIntentDescriptionSorting()
+        {
+            if (intentDescriptionPanel == null || TargetCanvas == null)
+                return;
+
+            var intentCanvas = intentDescriptionPanel.GetComponent<Canvas>();
+            if (intentCanvas == null)
+                intentCanvas = intentDescriptionPanel.AddComponent<Canvas>();
+
+            intentCanvas.overrideSorting = true;
+            intentCanvas.sortingLayerID = TargetCanvas.sortingLayerID;
+            intentCanvas.sortingOrder = TargetCanvas.sortingOrder + intentDescriptionSortingOrder;
+            intentCanvas.worldCamera = TargetCanvas.worldCamera;
+        }
 
         public void SetIntentDescriptionVisible(bool visible)
         {
@@ -185,16 +207,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (TooltipManager.Instance == null)
                 return;
 
-            var keywordData = TooltipManager.Instance.SpecialKeywordData;
-            if (keywordData == null || keywordData.SpecialKeywordBaseList == null)
+            var keywordData = TooltipManager.Instance.CardKeywordData;
+            if (keywordData == null || keywordData.CardKeywordBaseList == null)
                 return;
-
-            var characterStats = enemyBase.CharacterStats;
-            var player = NueGames.NueDeck.Scripts.Managers.CombatManager.Instance != null
-                ? NueGames.NueDeck.Scripts.Managers.CombatManager.Instance.CurrentMainAlly
-                : null;
-            if (player != null && player.CharacterStats != null)
-                characterStats = player.CharacterStats;
 
             var shownKeywords = new HashSet<SpecialKeywords>();
             foreach (var keyword in enemyBase.GetNextAbilityKeywords())
@@ -202,16 +217,12 @@ namespace NueGames.NueDeck.Scripts.Characters
                 if (!shownKeywords.Add(keyword))
                     continue;
 
-                var data = keywordData.SpecialKeywordBaseList.Find(x => x.SpecialKeyword == keyword);
+                var data = keywordData.CardKeywordBaseList.Find(x => x.SpecialKeyword == keyword);
                 if (data == null)
                     continue;
 
-                var content = characterStats != null
-                    ? data.GetContentWithStatusValues(characterStats)
-                    : data.GetContent();
-                var header = characterStats != null
-                    ? data.GetHeaderWithStatusValue(characterStats)
-                    : data.GetHeader();
+                var content = data.GetContent();
+                var header = data.GetHeader();
 
                 TooltipManager.Instance.ShowTooltip(content, header, intentImage.transform);
             }

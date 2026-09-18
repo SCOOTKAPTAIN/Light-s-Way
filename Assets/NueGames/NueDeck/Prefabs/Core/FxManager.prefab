@@ -307,10 +307,17 @@ MonoBehaviour:
     fxPrefab: {fileID: 4931249800145279701, guid: 1875128db2ac06048ad2bb84473249a0, type: 3}
   - fxType: 130
     fxPrefab: {fileID: 4931249800145279701, guid: 9a9a5ac54707b404db1054a03cb1835b, type: 3}
+  - fxType: 131
+    fxPrefab: {fileID: 4931249800145279701, guid: 3665e1ab7a077e3478483fab67887f7a, type: 3}
+  - fxType: 132
+    fxPrefab: {fileID: 4931249800145279701, guid: bcfb313fea71d974ebc9087ba713710d, type: 3}
+  - fxType: 133
+    fxPrefab: {fileID: 4931249800145279701, guid: 41ae242188b129643af8af7754c2035b, type: 3}
   scaleToPlayerSprite: 1
   referencePlayerSpriteHeight: 0.98
   minimumCombatFxScale: 0.25
   maximumCombatFxScale: 4
+  combatFxSortingOrder: 10
   floatingTextPrefabRed: {fileID: 5875565574366412673, guid: 563cc02ed8f797e498bc5cf11e33e894, type: 3}
   floatingTextPrefabGreen: {fileID: 5875565574366412673, guid: 3ac7e93a64ff77c449b3430cfaacbf1a, type: 3}
   floatingTextPrefabBlue: {fileID: 5875565574366412673, guid: 82a85b92f4e688449be2134a8730df5c, type: 3}

@@ -333,6 +333,11 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
                 return _cachedActionValue;
             }
         }
+
+        public int RollActionValue()
+        {
+            return Random.Range(minActionValue, maxActionValue + 1);
+        }
         
         /// <summary>
         /// Resets the cached action value for the next ability cycle.
