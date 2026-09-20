@@ -1,3 +1,5 @@
+using NueGames.NueDeck.Scripts.Characters;
+using NueGames.NueDeck.Scripts.Data.Characters;
 using NueGames.NueDeck.Scripts.Enums;
 
 namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
@@ -5,6 +7,11 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
     public class ApplyDebuffAction : EnemyActionBase
     {
         public override EnemyActionType ActionType => EnemyActionType.ApplyDebuff;
+
+        public override int CalculateValue(float baseValue, CharacterBase selfCharacter, CharacterBase targetCharacter, EnemyActionData actionData)
+        {
+            return CalculateBaseValue(baseValue, actionData);
+        }
 
         public override void DoAction(EnemyActionParameters actionParameters)
         {
@@ -14,7 +21,7 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
 
             target.CharacterStats.ApplyStatus(
                 actionParameters.ActionData.StatusType,
-                UnityEngine.Mathf.RoundToInt(actionParameters.Value));
+                CalculateValue(actionParameters.Value, actionParameters.SelfCharacter, target, actionParameters.ActionData));
 
             PlayActionFx(actionParameters, target.transform, FxType.Debuff);
             PlayActionAudio(actionParameters, AudioActionType.Power);

@@ -140,7 +140,11 @@
         Evolution,
         Pound,
         Regenerate,
-        Desperation
+        Desperation,
+        ConfessionalKnives,
+        VeilAndVerdict,
+        FinalSermon,
+        Stigmata
 
 
 

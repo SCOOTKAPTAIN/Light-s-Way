@@ -19,8 +19,9 @@ namespace NueGames.NueDeck.Scripts.Managers
         [SerializeField] private List<SoundProfileData> soundProfileDataList;
         
         private Dictionary<AudioActionType, SoundProfileData> _audioDict = new Dictionary<AudioActionType, SoundProfileData>();
-    // Tracks last played time per audio action to allow debounced playback and avoid overlapping noise
-    private readonly Dictionary<AudioActionType, float> _lastPlayedTime = new Dictionary<AudioActionType, float>();
+        // Tracks last played time per audio action to avoid stacking identical burst sounds.
+        private readonly Dictionary<AudioActionType, float> _lastPlayedTime = new Dictionary<AudioActionType, float>();
+        private const float ActionSoundDebounceSeconds = 0.03f;
         
         #region Setup
         private void Awake()
@@ -63,8 +64,16 @@ namespace NueGames.NueDeck.Scripts.Managers
         public void PlayOneShot(AudioActionType type)
         {
             var clip = _audioDict[type].GetRandomClip();
-            if (clip)
-                PlayOneShot(clip);
+            if (clip == null)
+                return;
+
+            var now = Time.time;
+            if (_lastPlayedTime.TryGetValue(type, out var lastPlayedTime) &&
+                now - lastPlayedTime < ActionSoundDebounceSeconds)
+                return;
+
+            _lastPlayedTime[type] = now;
+            PlayOneShot(clip);
         }
         
         public void PlayOneShotButton(AudioActionType type)

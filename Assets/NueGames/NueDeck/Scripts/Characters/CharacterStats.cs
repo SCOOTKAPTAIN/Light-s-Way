@@ -66,6 +66,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         public bool IsDeath { get; private set; }
         // Tracks if Block was applied or refreshed in the current turn
         private bool _blockAppliedThisTurn = false;
+        private bool _currentAttackIsAreaOfEffect;
        
         public Action OnDeath;
         public Action<int, int> OnHealthChanged;
@@ -80,6 +81,11 @@ namespace NueGames.NueDeck.Scripts.Characters
         public Action<StatusType, int> OnStatusGained;
         // Invoked when shield (Block) is gained. Passes the positive delta amount.
         public Action<int> OnShieldGained;
+
+        public void SetCurrentAttackAreaOfEffect(bool isAreaOfEffect)
+        {
+            _currentAttackIsAreaOfEffect = isAreaOfEffect;
+        }
         
     public readonly Dictionary<StatusType, StatusStats> StatusDict = new Dictionary<StatusType, StatusStats>();
 
@@ -156,6 +162,14 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Reverberation: deals its stored damage to all enemies whenever Block is gained.
             StatusDict[StatusType.Reverberation].IsPermanent = true;
             OnShieldGained += TriggerReverberation;
+
+            // Chaotic is an invisible marker used by Chaos enemy actions.
+            StatusDict[StatusType.Chaotic].IsPermanent = true;
+
+            // Desperation persists for the rest of combat and loses 10% of max health each turn.
+            StatusDict[StatusType.Desperation].IsPermanent = true;
+            StatusDict[StatusType.Desperation].OnTriggerAction += TriggerDesperationHealthLoss;
+
 
             // Honor: decays by 1 each turn; does not consume on activation (checked directly in Damage()).
             StatusDict[StatusType.Honor].DecreaseOverTurn = true;
@@ -486,6 +500,13 @@ namespace NueGames.NueDeck.Scripts.Characters
         public void Damage(int value, bool canPierceArmor = false, string damageTextColor = "red", NueGames.NueDeck.Scripts.Characters.CharacterBase attacker = null, bool triggerSabotaged = true)
         {
             if (IsDeath) return;
+
+            if (attacker != null && StatusDict[StatusType.Flying].IsActive && !attacker.CharacterStats._currentAttackIsAreaOfEffect)
+                value = Mathf.RoundToInt(value * 0.20f);
+
+            if (attacker != null && StatusDict[StatusType.Desperation].IsActive)
+                value = Mathf.RoundToInt(value * 0.25f);
+
             OnTakeDamageAction?.Invoke();
             
             var healthBefore = CurrentHealth;
@@ -877,7 +898,31 @@ namespace NueGames.NueDeck.Scripts.Characters
         private void DamagePoison()
         {
             if (StatusDict[StatusType.Poison].StatusValue <= 0) return;
-            Damage(StatusDict[StatusType.Poison].StatusValue, true);
+
+            var poisonDamage = StatusDict[StatusType.Poison].StatusValue;
+            PlayStatusDamageFeedback(FxType.Poison, AudioActionType.Poison);
+            Damage(poisonDamage, true);
+        }
+
+        private void TriggerDesperationHealthLoss()
+        {
+            if (!StatusDict[StatusType.Desperation].IsActive || CurrentHealth <= 0)
+                return;
+
+            var healthLoss = Mathf.Max(1, Mathf.CeilToInt(MaxHealth * 0.10f));
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayOneShotDebounced(AudioActionType.GenericDOTDamage, 0.25f);
+
+            Damage(healthLoss, true, "red", null);
+        }
+
+        private void PlayStatusDamageFeedback(FxType fxType, AudioActionType audioType)
+        {
+            if (_characterCanvas != null && FxManager.Instance != null)
+                FxManager.Instance.PlayFx(_characterCanvas.transform, fxType);
+
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayOneShotDebounced(audioType, 0.25f);
         }
 
         private void GrantVigilanceBlock()

@@ -12,6 +12,7 @@ using NueGames.NueDeck.ThirdParty.NueTooltip.CursorSystem;
 using NueGames.NueDeck.ThirdParty.NueTooltip.Interfaces;
 using TMPro;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -187,10 +188,14 @@ namespace NueGames.NueDeck.Scripts.Card
                 yield return new WaitForSeconds(playerAction.ActionDelay);
                 var targetList = DetermineTargets(targetCharacter, allEnemies, allAllies, playerAction);
 
+                self.CharacterStats.SetCurrentAttackAreaOfEffect(playerAction.IsAreaOfEffect);
                 foreach (var target in targetList)
+                {
                     yield return CardActionProcessor.GetAction(playerAction.CardActionType)
                         .DoActionRoutine(new CardActionParameters(playerAction.ActionValue,
                             target,self,CardData,this));
+                }
+                self.CharacterStats.SetCurrentAttackAreaOfEffect(false);
             }
             
             // Increase Slimed status by 1 when player uses a card
@@ -250,7 +255,8 @@ namespace NueGames.NueDeck.Scripts.Card
             switch (playerAction.ActionTargetType)
             {
                 case ActionTargetType.Enemy:
-                    targetList.Add(targetCharacter);
+                    if (IsValidEnemyTarget(targetCharacter, allEnemies, playerAction.IsAreaOfEffect))
+                        targetList.Add(targetCharacter);
                     break;
                 case ActionTargetType.Ally:
                     targetList.Add(targetCharacter);
@@ -264,8 +270,11 @@ namespace NueGames.NueDeck.Scripts.Card
                         targetList.Add(allyBase);
                     break;
                 case ActionTargetType.RandomEnemy:
-                    if (allEnemies.Count>0)
-                        targetList.Add(allEnemies.RandomItem());
+                    var validEnemies = allEnemies
+                        .Where(enemy => IsValidEnemyTarget(enemy, allEnemies, playerAction.IsAreaOfEffect))
+                        .ToList();
+                    if (validEnemies.Count > 0)
+                        targetList.Add(validEnemies.RandomItem());
                     
                     break;
                 case ActionTargetType.RandomAlly:
@@ -277,6 +286,18 @@ namespace NueGames.NueDeck.Scripts.Card
             }
 
             return targetList;
+        }
+
+        private static bool IsValidEnemyTarget(CharacterBase target, List<EnemyBase> allEnemies, bool isAreaOfEffect)
+        {
+            if (target == null || !(target is EnemyBase enemy))
+                return false;
+
+            if (isAreaOfEffect || !enemy.CharacterStats.StatusDict[StatusType.Hidden].IsActive)
+                return true;
+
+            return allEnemies.Any(other => other != null && other != enemy && !other.CharacterStats.IsDeath &&
+                                           !other.CharacterStats.StatusDict[StatusType.Hidden].IsActive);
         }
         
         public virtual void Discard()

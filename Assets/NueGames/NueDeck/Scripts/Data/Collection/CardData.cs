@@ -108,11 +108,14 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         [SerializeField] private ActionTargetType actionTargetType;
         [SerializeField] private float actionValue;
         [SerializeField] private float actionDelay;
+        [Tooltip("Marks this action as area-of-effect for Flying enemies and Hidden target rules.")]
+        [SerializeField] private bool isAreaOfEffect;
 
         public ActionTargetType ActionTargetType => actionTargetType;
         public CardActionType CardActionType => cardActionType;
         public float ActionValue => actionValue;
         public float ActionDelay => actionDelay;
+        public bool IsAreaOfEffect => isAreaOfEffect;
 
         #region Editor
 
@@ -121,6 +124,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         public void EditActionTarget(ActionTargetType newTargetType) => actionTargetType = newTargetType;
         public void EditActionValue(float newValue) => actionValue = newValue;
         public void EditActionDelay(float newValue) => actionDelay = newValue;
+        public void EditIsAreaOfEffect(bool newValue) => isAreaOfEffect = newValue;
 
 #endif
 

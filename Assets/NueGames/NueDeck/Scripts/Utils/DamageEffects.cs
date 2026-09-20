@@ -62,6 +62,9 @@ namespace NueGames.NueDeck.Scripts.Utils
 
             float adjustedBaseValue = baseValue;
 
+            if (attacker != null && attacker.CharacterStats.StatusDict[StatusType.Desperation].IsActive)
+                adjustedBaseValue *= 1.5f;
+
             // Ammo Pouch: each stack adds 5% damage per card in the exhaust pile.
             if (attacker != null && attacker.CharacterStats.StatusDict.ContainsKey(StatusType.Deadstock))
             {

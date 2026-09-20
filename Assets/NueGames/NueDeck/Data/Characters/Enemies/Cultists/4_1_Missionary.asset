@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
+  m_Name: 4_1_Missionary
+  m_EditorClassIdentifier: 
+  characterID: 4_1
+  characterName: Missionary
+  characterDescription: 'One of the early Cultist enemies, players will fight.
+
+    Despite
+    the name, he is more kin to an assassin, sabotaging the player and striking when
+    the moment is right.
+
+'
+  maxHealth: 10
+  enemyPrefab: {fileID: 243822687015991123, guid: 423cb5c30def2ee46867530856c361b9, type: 3}
+  mutatedVersion: {fileID: 0}
+  chaosificationStatus:
+    modifierName: 
+    icon: {fileID: 0}
+    description: 
+  useActBasedScaling: 1
+  actConfigurations:
+  - actNumber: 1
+    maxHealth: 170
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Confessional Knives
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>3</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList: []
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+  followAbilityPattern: 0
+  useWeightedSelection: 1
+  preventRepeatAbility: 1
+  startingStatuses: []
+  enemyAbilityList:
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 0
+      minActionValue: 0
+      maxActionValue: 0
+      targetRestriction: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 1
+    maxConsecutiveUses: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
   m_Name: 2_1_Shadowling
   m_EditorClassIdentifier: 
-  characterID: Shadowling
+  characterID: 2_1
   characterName: Shadowling
   characterDescription: 'Weak, small-fry shadow monsters but their infinite potential
     must not be ignored.
@@ -47,6 +47,7 @@ MonoBehaviour:
         applyLightMultiplier: 1
         statusType: 0
         overridePresentation: 0
+        suppressPresentation: 0
         customFxType: 0
         customAudioType: 0
       repeatCount: 0
@@ -66,6 +67,7 @@ MonoBehaviour:
         applyLightMultiplier: 1
         statusType: 0
         overridePresentation: 0
+        suppressPresentation: 0
         customFxType: 0
         customAudioType: 0
       repeatCount: 0
@@ -85,6 +87,7 @@ MonoBehaviour:
         applyLightMultiplier: 1
         statusType: 0
         overridePresentation: 0
+        suppressPresentation: 0
         customFxType: 0
         customAudioType: 0
       repeatCount: 0
@@ -109,6 +112,7 @@ MonoBehaviour:
       applyLightMultiplier: 1
       statusType: 0
       overridePresentation: 0
+      suppressPresentation: 0
       customFxType: 0
       customAudioType: 0
     repeatCount: 1
@@ -128,6 +132,7 @@ MonoBehaviour:
       applyLightMultiplier: 1
       statusType: 0
       overridePresentation: 0
+      suppressPresentation: 0
       customFxType: 0
       customAudioType: 0
     repeatCount: 1

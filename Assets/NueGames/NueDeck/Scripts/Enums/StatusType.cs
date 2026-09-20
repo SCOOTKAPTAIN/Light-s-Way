@@ -43,7 +43,11 @@
         Bastion,
         Reverberation,
         Honor,
-        ChaosificationBouncy
+        ChaosificationBouncy,
+        Chaotic,
+        Desperation,
+        Hidden,
+        Flying
         
 
     }

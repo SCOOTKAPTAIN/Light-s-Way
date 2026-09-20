@@ -136,6 +136,9 @@ namespace NueGames.NueDeck.Scripts.Characters
         #region Public Methods
         public void ApplyStatus(StatusType targetStatus, int value)
         {
+            if (targetStatus == StatusType.Chaotic)
+                return;
+
             // Do not create or show icons for zero or negative values.
             if (value <= 0)
             {

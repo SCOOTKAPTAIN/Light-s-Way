@@ -140,7 +140,12 @@
         Evolution,
         Pound,
         Regenerate,
-        Desperation
+        Desperation,
+        GenericDOTDamage,
+        ConfessionalKnives,
+        VeilAndVerdict,
+        FinalSermon,
+        Stigmata
         
 
 

@@ -1,0 +1,179 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
+  m_Name: 3_1_Alpha
+  m_EditorClassIdentifier: 
+  characterID: 3_1
+  characterName: Alpha
+  characterDescription: "A Shadowling who has gone through constant tribulations
+    and evolutions, turning them into an apex predator.\r\nTheir aimless wandering
+    has turned them into a simple brute, relying on pure strength to tear all in
+    its path. Do not underestimate its brutality, for it has learned the concept
+    of \u201CCornered beast\u201D at the very least.\r\nAlthough their maturity has
+    hindered their evolution, it is not yet dormant and will activate once in a while.\r\n"
+  maxHealth: 70
+  enemyPrefab: {fileID: 243822687015991123, guid: 57578056cc05e784881d21f34e5b78c5, type: 3}
+  mutatedVersion: {fileID: 11400000, guid: 68b3a6ae6e9d59e44a559d7a8f1b35ec, type: 2}
+  chaosificationStatus:
+    modifierName: 
+    icon: {fileID: 0}
+    description: 
+  useActBasedScaling: 1
+  actConfigurations:
+  - actNumber: 1
+    maxHealth: 325
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Pound
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 9
+        minActionValue: 33
+        maxActionValue: 37
+        targetRestriction: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 6
+      maxConsecutiveUses: 3
+    - name: Regenerate
+      intention: {fileID: 11400000, guid: d8b91adf93b4e21419f64f9a68fc3c70, type: 2}
+      description: Recover <color=#FFB430>{value1} Health</color>.\nGain <color=#FFB430>{value2}
+        Block</color>.
+      keywords: 00000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 1
+        minActionValue: 14
+        maxActionValue: 16
+        targetRestriction: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 135
+        customAudioType: 137
+      - actionType: 3
+        minActionValue: 6
+        maxActionValue: 8
+        targetRestriction: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 2
+    - name: Evolution
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Gain <color=#FFB430>{value} Strength</color> and <color=#FFB430>Fortitude</color>.
+      keywords: 0100000013000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 8
+        minActionValue: 2
+        maxActionValue: 4
+        targetRestriction: 1
+        applyLightMultiplier: 1
+        statusType: 0
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 135
+        customAudioType: 137
+      repeatCount: 0
+      conditions: []
+      weight: 1
+      maxConsecutiveUses: 1
+    - name: Desperation
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: On the brink of death, this creature has become <color=#FFB430>Desperate</color>.
+      keywords: 2c000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 13
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 1
+        applyLightMultiplier: 1
+        statusType: 43
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 136
+        customAudioType: 138
+      repeatCount: 0
+      conditions:
+      - target: 0
+        conditionType: 8
+        specificStatus: 0
+        threshold: 40
+      - target: 0
+        conditionType: 1
+        specificStatus: 43
+        threshold: 0
+      weight: 100
+      maxConsecutiveUses: 1
+  followAbilityPattern: 0
+  useWeightedSelection: 1
+  preventRepeatAbility: 0
+  startingStatuses: []
+  enemyAbilityList:
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 0
+      minActionValue: 10
+      maxActionValue: 10
+      targetRestriction: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 6
+    maxConsecutiveUses: 0
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 2
+      minActionValue: 2
+      maxActionValue: 2
+      targetRestriction: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 5
+    maxConsecutiveUses: 0

@@ -191,3 +191,8 @@ MonoBehaviour:
     header: Retain
     contentText: This card will remain in your <color=#FFB430>Hand</color> after
       the turn ends.
+  - specialKeyword: 44
+    header: Desperation
+    contentText: Take <color=#FFB430>75%</color> less damage, deal <color=#FFB430>50%</color>
+      more damage, and lose <color=#FFB430>10% of Max Health</color> at the start
+      of each turn.

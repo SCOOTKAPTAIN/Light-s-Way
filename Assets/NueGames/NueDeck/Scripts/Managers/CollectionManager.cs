@@ -255,6 +255,46 @@ namespace NueGames.NueDeck.Scripts.Managers
             return cardsToExhaust.Count;
         }
 
+        public bool ExhaustRandomCard()
+        {
+            if (HandController == null)
+                return false;
+
+            var handCards = new List<CardBase>();
+            foreach (var card in HandController.hand)
+            {
+                if (card != null && card.CardData != null && !card.IsExhausted)
+                    handCards.Add(card);
+            }
+
+            var totalCards = handCards.Count + DrawPile.Count + DiscardPile.Count;
+            if (totalCards == 0)
+                return false;
+
+            var selectedIndex = Random.Range(0, totalCards);
+            if (selectedIndex < handCards.Count)
+            {
+                var card = handCards[selectedIndex];
+                card.Exhaust(false);
+                HandController.hand.Remove(card);
+                HandController.ClampSelectionState();
+                return true;
+            }
+
+            selectedIndex -= handCards.Count;
+            var sourcePile = selectedIndex < DrawPile.Count ? DrawPile : DiscardPile;
+            var pileIndex = selectedIndex < DrawPile.Count ? selectedIndex : selectedIndex - DrawPile.Count;
+            var cardData = sourcePile[pileIndex];
+            sourcePile.RemoveAt(pileIndex);
+            ExhaustPile.Add(cardData);
+            RevertVanguardStanceEntry(ExhaustPile);
+
+            if (UIManager != null && UIManager.CombatCanvas != null)
+                UIManager.CombatCanvas.SetPileTexts();
+
+            return true;
+        }
+
         // Piqued Interest: discards the selected Attack/Buff cards, then draws the same number of
         // opposite-category cards from the draw pile (falling back to a random card if the draw pile lacks one).
         public int ExchangeCardsForOppositeCategory(List<CardBase> selectedCards)

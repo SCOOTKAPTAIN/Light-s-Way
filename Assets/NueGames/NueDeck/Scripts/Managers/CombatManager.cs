@@ -444,6 +444,7 @@ namespace NueGames.NueDeck.Scripts.Managers
                 // Check for mutation: each enemy rolls independently
                 var spawnEntry = spawnEntries != null && spawnEntries.Count > 0 ? spawnEntries[i] : null;
                 var enemyData = spawnEntry != null ? spawnEntry.Enemy : enemyList[i];
+                var isChaosEnemy = false;
                 if (enemyData == null)
                 {
                     Debug.LogWarning($"Skipping empty enemy entry at index {i} in encounter '{CurrentEncounter.EncounterId}'.");
@@ -466,6 +467,7 @@ namespace NueGames.NueDeck.Scripts.Managers
                 if (enemyData.MutatedVersion != null && UnityEngine.Random.Range(0f, 100f) < mutationChance)
                 {
                     // Spawn mutated version instead
+                    isChaosEnemy = true;
                     Debug.Log($"[Mutation] {enemyData.CharacterName} mutated to {enemyData.MutatedVersion.CharacterName} (chance: {mutationChance}%)");
                     
                     // Play mutation sound effect using DialogueAudioManager
@@ -478,7 +480,7 @@ namespace NueGames.NueDeck.Scripts.Managers
                 
                 var clone = Instantiate(enemyData.EnemyPrefab, EnemyPosList[positionIndex]);
                 
-                clone.SetEnemyCharacterData(enemyData);
+                clone.SetEnemyCharacterData(enemyData, isChaosEnemy);
 
                 // Set the current act BEFORE building the character
                 clone.SetCurrentAct(currentAct);

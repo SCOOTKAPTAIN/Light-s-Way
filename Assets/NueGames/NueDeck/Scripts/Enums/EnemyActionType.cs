@@ -15,6 +15,7 @@
         Regenerate,
         Desperation,
         ApplyDebuff,
-        ApplyBuff
+        ApplyBuff,
+        MultiHitAttack
     }
 }

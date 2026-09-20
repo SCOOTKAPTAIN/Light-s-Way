@@ -20,6 +20,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         [SerializeField] protected SoundProfileData deathSoundProfileData;
         [SerializeField] protected SpriteRenderer spriteRenderer;
         protected EnemyAbilityData NextAbility;
+        private bool _isChaosEnemy;
         
         // Track which act this enemy was spawned in for act-based scaling
         private int _currentAct;
@@ -28,10 +29,13 @@ namespace NueGames.NueDeck.Scripts.Characters
         public EnemyCanvas EnemyCanvas => enemyCanvas;
         public SoundProfileData DeathSoundProfileData => deathSoundProfileData;
 
-        public void SetEnemyCharacterData(EnemyCharacterData characterData)
+        public void SetEnemyCharacterData(EnemyCharacterData characterData, bool isChaosEnemy = false)
         {
             if (characterData != null)
+            {
                 enemyCharacterData = characterData;
+                _isChaosEnemy = isChaosEnemy;
+            }
         }
 
         #region Setup
@@ -62,6 +66,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             CharacterStats = new CharacterStats(maxHealth, EnemyCanvas);
             CharacterStats.OnDeath += OnDeath;
             CharacterStats.SetCurrentHealth(CharacterStats.CurrentHealth);
+
+            if (_isChaosEnemy || EnemyCharacterData.IsChaosEnemy)
+                CharacterStats.ApplyStatus(StatusType.Chaotic, 1);
             
             // Apply starting statuses using act-specific data
             var startingStatuses = EnemyCharacterData.GetStartingStatuses(_currentAct);
@@ -179,7 +186,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             {
                 EnemyCanvas.NextActionValueText.gameObject.SetActive(true);
                 // Calculate displayed value using action data (checks ApplyLightMultiplier flag)
-                int displayedValue = CalculateDisplayedValue(GetActionValue(NextAbility.ActionList[0]), NextAbility.ActionList[0]);
+                int displayedValue = CalculateActionValue(NextAbility.ActionList[0], CombatManager.CurrentMainAlly);
                 
                 // Show repeat multiplier if repeatCount > 1
                 if (NextAbility.RepeatCount > 1)
@@ -450,6 +457,10 @@ namespace NueGames.NueDeck.Scripts.Characters
                 case AbilityCondition.ConditionType.HealthBelow:
                     float healthPercentBelow = (stats.CurrentHealth / (float)stats.MaxHealth) * 100f;
                     return healthPercentBelow < condition.threshold;
+
+                case AbilityCondition.ConditionType.HealthAtOrBelow:
+                    float healthPercentAtOrBelow = (stats.CurrentHealth / (float)stats.MaxHealth) * 100f;
+                    return healthPercentAtOrBelow <= condition.threshold;
                 
                 case AbilityCondition.ConditionType.HealthAbove:
                     float healthPercentAbove = (stats.CurrentHealth / (float)stats.MaxHealth) * 100f;
@@ -475,50 +486,10 @@ namespace NueGames.NueDeck.Scripts.Characters
         /// Checks the action's ApplyLightMultiplier flag to determine if Light scaling applies.
         /// Attack-type actions also apply Strength + Fragile + Weak + Pursuit modifiers.
         /// </summary>
-        private int CalculateDisplayedValue(int baseValue, EnemyActionData actionData)
+        private int CalculateActionValue(EnemyActionData actionData, CharacterBase targetCharacter)
         {
-            var combatManager = CombatManager.Instance;
-            if (combatManager == null)
-                return baseValue;
-            
-            float value = baseValue;
-            
-            // Apply Light multiplier if the action has it enabled (uses cached value from combat start)
-            if (actionData.ApplyLightMultiplier)
-            {
-                value *= CombatManager.CombatLightMultiplier;
-            }
-            
-            // Damage actions get the same modifiers used when the action executes.
-            if (IsDamageAction(actionData.ActionType))
-            {
-                if (combatManager.CurrentMainAlly == null)
-                    return Mathf.RoundToInt(value);
-                    
-                var targetCharacter = combatManager.CurrentMainAlly;
-                
-                // Execution rounds after Light scaling and Strength before applying target/attacker modifiers.
-                value = Mathf.RoundToInt(value + CharacterStats.StatusDict[StatusType.Strength].StatusValue);
-                
-                // Apply Fragile, Weak, Pursuit, Slimed modifiers
-                value = NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, this, value);
-            }
-            // Block actions get Fortitude bonus
-            else if (actionData.ActionType == EnemyActionType.Block ||
-                     actionData.ActionType == EnemyActionType.Preservation)
-            {
-                value += CharacterStats.StatusDict[StatusType.Fortitude].StatusValue;
-            }
-            
-            return Mathf.RoundToInt(value);
-        }
-
-        private bool IsDamageAction(EnemyActionType actionType)
-        {
-            return actionType == EnemyActionType.Attack ||
-                   actionType == EnemyActionType.Tackle ||
-                     actionType == EnemyActionType.GooSpit ||
-                     actionType == EnemyActionType.Claw;
+            var action = EnemyActionProcessor.GetAction(actionData.ActionType);
+            return action.CalculateValue(GetActionValue(actionData), this, targetCharacter, actionData);
         }
 
         private int GetActionValue(EnemyActionData action)
@@ -548,7 +519,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                 return string.Empty;
 
             var action = NextAbility.ActionList[0];
-            var displayedValue = CalculateDisplayedValue(GetActionValue(action), action);
+            var displayedValue = CalculateActionValue(action, CombatManager.CurrentMainAlly);
             var actionName = action.ActionType == EnemyActionType.ApplyDebuff || action.ActionType == EnemyActionType.ApplyBuff
                 ? action.StatusType.ToString()
                 : action.ActionType.ToString();
@@ -560,6 +531,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                 description = action.ActionType switch
                 {
                     EnemyActionType.Attack => "Deal {value} damage.",
+                    EnemyActionType.MultiHitAttack => "Deal {value} damage {repeat}.",
                     EnemyActionType.Heal => "Heal {value} health.",
                     EnemyActionType.Poison => "Apply {value} Poison.",
                     EnemyActionType.ApplyDebuff => "Apply {value} {action}.",
@@ -569,10 +541,33 @@ namespace NueGames.NueDeck.Scripts.Characters
                 };
             }
 
-            return description
+            description = description
                 .Replace("{value}", displayedValue.ToString())
                 .Replace("{action}", actionName)
                 .Replace("{repeat}", repeatText);
+
+            for (var actionIndex = 0; actionIndex < NextAbility.ActionList.Count; actionIndex++)
+            {
+                var actionData = NextAbility.ActionList[actionIndex];
+                if (actionData == null)
+                    continue;
+
+                var valuePlaceholder = "{value" + (actionIndex + 1) + "}";
+                if (description.Contains(valuePlaceholder))
+                {
+                    var actionValue = CalculateActionValue(actionData, CombatManager.CurrentMainAlly);
+                    description = description.Replace(valuePlaceholder, actionValue.ToString());
+                }
+
+                var actionPlaceholder = "{" + actionData.ActionType.ToString().ToLowerInvariant() + "}";
+                if (description.Contains(actionPlaceholder))
+                {
+                    var actionValue = CalculateActionValue(actionData, CombatManager.CurrentMainAlly);
+                    description = description.Replace(actionPlaceholder, actionValue.ToString());
+                }
+            }
+
+            return description;
         }
 
             public List<SpecialKeywords> GetNextAbilityKeywords()
@@ -597,13 +592,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         /// </summary>
         private void OnEnemyStatusChanged(StatusType statusType, int value)
         {
-            // Only update if it's a status that affects damage calculation
-            if (statusType == StatusType.Strength ||
-                statusType == StatusType.Weak ||
-                statusType == StatusType.Fortitude)
-            {
-                UpdateIntentionValue();
-            }
+            UpdateIntentionValue();
         }
         
         /// <summary>
@@ -614,7 +603,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (NextAbility == null || NextAbility.HideActionValue)
                 return;
             
-            int displayedValue = CalculateDisplayedValue(GetActionValue(NextAbility.ActionList[0]), NextAbility.ActionList[0]);
+            int displayedValue = CalculateActionValue(NextAbility.ActionList[0], CombatManager.CurrentMainAlly);
             
             // Update intention text with repeat multiplier if needed
             if (NextAbility.RepeatCount > 1)
@@ -691,7 +680,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
 
             // Execute attack actions
-            targetAbility.ActionList.ForEach(x => EnemyActionProcessor.GetAction(x.ActionType).DoAction(new EnemyActionParameters(GetActionValue(x), target, this, x)));
+            targetAbility.ActionList.ForEach(x => EnemyActionProcessor.GetAction(x.ActionType).DoAction(new EnemyActionParameters(GetActionValue(x), target, this, x, targetAbility.RepeatCount)));
             
             // Slow slide back to original position
             yield return MoveToTargetRoutine(waitFrame, lungePos, startPos, lungeRot, startRot, 2f);
@@ -748,7 +737,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                 Debug.Log($"{name} switched buff target to '{target.name}' because original died.");
             }
 
-            targetAbility.ActionList.ForEach(x => EnemyActionProcessor.GetAction(x.ActionType).DoAction(new EnemyActionParameters(GetActionValue(x), target, this, x)));
+            targetAbility.ActionList.ForEach(x => EnemyActionProcessor.GetAction(x.ActionType).DoAction(new EnemyActionParameters(GetActionValue(x), target, this, x, targetAbility.RepeatCount)));
             
             yield return MoveToTargetRoutine(waitFrame, endPos, startPos, endRot, startRot, 5);
             Debug.Log($"BuffRoutine END for '{name}'");
@@ -775,7 +764,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                 
                 foreach (var action in targetAbility.ActionList)
                 {
-                    EnemyActionProcessor.GetAction(action.ActionType).DoAction(new EnemyActionParameters(GetActionValue(action), ally, this, action));
+                    EnemyActionProcessor.GetAction(action.ActionType).DoAction(new EnemyActionParameters(GetActionValue(action), ally, this, action, targetAbility.RepeatCount));
                 }
             }
             

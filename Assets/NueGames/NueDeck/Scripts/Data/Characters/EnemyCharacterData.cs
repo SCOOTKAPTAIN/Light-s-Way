@@ -51,6 +51,7 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         
         public EnemyCharacterData MutatedVersion => mutatedVersion;
         public ChaosificationStatusData ChaosificationStatus => chaosificationStatus;
+        public bool IsChaosEnemy => chaosificationStatus != null && chaosificationStatus.IsConfigured;
         
         [Header("Act-Based Scaling")]
         [Tooltip("Enable to use act-specific configurations. When enabled, parameters below are FALLBACK values if act data is missing.")]
@@ -213,7 +214,7 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [SerializeField] private string name;
         [SerializeField] private EnemyIntentionData intention;
         [TextArea(2, 4)]
-        [Tooltip("Description shown when hovering the enemy intention. Use {value}, {action}, and {repeat} for dynamic values. Leave empty for an automatic description.")]
+        [Tooltip("Description shown when hovering the enemy intention. Use {value} for the first action, {value1}, {value2}, etc. for ordered action values, plus {action} and {repeat}. Leave empty for an automatic description.")]
         [SerializeField] private string description;
         [Tooltip("Status and mechanic tooltips shown while hovering this intention.")]
         [SerializeField] private List<SpecialKeywords> keywords = new List<SpecialKeywords>();
@@ -270,7 +271,8 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
             HealthBelow,    // Target health below threshold (%)
             HealthAbove,    // Target health above threshold (%)
             StatusAbove,    // Specific status stacks above threshold
-            StatusBelow     // Specific status stacks below threshold
+            StatusBelow,    // Specific status stacks below threshold
+            HealthAtOrBelow // Target health at or below threshold (%)
         }
         
         [Tooltip("Who to check the condition on")]
@@ -282,7 +284,7 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [Tooltip("For HasStatus/LacksStatus/StatusAbove/StatusBelow: which status to check")]
         public StatusType specificStatus = StatusType.None;
         
-        [Tooltip("For HealthBelow/HealthAbove: percentage threshold (0-100). For StatusAbove/StatusBelow: stack count threshold.")]
+        [Tooltip("For HealthBelow/HealthAtOrBelow/HealthAbove: percentage threshold (0-100). For StatusAbove/StatusBelow: stack count threshold.")]
         public int threshold = 50;
     }
     
@@ -308,6 +310,8 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [Header("Presentation Overrides")]
         [Tooltip("If enabled, use the selected FX and audio instead of the action's default presentation.")]
         [SerializeField] private bool overridePresentation;
+        [Tooltip("If enabled, this action applies its effect without playing an FX or SFX. Useful when several actions make up one ability.")]
+        [SerializeField] private bool suppressPresentation;
         [SerializeField] private FxType customFxType;
         [SerializeField] private AudioActionType customAudioType;
         
@@ -319,6 +323,7 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         public bool ApplyLightMultiplier => applyLightMultiplier;
         public StatusType StatusType => statusType;
         public bool OverridePresentation => overridePresentation;
+        public bool SuppressPresentation => suppressPresentation;
         public FxType CustomFxType => customFxType;
         public AudioActionType CustomAudioType => customAudioType;
         public int ActionValue

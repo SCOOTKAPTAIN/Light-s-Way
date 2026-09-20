@@ -1,4 +1,6 @@
-﻿using NueGames.NueDeck.Scripts.Enums;
+﻿using NueGames.NueDeck.Scripts.Characters;
+using NueGames.NueDeck.Scripts.Data.Characters;
+using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
 using UnityEngine;
 
@@ -7,6 +9,11 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
     public class EnemyBlockAction : EnemyActionBase
     {
         public override EnemyActionType ActionType => EnemyActionType.Block;
+
+        public override int CalculateValue(float baseValue, CharacterBase selfCharacter, CharacterBase targetCharacter, EnemyActionData actionData)
+        {
+            return CalculateBlockValue(baseValue, selfCharacter, actionData);
+        }
         
         public override void DoAction(EnemyActionParameters actionParameters)
         {
@@ -17,17 +24,8 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             
             if (!newTarget) return;
             
-            float blockValue = actionParameters.Value;
-            
-            // Apply Light-based multiplier if action has flag enabled (uses cached value from combat start)
-            if (actionParameters.ActionData != null && actionParameters.ActionData.ApplyLightMultiplier)
-            {
-                blockValue *= CombatManager.Instance.CombatLightMultiplier;
-            }
-            
             newTarget.CharacterStats.ApplyStatus(StatusType.Block,
-                Mathf.RoundToInt(blockValue + actionParameters.SelfCharacter.CharacterStats
-                    .StatusDict[StatusType.Fortitude].StatusValue));
+                CalculateValue(actionParameters.Value, actionParameters.SelfCharacter, newTarget, actionParameters.ActionData));
             
             PlayActionFx(actionParameters, newTarget.transform, FxType.Block);
             PlayActionAudio(actionParameters, AudioActionType.Block);

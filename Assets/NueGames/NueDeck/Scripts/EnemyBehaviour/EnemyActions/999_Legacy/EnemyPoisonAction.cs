@@ -1,12 +1,18 @@
-﻿using NueGames.NueDeck.Scripts.Enums;
-using NueGames.NueDeck.Scripts.Managers;
-using UnityEngine;
+﻿using NueGames.NueDeck.Scripts.Characters;
+using NueGames.NueDeck.Scripts.Data.Characters;
+using NueGames.NueDeck.Scripts.Enums;
 
 namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
 {
     public class EnemyPoisonAction : EnemyActionBase
     {
         public override EnemyActionType ActionType => EnemyActionType.Poison;
+
+        public override int CalculateValue(float baseValue, CharacterBase selfCharacter, CharacterBase targetCharacter, EnemyActionData actionData)
+        {
+            return CalculateBaseValue(baseValue, actionData);
+        }
+
         public override void DoAction(EnemyActionParameters actionParameters)
         {
             var newTarget = actionParameters.TargetCharacter;
@@ -14,10 +20,11 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
 
             if (!newTarget) return;
             
-            newTarget.CharacterStats.ApplyStatus(StatusType.Slimed,Mathf.RoundToInt(actionParameters.Value));
-            newTarget.CharacterStats.ApplyStatus(StatusType.Burden,Mathf.RoundToInt(actionParameters.Value));
-            newTarget.CharacterStats.ApplyStatus(StatusType.CloggedCircuits,Mathf.RoundToInt(actionParameters.Value));
-             newTarget.CharacterStats.ApplyStatus(StatusType.ManaDrain,Mathf.RoundToInt(actionParameters.Value));
+            var value = CalculateValue(actionParameters.Value, selfCharacter, newTarget, actionParameters.ActionData);
+            newTarget.CharacterStats.ApplyStatus(StatusType.Slimed, value);
+            newTarget.CharacterStats.ApplyStatus(StatusType.Burden, value);
+            newTarget.CharacterStats.ApplyStatus(StatusType.CloggedCircuits, value);
+            newTarget.CharacterStats.ApplyStatus(StatusType.ManaDrain, value);
 
            
             // Apply Sabotaged effect (deals damage to self, then reduces Sabotaged by 1)

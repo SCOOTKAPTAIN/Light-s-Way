@@ -730,6 +730,7 @@ namespace NueGames.NueDeck.Scripts.Collection
             {
                 case ActionTargetType.Enemy:
                 case ActionTargetType.RandomEnemy:
+                    return GetValidEnemyTargets(card).Count;
                 case ActionTargetType.AllEnemies:
                     return CombatManager.CurrentEnemiesList.Count;
                 case ActionTargetType.Ally:
@@ -752,6 +753,8 @@ namespace NueGames.NueDeck.Scripts.Collection
             {
                 case ActionTargetType.Enemy:
                 case ActionTargetType.RandomEnemy:
+                    var validEnemies = GetValidEnemyTargets(card);
+                    return validEnemies[_keyboardTargetIndex % validEnemies.Count];
                 case ActionTargetType.AllEnemies:
                     return CombatManager.CurrentEnemiesList[_keyboardTargetIndex % targetCount];
                 case ActionTargetType.Ally:
@@ -859,6 +862,10 @@ namespace NueGames.NueDeck.Scripts.Collection
 
                     if (checkEnemy || checkAlly)
                     {
+                        if (checkEnemy && !IsValidEnemyTarget((EnemyBase)character.GetCharacterBase(),
+                                card.CardData.CardActionDataList[0].IsAreaOfEffect))
+                            return false;
+
                         selfCharacter = CombatManager.CurrentMainAlly;
                         selfCharacter = CombatManager.CurrentMainAlly;
                         targetCharacter = character.GetCharacterBase();
@@ -868,6 +875,35 @@ namespace NueGames.NueDeck.Scripts.Collection
             }
 
             return false;
+        }
+
+        private List<EnemyBase> GetValidEnemyTargets(CardBase card)
+        {
+            var isAreaOfEffect = card.CardData.CardActionDataList[0].IsAreaOfEffect;
+            var validEnemies = new List<EnemyBase>();
+
+            foreach (var enemy in CombatManager.CurrentEnemiesList)
+            {
+                if (enemy != null && IsValidEnemyTarget(enemy, isAreaOfEffect))
+                    validEnemies.Add(enemy);
+            }
+
+            return validEnemies;
+        }
+
+        private bool IsValidEnemyTarget(EnemyBase enemy, bool isAreaOfEffect)
+        {
+            if (enemy == null || isAreaOfEffect || !enemy.CharacterStats.StatusDict[StatusType.Hidden].IsActive)
+                return true;
+
+            foreach (var otherEnemy in CombatManager.CurrentEnemiesList)
+            {
+                if (otherEnemy != null && otherEnemy != enemy && !otherEnemy.CharacterStats.IsDeath &&
+                    !otherEnemy.CharacterStats.StatusDict[StatusType.Hidden].IsActive)
+                    return false;
+            }
+
+            return true;
         }
 
         private void HandleDraggedCardInsideHand(bool mouseButton, int count)

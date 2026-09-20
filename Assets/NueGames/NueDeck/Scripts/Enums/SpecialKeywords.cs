@@ -45,7 +45,8 @@
         Reverberation,
         Honor,
         VanguardStance,
-        RetainExplanation
+        RetainExplanation,
+        Desperation
         
 
 
