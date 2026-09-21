@@ -46,7 +46,13 @@
         Honor,
         VanguardStance,
         RetainExplanation,
-        Desperation
+        Desperation,
+        Ambush,
+        Flying,
+        Hidden,
+        ManaDrain,
+        Burden,
+        CloggedCircuits
         
 
 

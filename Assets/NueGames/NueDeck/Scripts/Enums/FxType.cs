@@ -144,7 +144,10 @@
         ConfessionalKnives,
         VeilAndVerdict,
         FinalSermon,
-        Stigmata
+        Stigmata,
+        ArcaneTithe,
+        RiteOfSupression,
+        CovenWard
 
 
 

@@ -40,14 +40,86 @@ MonoBehaviour:
         times.
       keywords: 
       hideActionValue: 0
-      actionList: []
+      actionList:
+      - actionType: 14
+        minActionValue: 6
+        maxActionValue: 6
+        targetRestriction: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 137
+        customAudioType: 140
+      repeatCount: 3
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Confessional Knives
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>3</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 6
+        maxActionValue: 6
+        targetRestriction: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 137
+        customAudioType: 140
+      repeatCount: 3
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Veil and Verdict
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Apply <color=#FFB430>Blind</color>. \nGrant <color=#FFB430>Ambush</color>
+        to self.
+      keywords: 1d0000002d000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 15
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 138
+        customAudioType: 141
       repeatCount: 0
       conditions: []
       weight: 0
       maxConsecutiveUses: 0
-  followAbilityPattern: 0
-  useWeightedSelection: 1
-  preventRepeatAbility: 1
+    - name: Final Sermon
+      intention: {fileID: 11400000, guid: 8ff4d02922df38048be5b7df2bf1e027, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 0
+        minActionValue: 19
+        maxActionValue: 21
+        targetRestriction: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 139
+        customAudioType: 142
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+  followAbilityPattern: 1
+  useWeightedSelection: 0
+  preventRepeatAbility: 0
   startingStatuses: []
   enemyAbilityList:
   - name: Attack Single

@@ -132,9 +132,16 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.NoGainMana].DecreaseOverTurn = true;
 
             // New debuffs
-            StatusDict[StatusType.ManaDrain].DecreaseOverTurn = true; // reduces by 1 each turn
-            StatusDict[StatusType.Burden].DecreaseOverTurn = true; // increases card costs, decays
-            StatusDict[StatusType.CloggedCircuits].DecreaseOverTurn = true; // prevents mana gains from effects
+            // Mana Drain resolves at the next ally turn and remains visible until that turn ends.
+            StatusDict[StatusType.ManaDrain].DecreaseOverTurn = false;
+            StatusDict[StatusType.ManaDrain].TriggerAtTurnEnd = true;
+            StatusDict[StatusType.ManaDrain].OnTriggerAction += ConsumeManaDrain;
+            // These debuffs are applied during the enemy turn and must last through the next ally turn.
+            // Resolve their decay at the end of the ally turn instead of before the ally can act.
+            StatusDict[StatusType.Burden].DecreaseOverTurn = true;
+            StatusDict[StatusType.Burden].TriggerAtTurnEnd = true;
+            StatusDict[StatusType.CloggedCircuits].DecreaseOverTurn = true;
+            StatusDict[StatusType.CloggedCircuits].TriggerAtTurnEnd = true;
 
             // Steady Barricade: persists for the combat; each stack retains +10 Block at turn start
             StatusDict[StatusType.SteadyBarricade].IsPermanent = true;
@@ -256,7 +263,8 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             if (StatusDict[targetStatus].IsActive)
             {
-                StatusDict[targetStatus].StatusValue += value;
+                if (targetStatus != StatusType.Ambush)
+                    StatusDict[targetStatus].StatusValue += value;
                 OnStatusChanged?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
                 OnStatusChangedPublic?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
                 
@@ -500,6 +508,12 @@ namespace NueGames.NueDeck.Scripts.Characters
         public void Damage(int value, bool canPierceArmor = false, string damageTextColor = "red", NueGames.NueDeck.Scripts.Characters.CharacterBase attacker = null, bool triggerSabotaged = true)
         {
             if (IsDeath) return;
+
+            if (attacker != null && attacker.CharacterStats != null && attacker.CharacterStats.StatusDict[StatusType.Ambush].IsActive)
+            {
+                value = Mathf.RoundToInt(value * 2f);
+                attacker.CharacterStats.ClearStatus(StatusType.Ambush);
+            }
 
             if (attacker != null && StatusDict[StatusType.Flying].IsActive && !attacker.CharacterStats._currentAttackIsAreaOfEffect)
                 value = Mathf.RoundToInt(value * 0.20f);
@@ -914,6 +928,12 @@ namespace NueGames.NueDeck.Scripts.Characters
                 AudioManager.Instance.PlayOneShotDebounced(AudioActionType.GenericDOTDamage, 0.25f);
 
             Damage(healthLoss, true, "red", null);
+        }
+
+        private void ConsumeManaDrain()
+        {
+            if (StatusDict[StatusType.ManaDrain].IsActive)
+                ClearStatus(StatusType.ManaDrain);
         }
 
         private void PlayStatusDamageFeedback(FxType fxType, AudioActionType audioType)

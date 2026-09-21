@@ -33,7 +33,7 @@
         Sabotaged,
         Slimed,
         Ablazed,
-         ManaDrain,
+        ManaDrain,
         Burden,
         CloggedCircuits,
         Deadstock,
@@ -47,7 +47,8 @@
         Chaotic,
         Desperation,
         Hidden,
-        Flying
+        Flying,
+        Ambush
         
 
     }

@@ -21,7 +21,7 @@ MonoBehaviour:
       encounterId: 
       enemyList: []
       enemySpawnEntries:
-      - enemy: {fileID: 11400000, guid: 14604eb40f6db1846a7e6c8ef007a76f, type: 2}
+      - enemy: {fileID: 11400000, guid: 37ce777a5ce5dae4e89a3315f775cb5c, type: 2}
         positionNumber: 2
       customGoldRewards: []
       customCardRewards: []

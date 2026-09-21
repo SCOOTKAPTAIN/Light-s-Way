@@ -196,3 +196,17 @@ MonoBehaviour:
     contentText: Take <color=#FFB430>75%</color> less damage, deal <color=#FFB430>50%</color>
       more damage, and lose <color=#FFB430>10% of Max Health</color> at the start
       of each turn.
+  - specialKeyword: 45
+    header: Ambush
+    contentText: <color=#FFB430>Doubles</color> the damage of the next attack.
+  - specialKeyword: 48
+    header: Mana Drain
+    contentText: Start the turn with <color=#FFB430>{Mana Drain}</color> less mana.
+  - specialKeyword: 49
+    header: Burden
+    contentText: Increase the cost of all cards by <color=#FFB430>1</color> for <color=#FFB430>{Burden}</color>
+      turn(s).
+  - specialKeyword: 50
+    header: Clogged Circuits
+    contentText: <color=#FFB430>Prevents</color> Mana gain from cards and effects
+      for <color=#FFB430>{Clogged Circuits}</color> turn(s).

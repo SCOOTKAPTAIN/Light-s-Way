@@ -16,6 +16,7 @@
         Desperation,
         ApplyDebuff,
         ApplyBuff,
-        MultiHitAttack
+        MultiHitAttack,
+        VeilAndVerdict
     }
 }

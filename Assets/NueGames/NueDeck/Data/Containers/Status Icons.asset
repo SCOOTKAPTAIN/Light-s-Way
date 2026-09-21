@@ -189,3 +189,23 @@ MonoBehaviour:
     showValue: 0
     specialKeywords: 2c000000
     displayPriority: 0
+  - iconStatus: 46
+    iconSprite: {fileID: 21300000, guid: b36e9dd370d02b84dae9acbdb964d9ff, type: 3}
+    showValue: 0
+    specialKeywords: 2d000000
+    displayPriority: 0
+  - iconStatus: 31
+    iconSprite: {fileID: 21300000, guid: 09c6a2a1f3f0c91438ff01880ce62795, type: 3}
+    showValue: 1
+    specialKeywords: 30000000
+    displayPriority: 5
+  - iconStatus: 32
+    iconSprite: {fileID: 21300000, guid: 608218ea8b98bbf4685920e05108ba9d, type: 3}
+    showValue: 1
+    specialKeywords: 31000000
+    displayPriority: 5
+  - iconStatus: 33
+    iconSprite: {fileID: 21300000, guid: 78f89191ae726494984a10a0f9d76fec, type: 3}
+    showValue: 1
+    specialKeywords: 32000000
+    displayPriority: 5

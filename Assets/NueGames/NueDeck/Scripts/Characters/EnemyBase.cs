@@ -8,6 +8,7 @@ using NueGames.NueDeck.Scripts.Interfaces;
 using NueGames.NueDeck.Scripts.Managers;
 using NueGames.NueDeck.Scripts.NueExtentions;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Characters
@@ -224,10 +225,12 @@ namespace NueGames.NueDeck.Scripts.Characters
                 {
                     // Filter abilities by conditions
                     var patternAbilities = abilityList
-                        .Where(a => AreConditionsMet(a) && !IsAtConsecutiveLimit(a, lastUsedAbility))
+                        .Where(a => AreConditionsMet(a) && IsAbilityTargetAvailable(a) && !IsAtConsecutiveLimit(a, lastUsedAbility))
                         .ToList();
                     
                     // If no abilities meet conditions, use all abilities as fallback
+                    if (patternAbilities.Count == 0)
+                        patternAbilities = abilityList.Where(IsAbilityTargetAvailable).ToList();
                     if (patternAbilities.Count == 0)
                         patternAbilities = abilityList;
                     
@@ -243,10 +246,12 @@ namespace NueGames.NueDeck.Scripts.Characters
                 
                 // Random selection (no pattern, no weights) - filtered by conditions
                 var randomAbilities = abilityList
-                    .Where(a => AreConditionsMet(a) && !IsAtConsecutiveLimit(a, lastUsedAbility))
+                    .Where(a => AreConditionsMet(a) && IsAbilityTargetAvailable(a) && !IsAtConsecutiveLimit(a, lastUsedAbility))
                     .ToList();
                 
                 // If no abilities meet conditions, use all abilities as fallback
+                if (randomAbilities.Count == 0)
+                    randomAbilities = abilityList.Where(IsAbilityTargetAvailable).ToList();
                 if (randomAbilities.Count == 0)
                     randomAbilities = abilityList;
                 
@@ -257,9 +262,11 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (EnemyCharacterData.FollowAbilityPattern)
             {
                 var patternAbilities = abilityList
-                    .Where(a => AreConditionsMet(a) && !IsAtConsecutiveLimit(a, lastUsedAbility))
+                    .Where(a => AreConditionsMet(a) && IsAbilityTargetAvailable(a) && !IsAtConsecutiveLimit(a, lastUsedAbility))
                     .ToList();
 
+                if (patternAbilities.Count == 0)
+                    patternAbilities = abilityList.Where(IsAbilityTargetAvailable).ToList();
                 if (patternAbilities.Count == 0)
                     patternAbilities = abilityList;
 
@@ -270,9 +277,11 @@ namespace NueGames.NueDeck.Scripts.Characters
                 return GetWeightedAbilityFromList(abilityList, lastUsedAbility, EnemyCharacterData.PreventRepeatAbility);
 
             var randomAbilitiesWithoutWeights = abilityList
-                .Where(a => AreConditionsMet(a) && !IsAtConsecutiveLimit(a, lastUsedAbility))
+                .Where(a => AreConditionsMet(a) && IsAbilityTargetAvailable(a) && !IsAtConsecutiveLimit(a, lastUsedAbility))
                 .ToList();
 
+            if (randomAbilitiesWithoutWeights.Count == 0)
+                randomAbilitiesWithoutWeights = abilityList.Where(IsAbilityTargetAvailable).ToList();
             if (randomAbilitiesWithoutWeights.Count == 0)
                 randomAbilitiesWithoutWeights = abilityList;
 
@@ -291,7 +300,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             
             // Further filter by conditions - only include abilities whose conditions are ALL met
             availableAbilities = availableAbilities
-                .Where(ability => AreConditionsMet(ability) && !IsAtConsecutiveLimit(ability, lastUsedAbility))
+                .Where(ability => AreConditionsMet(ability) && IsAbilityTargetAvailable(ability) && !IsAtConsecutiveLimit(ability, lastUsedAbility))
                 .ToList();
             
             // If no abilities meet their conditions, fallback to all available (ignoring conditions)
@@ -302,7 +311,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                     : new List<EnemyAbilityData>(abilityList);
 
                 availableAbilities = availableAbilities
-                    .Where(ability => !IsAtConsecutiveLimit(ability, lastUsedAbility))
+                    .Where(ability => IsAbilityTargetAvailable(ability) && !IsAtConsecutiveLimit(ability, lastUsedAbility))
                     .ToList();
             }
             
@@ -345,6 +354,21 @@ namespace NueGames.NueDeck.Scripts.Characters
             return ability == lastUsedAbility &&
                    ability.MaxConsecutiveUses > 0 &&
                    _lastAbilityConsecutiveUses >= ability.MaxConsecutiveUses;
+        }
+
+        private bool IsAbilityTargetAvailable(EnemyAbilityData ability)
+        {
+            if (ability == null || ability.ActionList == null)
+                return false;
+
+            if (!ability.ActionList.Any(action => action != null && action.TargetRestriction == EnemyActionTargetType.AlliesOnly))
+                return true;
+
+            if (CombatManager == null || CombatManager.CurrentEnemiesList == null)
+                return true;
+
+            return CombatManager.CurrentEnemiesList.Any(enemy =>
+                enemy != null && enemy != this && !enemy.CharacterStats.IsDeath);
         }
         
         /// <summary>
@@ -532,6 +556,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                 {
                     EnemyActionType.Attack => "Deal {value} damage.",
                     EnemyActionType.MultiHitAttack => "Deal {value} damage {repeat}.",
+                    EnemyActionType.VeilAndVerdict => "Inflict Blind and gain Ambush.",
                     EnemyActionType.Heal => "Heal {value} health.",
                     EnemyActionType.Poison => "Apply {value} Poison.",
                     EnemyActionType.ApplyDebuff => "Apply {value} {action}.",
@@ -564,6 +589,23 @@ namespace NueGames.NueDeck.Scripts.Characters
                 {
                     var actionValue = CalculateActionValue(actionData, CombatManager.CurrentMainAlly);
                     description = description.Replace(actionPlaceholder, actionValue.ToString());
+                }
+            }
+
+            if (CombatManager.CurrentMainAlly != null)
+            {
+                foreach (StatusType statusType in System.Enum.GetValues(typeof(StatusType)))
+                {
+                    if (statusType == StatusType.None || !CombatManager.CurrentMainAlly.CharacterStats.StatusDict.ContainsKey(statusType))
+                        continue;
+
+                    var spacedStatusName = Regex.Replace(statusType.ToString(), "(?<!^)([A-Z])", " $1");
+                    var statusValue = CombatManager.CurrentMainAlly.CharacterStats.StatusDict[statusType].StatusValue;
+                    description = Regex.Replace(
+                        description,
+                        $@"\{{\s*{Regex.Escape(spacedStatusName)}\s*\}}",
+                        statusValue.ToString(),
+                        RegexOptions.IgnoreCase);
                 }
             }
 
@@ -625,7 +667,11 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             Debug.Log($"ActionRoutine START for '{name}' with intent '{NextAbility?.Intention?.EnemyIntentionType}'");
             EnemyCanvas.IntentImage.gameObject.SetActive(false);
-            if (NextAbility.Intention.EnemyIntentionType == EnemyIntentionType.Attack || NextAbility.Intention.EnemyIntentionType == EnemyIntentionType.Debuff)
+            if (NextAbility.Intention.EnemyIntentionType == EnemyIntentionType.Attack ||
+                NextAbility.Intention.EnemyIntentionType == EnemyIntentionType.Debuff ||
+                NextAbility.Intention.EnemyIntentionType == EnemyIntentionType.AttackMultiHit ||
+                NextAbility.Intention.EnemyIntentionType == EnemyIntentionType.AttackPierce ||
+                NextAbility.Intention.EnemyIntentionType == EnemyIntentionType.KillingBlow)
             {
                 yield return StartCoroutine(AttackRoutine(NextAbility));
             }

@@ -105,6 +105,9 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 SpecialKeywords.Bastion => StatusType.Bastion,
                 SpecialKeywords.Reverberation => StatusType.Reverberation,
                 SpecialKeywords.Honor => StatusType.Honor,
+                SpecialKeywords.ManaDrain => StatusType.ManaDrain,
+                SpecialKeywords.Burden => StatusType.Burden,
+                SpecialKeywords.CloggedCircuits => StatusType.CloggedCircuits,
                // SpecialKeywords.TheBestDefence => StatusType.TheBestDefense,
                 _ => StatusType.None
             };
@@ -126,6 +129,17 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
             // placeholder form as well as {EndlessChambers}.
             content = content.Replace("{Endless Chambers", "{EndlessChambers");
             content = content.Replace("{Firing Line", "{FiringLine");
+            foreach (StatusType statusType in System.Enum.GetValues(typeof(StatusType)))
+            {
+                if (statusType == StatusType.None) continue;
+
+                var spacedStatusName = Regex.Replace(statusType.ToString(), "(?<!^)([A-Z])", " $1");
+                content = Regex.Replace(
+                    content,
+                    $@"\{{\s*{Regex.Escape(spacedStatusName)}\s*\}}",
+                    "{" + statusType + "}",
+                    RegexOptions.IgnoreCase);
+            }
             content = Regex.Replace(content, @"\{\s*([A-Za-z]+)\s*([*/])\s*(-?\d+)\s*\}", "{$1$2$3}");
 
             // First pass: Replace formula placeholders (e.g., {Fragile*10})

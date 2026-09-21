@@ -1,0 +1,564 @@
+fileFormatVersion: 2
+guid: fbe2831b2117ce643bcf23bb28f81418
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3592594613463938736
+    second: RiteofSupression_0
+  - first:
+      213: 4626901225866960524
+    second: RiteofSupression_1
+  - first:
+      213: -6324256526453776507
+    second: RiteofSupression_2
+  - first:
+      213: 1856233232336721842
+    second: RiteofSupression_3
+  - first:
+      213: 1001090242845541822
+    second: RiteofSupression_4
+  - first:
+      213: -7005291851353033433
+    second: RiteofSupression_5
+  - first:
+      213: 4783523398148033613
+    second: RiteofSupression_6
+  - first:
+      213: -493559380981627864
+    second: RiteofSupression_7
+  - first:
+      213: 6482492162050483772
+    second: RiteofSupression_8
+  - first:
+      213: -2295977767777632182
+    second: RiteofSupression_9
+  - first:
+      213: 1085368626335486928
+    second: RiteofSupression_10
+  - first:
+      213: -272777628679372619
+    second: RiteofSupression_11
+  - first:
+      213: -1374019977081519169
+    second: RiteofSupression_12
+  - first:
+      213: 393134297693452005
+    second: RiteofSupression_13
+  - first:
+      213: -7353360490402313464
+    second: RiteofSupression_14
+  - first:
+      213: 8011509821203242386
+    second: RiteofSupression_15
+  - first:
+      213: 4770587701105369147
+    second: RiteofSupression_16
+  - first:
+      213: 5450712084031331385
+    second: RiteofSupression_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: RiteofSupression_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 422
+        width: 84
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0590082cb3a842ec0800000000000000
+      internalID: -3592594613463938736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 331
+        width: 121
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8e9e9a862e063040800000000000000
+      internalID: 4626901225866960524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_2
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 385
+        width: 122
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58fd640523abb38a0800000000000000
+      internalID: -6324256526453776507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_3
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 275
+        width: 147
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b794b14a4aa2c910800000000000000
+      internalID: 1856233232336721842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_4
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 198
+        width: 73
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb50be8954694ed00800000000000000
+      internalID: 1001090242845541822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_5
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 275
+        width: 108
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 725f9244d2438ce90800000000000000
+      internalID: -7005291851353033433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_6
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 187
+        width: 157
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4c0269bf2d726240800000000000000
+      internalID: 4783523398148033613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_7
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 284
+        width: 78
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8244705ab568629f0800000000000000
+      internalID: -493559380981627864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_8
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 185
+        width: 140
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c36e542964076f950800000000000000
+      internalID: 6482492162050483772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_9
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 217
+        width: 43
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a408b63826c0320e0800000000000000
+      internalID: -2295977767777632182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 81
+        width: 139
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d3941fd301001f00800000000000000
+      internalID: 1085368626335486928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_11
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 83
+        width: 159
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b084e32136e63cf0800000000000000
+      internalID: -272777628679372619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_12
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 118
+        width: 140
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb304c75c108eece0800000000000000
+      internalID: -1374019977081519169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_13
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 33
+        width: 93
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e67a039f81b47500800000000000000
+      internalID: 393134297693452005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_14
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 86
+        width: 73
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80b8d20089d93f990800000000000000
+      internalID: -7353360490402313464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_15
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 33
+        width: 121
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29d5f5f4cb99e2f60800000000000000
+      internalID: 8011509821203242386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_16
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 33
+        width: 118
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b30ab3e0d38843240800000000000000
+      internalID: 4770587701105369147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RiteofSupression_17
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 33
+        width: 110
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93cdd95e2c1d4ab40800000000000000
+      internalID: 5450712084031331385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      RiteofSupression_0: -3592594613463938736
+      RiteofSupression_1: 4626901225866960524
+      RiteofSupression_10: 1085368626335486928
+      RiteofSupression_11: -272777628679372619
+      RiteofSupression_12: -1374019977081519169
+      RiteofSupression_13: 393134297693452005
+      RiteofSupression_14: -7353360490402313464
+      RiteofSupression_15: 8011509821203242386
+      RiteofSupression_16: 4770587701105369147
+      RiteofSupression_17: 5450712084031331385
+      RiteofSupression_2: -6324256526453776507
+      RiteofSupression_3: 1856233232336721842
+      RiteofSupression_4: 1001090242845541822
+      RiteofSupression_5: -7005291851353033433
+      RiteofSupression_6: 4783523398148033613
+      RiteofSupression_7: -493559380981627864
+      RiteofSupression_8: 6482492162050483772
+      RiteofSupression_9: -2295977767777632182
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

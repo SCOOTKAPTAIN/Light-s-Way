@@ -9,7 +9,8 @@
         Heal,
         Special,
         AttackMultiHit,
-        AttackPierce
+        AttackPierce,
+        KillingBlow
         
     }
 }
