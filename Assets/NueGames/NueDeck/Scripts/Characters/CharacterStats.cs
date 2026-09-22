@@ -56,7 +56,8 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusType.ManaDrain,
             StatusType.Burden,
             StatusType.CloggedCircuits,
-            StatusType.Ablazed
+            StatusType.Ablazed,
+            StatusType.SeveredString
         };
         private const float FrostbitePercentPerStack = 0.25f; // 25% proficiency per stack
         private const float BurningPercentPerStack = 0.25f; // 25% proficiency per stack
@@ -187,6 +188,14 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.Stun].DecreaseOverTurn = true;
             StatusDict[StatusType.Stun].OnTriggerAction += CheckStunStatus;
 
+            StatusDict[StatusType.ActorOnStage].IsPermanent = true;
+            StatusDict[StatusType.SeveredString].IsPermanent = true;
+            StatusDict[StatusType.SeveredString].OnTriggerAction += CheckSeveredStringStatus;
+            StatusDict[StatusType.OngoingPerformance].IsPermanent = true;
+            StatusDict[StatusType.OngoingPerformance].OnTriggerAction += TriggerOngoingPerformance;
+            StatusDict[StatusType.Might].DecreaseOverTurn = true;
+            StatusDict[StatusType.Resilience].DecreaseOverTurn = true;
+
             StatusDict[StatusType.Bleeding].OnTriggerAction += DamageBleeding;
             StatusDict[StatusType.Bleeding].CanNegativeStack = false;
             // Bleeding should trigger at turn end so it can be blocked by Block gained during the turn
@@ -290,6 +299,9 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             if (value > 0)
                 OnStatusGained?.Invoke(targetStatus, value);
+
+            if (targetStatus == StatusType.SeveredString && StatusDict[targetStatus].StatusValue > 0)
+                IsStunned = true;
 
             // If this was Block, notify listeners about positive net gains
             if (targetStatus == StatusType.Block)
@@ -444,7 +456,8 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Evaluate stun state for this turn BEFORE any decrement/clear happens, so stacks map to full turns.
             var willStunThisTurn =
                 (StatusDict.ContainsKey(StatusType.Stun) && StatusDict[StatusType.Stun].StatusValue > 0) ||
-                (StatusDict.ContainsKey(StatusType.Frozen) && StatusDict[StatusType.Frozen].StatusValue > 0);
+                (StatusDict.ContainsKey(StatusType.Frozen) && StatusDict[StatusType.Frozen].StatusValue > 0) ||
+                (StatusDict.ContainsKey(StatusType.SeveredString) && StatusDict[StatusType.SeveredString].IsActive && StatusDict[StatusType.SeveredString].StatusValue > 0);
 
             for (int i = 0; i < Enum.GetNames(typeof(StatusType)).Length; i++)
             {
@@ -520,6 +533,23 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             if (attacker != null && StatusDict[StatusType.Desperation].IsActive)
                 value = Mathf.RoundToInt(value * 0.25f);
+
+            if (attacker != null && attacker.CharacterStats.StatusDict[StatusType.Might].IsActive && attacker.CharacterStats.StatusDict[StatusType.Might].StatusValue > 0)
+            {
+                value = Mathf.RoundToInt(value * 1.5f);
+            }
+
+            if (StatusDict[StatusType.Resilience].IsActive && StatusDict[StatusType.Resilience].StatusValue > 0)
+            {
+                value = Mathf.RoundToInt(value * 0.5f);
+            }
+
+            if (value > 0 && StatusDict[StatusType.GlamouringScenery].IsActive && StatusDict[StatusType.GlamouringScenery].StatusValue > 0)
+            {
+                ApplyStatus(StatusType.GlamouringScenery, -1);
+                if (StatusDict[StatusType.GlamouringScenery].StatusValue <= 0)
+                    ClearStatus(StatusType.GlamouringScenery);
+            }
 
             if (StatusDict[StatusType.DamageCut].IsActive && StatusDict[StatusType.DamageCut].StatusValue > 0)
                 value = Mathf.Max(0, value - StatusDict[StatusType.DamageCut].StatusValue);
@@ -658,6 +688,15 @@ namespace NueGames.NueDeck.Scripts.Characters
                     if (AudioManager.Instance != null)
                         AudioManager.Instance.PlayOneShotDebounced(AudioActionType.Shatter, 0.2f);
                 }
+            }
+
+            var hasActorOnStage = StatusDict[StatusType.ActorOnStage].IsActive && StatusDict[StatusType.ActorOnStage].StatusValue > 0;
+            var wouldBeLethal = CurrentHealth - remainingDamage <= 0;
+            if (hasActorOnStage && wouldBeLethal)
+            {
+                remainingDamage = Mathf.Max(0, CurrentHealth - 1);
+                if (!StatusDict[StatusType.SeveredString].IsActive || StatusDict[StatusType.SeveredString].StatusValue <= 0)
+                    ApplyStatus(StatusType.SeveredString, 1);
             }
 
             CurrentHealth -= remainingDamage;
@@ -1100,6 +1139,19 @@ namespace NueGames.NueDeck.Scripts.Characters
             Damage(damage, true);
         }
 
+        private void TriggerOngoingPerformance()
+        {
+            if (!StatusDict[StatusType.OngoingPerformance].IsActive || StatusDict[StatusType.OngoingPerformance].StatusValue <= 0 || CurrentHealth <= 0)
+                return;
+
+            var scenery = StatusDict[StatusType.GlamouringScenery];
+            if (scenery.IsActive && scenery.StatusValue > 0)
+                return;
+
+            var damage = Mathf.Max(1, Mathf.CeilToInt(MaxHealth * 0.10f));
+            Damage(damage, true, "red", null);
+        }
+
         private void CheckFrozenStatus()
         {
             if (StatusDict[StatusType.Frozen].StatusValue <= 0)
@@ -1113,13 +1165,24 @@ namespace NueGames.NueDeck.Scripts.Characters
         
         public void CheckStunStatus()
         {
-            if (StatusDict[StatusType.Stun].StatusValue <= 0)
+            if (StatusDict[StatusType.Stun].StatusValue <= 0 && !HasSeveredString())
             {
                 IsStunned = false;
                 return;
             }
             
             IsStunned = true;
+        }
+
+        private void CheckSeveredStringStatus()
+        {
+            if (HasSeveredString())
+                IsStunned = true;
+        }
+
+        private bool HasSeveredString()
+        {
+            return StatusDict[StatusType.SeveredString].IsActive && StatusDict[StatusType.SeveredString].StatusValue > 0;
         }
         
         #endregion

@@ -20,6 +20,7 @@ MonoBehaviour:
     - targetBackgroundType: 0
       encounterId: 
       enemyList: []
+      battleMusicOverride: {fileID: 8300000, guid: 5bbe44b34d9831d4995cf42e5ea91c83, type: 3}
       enemySpawnEntries:
       - enemy: {fileID: 11400000, guid: 5e80c9a6e3c215642a1021d6c205764b, type: 2}
         positionNumber: 2
@@ -30,6 +31,7 @@ MonoBehaviour:
       encounterId: 
       enemyList:
       - {fileID: 11400000, guid: 20fed9e9b8f77b64086164ed5868e6dd, type: 2}
+      battleMusicOverride: {fileID: 0}
       enemySpawnEntries: []
       customGoldRewards: []
       customCardRewards: []
@@ -38,6 +40,7 @@ MonoBehaviour:
       encounterId: 
       enemyList:
       - {fileID: 11400000, guid: ab4b1aaf78f9c8747a5708430c68f051, type: 2}
+      battleMusicOverride: {fileID: 0}
       enemySpawnEntries: []
       customGoldRewards: []
       customCardRewards: []
@@ -48,6 +51,7 @@ MonoBehaviour:
     - targetBackgroundType: 0
       encounterId: 
       enemyList: []
+      battleMusicOverride: {fileID: 0}
       enemySpawnEntries:
       - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
         positionNumber: 2

@@ -52,7 +52,13 @@
         Hidden,
         ManaDrain,
         Burden,
-        CloggedCircuits
+        CloggedCircuits,
+        ActorOnStage,
+        SeveredString,
+        OngoingPerformance,
+        GlamouringScenery,
+        Might,
+        Resilience
         
 
 

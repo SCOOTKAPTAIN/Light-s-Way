@@ -108,6 +108,12 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 SpecialKeywords.ManaDrain => StatusType.ManaDrain,
                 SpecialKeywords.Burden => StatusType.Burden,
                 SpecialKeywords.CloggedCircuits => StatusType.CloggedCircuits,
+                SpecialKeywords.ActorOnStage => StatusType.ActorOnStage,
+                SpecialKeywords.SeveredString => StatusType.SeveredString,
+                SpecialKeywords.OngoingPerformance => StatusType.OngoingPerformance,
+                SpecialKeywords.GlamouringScenery => StatusType.GlamouringScenery,
+                SpecialKeywords.Might => StatusType.Might,
+                SpecialKeywords.Resilience => StatusType.Resilience,
                // SpecialKeywords.TheBestDefence => StatusType.TheBestDefense,
                 _ => StatusType.None
             };

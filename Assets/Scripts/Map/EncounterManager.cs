@@ -44,6 +44,7 @@ public class EncounterManager : MonoBehaviour
         // Use ActNumber directly as StageId
         GameManager.PersistentGameplayData.CurrentStageId = actNumber;
         GameManager.PersistentGameplayData.CurrentEncounterId = -1; // -1 = random selection
+        GameManager.PersistentGameplayData.SelectedEncounter = null;
         GameManager.PersistentGameplayData.CurrentEncounterTypeIndex = (int)encounterType; // Store encounter type
         
         // Set encounter type flag (for legacy GetEnemyEncounter calls)
@@ -61,6 +62,7 @@ public class EncounterManager : MonoBehaviour
         
         GameManager.PersistentGameplayData.CurrentStageId = actNumber;
         GameManager.PersistentGameplayData.CurrentEncounterId = encounterIndex;
+        GameManager.PersistentGameplayData.SelectedEncounter = null;
         GameManager.PersistentGameplayData.CurrentEncounterTypeIndex = (int)encounterType;
         GameManager.PersistentGameplayData.IsFinalEncounter = (encounterType == Map.EncounterType.Boss);
         

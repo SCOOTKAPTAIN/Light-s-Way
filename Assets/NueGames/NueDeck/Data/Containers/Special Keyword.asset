@@ -90,7 +90,7 @@ MonoBehaviour:
       damage removes this status.
   - specialKeyword: 19
     header: Fortitude
-    contentText: Increase the <color=#FFB430>Base</color> Block granted by cards
+    contentText: Increase the <color=#FFB430>Base</color> Block granted by actions
       by <color=#FFB430>{Fortitude}</color>.
   - specialKeyword: 20
     header: Frozen Mirror

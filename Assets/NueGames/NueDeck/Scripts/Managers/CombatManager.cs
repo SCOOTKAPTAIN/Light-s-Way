@@ -408,16 +408,24 @@ namespace NueGames.NueDeck.Scripts.Managers
             // Get specific encounter if CurrentEncounterId is set (for scripted encounters)
             int specificIndex = GameManager.PersistentGameplayData.CurrentEncounterId;
             
-            CurrentEncounter = GameManager.EncounterData.GetEnemyEncounter(
-                GameManager.PersistentGameplayData.CurrentStageId,
-                encounterType,
-                specificIndex);
+            CurrentEncounter = GameManager.PersistentGameplayData.SelectedEncounter;
+            if (CurrentEncounter == null)
+            {
+                CurrentEncounter = GameManager.EncounterData.GetEnemyEncounter(
+                    GameManager.PersistentGameplayData.CurrentStageId,
+                    encounterType,
+                    specificIndex);
+                GameManager.PersistentGameplayData.SelectedEncounter = CurrentEncounter;
+            }
             
             if (CurrentEncounter == null)
             {
                 Debug.LogError($"Failed to get encounter for Stage {GameManager.PersistentGameplayData.CurrentStageId}, Type {encounterType}");
                 return;
             }
+
+            if (CurrentEncounter.BattleMusicOverride != null && DialogueAudioManager.instance != null)
+                DialogueAudioManager.instance.PlayMusic(CurrentEncounter.BattleMusicOverride);
             
             Debug.Log($"Building enemies for Stage {GameManager.PersistentGameplayData.CurrentStageId}, Type {encounterType}, Index {specificIndex}");
             

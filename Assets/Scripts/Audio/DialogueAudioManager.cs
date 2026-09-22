@@ -44,6 +44,27 @@ public class DialogueAudioManager : MonoBehaviour
     {
         if(type == "battle")
         {
+            var gameManager = GameManager.Instance;
+            var gameplayData = gameManager != null ? gameManager.PersistentGameplayData : null;
+            if (gameplayData != null && gameManager.EncounterData != null)
+            {
+                var encounter = gameplayData.SelectedEncounter;
+                if (encounter == null)
+                {
+                    encounter = gameManager.EncounterData.GetEnemyEncounter(
+                        gameplayData.CurrentStageId,
+                        (Map.EncounterType)gameplayData.CurrentEncounterTypeIndex,
+                        gameplayData.CurrentEncounterId);
+                    gameplayData.SelectedEncounter = encounter;
+                }
+
+                if (encounter != null && encounter.BattleMusicOverride != null)
+                {
+                    PlayMusic(encounter.BattleMusicOverride);
+                    return;
+                }
+            }
+
             switch(GameManager.Instance.PersistentGameplayData.light)
             {
                 case >= 80 and <= 100:
@@ -129,6 +150,18 @@ public class DialogueAudioManager : MonoBehaviour
         Debug.Log("Music Not Found");
     }
 }
+
+    public void PlayMusic(AudioClip clip)
+    {
+        if (clip == null || music_source == null)
+            return;
+
+        if (music_source.isPlaying && music_source.clip == clip)
+            return;
+
+        music_source.clip = clip;
+        music_source.Play();
+    }
 
     // public void PlayMusic(string name) //Call this function from any script u want to add music
     // {

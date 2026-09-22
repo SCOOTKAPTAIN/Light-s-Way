@@ -49,7 +49,13 @@
         Hidden,
         Flying,
         Ambush,
-        DamageCut
+        DamageCut,
+        ActorOnStage,
+        SeveredString,
+        OngoingPerformance,
+        GlamouringScenery,
+        Might,
+        Resilience
         
 
     }

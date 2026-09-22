@@ -117,6 +117,10 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
         [SerializeField] private string encounterId; // Unique ID for boss tracking
         [SerializeField] private List<EnemyCharacterData> enemyList;
 
+        [Header("Music Override (Optional)")]
+        [Tooltip("If assigned, this music replaces the normal Light-based battle music for this encounter.")]
+        [SerializeField] private AudioClip battleMusicOverride;
+
         [Header("Enemy Spawn Positions (Optional)")]
         [Tooltip("When populated, each entry controls which Combat Manager enemy position is used. Position Number is 1-based; leave it at 0 to use the entry order.")]
         [SerializeField] private List<EnemySpawnEntry> enemySpawnEntries;
@@ -129,6 +133,7 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
         public string EncounterId => encounterId;
         public List<EnemyCharacterData> EnemyList => enemyList;
         public List<EnemySpawnEntry> EnemySpawnEntries => enemySpawnEntries;
+        public AudioClip BattleMusicOverride => battleMusicOverride;
         
         public bool HasCustomRewards => (customGoldRewards != null && customGoldRewards.Count > 0) || 
                                          (customCardRewards != null && customCardRewards.Count > 0);

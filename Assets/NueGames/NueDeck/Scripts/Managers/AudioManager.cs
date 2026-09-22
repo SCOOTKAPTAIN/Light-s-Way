@@ -21,7 +21,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         private Dictionary<AudioActionType, SoundProfileData> _audioDict = new Dictionary<AudioActionType, SoundProfileData>();
         // Tracks last played time per audio action to avoid stacking identical burst sounds.
         private readonly Dictionary<AudioActionType, float> _lastPlayedTime = new Dictionary<AudioActionType, float>();
-        private const float ActionSoundDebounceSeconds = 0.03f;
+        private const float ActionSoundDebounceSeconds = 0.09f;
         
         #region Setup
         private void Awake()

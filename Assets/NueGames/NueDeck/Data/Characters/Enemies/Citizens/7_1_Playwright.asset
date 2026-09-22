@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
+  m_Name: 7_1_Playwright
+  m_EditorClassIdentifier: 
+  characterID: 6_1
+  characterName: Brigand
+  characterDescription: 'Leader of a ragtag group of bandits, The Brigand will rely
+    on Block as means of damage, chipping away his Block means chipping away his
+    strength but be careful, he wont make it so easy.
+
+'
+  maxHealth: 10
+  enemyPrefab: {fileID: 243822687015991123, guid: 335ff922f98c20b44a461e08dd1721fc, type: 3}
+  mutatedVersion: {fileID: 0}
+  chaosificationStatus:
+    modifierName: 
+    icon: {fileID: 0}
+    description: 
+  useActBasedScaling: 1
+  actConfigurations:
+  - actNumber: 1
+    maxHealth: 10000
+    startingStatuses: []
+    enemyAbilityList:
+    - name: 
+      intention: {fileID: 0}
+      description: 
+      keywords: 
+      hideActionValue: 0
+      actionList: []
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+  followAbilityPattern: 1
+  useWeightedSelection: 0
+  preventRepeatAbility: 0
+  startingStatuses: []
+  enemyAbilityList:
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 0
+      minActionValue: 0
+      maxActionValue: 0
+      targetRestriction: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 1
+    maxConsecutiveUses: 0

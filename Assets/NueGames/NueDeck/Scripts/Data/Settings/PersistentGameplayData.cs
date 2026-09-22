@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Characters;
 using NueGames.NueDeck.Scripts.Data.Collection;
+using NueGames.NueDeck.Scripts.Data.Containers;
 using NueGames.NueDeck.Scripts.Managers;
 using UnityEngine;
 
@@ -28,6 +29,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private int currentEncounterTypeIndex; // 0=Normal, 1=Elite, 2=Boss, 3=Special
         [SerializeField] private List<CardData> currentCardsList;
         [SerializeField] private List<AllyHealthData> allyHealthDataDataList;
+        private EnemyEncounter selectedEncounter;
 
         // My Variables
         [SerializeField] private int actnumber;
@@ -94,6 +96,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             IsRandomHand = _gameplayData.IsRandomHand;
             AllyList = new List<AllyBase>(_gameplayData.InitalAllyList);
             CurrentEncounterId = 0;
+            SelectedEncounter = null;
             CurrentStageId = 0;
             CurrentGold = 0;
             CurrentCardsList = new List<CardData>();
@@ -178,6 +181,12 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         {
             get => currentEncounterTypeIndex;
             set => currentEncounterTypeIndex = value;
+        }
+
+        public EnemyEncounter SelectedEncounter
+        {
+            get => selectedEncounter;
+            set => selectedEncounter = value;
         }
 
         public List<CardData> CurrentCardsList
