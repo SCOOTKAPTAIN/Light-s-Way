@@ -147,7 +147,10 @@
         Stigmata,
         ArcaneTithe,
         RiteOfSupression,
-        CovenWard
+        CovenWard,
+        Flex,
+        SlamDown,
+        PipeDown
 
 
 

@@ -189,11 +189,12 @@ namespace NueGames.NueDeck.Scripts.Card
                 var targetList = DetermineTargets(targetCharacter, allEnemies, allAllies, playerAction);
 
                 self.CharacterStats.SetCurrentAttackAreaOfEffect(playerAction.IsAreaOfEffect);
-                foreach (var target in targetList)
+                for (var targetIndex = 0; targetIndex < targetList.Count; targetIndex++)
                 {
+                    var target = targetList[targetIndex];
                     yield return CardActionProcessor.GetAction(playerAction.CardActionType)
                         .DoActionRoutine(new CardActionParameters(playerAction.ActionValue,
-                            target,self,CardData,this));
+                            target,self,CardData,this,targetIndex == 0));
                 }
                 self.CharacterStats.SetCurrentAttackAreaOfEffect(false);
             }
@@ -315,6 +316,21 @@ namespace NueGames.NueDeck.Scripts.Card
             IsExhausted = true;
             CollectionManager.OnCardExhausted(this);
             StartCoroutine(ExhaustRoutine(destroy));
+        }
+
+        public void ResolveEndTurnEffects(CharacterBase selfCharacter)
+        {
+            if (CardData == null || CardData.EndTurnActionDataList == null || selfCharacter == null)
+                return;
+
+            foreach (var endTurnAction in CardData.EndTurnActionDataList)
+            {
+                if (endTurnAction == null)
+                    continue;
+
+                CardActionProcessor.GetAction(endTurnAction.CardActionType).DoAction(
+                    new CardActionParameters(endTurnAction.ActionValue, selfCharacter, selfCharacter, CardData, this));
+            }
         }
 
         protected virtual void SpendMana(int value)

@@ -35,7 +35,7 @@ MonoBehaviour:
     enemyAbilityList:
     - name: Arcane Tithe
       intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
-      description: Deal <color=#FFB430>{value}</color> damage. \nApply<color=#FFB430>1
+      description: Deal <color=#FFB430>{value}</color> damage. \nApply <color=#FFB430>1
         Mana Drain</color>.
       keywords: 30000000
       hideActionValue: 0
@@ -46,6 +46,7 @@ MonoBehaviour:
         targetRestriction: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 1
         suppressPresentation: 0
         customFxType: 141
@@ -56,6 +57,7 @@ MonoBehaviour:
         targetRestriction: 0
         applyLightMultiplier: 1
         statusType: 31
+        cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 1
         customFxType: 141
@@ -77,6 +79,7 @@ MonoBehaviour:
         targetRestriction: 0
         applyLightMultiplier: 1
         statusType: 32
+        cardToAdd: {fileID: 0}
         overridePresentation: 1
         suppressPresentation: 0
         customFxType: 142
@@ -87,6 +90,7 @@ MonoBehaviour:
         targetRestriction: 0
         applyLightMultiplier: 1
         statusType: 33
+        cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 1
         customFxType: 142
@@ -108,6 +112,7 @@ MonoBehaviour:
         targetRestriction: 3
         applyLightMultiplier: 1
         statusType: 15
+        cardToAdd: {fileID: 0}
         overridePresentation: 1
         suppressPresentation: 0
         customFxType: 143
@@ -133,6 +138,7 @@ MonoBehaviour:
       targetRestriction: 0
       applyLightMultiplier: 1
       statusType: 0
+      cardToAdd: {fileID: 0}
       overridePresentation: 0
       suppressPresentation: 0
       customFxType: 0

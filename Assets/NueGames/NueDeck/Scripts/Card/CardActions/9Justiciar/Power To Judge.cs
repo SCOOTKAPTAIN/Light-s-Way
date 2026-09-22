@@ -14,7 +14,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             
             if (!targetCharacter) return;
 
-            selfCharacter.CharacterStats.ApplyStatus(StatusType.Strength,Mathf.RoundToInt(2));
+            if (actionParameters.IsFirstTarget)
+                selfCharacter.CharacterStats.ApplyStatus(StatusType.Strength, Mathf.RoundToInt(2));
 
             targetCharacter.CharacterStats.ApplyStatus(StatusType.Fragile,Mathf.RoundToInt(3));
 

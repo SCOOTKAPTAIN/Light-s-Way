@@ -521,6 +521,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (attacker != null && StatusDict[StatusType.Desperation].IsActive)
                 value = Mathf.RoundToInt(value * 0.25f);
 
+            if (StatusDict[StatusType.DamageCut].IsActive && StatusDict[StatusType.DamageCut].StatusValue > 0)
+                value = Mathf.Max(0, value - StatusDict[StatusType.DamageCut].StatusValue);
+
             OnTakeDamageAction?.Invoke();
             
             var healthBefore = CurrentHealth;

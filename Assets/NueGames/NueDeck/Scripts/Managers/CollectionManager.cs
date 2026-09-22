@@ -219,11 +219,20 @@ namespace NueGames.NueDeck.Scripts.Managers
 
             foreach (var cardBase in new List<CardBase>(HandController.hand))
             {
-                if (cardBase == null || cardBase.CardData == null || cardBase.CardData.Retain || cardBase.TemporaryRetain)
+                if (cardBase == null || cardBase.CardData == null)
                     continue;
 
-                cardBase.Discard();
-                cardsToDiscard.Add(cardBase);
+                cardBase.ResolveEndTurnEffects(CombatManager != null ? CombatManager.CurrentMainAlly : null);
+                if (cardBase.CardData.ExhaustAfterEndTurn)
+                {
+                    cardBase.Exhaust();
+                    cardsToDiscard.Add(cardBase);
+                }
+                else if (!cardBase.CardData.Retain && !cardBase.TemporaryRetain)
+                {
+                    cardBase.Discard();
+                    cardsToDiscard.Add(cardBase);
+                }
             }
 
             foreach (var cardBase in cardsToDiscard)

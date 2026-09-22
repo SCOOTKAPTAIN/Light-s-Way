@@ -13,13 +13,15 @@ namespace NueGames.NueDeck.Scripts.Card
         public readonly CharacterBase SelfCharacter;
         public readonly CardData CardData;
         public readonly CardBase CardBase;
-        public CardActionParameters(float value,CharacterBase target, CharacterBase self,CardData cardData, CardBase cardBase)
+        public readonly bool IsFirstTarget;
+        public CardActionParameters(float value,CharacterBase target, CharacterBase self,CardData cardData, CardBase cardBase, bool isFirstTarget = true)
         {
             Value = value;
             TargetCharacter = target;
             SelfCharacter = self;
             CardData = cardData;
             CardBase = cardBase;
+            IsFirstTarget = isFirstTarget;
         }
     }
     public abstract class CardActionBase

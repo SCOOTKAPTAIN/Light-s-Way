@@ -17,6 +17,8 @@
         ApplyDebuff,
         ApplyBuff,
         MultiHitAttack,
-        VeilAndVerdict
+        VeilAndVerdict,
+        AddCardToDeck,
+        SlamDown
     }
 }

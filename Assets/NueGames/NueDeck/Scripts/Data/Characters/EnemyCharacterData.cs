@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NueGames.NueDeck.Scripts.Characters;
+using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Data.Containers;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.NueExtentions;
@@ -307,6 +308,10 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [Tooltip("Status applied by ApplyDebuff or ApplyBuff actions.")]
         [SerializeField] private StatusType statusType;
 
+        [Header("Card Injection")]
+        [Tooltip("Card added to the player's combat draw pile by AddCardToDeck.")]
+        [SerializeField] private CardData cardToAdd;
+
         [Header("Presentation Overrides")]
         [Tooltip("If enabled, use the selected FX and audio instead of the action's default presentation.")]
         [SerializeField] private bool overridePresentation;
@@ -322,6 +327,7 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         public EnemyActionTargetType TargetRestriction => targetRestriction;
         public bool ApplyLightMultiplier => applyLightMultiplier;
         public StatusType StatusType => statusType;
+        public CardData CardToAdd => cardToAdd;
         public bool OverridePresentation => overridePresentation;
         public bool SuppressPresentation => suppressPresentation;
         public FxType CustomFxType => customFxType;

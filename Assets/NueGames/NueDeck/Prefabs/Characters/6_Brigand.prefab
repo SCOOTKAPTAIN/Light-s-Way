@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 735061151}
   - component: {fileID: 735061152}
   m_Layer: 8
-  m_Name: 5_Witch
+  m_Name: 6_Brigand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,7 +187,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.90000004, y: 0.90000004, z: 0.90000004}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 491162778199269420}
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 1
   textSpawnRoot: {fileID: 2463341200963954810}
-  enemyCharacterData: {fileID: 11400000, guid: 37ce777a5ce5dae4e89a3315f775cb5c, type: 2}
+  enemyCharacterData: {fileID: 11400000, guid: 5e80c9a6e3c215642a1021d6c205764b, type: 2}
   enemyCanvas: {fileID: 7422249267346903092}
   deathSoundProfileData: {fileID: 11400000, guid: 7e15e2a10065ab54c8eaf26154af0156, type: 2}
   spriteRenderer: {fileID: 0}
@@ -432,7 +432,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0.054, y: 0.411, z: 0}
   m_LocalScale: {x: 0.03196, y: 0.03196, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 491162778199269420}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -479,7 +479,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3947695520734490554, guid: 4606a35b7a5562f459a20ba9ae77d19c, type: 3}
+  m_Sprite: {fileID: -1092211760492723976, guid: f5f1ff8925c344e43a725ee9c32a10b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -500,7 +500,7 @@ Animator:
   m_GameObject: {fileID: 2852618193325743352}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 64c7ec851502463499d20eb84f1f3361, type: 2}
+  m_Controller: {fileID: 22100000, guid: ff1f50e2e5d44f840b44e9faa1af3b8d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -45,6 +45,7 @@ MonoBehaviour:
         targetRestriction: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 0
         customFxType: 0
@@ -63,9 +64,10 @@ MonoBehaviour:
       - actionType: 1
         minActionValue: 14
         maxActionValue: 16
-        targetRestriction: 0
+        targetRestriction: 1
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 1
         suppressPresentation: 0
         customFxType: 135
@@ -76,6 +78,7 @@ MonoBehaviour:
         targetRestriction: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 1
         customFxType: 0
@@ -96,6 +99,7 @@ MonoBehaviour:
         targetRestriction: 1
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 0
         customFxType: 135
@@ -116,6 +120,7 @@ MonoBehaviour:
         targetRestriction: 1
         applyLightMultiplier: 1
         statusType: 43
+        cardToAdd: {fileID: 0}
         overridePresentation: 1
         suppressPresentation: 0
         customFxType: 136
@@ -149,6 +154,7 @@ MonoBehaviour:
       targetRestriction: 0
       applyLightMultiplier: 1
       statusType: 0
+      cardToAdd: {fileID: 0}
       overridePresentation: 0
       suppressPresentation: 0
       customFxType: 0
@@ -169,6 +175,7 @@ MonoBehaviour:
       targetRestriction: 0
       applyLightMultiplier: 1
       statusType: 0
+      cardToAdd: {fileID: 0}
       overridePresentation: 0
       suppressPresentation: 0
       customFxType: 0

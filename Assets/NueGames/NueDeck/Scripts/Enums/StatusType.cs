@@ -48,7 +48,8 @@
         Desperation,
         Hidden,
         Flying,
-        Ambush
+        Ambush,
+        DamageCut
         
 
     }

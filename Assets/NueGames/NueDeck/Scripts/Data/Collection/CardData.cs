@@ -23,6 +23,11 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         [SerializeField] private bool usableWithoutTarget;
         [SerializeField] private bool exhaustAfterPlay;
         [SerializeField] private List<CardActionData> cardActionDataList;
+        [Header("End Turn Effects")]
+        [Tooltip("Actions resolved if this card is still in hand when the player's turn ends.")]
+        [SerializeField] private List<CardActionData> endTurnActionDataList;
+        [Tooltip("If enabled, this card is exhausted instead of discarded after its end-turn effects resolve.")]
+        [SerializeField] private bool exhaustAfterEndTurn;
         [SerializeField] private bool removeAfterBattle;
         [SerializeField] private int requiredLight;
        
@@ -45,6 +50,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         public string CardName => cardName;
         public Sprite CardSprite => cardSprite;
         public List<CardActionData> CardActionDataList => cardActionDataList;
+        public List<CardActionData> EndTurnActionDataList => endTurnActionDataList;
         public List<CardDescriptionData> CardDescriptionDataList => cardDescriptionDataList;
         public List<SpecialKeywords> KeywordsList => specialKeywordsList;
         public AudioActionType AudioType => audioType;
@@ -53,6 +59,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         public CardCategoryType Category => cardCategory;
 
         public bool ExhaustAfterPlay => exhaustAfterPlay;
+        public bool ExhaustAfterEndTurn => exhaustAfterEndTurn;
         public bool RemoveAfterBattle => removeAfterBattle;
         public int RequiredLight => requiredLight;
         public bool Retain => specialKeywordsList != null && specialKeywordsList.Contains(SpecialKeywords.Retain);
@@ -89,6 +96,9 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
 
         public void EditCardActionDataList(List<CardActionData> newCardActionDataList) =>
             cardActionDataList = newCardActionDataList;
+        public void EditEndTurnActionDataList(List<CardActionData> newEndTurnActionDataList) =>
+            endTurnActionDataList = newEndTurnActionDataList;
+        public void EditExhaustAfterEndTurn(bool newStatus) => exhaustAfterEndTurn = newStatus;
         public void EditCardDescriptionDataList(List<CardDescriptionData> newCardDescriptionDataList) =>
             cardDescriptionDataList = newCardDescriptionDataList;
         public void EditSpecialKeywordsList(List<SpecialKeywords> newSpecialKeywordsList) =>
