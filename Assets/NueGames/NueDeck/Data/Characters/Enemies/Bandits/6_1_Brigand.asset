@@ -34,8 +34,8 @@ MonoBehaviour:
     enemyAbilityList:
     - name: Flex
       intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
-      description: Gain <color=#FFB430>{value1} Block</color>.\n Gain <color=#FFB430>{value2}
-        Fortitude</color>.\n Gain <color=#FFB430>{value3} Entrenched</color>.
+      description: Gain <color=#FFB430>{value1} Block</color>.\nGain <color=#FFB430>{value2}
+        Fortitude</color>.\nGain <color=#FFB430>{value3} Entrenched</color>.
       keywords: 000000001300000018000000
       hideActionValue: 0
       actionList:
@@ -77,45 +77,55 @@ MonoBehaviour:
       weight: 0
       maxConsecutiveUses: 0
     - name: Slam Down!
-      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
-      description: Gain <color=#FFB430>{value1} Block</color>.\n Gain <color=#FFB430>{value2}
-        Fortitude</color>.\n Gain <color=#FFB430>{value3} Entrenched</color>.
-      keywords: 000000001300000018000000
+      intention: {fileID: 11400000, guid: 8ff4d02922df38048be5b7df2bf1e027, type: 2}
+      description: Deal damage equal to <color=#FFB430>Block</color>.
+      keywords: 00000000
       hideActionValue: 0
       actionList:
-      - actionType: 3
-        minActionValue: 55
-        maxActionValue: 65
-        targetRestriction: 1
+      - actionType: 17
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 145
+        customAudioType: 148
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Pipe Down!
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value1}</color> damage.\nShuffle 1 <color=#FFB430>Concussion</color>
+        into your deck.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 0
+        minActionValue: 27
+        maxActionValue: 29
+        targetRestriction: 0
         applyLightMultiplier: 1
         statusType: 0
         cardToAdd: {fileID: 0}
         overridePresentation: 1
         suppressPresentation: 0
-        customFxType: 144
-        customAudioType: 147
-      - actionType: 13
-        minActionValue: 5
-        maxActionValue: 5
+        customFxType: 146
+        customAudioType: 149
+      - actionType: 16
+        minActionValue: 0
+        maxActionValue: 0
         targetRestriction: 0
         applyLightMultiplier: 0
-        statusType: 4
-        cardToAdd: {fileID: 0}
+        statusType: 0
+        cardToAdd: {fileID: 11400000, guid: 7f6a3f7e0f8e4b5c9d1a2e3f4b5c6d7e, type: 2}
         overridePresentation: 0
         suppressPresentation: 1
-        customFxType: 0
-        customAudioType: 0
-      - actionType: 13
-        minActionValue: 2
-        maxActionValue: 2
-        targetRestriction: 0
-        applyLightMultiplier: 0
-        statusType: 22
-        cardToAdd: {fileID: 0}
-        overridePresentation: 0
-        suppressPresentation: 1
-        customFxType: 0
-        customAudioType: 0
+        customFxType: 146
+        customAudioType: 149
       repeatCount: 0
       conditions: []
       weight: 0

@@ -108,7 +108,7 @@ MonoBehaviour:
       Mana</color>.
   - specialKeyword: 24
     header: Entrenched
-    contentText: At the start of each turn, retain up to <color=#FFB430>{Entrenched*10}
+    contentText: At the start of each turn, retain up to <color=#FFB430>{SteadyBarricade*10}
       Block</color>.
   - specialKeyword: 25
     header: The Mastermind

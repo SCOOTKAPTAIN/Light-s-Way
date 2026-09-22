@@ -196,6 +196,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: db9877e9e53b09c4a8bfec602fd7313c, type: 2}
   - {fileID: 11400000, guid: 9f8f83ce9bd309f47af37ef5375ed35f, type: 2}
   - {fileID: 11400000, guid: 3c230c47ebe839d498f6ddf9595c5e5f, type: 2}
+  - {fileID: 11400000, guid: 8af02730b95344a45a2d745891491753, type: 2}
+  - {fileID: 11400000, guid: 6c9dd7a211d99ed4a84d25e271bf25ae, type: 2}
+  - {fileID: 11400000, guid: 42e4822ca2ef90e4993fb061bf7bd3d4, type: 2}
+  - {fileID: 11400000, guid: c14aef0dc8afbdf44a4bf7c9f7d04e60, type: 2}
 --- !u!82 &7710606986531930512
 AudioSource:
   m_ObjectHideFlags: 0

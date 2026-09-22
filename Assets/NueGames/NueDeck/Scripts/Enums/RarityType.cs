@@ -5,6 +5,7 @@
         Common,
         Uncommon,
         Rare,
-        Mystic
+        Mystic,
+        Status
     }
 }

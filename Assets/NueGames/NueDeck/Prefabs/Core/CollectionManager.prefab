@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handController: {fileID: 7048625806080352387}
+  injectedCardPreviewOffset: {x: 5, y: -1, z: 0}
 --- !u!1001 &968554621512985320
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -79,6 +79,9 @@ namespace NueGames.NueDeck.Scripts.UI
         public void OpenLightCardSelection()
         {
             if (GameManager == null || GameManager.PersistentGameplayData == null) return;
+
+            if (CombatManager != null && CombatManager.CurrentMainAlly != null && CombatManager.CurrentMainAlly.CharacterStats.IsStunned)
+                return;
             
             // Check if player has enough Light
             if (GameManager.PersistentGameplayData.light < 10)

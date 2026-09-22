@@ -112,7 +112,8 @@ namespace NueGames.NueDeck.Scripts.Card
         {
             CardData = targetProfile;
             IsPlayable = isPlayable;
-            nameTextField.text = CardData.CardName;
+            if (nameTextField != null)
+                nameTextField.text = CardData.CardName;
             RefreshDescriptionText();
             // Show 0 cost when the player currently has a FreeNextCard status active (QoL overlay)
             var displayCost = CardData.ManaCost + timesPlayedThisTurn;
@@ -127,10 +128,18 @@ namespace NueGames.NueDeck.Scripts.Card
             if (mainAlly != null && mainAlly.CharacterStats.StatusDict.ContainsKey(StatusType.FreeNextCard) && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].IsActive && mainAlly.CharacterStats.StatusDict[StatusType.FreeNextCard].StatusValue > 0)
                 displayCost = 0;
 
-            manaTextField.text = displayCost.ToString();
-            cardImage.sprite = CardData.CardSprite;
+            if (manaTextField != null)
+                manaTextField.text = displayCost.ToString();
+            if (cardImage != null)
+                cardImage.sprite = CardData.CardSprite;
+            if (RarityRootList == null)
+                return;
+
             foreach (var rarityRoot in RarityRootList)
-                rarityRoot.gameObject.SetActive(rarityRoot.Rarity == CardData.Rarity);
+            {
+                if (rarityRoot != null)
+                    rarityRoot.gameObject.SetActive(rarityRoot.Rarity == CardData.Rarity);
+            }
         }
         
         #endregion
@@ -451,10 +460,10 @@ namespace NueGames.NueDeck.Scripts.Card
         protected virtual IEnumerator ExhaustRoutine(bool destroy = true)
         {
             var timer = 0f;
-            transform.SetParent(CollectionManager.HandController.exhaustTransform);
-            
-            var startPos = CachedTransform.localPosition;
-            var endPos = Vector3.zero;
+            var exhaustTransform = CollectionManager.HandController.exhaustTransform;
+            var startPos = CachedTransform.position;
+            transform.SetParent(exhaustTransform, true);
+            var endPos = exhaustTransform.position;
 
             var startScale = CachedTransform.localScale;
             var endScale = Vector3.zero;
@@ -466,9 +475,12 @@ namespace NueGames.NueDeck.Scripts.Card
             {
                 timer += Time.deltaTime*5;
 
-                CachedTransform.localPosition = Vector3.Lerp(startPos, endPos, timer);
+                var progress = Mathf.SmoothStep(0f, 1f, timer);
+                var position = Vector3.Lerp(startPos, endPos, progress);
+                position += Vector3.up * Mathf.Sin(progress * Mathf.PI) * 0.35f;
+                CachedTransform.position = position;
                 CachedTransform.localRotation = Quaternion.Lerp(startRot,endRot,timer);
-                CachedTransform.localScale = Vector3.Lerp(startScale, endScale, timer);
+                CachedTransform.localScale = Vector3.Lerp(startScale, endScale, progress);
                 
                 if (timer>=1f)  break;
                 

@@ -18,6 +18,9 @@ namespace NueGames.NueDeck.Scripts.Managers
         [Header("Controllers")] 
         [SerializeField] private HandController handController;
 
+        [Header("Card Preview Animation")]
+        [SerializeField] private Vector3 injectedCardPreviewOffset = new Vector3(2f, 1.25f, 0f);
+
 
         #region Cache
 
@@ -165,6 +168,49 @@ namespace NueGames.NueDeck.Scripts.Managers
                 UIManager.CombatCanvas.SetPileTexts();
 
             return true;
+        }
+
+        public void AddCardToDrawPileWithAnimation(CardData cardData, float previewDuration = 1.2f)
+        {
+            if (cardData == null || HandController == null || GameManager == null)
+                return;
+
+            DrawPile.Add(cardData);
+            RevertVanguardStanceEntry(DrawPile);
+
+            var cardClone = GameManager.BuildAndGetCard(cardData, HandController.drawTransform);
+            cardClone.SetCard(cardData, false);
+            StartCoroutine(AnimateCardIntoPile(cardClone, HandController.drawTransform, previewDuration));
+
+            if (UIManager != null && UIManager.CombatCanvas != null)
+                UIManager.CombatCanvas.SetPileTexts();
+        }
+
+        private IEnumerator AnimateCardIntoPile(CardBase card, Transform pileTransform, float previewDuration)
+        {
+            if (card == null || pileTransform == null)
+                yield break;
+
+            var cardTransform = card.transform;
+            var startPosition = pileTransform.position + injectedCardPreviewOffset;
+            var startScale = cardTransform.localScale;
+            var endScale = Vector3.zero;
+            cardTransform.position = startPosition;
+
+            yield return new WaitForSeconds(Mathf.Max(0f, previewDuration));
+
+            var timer = 0f;
+            const float duration = 0.45f;
+            while (timer < duration)
+            {
+                timer += Time.deltaTime;
+                var progress = Mathf.SmoothStep(0f, 1f, timer / duration);
+                cardTransform.position = Vector3.Lerp(startPosition, pileTransform.position, progress);
+                cardTransform.localScale = Vector3.Lerp(startScale, endScale, progress);
+                yield return null;
+            }
+
+            Destroy(card.gameObject);
         }
 
         public void AddEndlessChambersCards(CharacterBase ally)

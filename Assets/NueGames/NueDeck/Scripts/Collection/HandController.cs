@@ -573,7 +573,8 @@ namespace NueGames.NueDeck.Scripts.Collection
                     Quaternion.LookRotation(cardForward, cardUp), 80f * Time.deltaTime);
                 cardTransform.position = cardPos;
 
-                CombatManager.HighlightCardTarget(_heldCard.CardData.CardActionDataList[0].ActionTargetType);
+                if (HasTargetingAction(_heldCard))
+                    CombatManager.HighlightCardTarget(_heldCard.CardData.CardActionDataList[0].ActionTargetType);
 
                 if (Input.GetMouseButtonUp(0) && TryAcceptByDropTarget(_heldCard, mousePos))
                 {
@@ -694,7 +695,7 @@ namespace NueGames.NueDeck.Scripts.Collection
             _keyboardSelectionActive = false;
             _selected = cardIndex;
 
-            if (_clickSelected == cardIndex && hand[cardIndex].CardData.UsableWithoutTarget)
+            if (_clickSelected == cardIndex && CanPlayWithoutTarget(hand[cardIndex]))
             {
                 TryUseSelectedCard(mousePos);
                 return;
@@ -707,7 +708,7 @@ namespace NueGames.NueDeck.Scripts.Collection
         private void HighlightSelectedCardTarget(CardBase card)
         {
             CombatManager.DeactivateCardHighlights();
-            if (!card.CardData.UsableWithoutTarget)
+            if (HasTargetingAction(card) && !card.CardData.UsableWithoutTarget)
                 CombatManager.HighlightCardTarget(card.CardData.CardActionDataList[0].ActionTargetType);
         }
 
@@ -726,6 +727,9 @@ namespace NueGames.NueDeck.Scripts.Collection
 
         private int GetKeyboardTargetCount(CardBase card)
         {
+            if (!HasTargetingAction(card))
+                return 0;
+
             switch (card.CardData.CardActionDataList[0].ActionTargetType)
             {
                 case ActionTargetType.Enemy:
@@ -823,7 +827,7 @@ namespace NueGames.NueDeck.Scripts.Collection
             if (!CanUseCard(card))
                 return false;
 
-            var canUse = card.CardData.UsableWithoutTarget;
+            var canUse = CanPlayWithoutTarget(card);
             if (!canUse)
                 canUse = CheckPlayOnCharacter(_mainCam.ScreenPointToRay(mousePos), ref selfCharacter, ref targetCharacter, card);
 
@@ -833,6 +837,9 @@ namespace NueGames.NueDeck.Scripts.Collection
         private bool CanUseCard(CardBase card)
         {
             if (!GameManager.PersistentGameplayData.CanUseCards)
+                return false;
+
+            if (CombatManager != null && CombatManager.CurrentMainAlly != null && CombatManager.CurrentMainAlly.CharacterStats.IsStunned)
                 return false;
 
             var hasFree = false;
@@ -848,6 +855,9 @@ namespace NueGames.NueDeck.Scripts.Collection
         private bool CheckPlayOnCharacter(Ray mainRay, ref CharacterBase selfCharacter,
             ref CharacterBase targetCharacter, CardBase card)
         {
+            if (!HasTargetingAction(card))
+                return false;
+
             RaycastHit hit;
             if (Physics.Raycast(mainRay, out hit, 1000, targetLayer))
             {
@@ -879,6 +889,9 @@ namespace NueGames.NueDeck.Scripts.Collection
 
         private List<EnemyBase> GetValidEnemyTargets(CardBase card)
         {
+            if (!HasTargetingAction(card))
+                return new List<EnemyBase>();
+
             var isAreaOfEffect = card.CardData.CardActionDataList[0].IsAreaOfEffect;
             var validEnemies = new List<EnemyBase>();
 
@@ -889,6 +902,19 @@ namespace NueGames.NueDeck.Scripts.Collection
             }
 
             return validEnemies;
+        }
+
+        private static bool HasTargetingAction(CardBase card)
+        {
+            return card != null && card.CardData != null &&
+                   card.CardData.CardActionDataList != null &&
+                   card.CardData.CardActionDataList.Count > 0;
+        }
+
+        private static bool CanPlayWithoutTarget(CardBase card)
+        {
+            return card != null && card.CardData != null &&
+                   (card.CardData.UsableWithoutTarget || !HasTargetingAction(card));
         }
 
         private bool IsValidEnemyTarget(EnemyBase enemy, bool isAreaOfEffect)

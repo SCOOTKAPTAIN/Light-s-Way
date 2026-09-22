@@ -33,6 +33,7 @@ namespace NueGames.NueDeck.Scripts.UI
         
         private List<ChoiceCard> _displayedCards = new List<ChoiceCard>();
         private int _keyboardSelectedIndex;
+        private bool _previousCanSelectCards;
 
         public bool IsOpen => gameObject.activeInHierarchy;
         
@@ -46,6 +47,12 @@ namespace NueGames.NueDeck.Scripts.UI
         
         public override void OpenCanvas()
         {
+            if (CombatManager != null && CombatManager.CurrentMainAlly != null && CombatManager.CurrentMainAlly.CharacterStats.IsStunned)
+                return;
+
+            if (GameManager != null && GameManager.PersistentGameplayData != null)
+                _previousCanSelectCards = GameManager.PersistentGameplayData.CanSelectCards;
+
             base.OpenCanvas(); // Activates the entire Canvas GameObject
             
             // Clear previous cards
@@ -70,7 +77,7 @@ namespace NueGames.NueDeck.Scripts.UI
             // Re-enable card selection
             if (GameManager != null && GameManager.PersistentGameplayData != null)
             {
-                GameManager.PersistentGameplayData.CanSelectCards = true;
+                GameManager.PersistentGameplayData.CanSelectCards = _previousCanSelectCards;
             }
             
             base.CloseCanvas(); // Deactivates the entire Canvas GameObject

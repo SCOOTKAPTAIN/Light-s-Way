@@ -31,7 +31,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 
-            targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
+            targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), true, "red", selfCharacter);
 
 
            

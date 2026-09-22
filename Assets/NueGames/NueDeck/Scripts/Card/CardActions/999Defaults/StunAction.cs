@@ -16,7 +16,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             if (FxManager != null)
             {
-                FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position,FxType.Stun);
+                FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position,FxType.Concussion);
             }
            
             if (AudioManager != null) 

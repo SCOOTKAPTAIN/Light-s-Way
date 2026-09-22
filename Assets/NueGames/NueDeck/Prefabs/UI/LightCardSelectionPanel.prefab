@@ -290,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelRoot: {fileID: 8749909206637996241}
   cardContainer: {fileID: 3626257714920803475}
-  choiceCardPrefab: {fileID: 0}
+  choiceCardPrefab: {fileID: 4977405248093799515, guid: 064f09601e0b46348b1488f9cc7fd9e6, type: 3}
   closeButton: {fileID: 508869649848710046}
   rekindleCardData: {fileID: 11400000, guid: a3198e668ea9aeb409f6e21b0ef28bba, type: 2}
   shineCardData: {fileID: 11400000, guid: 7eca6c7f00c805d4887559e3872b7418, type: 2}

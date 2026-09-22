@@ -14,9 +14,7 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
             if (cardToAdd == null || CollectionManager == null)
                 return;
 
-            CollectionManager.DrawPile.Add(cardToAdd);
-            if (UIManager.Instance != null && UIManager.Instance.CombatCanvas != null)
-                UIManager.Instance.CombatCanvas.SetPileTexts();
+            CollectionManager.AddCardToDrawPileWithAnimation(cardToAdd);
         }
     }
 }

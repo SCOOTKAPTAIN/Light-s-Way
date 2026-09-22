@@ -151,7 +151,8 @@
         CovenWard,
         Flex,
         SlamDown,
-        PipeDown
+        PipeDown,
+        Concussion
         
 
 
