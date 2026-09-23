@@ -98,6 +98,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         protected override void OnDeath()
         {
             base.OnDeath();
+
             CombatManager.OnAllyTurnStarted -= ShowNextAbility;
             CombatManager.OnEnemyTurnStarted -= CharacterStats.TriggerAllStatus;
             
@@ -114,7 +115,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Start death fade animation
             StartCoroutine(DeathFadeRoutine());
         }
-        
+
         private IEnumerator DeathFadeRoutine()
         {
             // Find sprite renderer if not assigned
@@ -750,6 +751,12 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
             
             // Single-target ability - determine valid target based on action restrictions
+            if (targetAbility.ActionList.Any(action => action.TargetSlot != EnemyTargetSlot.None))
+            {
+                yield return StartCoroutine(SlottedBuffRoutine(targetAbility, aliveEnemies, waitFrame));
+                yield break;
+            }
+
             CharacterBase target = GetValidBuffTarget(targetAbility, aliveEnemies);
             
             if (target == null)
@@ -787,6 +794,45 @@ namespace NueGames.NueDeck.Scripts.Characters
             
             yield return MoveToTargetRoutine(waitFrame, endPos, startPos, endRot, startRot, 5);
             Debug.Log($"BuffRoutine END for '{name}'");
+        }
+
+        private IEnumerator SlottedBuffRoutine(EnemyAbilityData targetAbility, List<EnemyBase> aliveEnemies, WaitForEndOfFrame waitFrame)
+        {
+            var startPos = transform.position;
+            var endPos = startPos + new Vector3(0, 0.2f, 0);
+            var startRot = transform.localRotation;
+            var endRot = transform.localRotation;
+
+            yield return MoveToTargetRoutine(waitFrame, startPos, endPos, startRot, endRot, 5);
+
+            foreach (var actionData in targetAbility.ActionList)
+            {
+                var target = actionData.TargetSlot == EnemyTargetSlot.None
+                    ? GetValidBuffTarget(targetAbility, aliveEnemies)
+                    : GetTargetForSlot(aliveEnemies, actionData.TargetSlot);
+
+                if (target == null)
+                    continue;
+
+                EnemyActionProcessor.GetAction(actionData.ActionType).DoAction(
+                    new EnemyActionParameters(GetActionValue(actionData), target, this, actionData, targetAbility.RepeatCount));
+            }
+
+            yield return MoveToTargetRoutine(waitFrame, endPos, startPos, endRot, startRot, 5);
+        }
+
+        private static CharacterBase GetTargetForSlot(List<EnemyBase> aliveEnemies, EnemyTargetSlot targetSlot)
+        {
+            var targetStatus = targetSlot switch
+            {
+                EnemyTargetSlot.TargetA => StatusType.TargetA,
+                EnemyTargetSlot.TargetB => StatusType.TargetB,
+                EnemyTargetSlot.TargetC => StatusType.TargetC,
+                _ => StatusType.None
+            };
+
+            return aliveEnemies.FirstOrDefault(enemy =>
+                enemy != null && enemy.CharacterStats.StatusDict[targetStatus].IsActive);
         }
         
         /// <summary>

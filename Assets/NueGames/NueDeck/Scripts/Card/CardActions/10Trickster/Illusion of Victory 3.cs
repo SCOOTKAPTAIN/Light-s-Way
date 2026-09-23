@@ -19,7 +19,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (targetCharacter.CharacterStats.StatusDict.ContainsKey(StatusType.Block))
             {
                 var currentBlock = targetCharacter.CharacterStats.StatusDict[StatusType.Block].StatusValue;
-                var blockReduction = Mathf.RoundToInt(currentBlock * 0.25f);
+                var blockReduction = Mathf.RoundToInt(currentBlock * 0.5f);
                 
                 if (blockReduction > 0)
                 {

@@ -281,9 +281,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 1.379
       objectReference: {fileID: 0}
+    - target: {fileID: 2452178601341196022, guid: 36c7284207bc0f143bdc3f1933146cf5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.038000003
+      objectReference: {fileID: 0}
     - target: {fileID: 4305065158385358273, guid: 36c7284207bc0f143bdc3f1933146cf5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.779
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305065158385358273, guid: 36c7284207bc0f143bdc3f1933146cf5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.038
       objectReference: {fileID: 0}
     - target: {fileID: 4305065158385358273, guid: 36c7284207bc0f143bdc3f1933146cf5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -316,6 +324,10 @@ PrefabInstance:
     - target: {fileID: 4885188498238871481, guid: 36c7284207bc0f143bdc3f1933146cf5, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975396874289159475, guid: 36c7284207bc0f143bdc3f1933146cf5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.038000003
       objectReference: {fileID: 0}
     - target: {fileID: 5531663734602138261, guid: 36c7284207bc0f143bdc3f1933146cf5, type: 3}
       propertyPath: enemyPositionGizmoSize
@@ -511,7 +523,7 @@ Transform:
   m_GameObject: {fileID: 523811371}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.636, y: -0.13, z: 0}
+  m_LocalPosition: {x: 2.636, y: 0.038000003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

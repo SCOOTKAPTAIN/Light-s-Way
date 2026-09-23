@@ -18,7 +18,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         [SerializeField] private Image chaosificationStatusImage;
         [SerializeField] private GameObject intentDescriptionPanel;
         [SerializeField] private TooltipText intentDescriptionTooltip;
-        [SerializeField] private int intentDescriptionSortingOrder = 100;
+        [SerializeField] private int intentDescriptionSortingOrder = 1000;
         private bool _isPointerOverIntent;
         public Image IntentImage => intentImage;
         public TextMeshProUGUI NextActionValueText => nextActionValueText;
@@ -40,7 +40,7 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             intentCanvas.overrideSorting = true;
             intentCanvas.sortingLayerID = TargetCanvas.sortingLayerID;
-            intentCanvas.sortingOrder = TargetCanvas.sortingOrder + intentDescriptionSortingOrder;
+            intentCanvas.sortingOrder = intentDescriptionSortingOrder;
             intentCanvas.worldCamera = TargetCanvas.worldCamera;
         }
 

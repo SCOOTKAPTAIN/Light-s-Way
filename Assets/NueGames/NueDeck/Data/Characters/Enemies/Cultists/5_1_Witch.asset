@@ -44,6 +44,7 @@ MonoBehaviour:
         minActionValue: 23
         maxActionValue: 27
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
         cardToAdd: {fileID: 0}
@@ -55,6 +56,7 @@ MonoBehaviour:
         minActionValue: 1
         maxActionValue: 1
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 31
         cardToAdd: {fileID: 0}
@@ -71,12 +73,13 @@ MonoBehaviour:
       description: Apply <color=#FFB430>{value} Burden</color>. \nApply <color=#FFB430>{value2}
         Clogged Circuits</color>.
       keywords: 3200000031000000
-      hideActionValue: 0
+      hideActionValue: 1
       actionList:
       - actionType: 12
         minActionValue: 2
         maxActionValue: 2
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 32
         cardToAdd: {fileID: 0}
@@ -88,6 +91,7 @@ MonoBehaviour:
         minActionValue: 1
         maxActionValue: 1
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 33
         cardToAdd: {fileID: 0}
@@ -104,12 +108,13 @@ MonoBehaviour:
       description: 'Apply <color=#FFB430>{value} Armor</color> to <color=#FFB430>All</color>
         allies. '
       keywords: 0e000000
-      hideActionValue: 0
+      hideActionValue: 1
       actionList:
       - actionType: 13
         minActionValue: 1
         maxActionValue: 1
         targetRestriction: 3
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 15
         cardToAdd: {fileID: 0}
@@ -136,6 +141,7 @@ MonoBehaviour:
       minActionValue: 0
       maxActionValue: 0
       targetRestriction: 0
+      targetSlot: 0
       applyLightMultiplier: 1
       statusType: 0
       cardToAdd: {fileID: 0}

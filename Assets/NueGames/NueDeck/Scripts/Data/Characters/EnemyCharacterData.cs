@@ -299,6 +299,8 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         [Header("Target Restrictions")]
         [Tooltip("NoRestriction = Random single target (self or ally). SelfOnly = Only self. AlliesOnly = Random ally (not self). AllAllies = All allies including self (AOE).")]
         [SerializeField] private EnemyActionTargetType targetRestriction = EnemyActionTargetType.NoRestriction;
+        [Tooltip("Optional stable target slot. Actions with different slots in the same ability resolve against different enemies.")]
+        [SerializeField] private EnemyTargetSlot targetSlot = EnemyTargetSlot.None;
         
         [Header("Light Scaling")]
         [Tooltip("If true, this action's value scales with Light level (darker = stronger). Use for combat values like damage/block/heal. Set false for status applications like poison stacks.")]
@@ -325,6 +327,7 @@ namespace NueGames.NueDeck.Scripts.Data.Characters
         
         public EnemyActionType ActionType => actionType;
         public EnemyActionTargetType TargetRestriction => targetRestriction;
+        public EnemyTargetSlot TargetSlot => targetSlot;
         public bool ApplyLightMultiplier => applyLightMultiplier;
         public StatusType StatusType => statusType;
         public CardData CardToAdd => cardToAdd;

@@ -110,10 +110,11 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 SpecialKeywords.CloggedCircuits => StatusType.CloggedCircuits,
                 SpecialKeywords.ActorOnStage => StatusType.ActorOnStage,
                 SpecialKeywords.SeveredString => StatusType.SeveredString,
-                SpecialKeywords.OngoingPerformance => StatusType.OngoingPerformance,
-                SpecialKeywords.GlamouringScenery => StatusType.GlamouringScenery,
                 SpecialKeywords.Might => StatusType.Might,
                 SpecialKeywords.Resilience => StatusType.Resilience,
+                SpecialKeywords.Spotlight => StatusType.Spotlight,
+                SpecialKeywords.CheatDeath => StatusType.CheatDeath,
+                SpecialKeywords.BrushOff => StatusType.BrushOff,
                // SpecialKeywords.TheBestDefence => StatusType.TheBestDefense,
                 _ => StatusType.None
             };

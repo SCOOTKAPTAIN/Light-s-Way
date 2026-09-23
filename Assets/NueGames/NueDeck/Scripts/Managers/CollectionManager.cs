@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Characters;
 using NueGames.NueDeck.Scripts.Collection;
@@ -14,6 +15,8 @@ namespace NueGames.NueDeck.Scripts.Managers
         public CollectionManager(){}
       
         public static CollectionManager Instance { get; private set; }
+
+        private bool _drawingCards;
 
         [Header("Controllers")] 
         [SerializeField] private HandController handController;
@@ -81,6 +84,29 @@ namespace NueGames.NueDeck.Scripts.Managers
         #region Public Methods
         public void DrawCards(int targetDrawCount)
         {
+            if (_drawingCards)
+                return;
+
+            _drawingCards = true;
+            var drawnCards = new List<CardBase>();
+            DrawCardsInternal(targetDrawCount, drawnCards);
+            _drawingCards = false;
+        }
+
+        public void DrawInitialCards(int targetDrawCount)
+        {
+            if (_drawingCards)
+                return;
+
+            _drawingCards = true;
+            var drawnCards = new List<CardBase>();
+            DrawCardsInternal(targetDrawCount, drawnCards);
+            _drawingCards = false;
+            ApplySpotlightToDrawnCards(drawnCards);
+        }
+
+        private void DrawCardsInternal(int targetDrawCount, List<CardBase> drawnCards)
+        {
             // If the current main ally has a NoDraw debuff, prevent drawing.
             if (CombatManager != null && CombatManager.CurrentMainAlly != null)
             {
@@ -111,13 +137,14 @@ namespace NueGames.NueDeck.Scripts.Managers
                         nDrawCount = DiscardPile.Count;
                     
                     ReshuffleDiscardPile();
-                    DrawCards(nDrawCount);
+                    DrawCardsInternal(nDrawCount, drawnCards);
                     break;
                 }
 
                 var randomCard = DrawPile[Random.Range(0, DrawPile.Count)];
                 var clone = GameManager.BuildAndGetCard(randomCard, HandController.drawTransform);
                 HandController.AddCardToHand(clone);
+                drawnCards.Add(clone);
                 HandPile.Add(randomCard);
                 DrawPile.Remove(randomCard);
                 currentDrawCount++;
@@ -126,6 +153,19 @@ namespace NueGames.NueDeck.Scripts.Managers
             
             foreach (var cardObject in HandController.hand)
                 cardObject.UpdateCardText();
+        }
+
+        private void ApplySpotlightToDrawnCards(List<CardBase> drawnCards)
+        {
+            var ally = CombatManager != null ? CombatManager.CurrentMainAlly : null;
+            var stats = ally != null ? ally.CharacterStats : null;
+            if (stats == null || !stats.StatusDict[StatusType.Spotlight].IsActive ||
+                stats.StatusDict[StatusType.Spotlight].StatusValue <= 0 || drawnCards.Count == 0)
+                return;
+
+            var restrictedCount = Mathf.FloorToInt(drawnCards.Count * 0.5f);
+            foreach (var card in drawnCards.OrderBy(_ => Random.Range(0, int.MaxValue)).Take(restrictedCount))
+                card.SetSpotlightRestricted(true);
         }
 
         public int DrawAllCopies(CardData targetCard)

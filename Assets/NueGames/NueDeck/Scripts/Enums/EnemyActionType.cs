@@ -19,6 +19,11 @@
         MultiHitAttack,
         VeilAndVerdict,
         AddCardToDeck,
-        SlamDown
+        SlamDown,
+        ScriptRevision,
+        Spotlight,
+        ApplyBuffCasterFx,
+        ApplyDebuffCasterFx,
+        ForcedMonologue
     }
 }

@@ -55,7 +55,14 @@
         OngoingPerformance,
         GlamouringScenery,
         Might,
-        Resilience
+        Resilience,
+        Spotlight,
+        CheatDeath,
+        BrushOff,
+        TargetA,
+        TargetB,
+        TargetC,
+        VIP
         
 
     }

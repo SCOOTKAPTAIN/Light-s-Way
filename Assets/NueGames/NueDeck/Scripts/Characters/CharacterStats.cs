@@ -57,7 +57,8 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusType.Burden,
             StatusType.CloggedCircuits,
             StatusType.Ablazed,
-            StatusType.SeveredString
+            StatusType.SeveredString,
+            StatusType.Spotlight
         };
         private const float FrostbitePercentPerStack = 0.25f; // 25% proficiency per stack
         private const float BurningPercentPerStack = 0.25f; // 25% proficiency per stack
@@ -128,6 +129,10 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.Armor].IsActive = false;
             StatusDict[StatusType.Armor].StatusValue = 0;
 
+            // These defensive thresholds last through the current turn and clear at the next turn.
+            StatusDict[StatusType.CheatDeath].ClearAtNextTurn = true;
+            StatusDict[StatusType.BrushOff].ClearAtNextTurn = true;
+
             StatusDict[StatusType.NoDraw].DecreaseOverTurn = true;
 
             StatusDict[StatusType.NoGainMana].DecreaseOverTurn = true;
@@ -137,6 +142,10 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.ManaDrain].DecreaseOverTurn = false;
             StatusDict[StatusType.ManaDrain].TriggerAtTurnEnd = true;
             StatusDict[StatusType.ManaDrain].OnTriggerAction += ConsumeManaDrain;
+            // Spotlight remains visible while the drawn hand is restricted and clears at ally turn end.
+            StatusDict[StatusType.Spotlight].DecreaseOverTurn = false;
+            StatusDict[StatusType.Spotlight].TriggerAtTurnEnd = true;
+            StatusDict[StatusType.Spotlight].OnTriggerAction += ClearSpotlight;
             // These debuffs are applied during the enemy turn and must last through the next ally turn.
             // Resolve their decay at the end of the ally turn instead of before the ally can act.
             StatusDict[StatusType.Burden].DecreaseOverTurn = true;
@@ -173,6 +182,8 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             // Chaotic is an invisible marker used by Chaos enemy actions.
             StatusDict[StatusType.Chaotic].IsPermanent = true;
+            // VIP is an invisible encounter marker; killing its owner ends combat immediately.
+            StatusDict[StatusType.VIP].IsPermanent = true;
 
             // Desperation persists for the rest of combat and loses 10% of max health each turn.
             StatusDict[StatusType.Desperation].IsPermanent = true;
@@ -195,6 +206,10 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.OngoingPerformance].OnTriggerAction += TriggerOngoingPerformance;
             StatusDict[StatusType.Might].DecreaseOverTurn = true;
             StatusDict[StatusType.Resilience].DecreaseOverTurn = true;
+
+            StatusDict[StatusType.TargetA].IsPermanent = true;
+            StatusDict[StatusType.TargetB].IsPermanent = true;
+            StatusDict[StatusType.TargetC].IsPermanent = true;
 
             StatusDict[StatusType.Bleeding].OnTriggerAction += DamageBleeding;
             StatusDict[StatusType.Bleeding].CanNegativeStack = false;
@@ -272,7 +287,7 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             if (StatusDict[targetStatus].IsActive)
             {
-                if (targetStatus != StatusType.Ambush)
+                if (targetStatus != StatusType.Ambush && targetStatus != StatusType.SeveredString)
                     StatusDict[targetStatus].StatusValue += value;
                 OnStatusChanged?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
                 OnStatusChangedPublic?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
@@ -518,9 +533,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
         }
         
-        public void Damage(int value, bool canPierceArmor = false, string damageTextColor = "red", NueGames.NueDeck.Scripts.Characters.CharacterBase attacker = null, bool triggerSabotaged = true)
+        public bool Damage(int value, bool canPierceArmor = false, string damageTextColor = "red", NueGames.NueDeck.Scripts.Characters.CharacterBase attacker = null, bool triggerSabotaged = true)
         {
-            if (IsDeath) return;
+            if (IsDeath) return false;
 
             if (attacker != null && attacker.CharacterStats != null && attacker.CharacterStats.StatusDict[StatusType.Ambush].IsActive)
             {
@@ -552,7 +567,31 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
 
             if (StatusDict[StatusType.DamageCut].IsActive && StatusDict[StatusType.DamageCut].StatusValue > 0)
+            {
                 value = Mathf.Max(0, value - StatusDict[StatusType.DamageCut].StatusValue);
+                StatusDict[StatusType.DamageCut].StatusValue--;
+                if (StatusDict[StatusType.DamageCut].StatusValue <= 0)
+                    ClearStatus(StatusType.DamageCut);
+                else
+                    OnStatusChanged?.Invoke(StatusType.DamageCut, StatusDict[StatusType.DamageCut].StatusValue);
+            }
+
+            var wasNullifiedByStatus = false;
+
+            if (StatusDict[StatusType.CheatDeath].IsActive &&
+                StatusDict[StatusType.CheatDeath].StatusValue > 0 &&
+                value >= StatusDict[StatusType.CheatDeath].StatusValue)
+            {
+                value = 0;
+                wasNullifiedByStatus = true;
+            }
+            else if (StatusDict[StatusType.BrushOff].IsActive &&
+                     StatusDict[StatusType.BrushOff].StatusValue > 0 &&
+                     value <= StatusDict[StatusType.BrushOff].StatusValue)
+            {
+                value = 0;
+                wasNullifiedByStatus = true;
+            }
 
             OnTakeDamageAction?.Invoke();
             
@@ -562,6 +601,13 @@ namespace NueGames.NueDeck.Scripts.Characters
             var wasBlockedCompletely = false;
             var wasNullifiedByArmor = false;
             var blockBefore = 0;
+
+            if (wasNullifiedByStatus && _characterCanvas != null && FxManager.Instance != null)
+            {
+                var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
+                var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
+                FxManager.Instance.SpawnFloatingTextGrey(spawnRoot, "Nullified!");
+            }
     
             // Check if target has Judged status - if so, bypass Block and Armor entirely
             bool hasJudged = StatusDict.ContainsKey(StatusType.Judged) && StatusDict[StatusType.Judged].IsActive && StatusDict[StatusType.Judged].StatusValue > 0;
@@ -589,7 +635,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                         {
                             var charBase = _characterCanvas.GetComponentInParent<CharacterBase>();
                             var spawnRoot = (charBase != null && charBase.TextSpawnRoot != null) ? charBase.TextSpawnRoot : _characterCanvas.transform;
-                            FxManager.Instance.SpawnFloatingTextGrey(spawnRoot, "Nulified!");
+                            FxManager.Instance.SpawnFloatingTextGrey(spawnRoot, "Nullified!");
                             // Play guard FX
                         }
 
@@ -804,6 +850,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (attacker != null && triggerSabotaged)
                 NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplySabotaged(attacker);
 
+            return wasBlockedCompletely;
         }
         
         public void IncreaseMaxHealth(int value)
@@ -978,6 +1025,12 @@ namespace NueGames.NueDeck.Scripts.Characters
                 ClearStatus(StatusType.ManaDrain);
         }
 
+        private void ClearSpotlight()
+        {
+            if (StatusDict[StatusType.Spotlight].IsActive)
+                ClearStatus(StatusType.Spotlight);
+        }
+
         private void PlayStatusDamageFeedback(FxType fxType, AudioActionType audioType)
         {
             if (_characterCanvas != null && FxManager.Instance != null)
@@ -1149,6 +1202,8 @@ namespace NueGames.NueDeck.Scripts.Characters
                 return;
 
             var damage = Mathf.Max(1, Mathf.CeilToInt(MaxHealth * 0.10f));
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayOneShotDebounced(AudioActionType.GenericDOTDamage, 0.25f);
             Damage(damage, true, "red", null);
         }
 

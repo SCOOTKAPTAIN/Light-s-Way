@@ -152,7 +152,14 @@
         Flex,
         SlamDown,
         PipeDown,
-        Concussion
+        Concussion,
+        PlotArmor,
+        ProtegeEncouragement,
+        ScriptRevision,
+        Spotlight,
+        Perform,
+        StageFright,
+        ForcedMonologue
         
 
 

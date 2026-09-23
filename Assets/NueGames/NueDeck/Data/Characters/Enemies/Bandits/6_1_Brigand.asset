@@ -43,6 +43,7 @@ MonoBehaviour:
         minActionValue: 55
         maxActionValue: 65
         targetRestriction: 1
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
         cardToAdd: {fileID: 0}
@@ -54,6 +55,7 @@ MonoBehaviour:
         minActionValue: 5
         maxActionValue: 5
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 0
         statusType: 4
         cardToAdd: {fileID: 0}
@@ -65,6 +67,7 @@ MonoBehaviour:
         minActionValue: 2
         maxActionValue: 2
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 0
         statusType: 22
         cardToAdd: {fileID: 0}
@@ -86,6 +89,7 @@ MonoBehaviour:
         minActionValue: 0
         maxActionValue: 0
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 0
         statusType: 0
         cardToAdd: {fileID: 0}
@@ -99,7 +103,7 @@ MonoBehaviour:
       maxConsecutiveUses: 0
     - name: Pipe Down!
       intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
-      description: Deal <color=#FFB430>{value1}</color> damage.\nShuffle 1 <color=#FFB430>Concussion</color>
+      description: Deal <color=#FFB430>{value1}</color> damage.\nShuffle 1 "<color=#FFB430>Concussion</color>"
         into your deck.
       keywords: 
       hideActionValue: 0
@@ -108,6 +112,7 @@ MonoBehaviour:
         minActionValue: 27
         maxActionValue: 29
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
         cardToAdd: {fileID: 0}
@@ -119,6 +124,7 @@ MonoBehaviour:
         minActionValue: 0
         maxActionValue: 0
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 0
         statusType: 0
         cardToAdd: {fileID: 11400000, guid: 7f6a3f7e0f8e4b5c9d1a2e3f4b5c6d7e, type: 2}
@@ -145,6 +151,7 @@ MonoBehaviour:
       minActionValue: 0
       maxActionValue: 0
       targetRestriction: 0
+      targetSlot: 0
       applyLightMultiplier: 1
       statusType: 0
       cardToAdd: {fileID: 0}

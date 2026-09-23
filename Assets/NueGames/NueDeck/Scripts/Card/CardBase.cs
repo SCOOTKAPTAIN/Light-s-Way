@@ -49,6 +49,7 @@ namespace NueGames.NueDeck.Scripts.Card
         public bool IsExhausted { get; private set; }
         public bool IsObscured { get; private set; }
         public bool TemporaryRetain { get; private set; }
+        public bool IsSpotlightRestricted { get; private set; }
         private const string TemporaryRetainDescription = "\n<color=#FFB430>Retain.</color>";
         // If true, card will be returned to hand instead of being discarded/exhausted after play
         public bool ReturnToHandAfterPlay { get; set; }
@@ -66,6 +67,11 @@ namespace NueGames.NueDeck.Scripts.Card
         {
             TemporaryRetain = retained;
             RefreshDescriptionText();
+        }
+
+        public void SetSpotlightRestricted(bool restricted)
+        {
+            IsSpotlightRestricted = restricted;
         }
 
         #endregion

@@ -143,7 +143,7 @@ MonoBehaviour:
   contentText: {fileID: 2067262658364654293}
   backgroundImage: {fileID: 4686826793474894064}
   layoutElement: {fileID: 7148549504832041419}
-  characterWrapLimit: 50
+  characterWrapLimit: 200
 --- !u!114 &900000000000000001
 MonoBehaviour:
   m_ObjectHideFlags: 0

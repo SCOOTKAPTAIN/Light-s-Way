@@ -1,0 +1,168 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
+  m_Name: 8_1_MarionetteB
+  m_EditorClassIdentifier: 
+  characterID: 8
+  characterName: marionette
+  characterDescription: ' of her mannequins, standing by the sidelines, resilient
+    to all forms of damage, for the writer must be the director of this performance
+    to the death.
+
+'
+  maxHealth: 70
+  enemyPrefab: {fileID: 243822687015991123, guid: 2b1209760e47dfd4e8dd035d151bd4e8, type: 3}
+  mutatedVersion: {fileID: 0}
+  chaosificationStatus:
+    modifierName: 
+    icon: {fileID: 0}
+    description: 
+  useActBasedScaling: 1
+  actConfigurations:
+  - actNumber: 1
+    maxHealth: 95
+    startingStatuses:
+    - statusType: 58
+      statusValue: 1
+    - statusType: 48
+      statusValue: 1
+    enemyAbilityList:
+    - name: Perform
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 0
+        minActionValue: 26
+        maxActionValue: 29
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 152
+        customAudioType: 155
+      repeatCount: 0
+      conditions: []
+      weight: 5
+      maxConsecutiveUses: 3
+    - name: Stage Fright
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Apply <color=#FFB430>{value1} Weakness</color>. \nApply <color=#FFB430>{value2}
+        Fragile</color>
+      keywords: 1a00000006000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 12
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 24
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 153
+        customAudioType: 156
+      - actionType: 12
+        minActionValue: 2
+        maxActionValue: 2
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 7
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 152
+        customAudioType: 155
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 1
+    - name: Forced Monologue
+      intention: {fileID: 11400000, guid: 3efa0e2373ea36845a3c7fd56786a097, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>4</color>
+        times. \nEach <color=#FFB430>Blocked</color> damage will shuffle a "<color=#FFB430>Scrambled
+        Drafts</color>".
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 22
+        minActionValue: 6
+        maxActionValue: 6
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 11400000, guid: 8a7b6c5d4e3f2910a1b2c3d4e5f60718, type: 2}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 154
+        customAudioType: 157
+      repeatCount: 4
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 2
+  followAbilityPattern: 0
+  useWeightedSelection: 1
+  preventRepeatAbility: 0
+  startingStatuses: []
+  enemyAbilityList:
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 0
+      minActionValue: 10
+      maxActionValue: 10
+      targetRestriction: 0
+      targetSlot: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 6
+    maxConsecutiveUses: 0
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 2
+      minActionValue: 2
+      maxActionValue: 2
+      targetRestriction: 0
+      targetSlot: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 5
+    maxConsecutiveUses: 0

@@ -43,6 +43,7 @@ MonoBehaviour:
         minActionValue: 33
         maxActionValue: 37
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
         cardToAdd: {fileID: 0}
@@ -65,6 +66,7 @@ MonoBehaviour:
         minActionValue: 14
         maxActionValue: 16
         targetRestriction: 1
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
         cardToAdd: {fileID: 0}
@@ -76,6 +78,7 @@ MonoBehaviour:
         minActionValue: 6
         maxActionValue: 8
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
         cardToAdd: {fileID: 0}
@@ -97,6 +100,7 @@ MonoBehaviour:
         minActionValue: 2
         maxActionValue: 4
         targetRestriction: 1
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
         cardToAdd: {fileID: 0}
@@ -118,6 +122,7 @@ MonoBehaviour:
         minActionValue: 1
         maxActionValue: 1
         targetRestriction: 1
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 43
         cardToAdd: {fileID: 0}
@@ -152,6 +157,7 @@ MonoBehaviour:
       minActionValue: 10
       maxActionValue: 10
       targetRestriction: 0
+      targetSlot: 0
       applyLightMultiplier: 1
       statusType: 0
       cardToAdd: {fileID: 0}
@@ -173,6 +179,7 @@ MonoBehaviour:
       minActionValue: 2
       maxActionValue: 2
       targetRestriction: 0
+      targetSlot: 0
       applyLightMultiplier: 1
       statusType: 0
       cardToAdd: {fileID: 0}

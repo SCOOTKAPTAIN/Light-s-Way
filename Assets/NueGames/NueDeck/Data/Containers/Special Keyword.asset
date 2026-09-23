@@ -210,3 +210,42 @@ MonoBehaviour:
     header: Clogged Circuits
     contentText: <color=#FFB430>Prevents</color> Mana gain from cards and effects
       for <color=#FFB430>{Clogged Circuits}</color> turn(s).
+  - specialKeyword: 55
+    header: Might
+    contentText: Attacks deal <color=#FFB430>50%</color> more damage for <color=#FFB430>{Might}</color>
+      turn(s).
+  - specialKeyword: 56
+    header: Resilience
+    contentText: Take <color=#FFB430>50%</color> less damage for <color=#FFB430>{Resilience}</color>
+      turn(s).
+  - specialKeyword: 58
+    header: Cheat Death
+    contentText: <color=#FFB430>Immune</color> from damage equal to or above <color=#FFB430>{Cheat
+      Death}</color>.
+  - specialKeyword: 59
+    header: Brush Off
+    contentText: <color=#FFB430>Immune</color> from damage equal to or below <color=#FFB430>{Brush
+      Off}</color>.
+  - specialKeyword: 57
+    header: Spotlight
+    contentText: <color=#FFB430>Restrict</color> your next hand, preventing half
+      of cards initially drawn to be played. <color=#FFB430>Unrestricted</color>
+      cards must be played before <color=#FFB430>Restricted</color> cards.
+  - specialKeyword: 51
+    header: Actor on Stage
+    contentText: 'When taking <color=#FFB430>Fatal</color> damage:
+
+      - <color=#FFB430>Survive</color>
+      with <color=#FFB430>1</color> Health.
+
+      - Apply <color=#FFB430>Severed
+      String</color> to self.'
+  - specialKeyword: 52
+    header: Severed String
+    contentText: <color=#FFB430>Unable</color> to take action.
+  - specialKeyword: 53
+    header: Ongoing Performance
+    contentText: '- Starts with <color=#FFB430>+1000% Max HP</color>.
+
+      - Lose
+      <color=#FFB430>10% Max HP</color> each turn.'

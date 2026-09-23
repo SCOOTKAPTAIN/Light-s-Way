@@ -445,7 +445,9 @@ namespace NueGames.NueDeck.Scripts.Collection
                 }
 
                 var requiredMana = card.GetEffectiveCost();
-                card.SetInactiveMaterialState(GameManager.PersistentGameplayData.CurrentMana < requiredMana && !hasFreeNext);
+                var spotlightRestricted = !card.IsSpotlightRestricted &&
+                                          hand.Exists(handCard => handCard != null && handCard.IsSpotlightRestricted);
+                card.SetInactiveMaterialState((GameManager.PersistentGameplayData.CurrentMana < requiredMana && !hasFreeNext) || spotlightRestricted);
 
                 var noCardHeld = _heldCard == null; // Whether a card is "held" (outside of hand)
                 var onSelectedCard = noCardHeld && _selected == i;  
@@ -840,6 +842,9 @@ namespace NueGames.NueDeck.Scripts.Collection
                 return false;
 
             if (CombatManager != null && CombatManager.CurrentMainAlly != null && CombatManager.CurrentMainAlly.CharacterStats.IsStunned)
+                return false;
+
+            if (card != null && !card.IsSpotlightRestricted && hand.Exists(handCard => handCard != null && handCard.IsSpotlightRestricted))
                 return false;
 
             var hasFree = false;

@@ -143,7 +143,7 @@ MonoBehaviour:
   contentText: {fileID: 2067262658364654293}
   backgroundImage: {fileID: 4686826793474894064}
   layoutElement: {fileID: 7148549504832041419}
-  characterWrapLimit: 50
+  characterWrapLimit: 200
 --- !u!114 &900000000000000001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 1
   textSpawnRoot: {fileID: 2463341200963954810}
-  enemyCharacterData: {fileID: 11400000, guid: 5e80c9a6e3c215642a1021d6c205764b, type: 2}
+  enemyCharacterData: {fileID: 11400000, guid: 94510a60194de49488ed08a24822d0df, type: 2}
   enemyCanvas: {fileID: 7422249267346903092}
   deathSoundProfileData: {fileID: 11400000, guid: 7e15e2a10065ab54c8eaf26154af0156, type: 2}
   spriteRenderer: {fileID: 0}

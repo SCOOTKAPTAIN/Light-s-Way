@@ -31,6 +31,8 @@ namespace NueGames.NueDeck.Scripts.Managers
     [Header("Combat Timing")]
     [SerializeField] [Tooltip("Seconds to wait after Firing Line triggers before the enemy turn begins.")]
     private float firingLinePostDelay = 0.5f;
+    [SerializeField, Range(0f, 1f)] [Tooltip("Chance each enemy turn to rotate TargetA/TargetB/TargetC assignments.")]
+    private float enemyTargetSlotCycleChance = 0.5f;
     [SerializeField] [Tooltip("Optional: assign an invisible Transform in the scene where group FX (eg. AllEnemies) should spawn.")]
     private Transform enemiesFxAnchor;
  
@@ -219,14 +221,14 @@ namespace NueGames.NueDeck.Scripts.Managers
                         if (FxManager != null)
                             FxManager.SpawnStaticText(CurrentMainAlly.transform, "-" + drain + " Mana", 0, 1);
                     }
-                    CollectionManager.DrawCards(GameManager.PersistentGameplayData.DrawCount);
+                    CollectionManager.DrawInitialCards(GameManager.PersistentGameplayData.DrawCount);
                     CollectionManager.AddEndlessChambersCards(CurrentMainAlly);
                     
                     GameManager.PersistentGameplayData.CanSelectCards = true;
                     
                     break;
                 case CombatStateType.EnemyTurn:
-
+                    RotateEnemyTargetSlots();
                     OnEnemyTurnStarted?.Invoke();
                     
                     CollectionManager.DiscardHand();
@@ -244,6 +246,75 @@ namespace NueGames.NueDeck.Scripts.Managers
                 default:
                     throw new ArgumentOutOfRangeException(nameof(targetStateType), targetStateType, null);
             }
+        }
+
+        private void RotateEnemyTargetSlots()
+        {
+            if (enemyTargetSlotCycleChance <= 0f || UnityEngine.Random.value > enemyTargetSlotCycleChance)
+                return;
+
+            var enemies = CurrentEnemiesList.Where(enemy => enemy != null && !enemy.CharacterStats.IsDeath).ToList();
+            var assignments = enemies.ToDictionary(
+                enemy => enemy,
+                enemy => GetTargetSlot(enemy.CharacterStats));
+            var occupiedSlots = assignments.Values
+                .Where(slot => slot != EnemyTargetSlot.None)
+                .Distinct()
+                .OrderBy(slot => slot)
+                .ToList();
+
+            if (occupiedSlots.Count < 2)
+                return;
+
+            var rotatedAssignments = assignments.ToDictionary(
+                assignment => assignment.Key,
+                assignment => GetNextTargetSlot(assignment.Value, occupiedSlots));
+
+            foreach (var assignment in assignments)
+                ClearTargetSlots(assignment.Key.CharacterStats);
+
+            foreach (var assignment in rotatedAssignments)
+            {
+                if (assignment.Value == EnemyTargetSlot.None)
+                    continue;
+
+                assignment.Key.CharacterStats.ApplyStatus(GetStatusType(assignment.Value), 1);
+            }
+        }
+
+        private static EnemyTargetSlot GetNextTargetSlot(EnemyTargetSlot targetSlot, List<EnemyTargetSlot> occupiedSlots)
+        {
+            var slotIndex = occupiedSlots.IndexOf(targetSlot);
+            if (slotIndex < 0)
+                return EnemyTargetSlot.None;
+
+            return occupiedSlots[(slotIndex + 1) % occupiedSlots.Count];
+        }
+
+        private static EnemyTargetSlot GetTargetSlot(CharacterStats stats)
+        {
+            if (stats.StatusDict[StatusType.TargetA].IsActive) return EnemyTargetSlot.TargetA;
+            if (stats.StatusDict[StatusType.TargetB].IsActive) return EnemyTargetSlot.TargetB;
+            if (stats.StatusDict[StatusType.TargetC].IsActive) return EnemyTargetSlot.TargetC;
+            return EnemyTargetSlot.None;
+        }
+
+        private static void ClearTargetSlots(CharacterStats stats)
+        {
+            stats.ClearStatus(StatusType.TargetA);
+            stats.ClearStatus(StatusType.TargetB);
+            stats.ClearStatus(StatusType.TargetC);
+        }
+
+        private static StatusType GetStatusType(EnemyTargetSlot targetSlot)
+        {
+            return targetSlot switch
+            {
+                EnemyTargetSlot.TargetA => StatusType.TargetA,
+                EnemyTargetSlot.TargetB => StatusType.TargetB,
+                EnemyTargetSlot.TargetC => StatusType.TargetC,
+                _ => StatusType.None
+            };
         }
         #endregion
 
@@ -319,7 +390,12 @@ namespace NueGames.NueDeck.Scripts.Managers
         public void OnEnemyDeath(EnemyBase targetEnemy)
         {
             CurrentEnemiesList.Remove(targetEnemy);
-            if (CurrentEnemiesList.Count<=0)
+            if (targetEnemy != null && targetEnemy.CharacterStats != null &&
+                targetEnemy.CharacterStats.StatusDict[StatusType.VIP].IsActive)
+            {
+                WinCombat();
+            }
+            else if (CurrentEnemiesList.Count <= 0)
                 WinCombat();
         }
         public void DeactivateCardHighlights()
