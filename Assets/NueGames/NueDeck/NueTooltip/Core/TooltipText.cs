@@ -11,7 +11,6 @@ namespace NueGames.NueDeck.ThirdParty.NueTooltip.Core
         [SerializeField] private Image backgroundImage;
         [SerializeField] private LayoutElement layoutElement;
         [SerializeField] private int characterWrapLimit = 50;
-        [SerializeField] private float wrappedContentWidth = 500f;
 
 
         public void SetText(string content="",string header ="")
@@ -53,14 +52,6 @@ namespace NueGames.NueDeck.ThirdParty.NueTooltip.Core
         {
             var longestTextLength = GetLongestTextLength();
             layoutElement.enabled = (longestTextLength > characterWrapLimit);
-            contentText.textWrappingMode = layoutElement.enabled
-                ? TextWrappingModes.Normal
-                : TextWrappingModes.NoWrap;
-            if (layoutElement.enabled)
-            {
-                layoutElement.minWidth = wrappedContentWidth;
-                layoutElement.preferredWidth = wrappedContentWidth;
-            }
         }
 
         private int GetLongestTextLength()

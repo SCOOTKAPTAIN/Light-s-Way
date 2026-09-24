@@ -93,12 +93,24 @@ MonoBehaviour:
         customFxType: 149
         customAudioType: 152
       - actionType: 20
+        minActionValue: 10
+        maxActionValue: 10
+        targetRestriction: 2
+        targetSlot: 2
+        applyLightMultiplier: 0
+        statusType: 52
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 148
+        customAudioType: 151
+      - actionType: 20
         minActionValue: 1
         maxActionValue: 1
         targetRestriction: 2
         targetSlot: 2
         applyLightMultiplier: 0
-        statusType: 52
+        statusType: 53
         cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 1

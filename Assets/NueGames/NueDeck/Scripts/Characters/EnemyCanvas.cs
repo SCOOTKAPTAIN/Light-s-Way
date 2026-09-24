@@ -40,7 +40,7 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             intentCanvas.overrideSorting = true;
             intentCanvas.sortingLayerID = TargetCanvas.sortingLayerID;
-            intentCanvas.sortingOrder = intentDescriptionSortingOrder;
+            intentCanvas.sortingOrder = TargetCanvas.sortingOrder + intentDescriptionSortingOrder;
             intentCanvas.worldCamera = TargetCanvas.worldCamera;
         }
 

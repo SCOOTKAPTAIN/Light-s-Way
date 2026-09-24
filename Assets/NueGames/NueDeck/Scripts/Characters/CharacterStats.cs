@@ -68,6 +68,8 @@ namespace NueGames.NueDeck.Scripts.Characters
         public bool IsDeath { get; private set; }
         // Tracks if Block was applied or refreshed in the current turn
         private bool _blockAppliedThisTurn = false;
+        private int _fragileStacksAtEnemyTurnStart;
+        private int _mightStacksAtEnemyTurnStart;
         private bool _currentAttackIsAreaOfEffect;
        
         public Action OnDeath;
@@ -188,6 +190,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Desperation persists for the rest of combat and loses 10% of max health each turn.
             StatusDict[StatusType.Desperation].IsPermanent = true;
             StatusDict[StatusType.Desperation].OnTriggerAction += TriggerDesperationHealthLoss;
+            StatusDict[StatusType.Desperation].TriggerAtTurnEnd = true;
 
 
             // Honor: decays by 1 each turn; does not consume on activation (checked directly in Damage()).
@@ -204,7 +207,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.SeveredString].OnTriggerAction += CheckSeveredStringStatus;
             StatusDict[StatusType.OngoingPerformance].IsPermanent = true;
             StatusDict[StatusType.OngoingPerformance].OnTriggerAction += TriggerOngoingPerformance;
+            StatusDict[StatusType.OngoingPerformance].TriggerAtTurnEnd = true;
             StatusDict[StatusType.Might].DecreaseOverTurn = true;
+            StatusDict[StatusType.Might].TriggerAtTurnEnd = true;
             StatusDict[StatusType.Resilience].DecreaseOverTurn = true;
 
             StatusDict[StatusType.TargetA].IsPermanent = true;
@@ -510,14 +515,41 @@ namespace NueGames.NueDeck.Scripts.Characters
         /// Triggers statuses that should activate at the END of a turn (e.g., Obscured, Bleeding).
         /// Call this at the end of a turn before transitioning to the next character's turn.
         /// </summary>
-        public void TriggerEndOfTurnStatuses()
+        public void TriggerEndOfTurnStatuses(bool deferFragile = false, bool deferMight = false)
         {
             for (int i = 0; i < Enum.GetNames(typeof(StatusType)).Length; i++)
             {
                 var statusType = (StatusType)i;
+                if (deferFragile && statusType == StatusType.Fragile)
+                    continue;
+                if (deferMight && statusType == StatusType.Might)
+                    continue;
+
                 if (StatusDict[statusType].TriggerAtTurnEnd)
                     TriggerStatus(statusType);
             }
+        }
+
+        public void TriggerDeferredFragileStatus()
+        {
+            if (_fragileStacksAtEnemyTurnStart > 0 && StatusDict[StatusType.Fragile].TriggerAtTurnEnd)
+                TriggerStatus(StatusType.Fragile);
+        }
+
+        public void BeginEnemyTurnStatusTracking()
+        {
+            _fragileStacksAtEnemyTurnStart = StatusDict[StatusType.Fragile].IsActive
+                ? StatusDict[StatusType.Fragile].StatusValue
+                : 0;
+            _mightStacksAtEnemyTurnStart = StatusDict[StatusType.Might].IsActive
+                ? StatusDict[StatusType.Might].StatusValue
+                : 0;
+        }
+
+        public void TriggerDeferredMightStatus()
+        {
+            if (_mightStacksAtEnemyTurnStart > 0 && StatusDict[StatusType.Might].TriggerAtTurnEnd)
+                TriggerStatus(StatusType.Might);
         }
         
         public void SetCurrentHealth(int targetCurrentHealth)
@@ -995,6 +1027,7 @@ namespace NueGames.NueDeck.Scripts.Characters
                     ClearStatus(targetStatus);
             
             OnStatusChanged?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
+            OnStatusChangedPublic?.Invoke(targetStatus, StatusDict[targetStatus].StatusValue);
         }
 
 

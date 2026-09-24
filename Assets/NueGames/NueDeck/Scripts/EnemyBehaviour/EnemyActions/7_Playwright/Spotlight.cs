@@ -7,6 +7,7 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
     public class Spotlight : EnemyActionBase
     {
         public override EnemyActionType ActionType => EnemyActionType.Spotlight;
+        public override bool UsesDamageModifiersForPreview => true;
 
         public override int CalculateValue(float baseValue, CharacterBase selfCharacter, CharacterBase targetCharacter, EnemyActionData actionData)
         {

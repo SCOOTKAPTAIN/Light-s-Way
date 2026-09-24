@@ -9,6 +9,7 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
     public class Tackle: EnemyActionBase
     {
         public override EnemyActionType ActionType => EnemyActionType.Tackle;
+        public override bool UsesDamageModifiersForPreview => true;
 
         public override int CalculateValue(float baseValue, CharacterBase selfCharacter, CharacterBase targetCharacter, EnemyActionData actionData)
         {

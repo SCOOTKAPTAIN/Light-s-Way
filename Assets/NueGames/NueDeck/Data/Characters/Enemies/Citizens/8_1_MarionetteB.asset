@@ -43,8 +43,8 @@ MonoBehaviour:
       hideActionValue: 0
       actionList:
       - actionType: 0
-        minActionValue: 26
-        maxActionValue: 29
+        minActionValue: 30
+        maxActionValue: 30
         targetRestriction: 0
         targetSlot: 0
         applyLightMultiplier: 0

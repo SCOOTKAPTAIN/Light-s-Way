@@ -8,6 +8,7 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour.EnemyActions
     public class Pound : EnemyActionBase
     {
         public override EnemyActionType ActionType => EnemyActionType.Pound;
+        public override bool UsesDamageModifiersForPreview => true;
 
         public override int CalculateValue(float baseValue, CharacterBase selfCharacter, CharacterBase targetCharacter, EnemyActionData actionData)
         {

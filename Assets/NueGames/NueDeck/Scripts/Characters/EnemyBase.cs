@@ -514,7 +514,18 @@ namespace NueGames.NueDeck.Scripts.Characters
         private int CalculateActionValue(EnemyActionData actionData, CharacterBase targetCharacter)
         {
             var action = EnemyActionProcessor.GetAction(actionData.ActionType);
-            return action.CalculateValue(GetActionValue(actionData), this, targetCharacter, actionData);
+            var value = action.CalculateValue(GetActionValue(actionData), this, targetCharacter, actionData);
+
+            if (action.UsesDamageModifiersForPreview && targetCharacter != null)
+            {
+                if (CharacterStats.StatusDict[StatusType.Might].IsActive && CharacterStats.StatusDict[StatusType.Might].StatusValue > 0)
+                    value = Mathf.RoundToInt(value * 1.5f);
+
+                if (targetCharacter.CharacterStats.StatusDict[StatusType.Resilience].IsActive && targetCharacter.CharacterStats.StatusDict[StatusType.Resilience].StatusValue > 0)
+                    value = Mathf.RoundToInt(value * 0.5f);
+            }
+
+            return value;
         }
 
         private int GetActionValue(EnemyActionData action)

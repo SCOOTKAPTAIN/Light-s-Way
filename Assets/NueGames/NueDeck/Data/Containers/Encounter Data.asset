@@ -22,11 +22,9 @@ MonoBehaviour:
       enemyList: []
       battleMusicOverride: {fileID: 0}
       enemySpawnEntries:
-      - enemy: {fileID: 11400000, guid: 1c4ed5f275c904a498f1e49c5cd2e84a, type: 2}
-        positionNumber: 1
-      - enemy: {fileID: 11400000, guid: 94510a60194de49488ed08a24822d0df, type: 2}
-        positionNumber: 3
       - enemy: {fileID: 11400000, guid: 494617e8739998649be064c0add05a44, type: 2}
+        positionNumber: 1
+      - enemy: {fileID: 11400000, guid: 1c4ed5f275c904a498f1e49c5cd2e84a, type: 2}
         positionNumber: 2
       customGoldRewards: []
       customCardRewards: []

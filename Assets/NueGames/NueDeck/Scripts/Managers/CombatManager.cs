@@ -229,6 +229,13 @@ namespace NueGames.NueDeck.Scripts.Managers
                     break;
                 case CombatStateType.EnemyTurn:
                     RotateEnemyTargetSlots();
+                    if (CurrentMainAlly != null)
+                        CurrentMainAlly.CharacterStats.BeginEnemyTurnStatusTracking();
+                    foreach (var enemy in CurrentEnemiesList.ToList())
+                    {
+                        if (enemy != null)
+                            enemy.CharacterStats.BeginEnemyTurnStatusTracking();
+                    }
                     OnEnemyTurnStarted?.Invoke();
                     
                     CollectionManager.DiscardHand();
@@ -334,7 +341,7 @@ namespace NueGames.NueDeck.Scripts.Managers
 
             var ally = CurrentMainAlly;
             if (ally != null)
-                ally.CharacterStats.TriggerEndOfTurnStatuses();
+                ally.CharacterStats.TriggerEndOfTurnStatuses(true);
 
             var firingLine = ally != null
                 ? ally.CharacterStats.StatusDict[StatusType.FiringLine]
@@ -777,8 +784,14 @@ namespace NueGames.NueDeck.Scripts.Managers
                     foreach (var enemy in CurrentEnemiesList.ToList())
                     {
                         if (enemy != null)
-                            enemy.CharacterStats.TriggerEndOfTurnStatuses();
+                        {
+                            enemy.CharacterStats.TriggerEndOfTurnStatuses(false, true);
+                            enemy.CharacterStats.TriggerDeferredMightStatus();
+                        }
                     }
+
+                    if (CurrentMainAlly != null)
+                        CurrentMainAlly.CharacterStats.TriggerDeferredFragileStatus();
                     
                     Debug.Log("EnemyTurnRoutine: enemy turn complete, switching to AllyTurn.");
                     CurrentCombatStateType = CombatStateType.AllyTurn;

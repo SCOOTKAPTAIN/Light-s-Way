@@ -11,6 +11,7 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour
     {
         protected EnemyActionBase(){}
         public abstract EnemyActionType ActionType { get;}
+        public virtual bool UsesDamageModifiersForPreview => false;
         public abstract void DoAction(EnemyActionParameters actionParameters);
 
         public virtual int CalculateValue(float baseValue, CharacterBase selfCharacter, CharacterBase targetCharacter, EnemyActionData actionData)
