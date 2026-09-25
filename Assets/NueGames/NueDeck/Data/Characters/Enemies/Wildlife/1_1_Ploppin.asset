@@ -41,8 +41,10 @@ MonoBehaviour:
         minActionValue: 14
         maxActionValue: 16
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 0
         customFxType: 0
@@ -53,7 +55,8 @@ MonoBehaviour:
       maxConsecutiveUses: 3
     - name: Goo Spit
       intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
-      description: 'Deal <color=#FFB430>{value}</color> damage. \nApply 1 <color=#FFB430>Slimed</color>. '
+      description: 'Deal <color=#FFB430>{value}</color> damage. \nApply <color=#FFB430>
+        1 Slimed</color>. '
       keywords: 20000000
       hideActionValue: 0
       actionList:
@@ -61,8 +64,10 @@ MonoBehaviour:
         minActionValue: 9
         maxActionValue: 12
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 0
         customFxType: 0
@@ -85,8 +90,10 @@ MonoBehaviour:
         minActionValue: 26
         maxActionValue: 28
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 0
         customFxType: 0
@@ -105,8 +112,10 @@ MonoBehaviour:
         minActionValue: 21
         maxActionValue: 23
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 0
         customFxType: 0
@@ -130,8 +139,10 @@ MonoBehaviour:
       minActionValue: 10
       maxActionValue: 10
       targetRestriction: 0
+      targetSlot: 0
       applyLightMultiplier: 1
       statusType: 0
+      cardToAdd: {fileID: 0}
       overridePresentation: 0
       suppressPresentation: 0
       customFxType: 0
@@ -150,8 +161,10 @@ MonoBehaviour:
       minActionValue: 2
       maxActionValue: 2
       targetRestriction: 0
+      targetSlot: 0
       applyLightMultiplier: 1
       statusType: 0
+      cardToAdd: {fileID: 0}
       overridePresentation: 0
       suppressPresentation: 0
       customFxType: 0

@@ -22,7 +22,17 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             StatusType.Judged,
             StatusType.Obscured,
             StatusType.Slimed,
-            StatusType.Ablazed
+            StatusType.ManaDrain,
+            StatusType.Burden,
+            StatusType.CloggedCircuits,
+            StatusType.Ablazed,
+            StatusType.SeveredString,
+            StatusType.Spotlight,
+            StatusType.Sabotaged,
+            StatusType.Amnesia,
+            StatusType.Flickering,
+            StatusType.Necrosis
+            
         };
 
         // Static dictionary to store cleared debuffs for ReturnToSender2
@@ -48,8 +58,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                     // Save the debuff and its value
                     ClearedDebuffs[debuffType] = debuffStatus.StatusValue;
                     
-                    // Clear the debuff from the player
-                    selfCharacter.CharacterStats.ApplyStatus(debuffType, -debuffStatus.StatusValue);
+                    // Fully clear the debuff so status-specific cleanup also runs.
+                    selfCharacter.CharacterStats.ClearStatus(debuffType);
                 }
             }
 

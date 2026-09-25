@@ -20,7 +20,18 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             StatusType.NoDraw,
             StatusType.NoGainMana,
             StatusType.Judged,
-            StatusType.Obscured
+            StatusType.Obscured,
+            StatusType.Slimed,
+            StatusType.ManaDrain,
+            StatusType.Burden,
+            StatusType.CloggedCircuits,
+            StatusType.Ablazed,
+            StatusType.SeveredString,
+            StatusType.Spotlight,
+            StatusType.Sabotaged,
+            StatusType.Amnesia,
+            StatusType.Flickering,
+            StatusType.Necrosis
         };
 
         public override CardActionType ActionType => CardActionType.UnfairPlay;
@@ -47,7 +58,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                 var value = GameManager.PersistentGameplayData.proficiency + actionParameters.Value
              + selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue;
 
-            FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.UnfairPlay);
+            
 
             value = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, value));
 
@@ -56,6 +67,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                 targetCharacter.CharacterStats.ApplyStatus(StatusType.Weak, 1);
                 
             }
+
+            FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.UnfairPlay);
 
             if (AudioManager != null)
                 AudioManager.PlayOneShot(actionParameters.CardData.AudioType);

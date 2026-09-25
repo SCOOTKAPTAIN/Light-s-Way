@@ -174,6 +174,7 @@ namespace NueGames.NueDeck.Scripts.Managers
             backgroundContainer.OpenSelectedBackground();
           
             CollectionManager.SetGameDeck();
+            AddEncounterStartingCards();
            
             UIManager.CombatCanvas.gameObject.SetActive(true);
             UIManager.InformationCanvas.gameObject.SetActive(true);
@@ -341,7 +342,15 @@ namespace NueGames.NueDeck.Scripts.Managers
 
             var ally = CurrentMainAlly;
             if (ally != null)
+            {
                 ally.CharacterStats.TriggerEndOfTurnStatuses(true);
+
+                if (ally.CharacterStats.IsDeath || CurrentCombatStateType == CombatStateType.EndCombat)
+                {
+                    _isEndingTurn = false;
+                    yield break;
+                }
+            }
 
             var firingLine = ally != null
                 ? ally.CharacterStats.StatusDict[StatusType.FiringLine]
@@ -579,6 +588,24 @@ namespace NueGames.NueDeck.Scripts.Managers
                 
                 clone.BuildCharacter();
                 CurrentEnemiesList.Add(clone);
+            }
+
+        }
+
+        private void AddEncounterStartingCards()
+        {
+            if (CurrentEncounter == null || CurrentEncounter.StartingCards == null ||
+                CollectionManager == null || CollectionManager.HandController == null)
+                return;
+
+            foreach (var cardData in CurrentEncounter.StartingCards)
+            {
+                if (cardData == null)
+                    continue;
+
+                var cardClone = GameManager.BuildAndGetCard(cardData, CollectionManager.HandController.transform);
+                CollectionManager.HandController.AddCardToHand(cardClone);
+                CollectionManager.HandPile.Add(cardData);
             }
         }
         private void BuildAllies()

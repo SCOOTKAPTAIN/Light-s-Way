@@ -866,7 +866,7 @@ namespace NueGames.NueDeck.Scripts.Collection
             RaycastHit hit;
             if (Physics.Raycast(mainRay, out hit, 1000, targetLayer))
             {
-                var character = hit.collider.gameObject.GetComponent<ICharacter>();
+                var character = hit.collider.GetComponentInParent<ICharacter>();
 
                 if (character != null)
                 {

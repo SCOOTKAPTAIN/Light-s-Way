@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
+  m_Name: 9_Hexer
+  m_EditorClassIdentifier: 
+  characterID: 9_1
+  characterName: Hexer
+  characterDescription: "A \u201CSymbiotic Relationship\u201D between a human who
+    lost it all and a Shadowling.\r\nYou may call this \u201Cunderstanding\u201D,
+    but the truth is, he was just a means to an end for it.\r\n"
+  maxHealth: 70
+  enemyPrefab: {fileID: 243822687015991123, guid: 8de61c59850dad74a801169deacbbbcd, type: 3}
+  mutatedVersion: {fileID: 0}
+  chaosificationStatus:
+    modifierName: 
+    icon: {fileID: 0}
+    description: 
+  useActBasedScaling: 1
+  actConfigurations:
+  - actNumber: 1
+    maxHealth: 4500
+    startingStatuses:
+    - statusType: 61
+      statusValue: 1
+    enemyAbilityList:
+    - name: Harvest Wisdom
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: 'Deal <color=#FFB430>{value}</color> damage. \nApply <color=#FFB430>2
+        Amnesia</color>. '
+      keywords: 3d000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 23
+        minActionValue: 100
+        maxActionValue: 104
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 155
+        customAudioType: 158
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 1
+    - name: Thought Leech
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: 'Deal <color=#FFB430>{value}</color> damage. \nApply <color=#FFB430>1
+        Mana Drain</color>. '
+      keywords: 30000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 24
+        minActionValue: 87
+        maxActionValue: 94
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 156
+        customAudioType: 159
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 1
+    - name: Snuff Out
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: 'Deal <color=#FFB430>{value}</color> damage. \nApply <color=#FFB430>2
+        Flickering</color>. '
+      keywords: 3f000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 25
+        minActionValue: 87
+        maxActionValue: 94
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 157
+        customAudioType: 160
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 1
+    - name: Hex Mark
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: 'Deal <color=#FFB430>{value}</color> damage. \nApply <color=#FFB430>5
+        Necrosis</color>. '
+      keywords: 40000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 26
+        minActionValue: 33
+        maxActionValue: 37
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 158
+        customAudioType: 161
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 1
+    - name: Rapid Analysis
+      intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+      description: 'Gain <color=#FFB430>{value} Block</color>. \nGain <color=#FFB430>5
+        Assimilation</color>. '
+      keywords: 00000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 27
+        minActionValue: 75
+        maxActionValue: 85
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 159
+        customAudioType: 162
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 1
+  followAbilityPattern: 0
+  useWeightedSelection: 1
+  preventRepeatAbility: 0
+  startingStatuses: []
+  enemyAbilityList:
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 0
+      minActionValue: 10
+      maxActionValue: 10
+      targetRestriction: 0
+      targetSlot: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 6
+    maxConsecutiveUses: 0
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 2
+      minActionValue: 2
+      maxActionValue: 2
+      targetRestriction: 0
+      targetSlot: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 5
+    maxConsecutiveUses: 0

@@ -24,6 +24,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         [SerializeField] protected Transform descriptionRoot;
         [SerializeField] protected StatusIconsData statusIconsData;
         [SerializeField] protected TextMeshProUGUI currentHealthText;
+        [SerializeField] private HealthBar healthBar;
         
         private Button _statusContainerButton;
         
@@ -55,7 +56,10 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             if (TargetCanvas)
                 TargetCanvas.worldCamera = Camera.main;
-                
+
+            if (healthBar == null)
+                healthBar = GetComponentInChildren<HealthBar>(true);
+
             // Setup status container as clickable button
             SetupStatusContainerButton();
         }
@@ -206,7 +210,13 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[targetStatus].StatusValueText.text = $"{value}";
         }
         
-        public void UpdateHealthText(int currentHealth,int maxHealth) =>  currentHealthText.text = $"{currentHealth}/{maxHealth}";
+        public void UpdateHealthText(int currentHealth,int maxHealth)
+        {
+            if (currentHealthText != null)
+                currentHealthText.text = $"{currentHealth}/{maxHealth}";
+
+            healthBar?.SetHealth(currentHealth, maxHealth);
+        }
         public void SetHighlight(bool open) => highlightRoot.gameObject.SetActive(open);
        
         // Handler for shield (Block) gain notifications. Spawn blue floating text at the
@@ -313,6 +323,5 @@ namespace NueGames.NueDeck.Scripts.Characters
         
 
         #endregion
-       
     }
 }

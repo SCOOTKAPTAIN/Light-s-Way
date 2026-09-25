@@ -6,6 +6,7 @@ using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
 using NueGames.NueDeck.Scripts.NueExtentions;
+using NueGames.NueDeck.Scripts.UI;
 using NueGames.NueDeck.Scripts.Utils;
 using NueGames.NueDeck.ThirdParty.NueTooltip.Core;
 using NueGames.NueDeck.ThirdParty.NueTooltip.CursorSystem;
@@ -231,6 +232,10 @@ namespace NueGames.NueDeck.Scripts.Card
 
             // Restore previous selection state (usually true during player's turn).
             // If the combat state changed to EnemyTurn (e.g. a card ended the turn), do not re-enable selection.
+            var sacrificeKnowledgePanel = UnityEngine.Object.FindFirstObjectByType<SacrificeKnowledgePanel>();
+            while (sacrificeKnowledgePanel != null && sacrificeKnowledgePanel.IsOpen)
+                yield return null;
+
             if (CombatManager != null && CombatManager.CurrentCombatStateType == CombatStateType.AllyTurn)
             {
                 GameManager.PersistentGameplayData.CanSelectCards = prevCanSelect;

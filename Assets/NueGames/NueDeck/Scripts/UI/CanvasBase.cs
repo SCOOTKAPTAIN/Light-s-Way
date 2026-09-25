@@ -14,8 +14,21 @@ namespace NueGames.NueDeck.Scripts.UI
         protected CollectionManager CollectionManager => CollectionManager.Instance;
         protected GameManager GameManager => GameManager.Instance;
         protected UIManager UIManager => UIManager.Instance;
+
+        public static bool IsSacrificeKnowledgePanelOpen
+        {
+            get
+            {
+                var panel = FindFirstObjectByType<SacrificeKnowledgePanel>();
+                return panel != null && panel.IsOpen;
+            }
+        }
+
         public virtual void OpenCanvas()
         {
+            if (!(this is SacrificeKnowledgePanel) && IsSacrificeKnowledgePanelOpen)
+                return;
+
             gameObject.SetActive(true);
             if (BlocksBackgroundInput)
                 EnsureInputBlocker();

@@ -24,6 +24,11 @@
         Spotlight,
         ApplyBuffCasterFx,
         ApplyDebuffCasterFx,
-        ForcedMonologue
+        ForcedMonologue,
+        HarvestWisdom,
+        ThoughtLeech,
+        SnuffOut,
+        HexMark,
+        RapidAnalysis
     }
 }

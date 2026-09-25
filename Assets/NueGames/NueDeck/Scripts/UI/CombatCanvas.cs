@@ -78,10 +78,20 @@ namespace NueGames.NueDeck.Scripts.UI
         
         public void OpenLightCardSelection()
         {
+            if (CanvasBase.IsSacrificeKnowledgePanelOpen)
+                return;
+
             if (GameManager == null || GameManager.PersistentGameplayData == null) return;
 
             if (CombatManager != null && CombatManager.CurrentMainAlly != null && CombatManager.CurrentMainAlly.CharacterStats.IsStunned)
                 return;
+
+            if (CombatManager != null && CombatManager.CurrentMainAlly != null &&
+                CombatManager.CurrentMainAlly.CharacterStats.StatusDict[StatusType.Flickering].IsActive)
+            {
+                FxManager.Instance?.SpawnStaticText(CombatManager.CurrentMainAlly.transform, "The lantern is flickering...", 0, 1);
+                return;
+            }
             
             // Check if player has enough Light
             if (GameManager.PersistentGameplayData.light < 10)

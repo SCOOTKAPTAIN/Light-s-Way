@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6903f06e96c43789549f142f8956d64, type: 3}
+  m_Name: DB_3_Sacrifice_Knowledge
+  m_EditorClassIdentifier: 
+  id: DB_3_Sacrifice_Knowledge
+  cardName: Sacrifice Knowledge
+  manaCost: 0
+  cardSprite: {fileID: 6425132732827038837, guid: b0f3b9f2990fb1f43990a1ad4908175a, type: 3}
+  rarity: 4
+  usableWithoutTarget: 0
+  exhaustAfterPlay: 0
+  cardActionDataList:
+  - cardActionType: 123
+    actionTargetType: 0
+    actionValue: 0
+    actionDelay: 0
+    isAreaOfEffect: 0
+  endTurnActionDataList: []
+  exhaustAfterEndTurn: 0
+  removeAfterBattle: 0
+  requiredLight: 0
+  cardDescriptionDataList:
+  - descriptionText: Temporarily
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: ' sates '
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: The Hexer's
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: ' curiosities. \n'
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: Retain
+    enableOverrideColor: 1
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  - descriptionText: .
+    enableOverrideColor: 0
+    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    useModifier: 0
+    modifiedActionValueIndex: 0
+    modiferStats: 0
+    usePrefixOnModifiedValue: 0
+    modifiedValuePrefix: '*'
+    overrideColorOnValueScaled: 0
+  specialKeywordsList: 22000000
+  audioType: 162
+  cardCategory: 2

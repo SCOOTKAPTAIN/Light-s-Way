@@ -47,6 +47,9 @@ namespace NueGames.NueDeck.Scripts.UI
         
         public override void OpenCanvas()
         {
+            if (CanvasBase.IsSacrificeKnowledgePanelOpen)
+                return;
+
             if (CombatManager != null && CombatManager.CurrentMainAlly != null && CombatManager.CurrentMainAlly.CharacterStats.IsStunned)
                 return;
 

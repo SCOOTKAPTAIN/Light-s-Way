@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NueGames.NueDeck.Scripts.Characters;
 using NueGames.NueDeck.Scripts.Data.Characters;
+using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Data.Collection.RewardData;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
@@ -124,6 +125,10 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
         [Header("Enemy Spawn Positions (Optional)")]
         [Tooltip("When populated, each entry controls which Combat Manager enemy position is used. Position Number is 1-based; leave it at 0 to use the entry order.")]
         [SerializeField] private List<EnemySpawnEntry> enemySpawnEntries;
+
+        [Header("Starting Cards (Optional)")]
+        [Tooltip("Cards added directly to the player's hand when this encounter starts. Each entry creates one card instance.")]
+        [SerializeField] private List<CardData> startingCards;
         
         [Header("Custom Rewards (Optional)")]
         [Tooltip("If empty, uses default rewards (1 gold, 1 card)")]
@@ -133,6 +138,7 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
         public string EncounterId => encounterId;
         public List<EnemyCharacterData> EnemyList => enemyList;
         public List<EnemySpawnEntry> EnemySpawnEntries => enemySpawnEntries;
+        public List<CardData> StartingCards => startingCards;
         public AudioClip BattleMusicOverride => battleMusicOverride;
         
         public bool HasCustomRewards => (customGoldRewards != null && customGoldRewards.Count > 0) || 

@@ -233,3 +233,42 @@ MonoBehaviour:
     contentText: <color=#FFB430>Restrict</color> your next hand, preventing half
       of cards initially drawn to be played. <color=#FFB430>Unrestricted</color>
       cards must be played before <color=#FFB430>Restricted</color> cards.
+  - specialKeyword: 60
+    header: Assimilation
+    contentText: '<color=#FFB430>+3</color> whenever <color=#FFB430>The Hexer</color>
+      acts.\n<color=#FFB430>+1</color> whenever a card is played. \n<color=#FFB430>Grants</color>
+      additional effects at certain thresholds:
+
+      - 10: Gain <color=#FFB430>Block</color>
+      equal to your <color=#FFB430>Proficiency</color> each turn.
+
+      - 20: Gain
+      2 <color=#FFB430>Strength</color> or <color=#FFB430>Fortitude</color> each
+      turn.
+
+      - 30: Doubles <color=#FFB430>Debuffs</color> applied by actions.
+
+      -
+      40: Gain 1 <color=#FFB430>Might</color> each turn.
+
+      - 50: Gain <color=#FFB430>Total
+      Assimilation</color>.
+
+'
+  - specialKeyword: 61
+    header: Amnesia
+    contentText: Reduce <color=#FFB430>Proficiency</color> by <color=#FFB430>50%</color>
+      for <color=#FFB430>X</color> turn(s).
+  - specialKeyword: 62
+    header: Total Assimilation
+    contentText: Prevents <color=#FFB430>Assimilation</color> to be reduced. \n<color=#FFB430>Debuffs</color>
+      from actions will instead <color=#FFB430>Permanently</color> reduce their corresponding
+      status.
+  - specialKeyword: 63
+    header: Flickering
+    contentText: Disables <color=#FFB430>Light Creation</color> for <color=#FFB430>X</color>
+      turn(s).
+  - specialKeyword: 64
+    header: Necrosis
+    contentText: If <color=#FFB430>Health</color> is equal to or lower than <color=#FFB430>X</color>
+      at the end of the turn, immediately <color=#FFB430>die</color>.

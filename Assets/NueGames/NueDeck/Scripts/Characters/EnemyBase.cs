@@ -83,6 +83,11 @@ namespace NueGames.NueDeck.Scripts.Characters
                     }
                 }
             }
+
+            if (CharacterStats.StatusDict[StatusType.Assimilation].IsActive)
+            {
+                CollectionManager.Instance.CardPlayed += OnPlayerCardPlayed;
+            }
             
             CombatManager.OnAllyTurnStarted += ShowNextAbility;
             CombatManager.OnEnemyTurnStarted += CharacterStats.TriggerAllStatus;
@@ -101,6 +106,7 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             CombatManager.OnAllyTurnStarted -= ShowNextAbility;
             CombatManager.OnEnemyTurnStarted -= CharacterStats.TriggerAllStatus;
+            CollectionManager.Instance.CardPlayed -= OnPlayerCardPlayed;
             
             // Unsubscribe from status change events
             if (CombatManager.CurrentMainAlly != null)
@@ -108,12 +114,20 @@ namespace NueGames.NueDeck.Scripts.Characters
                 CombatManager.CurrentMainAlly.CharacterStats.OnStatusChangedPublic -= OnPlayerStatusChanged;
             }
             CharacterStats.OnStatusChangedPublic -= OnEnemyStatusChanged;
-           
+
             CombatManager.OnEnemyDeath(this);
             AudioManager.PlayOneShot(DeathSoundProfileData.GetRandomClip());
             
             // Start death fade animation
             StartCoroutine(DeathFadeRoutine());
+        }
+
+        private void OnPlayerCardPlayed()
+        {
+            if (CharacterStats == null || !CharacterStats.StatusDict[StatusType.Assimilation].IsActive)
+                return;
+
+            CharacterStats.ApplyStatus(StatusType.Assimilation, 1);
         }
 
         private IEnumerator DeathFadeRoutine()
@@ -628,7 +642,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             {
                 return NextAbility?.Keywords ?? new List<SpecialKeywords>();
             }
-        
+
         /// <summary>
         /// Updates the intention damage value when player statuses change (Fragile, Pursuit, etc).
         /// </summary>

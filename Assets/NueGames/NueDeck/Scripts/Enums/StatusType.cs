@@ -62,7 +62,12 @@
         TargetA,
         TargetB,
         TargetC,
-        VIP
+        VIP,
+        Assimilation,
+        Amnesia,
+        TotalAssimilation,
+        Flickering,
+        Necrosis
         
 
     }

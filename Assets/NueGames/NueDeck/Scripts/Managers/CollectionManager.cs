@@ -34,6 +34,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         public List<CardData> ExhaustPile { get; private set; } = new List<CardData>();
         public HandController HandController => handController;
         public int CardsPlayedThisTurn { get; private set; }
+        public System.Action CardPlayed;
         protected FxManager FxManager => FxManager.Instance;
         protected AudioManager AudioManager => AudioManager.Instance;
         protected GameManager GameManager => GameManager.Instance;
@@ -72,6 +73,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         public void RegisterCardPlayed()
         {
             CardsPlayedThisTurn++;
+            CardPlayed?.Invoke();
         }
 
         private void ResetCardsPlayedThisTurn()

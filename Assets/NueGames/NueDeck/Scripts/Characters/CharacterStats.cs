@@ -58,7 +58,12 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusType.CloggedCircuits,
             StatusType.Ablazed,
             StatusType.SeveredString,
-            StatusType.Spotlight
+            StatusType.Spotlight,
+            StatusType.Sabotaged,
+            StatusType.Amnesia,
+            StatusType.Flickering,
+            StatusType.Necrosis,
+            StatusType.SeveredString,
         };
         private const float FrostbitePercentPerStack = 0.25f; // 25% proficiency per stack
         private const float BurningPercentPerStack = 0.25f; // 25% proficiency per stack
@@ -71,6 +76,8 @@ namespace NueGames.NueDeck.Scripts.Characters
         private int _fragileStacksAtEnemyTurnStart;
         private int _mightStacksAtEnemyTurnStart;
         private bool _currentAttackIsAreaOfEffect;
+        private bool _assimilationGrantsStrength;
+        private int _amnesiaTemporaryProficiencyReduction;
        
         public Action OnDeath;
         public Action<int, int> OnHealthChanged;
@@ -186,6 +193,16 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.Chaotic].IsPermanent = true;
             // VIP is an invisible encounter marker; killing its owner ends combat immediately.
             StatusDict[StatusType.VIP].IsPermanent = true;
+            StatusDict[StatusType.Assimilation].IsPermanent = true;
+            StatusDict[StatusType.Assimilation].OnTriggerAction += TriggerAssimilationEffects;
+            StatusDict[StatusType.Amnesia].DecreaseOverTurn = true;
+            StatusDict[StatusType.Amnesia].TriggerAtTurnEnd = true;
+            StatusDict[StatusType.TotalAssimilation].IsPermanent = true;
+            StatusDict[StatusType.Flickering].DecreaseOverTurn = true;
+            StatusDict[StatusType.Flickering].TriggerAtTurnEnd = true;
+            StatusDict[StatusType.Necrosis].IsPermanent = true;
+            StatusDict[StatusType.Necrosis].TriggerAtTurnEnd = true;
+            StatusDict[StatusType.Necrosis].OnTriggerAction += TriggerNecrosis;
 
             // Desperation persists for the rest of combat and loses 10% of max health each turn.
             StatusDict[StatusType.Desperation].IsPermanent = true;
@@ -268,6 +285,15 @@ namespace NueGames.NueDeck.Scripts.Characters
         #region Public Methods
     public void ApplyStatus(StatusType targetStatus,int value, CharacterBase source = null)
         {
+            if (targetStatus == StatusType.Assimilation && value < 0 && StatusDict[StatusType.TotalAssimilation].IsActive)
+                return;
+
+            if (value > 0 && DebuffTypes.Contains(targetStatus) && source is EnemyBase enemySource &&
+                enemySource.CharacterStats.StatusDict[StatusType.Assimilation].StatusValue >= 30)
+            {
+                value *= 2;
+            }
+
             // If this status being applied is a debuff and the character has a DebuffWard active,
             // consume one DebuffWard stack and block the incoming debuff instead of applying it.
             if (DebuffTypes.Contains(targetStatus))
@@ -319,6 +345,9 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             if (value > 0)
                 OnStatusGained?.Invoke(targetStatus, value);
+
+            if (targetStatus == StatusType.Amnesia && previousValue <= 0 && value > 0)
+                ApplyTemporaryAmnesiaPenalty();
 
             if (targetStatus == StatusType.SeveredString && StatusDict[targetStatus].StatusValue > 0)
                 IsStunned = true;
@@ -419,7 +448,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
             
             // Special handling: Obscured status obscures all cards in hand
-            if (targetStatus == StatusType.Obscured)
+            if (targetStatus == StatusType.Obscured && IsPlayerCharacter())
             {
                 var collectionManager = CollectionManager.Instance;
                 if (collectionManager != null && collectionManager.HandController != null && collectionManager.HandController.hand != null)
@@ -437,6 +466,9 @@ namespace NueGames.NueDeck.Scripts.Characters
         public void OnObscuredStatusChanged()
         {
             // Called when Obscured status changes to update card visibility
+            if (!IsPlayerCharacter())
+                return;
+
             var collectionManager = CollectionManager.Instance;
             if (collectionManager != null && collectionManager.HandController != null && collectionManager.HandController.hand != null)
             {
@@ -455,6 +487,9 @@ namespace NueGames.NueDeck.Scripts.Characters
         /// </summary>
         public void UpdateHandCardsObscuredState()
         {
+            if (!IsPlayerCharacter())
+                return;
+
             var collectionManager = CollectionManager.Instance;
             if (collectionManager != null && collectionManager.HandController != null && collectionManager.HandController.hand != null)
             {
@@ -482,7 +517,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             for (int i = 0; i < Enum.GetNames(typeof(StatusType)).Length; i++)
             {
                 var statusType = (StatusType)i;
-                if (statusType == StatusType.Bastion || statusType == StatusType.Vigilance)
+                if (statusType == StatusType.Bastion || statusType == StatusType.Vigilance || statusType == StatusType.Assimilation)
                     continue;
 
                 // Skip turn-end statuses - they'll be handled in TriggerEndOfTurnStatuses()
@@ -494,6 +529,7 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             // Bastion resolves first; Vigilance follows after a short visual delay.
             TriggerStatus(StatusType.Bastion);
+            TriggerStatus(StatusType.Assimilation);
             var combatManager = CombatManager.Instance;
             if (combatManager != null)
                 combatManager.StartCoroutine(TriggerVigilanceAfterDelay());
@@ -550,6 +586,130 @@ namespace NueGames.NueDeck.Scripts.Characters
         {
             if (_mightStacksAtEnemyTurnStart > 0 && StatusDict[StatusType.Might].TriggerAtTurnEnd)
                 TriggerStatus(StatusType.Might);
+        }
+
+        private void TriggerAssimilationEffects()
+        {
+            var assimilation = StatusDict[StatusType.Assimilation];
+            if (!assimilation.IsActive || assimilation.StatusValue < 10)
+                return;
+
+            var proficiency = GameManager.Instance.PersistentGameplayData.proficiency;
+            var fortitude = StatusDict[StatusType.Fortitude].StatusValue;
+
+            ApplyStatus(StatusType.Block, proficiency + fortitude);
+
+            if (assimilation.StatusValue >= 20)
+            {
+                var statusType = _assimilationGrantsStrength ? StatusType.Strength : StatusType.Fortitude;
+                ApplyStatus(statusType, 2);
+                _assimilationGrantsStrength = !_assimilationGrantsStrength;
+            }
+
+            if (assimilation.StatusValue >= 40)
+                ApplyStatus(StatusType.Might, 1);
+
+            if (assimilation.StatusValue >= 50 && !StatusDict[StatusType.TotalAssimilation].IsActive)
+                ApplyStatus(StatusType.TotalAssimilation, 1);
+        }
+
+        private void TriggerNecrosis()
+        {
+            var necrosis = StatusDict[StatusType.Necrosis];
+            if (necrosis.IsActive && necrosis.StatusValue > 0 && CurrentHealth > 0 &&
+                CurrentHealth < necrosis.StatusValue && !IsDeath)
+                Damage(CurrentHealth, true, "red");
+        }
+
+        private void ApplyTemporaryAmnesiaPenalty()
+        {
+            var proficiency = GameManager.Instance?.PersistentGameplayData;
+            if (proficiency == null || _amnesiaTemporaryProficiencyReduction > 0)
+                return;
+
+            var reducedValue = Mathf.FloorToInt(proficiency.proficiency * 0.5f);
+            _amnesiaTemporaryProficiencyReduction = proficiency.proficiency - reducedValue;
+            proficiency.proficiency = reducedValue;
+            RefreshProficiencyDisplay(proficiency.proficiency);
+        }
+
+        private void RemoveTemporaryAmnesiaPenalty()
+        {
+            if (_amnesiaTemporaryProficiencyReduction <= 0)
+                return;
+
+            var proficiency = GameManager.Instance?.PersistentGameplayData;
+            if (proficiency != null)
+                proficiency.proficiency += _amnesiaTemporaryProficiencyReduction;
+
+            _amnesiaTemporaryProficiencyReduction = 0;
+            RefreshProficiencyDisplay(proficiency?.proficiency ?? 0);
+        }
+
+        public void ApplyPermanentProficiencyReduction(int value)
+        {
+            if (value <= 0)
+                return;
+
+            var proficiency = GameManager.Instance?.PersistentGameplayData;
+            if (proficiency != null)
+                proficiency.proficiency = Mathf.Max(0, proficiency.proficiency - value);
+
+            RefreshProficiencyDisplay(proficiency?.proficiency ?? 0);
+            SpawnPermanentReductionText("Proficiency drained!");
+        }
+
+        public void ApplyPermanentMaxManaReduction(int value)
+        {
+            var gameplayData = GameManager.Instance?.PersistentGameplayData;
+            if (gameplayData == null || value <= 0)
+                return;
+
+            gameplayData.MaxMana = Mathf.Max(0, gameplayData.MaxMana - value);
+            gameplayData.CurrentMana = Mathf.Min(gameplayData.CurrentMana, gameplayData.MaxMana);
+            UIManager.Instance?.InformationCanvas?.SetActionPointText(gameplayData.MaxMana);
+            UIManager.Instance?.CombatCanvas?.SetPileTexts();
+            SpawnPermanentReductionText("Max Mana drained!");
+        }
+
+        public void ApplyPermanentMaxHealthReduction(int value)
+        {
+            if (value <= 0)
+                return;
+
+            MaxHealth = Mathf.Max(1, MaxHealth - value);
+            CurrentHealth = Mathf.Min(CurrentHealth, MaxHealth);
+            OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
+            SpawnPermanentReductionText("Max Health drained!");
+        }
+
+        public bool ResetAssimilationForSacrifice()
+        {
+            if (StatusDict[StatusType.TotalAssimilation].IsActive)
+                return false;
+
+            ClearStatus(StatusType.Assimilation);
+            ApplyStatus(StatusType.Assimilation, 1);
+            return true;
+        }
+
+        private void SpawnPermanentReductionText(string text)
+        {
+            var character = _characterCanvas != null
+                ? _characterCanvas.GetComponentInParent<CharacterBase>()
+                : null;
+            var target = character != null
+                ? character.TextSpawnRoot != null ? character.TextSpawnRoot : character.transform
+                : _characterCanvas != null ? _characterCanvas.transform : null;
+
+            if (target != null && FxManager.Instance != null)
+                FxManager.Instance.SpawnStaticText(target, text, 0, 1);
+        }
+
+        private static void RefreshProficiencyDisplay(int value)
+        {
+            if (UIManager.Instance?.InformationCanvas != null)
+                UIManager.Instance.InformationCanvas.SetProficiencyText(value);
         }
         
         public void SetCurrentHealth(int targetCurrentHealth)
@@ -933,7 +1093,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
             
             // If clearing Obscured, remove the overlay from all cards
-            if (targetStatus == StatusType.Obscured)
+            if (targetStatus == StatusType.Obscured && IsPlayerCharacter())
             {
                 var collectionManager = CollectionManager.Instance;
                 if (collectionManager != null && collectionManager.HandController != null && collectionManager.HandController.hand != null)
@@ -948,6 +1108,10 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             StatusDict[targetStatus].IsActive = false;
             StatusDict[targetStatus].StatusValue = 0;
+
+            if (targetStatus == StatusType.Amnesia)
+                RemoveTemporaryAmnesiaPenalty();
+
             OnStatusCleared?.Invoke(targetStatus);
             
             // Reset block tracking if Block is cleared
@@ -955,6 +1119,13 @@ namespace NueGames.NueDeck.Scripts.Characters
             {
                 _blockAppliedThisTurn = false;
             }
+        }
+
+        private bool IsPlayerCharacter()
+        {
+            return CombatManager.Instance != null &&
+                   CombatManager.Instance.CurrentMainAlly != null &&
+                   CombatManager.Instance.CurrentMainAlly.CharacterStats == this;
         }
 
         #endregion

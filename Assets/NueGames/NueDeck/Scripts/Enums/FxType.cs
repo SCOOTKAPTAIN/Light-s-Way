@@ -158,7 +158,12 @@
         Spotlight,
         Perform,
         StageFright,
-        ForcedMonologue
+        ForcedMonologue,
+        HarvestWisdom,
+        ThoughtLeech,
+        SnuffOut,
+        HexMark,
+        RapidAnalysis
 
 
 

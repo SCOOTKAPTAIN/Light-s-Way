@@ -60,6 +60,9 @@ namespace NueGames.NueDeck.Scripts.UI
 
         public override void OpenCanvas()
         {
+            if (CanvasBase.IsSacrificeKnowledgePanelOpen)
+                return;
+
             base.OpenCanvas();
             if (CollectionManager)
                 CollectionManager.HandController.DisableDragging();

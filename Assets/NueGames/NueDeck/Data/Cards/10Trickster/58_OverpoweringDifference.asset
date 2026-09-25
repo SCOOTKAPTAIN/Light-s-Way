@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 10_4_OverpoweringDifference
   cardName: Overpowering Difference
-  manaCost: 2
+  manaCost: 1
   cardSprite: {fileID: -4435453353244838700, guid: 814f3e6f4adf6524f90c22f3ec7f1db3, type: 3}
   rarity: 2
   usableWithoutTarget: 0
@@ -24,6 +24,9 @@ MonoBehaviour:
     actionTargetType: 0
     actionValue: 0
     actionDelay: 0
+    isAreaOfEffect: 0
+  endTurnActionDataList: []
+  exhaustAfterEndTurn: 0
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:

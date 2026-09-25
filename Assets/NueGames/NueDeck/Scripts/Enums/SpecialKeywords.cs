@@ -61,7 +61,12 @@
         Resilience,
         Spotlight,
         CheatDeath,
-        BrushOff
+        BrushOff,
+        Assimilation,
+        Amnesia,
+        TotalAssimilation,
+        Flickering,
+        Necrosis
         
 
 
