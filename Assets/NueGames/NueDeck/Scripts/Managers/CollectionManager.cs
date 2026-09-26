@@ -91,7 +91,7 @@ namespace NueGames.NueDeck.Scripts.Managers
 
             _drawingCards = true;
             var drawnCards = new List<CardBase>();
-            DrawCardsInternal(targetDrawCount, drawnCards);
+            DrawCardsInternal(targetDrawCount, drawnCards, true);
             _drawingCards = false;
         }
 
@@ -102,12 +102,12 @@ namespace NueGames.NueDeck.Scripts.Managers
 
             _drawingCards = true;
             var drawnCards = new List<CardBase>();
-            DrawCardsInternal(targetDrawCount, drawnCards);
+            DrawCardsInternal(targetDrawCount, drawnCards, false);
             _drawingCards = false;
             ApplySpotlightToDrawnCards(drawnCards);
         }
 
-        private void DrawCardsInternal(int targetDrawCount, List<CardBase> drawnCards)
+        private void DrawCardsInternal(int targetDrawCount, List<CardBase> drawnCards, bool triggerUnderstanding)
         {
             // If the current main ally has a NoDraw debuff, prevent drawing.
             if (CombatManager != null && CombatManager.CurrentMainAlly != null)
@@ -139,7 +139,7 @@ namespace NueGames.NueDeck.Scripts.Managers
                         nDrawCount = DiscardPile.Count;
                     
                     ReshuffleDiscardPile();
-                    DrawCardsInternal(nDrawCount, drawnCards);
+                    DrawCardsInternal(nDrawCount, drawnCards, triggerUnderstanding);
                     break;
                 }
 
@@ -151,6 +151,12 @@ namespace NueGames.NueDeck.Scripts.Managers
                 DrawPile.Remove(randomCard);
                 currentDrawCount++;
                 UIManager.CombatCanvas.SetPileTexts();
+
+                if (triggerUnderstanding)
+                {
+                    foreach (var enemy in CombatManager.CurrentEnemiesList.ToList())
+                        enemy?.CharacterStats?.NotifyPlayerDrewCard();
+                }
             }
             
             foreach (var cardObject in HandController.hand)
@@ -202,6 +208,7 @@ namespace NueGames.NueDeck.Scripts.Managers
             var cardClone = GameManager.BuildAndGetCard(targetCard, HandController.drawTransform);
             HandController.AddCardToHand(cardClone);
             HandPile.Add(targetCard);
+            NotifyCardDrawn();
 
             foreach (var cardObject in HandController.hand)
                 cardObject.UpdateCardText();
@@ -292,6 +299,7 @@ namespace NueGames.NueDeck.Scripts.Managers
                 var cardClone = GameManager.BuildAndGetCard(quickDrawCard, HandController.transform);
                 HandController.AddCardToHand(cardClone);
                 HandPile.Add(quickDrawCard);
+                NotifyCardDrawn();
             }
 
             foreach (var cardObject in HandController.hand)
@@ -425,6 +433,7 @@ namespace NueGames.NueDeck.Scripts.Managers
                 var clone = GameManager.BuildAndGetCard(cardData, HandController.drawTransform);
                 HandController.AddCardToHand(clone);
                 HandPile.Add(cardData);
+                NotifyCardDrawn();
                 drawnCount++;
             }
 
@@ -606,10 +615,20 @@ namespace NueGames.NueDeck.Scripts.Managers
                 var cardClone = GameManager.BuildAndGetCard(targetCard, HandController.drawTransform);
                 HandController.AddCardToHand(cardClone);
                 HandPile.Add(targetCard);
+                NotifyCardDrawn();
                 drawnCount++;
             }
 
             return drawnCount;
+        }
+
+        public void NotifyCardDrawn()
+        {
+            if (CombatManager == null || CombatManager.CurrentEnemiesList == null)
+                return;
+
+            foreach (var enemy in CombatManager.CurrentEnemiesList.ToList())
+                enemy?.CharacterStats?.NotifyPlayerDrewCard();
         }
 
         private void ReshuffleDiscardPile()

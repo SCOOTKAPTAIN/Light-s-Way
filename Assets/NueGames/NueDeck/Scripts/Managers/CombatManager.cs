@@ -442,6 +442,9 @@ namespace NueGames.NueDeck.Scripts.Managers
 
             GameManager.PersistentGameplayData.CurrentMana += target;
             UIManager.CombatCanvas.SetPileTexts();
+
+            foreach (var enemy in CurrentEnemiesList.ToList())
+                enemy?.CharacterStats?.NotifyPlayerManaGained(target);
         }
 
         public void RefillMana()

@@ -1,0 +1,203 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
+  m_Name: 10_1_Vessel
+  m_EditorClassIdentifier: 
+  characterID: 10_1
+  characterName: Vessel
+  characterDescription: "Normal End Final Boss\r\nThrough endless consumption, observation,
+    and adaptation, this Shadow has come to understand what it means to be \u201Chuman\u201D.\r\nAs
+    the vessel of the next Ruler, it now seeks to tear apart the Child of Light and
+    claim its destined throne.\r\n"
+  maxHealth: 70
+  enemyPrefab: {fileID: 243822687015991123, guid: 002fd6908ab08964ba83a710620119ce, type: 3}
+  mutatedVersion: {fileID: 0}
+  chaosificationStatus:
+    modifierName: 
+    icon: {fileID: 0}
+    description: 
+  useActBasedScaling: 1
+  actConfigurations:
+  - actNumber: 1
+    maxHealth: 100
+    startingStatuses:
+    - statusType: 68
+      statusValue: 1
+    - statusType: 66
+      statusValue: 0
+    - statusType: 67
+      statusValue: 0
+    enemyAbilityList:
+    - name: Smash
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 0
+        minActionValue: 190
+        maxActionValue: 210
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 160
+        customAudioType: 163
+      repeatCount: 0
+      conditions: []
+      weight: 4
+      maxConsecutiveUses: 3
+    - name: Tame
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: 'Deal <color=#FFB430>{value}</color> damage <color=#FFB430>6</color>
+        times.\nApply <color=#FFB430>{value2} Weakness</color>. \nApply <color=#FFB430>{value3}
+        Brittle</color>. '
+      keywords: 1a00000046000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 9
+        maxActionValue: 11
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 161
+        customAudioType: 164
+      - actionType: 12
+        minActionValue: 2
+        maxActionValue: 2
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 24
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 161
+        customAudioType: 164
+      - actionType: 12
+        minActionValue: 2
+        maxActionValue: 2
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 71
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 161
+        customAudioType: 164
+      repeatCount: 6
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 2
+    - name: Understanding
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Gain <color=#FFB430>{value} Understanding</color>.
+      keywords: 45000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 13
+        minActionValue: 2
+        maxActionValue: 2
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 70
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 162
+        customAudioType: 165
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 1
+    - name: Will
+      intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+      description: Gain <color=#FFB430>{value} Block</color>.\nGain <color=#FFB430>1
+        Armor</color>. Reduce <color=#FFB430>Debuffs</color> stacks by <color=#FFB430>3</color>.
+      keywords: 45000000000000000e000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 28
+        minActionValue: 150
+        maxActionValue: 150
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 163
+        customAudioType: 166
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 1
+  followAbilityPattern: 0
+  useWeightedSelection: 1
+  preventRepeatAbility: 0
+  startingStatuses: []
+  enemyAbilityList:
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 0
+      minActionValue: 10
+      maxActionValue: 10
+      targetRestriction: 0
+      targetSlot: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 6
+    maxConsecutiveUses: 0
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 2
+      minActionValue: 2
+      maxActionValue: 2
+      targetRestriction: 0
+      targetSlot: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 5
+    maxConsecutiveUses: 0

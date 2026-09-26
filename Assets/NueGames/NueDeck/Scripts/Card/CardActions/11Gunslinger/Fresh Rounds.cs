@@ -39,6 +39,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                 var cardClone = GameManager.BuildAndGetCard(quickDrawCardData, CollectionManager.HandController.transform);
                 CollectionManager.HandController.AddCardToHand(cardClone);
                 CollectionManager.HandPile.Add(quickDrawCardData);
+                CollectionManager.NotifyCardDrawn();
             }
 
             foreach (var cardObject in CollectionManager.HandController.hand)

@@ -163,7 +163,12 @@
         ThoughtLeech,
         SnuffOut,
         HexMark,
-        RapidAnalysis
+        RapidAnalysis,
+        Smash,
+        Tame,
+        Understanding,
+        Will,
+        Mimicry
 
 
 

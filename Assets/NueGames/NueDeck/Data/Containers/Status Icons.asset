@@ -274,3 +274,33 @@ MonoBehaviour:
     showValue: 1
     specialKeywords: 40000000
     displayPriority: 5
+  - iconStatus: 71
+    iconSprite: {fileID: 21300000, guid: 537597eff3e99f7468703e5bc7e55703, type: 3}
+    showValue: 1
+    specialKeywords: 46000000
+    displayPriority: 5
+  - iconStatus: 68
+    iconSprite: {fileID: 21300000, guid: 1bda5dc767a250a4082498e1f0c55241, type: 3}
+    showValue: 0
+    specialKeywords: 43000000
+    displayPriority: 0
+  - iconStatus: 67
+    iconSprite: {fileID: 21300000, guid: 9a189aea1f89e094c847ee848076ec2d, type: 3}
+    showValue: 1
+    specialKeywords: 42000000
+    displayPriority: 0
+  - iconStatus: 66
+    iconSprite: {fileID: 21300000, guid: 020239ad07553134f8dcd18f8c515674, type: 3}
+    showValue: 1
+    specialKeywords: 41000000
+    displayPriority: 0
+  - iconStatus: 70
+    iconSprite: {fileID: 21300000, guid: ecb3812056a731f469b6fd747bfe344c, type: 3}
+    showValue: 1
+    specialKeywords: 45000000
+    displayPriority: 1
+  - iconStatus: 47
+    iconSprite: {fileID: 21300000, guid: 163e992afcf1afa4fbab74b289c71990, type: 3}
+    showValue: 1
+    specialKeywords: 47000000
+    displayPriority: 1

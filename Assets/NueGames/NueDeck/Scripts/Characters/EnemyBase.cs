@@ -77,19 +77,18 @@ namespace NueGames.NueDeck.Scripts.Characters
             {
                 foreach (var startingStatus in startingStatuses)
                 {
-                    if (startingStatus.StatusValue > 0)
-                    {
-                        CharacterStats.ApplyStatus(startingStatus.StatusType, startingStatus.StatusValue);
-                    }
+                    CharacterStats.ApplyStatus(startingStatus.StatusType, startingStatus.StatusValue);
                 }
             }
 
-            if (CharacterStats.StatusDict[StatusType.Assimilation].IsActive)
+            if (CharacterStats.StatusDict[StatusType.Assimilation].IsActive ||
+                CharacterStats.StatusDict[StatusType.Envy].IsActive)
             {
                 CollectionManager.Instance.CardPlayed += OnPlayerCardPlayed;
             }
             
             CombatManager.OnAllyTurnStarted += ShowNextAbility;
+            CombatManager.OnAllyTurnStarted += ResetEnvyAtTurnStart;
             CombatManager.OnEnemyTurnStarted += CharacterStats.TriggerAllStatus;
             
             // Subscribe to player status changes to update intention value
@@ -105,6 +104,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             base.OnDeath();
 
             CombatManager.OnAllyTurnStarted -= ShowNextAbility;
+            CombatManager.OnAllyTurnStarted -= ResetEnvyAtTurnStart;
             CombatManager.OnEnemyTurnStarted -= CharacterStats.TriggerAllStatus;
             CollectionManager.Instance.CardPlayed -= OnPlayerCardPlayed;
             
@@ -124,10 +124,30 @@ namespace NueGames.NueDeck.Scripts.Characters
 
         private void OnPlayerCardPlayed()
         {
-            if (CharacterStats == null || !CharacterStats.StatusDict[StatusType.Assimilation].IsActive)
+            if (CharacterStats == null)
                 return;
 
-            CharacterStats.ApplyStatus(StatusType.Assimilation, 1);
+            if (CharacterStats.StatusDict[StatusType.Assimilation].IsActive)
+                CharacterStats.ApplyStatus(StatusType.Assimilation, 1);
+
+            if (CharacterStats.StatusDict[StatusType.Envy].IsActive)
+            {
+                CharacterStats.ApplyStatus(StatusType.Envy, 1);
+
+                if (CharacterStats.StatusDict[StatusType.Envy].StatusValue >= 10)
+                {
+                    CharacterStats.ApplyStatus(StatusType.Might, 1);
+                    CharacterStats.ApplyStatus(StatusType.Resilience, 1);
+
+                    CharacterStats.ResetEnvyToZero();
+                }
+            }
+        }
+
+        private void ResetEnvyAtTurnStart()
+        {
+            if (CharacterStats != null && CharacterStats.StatusDict[StatusType.Envy].IsActive)
+                CharacterStats.ResetEnvyToZero();
         }
 
         private IEnumerator DeathFadeRoutine()

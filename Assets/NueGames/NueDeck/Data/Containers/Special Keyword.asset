@@ -43,7 +43,7 @@ MonoBehaviour:
     header: Ward
     contentText: Consume <color=#FFB430>1</color> stack to negate an incoming <color=#FFB430>Infliction</color>.
   - specialKeyword: 10
-    header: Enlightenment
+    header: Cantrip
     contentText: Next card played has it's cost reduced to <color=#FFB430>0</color>.
       (<color=#FFB430>Unstackable</color>).
   - specialKeyword: 11
@@ -212,7 +212,7 @@ MonoBehaviour:
       for <color=#FFB430>{Clogged Circuits}</color> turn(s).
   - specialKeyword: 55
     header: Might
-    contentText: Attacks deal <color=#FFB430>50%</color> more damage for <color=#FFB430>{Might}</color>
+    contentText: Deal <color=#FFB430>50%</color> more damage for <color=#FFB430>{Might}</color>
       turn(s).
   - specialKeyword: 56
     header: Resilience
@@ -288,3 +288,35 @@ MonoBehaviour:
     header: Necrosis
     contentText: If <color=#FFB430>Health</color> is equal to or lower than <color=#FFB430>{Necrosis}</color>
       at the end of the turn, immediately <color=#FFB430>die</color>.
+  - specialKeyword: 65
+    header: Envy
+    contentText: For each <color=#FFB430>10</color> cards used in a single turn,
+      gain <color=#FFB430>1 Might</color> and <color=#FFB430>1 Resilience</color>.
+  - specialKeyword: 66
+    header: Greed
+    contentText: 'Whenever <color=#FFB430>Mana</color> is gained from cards and effects,
+      gain permanent <color=#FFB430>2%</color> damage amplification.\n(Current: <color=#FFB430>{Greed
+      * 2}%</color> boost) '
+  - specialKeyword: 67
+    header: Survival Instinct
+    contentText: Gain a <color=#FFB430>10% Max HP Block</color> each time health
+      drops by <color=#FFB430>25%</color>.
+  - specialKeyword: 68
+    header: Ego
+    contentText: <color=#FFB430>20%</color> change to gain <color=#FFB430>1 Strength</color>
+      when taking damage.
+  - specialKeyword: 69
+    header: Understanding
+    contentText: "Gain bonuses based on your actions:\r\n- Gain <color=#FFB430>Block</color>\u2192<color=#FFB430>+1
+      Strength</color>\r\n- Gain <color=#FFB430>Strength</color>\u2192<color=#FFB430>+5
+      Damage Cut</color>\r\n- Apply <color=#FFB430>Debuff</color>\u2192<color=#FFB430>+1
+      Armor</color>\r\n- Draw <color=#FFB430>Card</color>\u2192<color=#FFB430>+3
+      Health</color>\r\n"
+  - specialKeyword: 70
+    header: Brittle
+    contentText: Gain <color=#FFB430>50%</color> less <color=#FFB430>Block</color>
+      for <color=#FFB430>{Brittle}</color> turn(s).
+  - specialKeyword: 71
+    header: Damage Cut
+    contentText: Reduce incoming damage by a flat <color=#FFB430>{Damage Cut}</color>.
+      Reduce <color=#FFB430>1</color> stack for each attack instance taken.

@@ -67,7 +67,13 @@
         Amnesia,
         TotalAssimilation,
         Flickering,
-        Necrosis
+        Necrosis,
+        Envy,
+        Greed,
+        SurvivalInstinct,
+        Ego,
+        Understanding,
+        Brittle
         
 
     }

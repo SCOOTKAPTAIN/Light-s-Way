@@ -65,6 +65,12 @@ namespace NueGames.NueDeck.Scripts.Utils
             if (attacker != null && attacker.CharacterStats.StatusDict[StatusType.Desperation].IsActive)
                 adjustedBaseValue *= 1.5f;
 
+            if (attacker != null && attacker.CharacterStats.StatusDict[StatusType.Greed].IsActive)
+            {
+                var greedStacks = attacker.CharacterStats.StatusDict[StatusType.Greed].StatusValue;
+                adjustedBaseValue *= 1f + greedStacks * 0.02f;
+            }
+
             // Ammo Pouch: each stack adds 5% damage per card in the exhaust pile.
             if (attacker != null && attacker.CharacterStats.StatusDict.ContainsKey(StatusType.Deadstock))
             {

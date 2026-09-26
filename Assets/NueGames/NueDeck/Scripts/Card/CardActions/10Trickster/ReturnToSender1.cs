@@ -31,7 +31,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             StatusType.Sabotaged,
             StatusType.Amnesia,
             StatusType.Flickering,
-            StatusType.Necrosis
+            StatusType.Necrosis,
+            StatusType.Brittle
             
         };
 

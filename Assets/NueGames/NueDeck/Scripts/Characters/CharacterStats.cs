@@ -63,6 +63,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusType.Amnesia,
             StatusType.Flickering,
             StatusType.Necrosis,
+            StatusType.Brittle,
             StatusType.SeveredString,
         };
         private const float FrostbitePercentPerStack = 0.25f; // 25% proficiency per stack
@@ -78,6 +79,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         private bool _currentAttackIsAreaOfEffect;
         private bool _assimilationGrantsStrength;
         private int _amnesiaTemporaryProficiencyReduction;
+        private int _survivalInstinctThresholdsTriggered;
        
         public Action OnDeath;
         public Action<int, int> OnHealthChanged;
@@ -204,6 +206,15 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.Necrosis].TriggerAtTurnEnd = true;
             StatusDict[StatusType.Necrosis].OnTriggerAction += TriggerNecrosis;
 
+            // Vessel traits persist for the encounter; Understanding loses one stack at turn end.
+            StatusDict[StatusType.Envy].IsPermanent = true;
+            StatusDict[StatusType.Greed].IsPermanent = true;
+            StatusDict[StatusType.SurvivalInstinct].IsPermanent = true;
+            StatusDict[StatusType.Ego].IsPermanent = true;
+            StatusDict[StatusType.Understanding].DecreaseOverTurn = true;
+            StatusDict[StatusType.Brittle].DecreaseOverTurn = true;
+            StatusDict[StatusType.Brittle].TriggerAtTurnEnd = true;
+
             // Desperation persists for the rest of combat and loses 10% of max health each turn.
             StatusDict[StatusType.Desperation].IsPermanent = true;
             StatusDict[StatusType.Desperation].OnTriggerAction += TriggerDesperationHealthLoss;
@@ -288,6 +299,14 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (targetStatus == StatusType.Assimilation && value < 0 && StatusDict[StatusType.TotalAssimilation].IsActive)
                 return;
 
+            if (targetStatus == StatusType.Block && value > 0 &&
+                StatusDict[StatusType.Brittle].IsActive && StatusDict[StatusType.Brittle].StatusValue > 0)
+            {
+                value = Mathf.FloorToInt(value * 0.7f);
+                if (value <= 0)
+                    return;
+            }
+
             if (value > 0 && DebuffTypes.Contains(targetStatus) && source is EnemyBase enemySource &&
                 enemySource.CharacterStats.StatusDict[StatusType.Assimilation].StatusValue >= 30)
             {
@@ -358,7 +377,16 @@ namespace NueGames.NueDeck.Scripts.Characters
                 var delta = StatusDict[targetStatus].StatusValue - previousValue;
                 if (delta > 0)
                     OnShieldGained?.Invoke(delta);
+
+                if (delta > 0 && IsPlayerCharacter())
+                    NotifyEnemiesPlayerGainedBlock(delta);
             }
+
+            if (targetStatus == StatusType.Strength && value > 0 && IsPlayerCharacter())
+                NotifyEnemiesPlayerGainedStrength(value);
+
+            if (value > 0 && DebuffTypes.Contains(targetStatus) && IsEnemyCharacter() && IsPlayerAppliedStatus(source))
+                NotifyEnemiesPlayerAppliedDebuff();
 
             // Special handling for Frostbite/Burning thresholds (trigger when reaching 5 stacks)
             if (targetStatus == StatusType.Frostbite || targetStatus == StatusType.Burning)
@@ -500,6 +528,93 @@ namespace NueGames.NueDeck.Scripts.Characters
                         card.SetObscuredState(isObscured);
                 }
             }
+        }
+
+        public void NotifyPlayerManaGained(int amount)
+        {
+            if (amount > 0 && StatusDict[StatusType.Greed].IsActive)
+                ApplyStatus(StatusType.Greed, 1);
+        }
+
+        public void ResetEnvyToZero()
+        {
+            if (!StatusDict[StatusType.Envy].IsActive)
+                return;
+
+            StatusDict[StatusType.Envy].StatusValue = 0;
+            OnStatusChanged?.Invoke(StatusType.Envy, 0);
+            OnStatusChangedPublic?.Invoke(StatusType.Envy, 0);
+        }
+
+        public void NotifyPlayerDrewCard()
+        {
+            if (StatusDict[StatusType.Understanding].IsActive)
+            {
+                var healthBefore = CurrentHealth;
+                Heal(3);
+                var healthGained = CurrentHealth - healthBefore;
+
+                if (healthGained > 0 && FxManager.Instance != null)
+                {
+                    var character = _characterCanvas != null
+                        ? _characterCanvas.GetComponentInParent<CharacterBase>()
+                        : null;
+                    var spawnRoot = character != null && character.TextSpawnRoot != null
+                        ? character.TextSpawnRoot
+                        : _characterCanvas != null ? _characterCanvas.transform : null;
+
+                    if (spawnRoot != null)
+                        FxManager.Instance.SpawnFloatingTextGreen(spawnRoot, healthGained.ToString());
+                }
+            }
+        }
+
+        public void NotifyPlayerGainedBlock(int amount)
+        {
+            if (amount > 0 && StatusDict[StatusType.Understanding].IsActive)
+                ApplyStatus(StatusType.Strength, 1);
+        }
+
+        public void NotifyPlayerGainedStrength(int amount)
+        {
+            if (amount > 0 && StatusDict[StatusType.Understanding].IsActive)
+                ApplyStatus(StatusType.DamageCut, 5);
+        }
+
+        public void NotifyPlayerAppliedDebuff()
+        {
+            if (StatusDict[StatusType.Understanding].IsActive)
+                ApplyStatus(StatusType.Armor, 1);
+        }
+
+        private void NotifyEnemiesPlayerGainedBlock(int amount)
+        {
+            foreach (var enemy in CombatManager.Instance.CurrentEnemiesList.ToList())
+                enemy?.CharacterStats?.NotifyPlayerGainedBlock(amount);
+        }
+
+        private void NotifyEnemiesPlayerGainedStrength(int amount)
+        {
+            foreach (var enemy in CombatManager.Instance.CurrentEnemiesList.ToList())
+                enemy?.CharacterStats?.NotifyPlayerGainedStrength(amount);
+        }
+
+        private void NotifyEnemiesPlayerAppliedDebuff()
+        {
+            foreach (var enemy in CombatManager.Instance.CurrentEnemiesList.ToList())
+                enemy?.CharacterStats?.NotifyPlayerAppliedDebuff();
+        }
+
+        private bool IsEnemyCharacter()
+        {
+            return _characterCanvas != null && _characterCanvas.GetComponentInParent<EnemyBase>() != null;
+        }
+
+        private static bool IsPlayerAppliedStatus(CharacterBase source)
+        {
+            return source is AllyBase ||
+                   (source == null && CombatManager.Instance != null &&
+                    CombatManager.Instance.CurrentCombatStateType == CombatStateType.AllyTurn);
         }
         public void TriggerAllStatus()
         {
@@ -938,6 +1053,23 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
 
             CurrentHealth -= remainingDamage;
+
+            if (attacker != null && CombatManager.Instance?.CurrentMainAlly == attacker &&
+                StatusDict[StatusType.SurvivalInstinct].IsActive && MaxHealth > 0)
+            {
+                var reachedThresholds = Mathf.Min(3, Mathf.FloorToInt((MaxHealth - CurrentHealth) / (MaxHealth * 0.25f)));
+                while (_survivalInstinctThresholdsTriggered < reachedThresholds)
+                {
+                    ApplyStatus(StatusType.Block, Mathf.RoundToInt(MaxHealth * 0.1f));
+                    _survivalInstinctThresholdsTriggered++;
+                }
+            }
+
+            if (attacker != null && CombatManager.Instance?.CurrentMainAlly == attacker &&
+                StatusDict[StatusType.Ego].IsActive && UnityEngine.Random.value < 0.2f)
+            {
+                ApplyStatus(StatusType.Strength, 1);
+            }
             
             if (CurrentHealth <= 0)
             {
@@ -1076,6 +1208,24 @@ namespace NueGames.NueDeck.Scripts.Characters
             }
 
             return removedCount;
+        }
+
+        public void ReduceDebuffStacks(int amount)
+        {
+            if (amount <= 0)
+                return;
+
+            foreach (var debuff in DebuffTypes.Distinct())
+            {
+                if (!StatusDict[debuff].IsActive || StatusDict[debuff].StatusValue <= 0)
+                    continue;
+
+                StatusDict[debuff].StatusValue = Mathf.Max(0, StatusDict[debuff].StatusValue - amount);
+                if (StatusDict[debuff].StatusValue == 0)
+                    ClearStatus(debuff);
+                else
+                    OnStatusChanged?.Invoke(debuff, StatusDict[debuff].StatusValue);
+            }
         }
            
         public void ClearStatus(StatusType targetStatus)

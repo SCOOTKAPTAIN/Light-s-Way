@@ -115,6 +115,11 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 SpecialKeywords.Spotlight => StatusType.Spotlight,
                 SpecialKeywords.CheatDeath => StatusType.CheatDeath,
                 SpecialKeywords.BrushOff => StatusType.BrushOff,
+                SpecialKeywords.SurvivalInstinct => StatusType.SurvivalInstinct,
+                SpecialKeywords.Ego => StatusType.Ego,
+                SpecialKeywords.Understanding => StatusType.Understanding,
+                SpecialKeywords.Brittle => StatusType.Brittle,
+                SpecialKeywords.DamageCut => StatusType.DamageCut,
                // SpecialKeywords.TheBestDefence => StatusType.TheBestDefense,
                 _ => StatusType.None
             };

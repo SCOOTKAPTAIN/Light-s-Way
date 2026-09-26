@@ -29,6 +29,7 @@
         ThoughtLeech,
         SnuffOut,
         HexMark,
-        RapidAnalysis
+        RapidAnalysis,
+        Will
     }
 }

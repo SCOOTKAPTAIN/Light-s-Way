@@ -51,8 +51,10 @@ namespace NueGames.NueDeck.Scripts.UI
                 return;
             }
 
-            // Hide zero values to avoid showing '0' on the icon
-            if (statusValue <= 0)
+            var isZeroStackMarker = MyStatusIconData != null &&
+                (MyStatusIconData.IconStatus == StatusType.Envy || MyStatusIconData.IconStatus == StatusType.Greed);
+
+            if (statusValue < 0 || (statusValue == 0 && !isZeroStackMarker))
             {
                 StatusValueText.gameObject.SetActive(false);
                 return;

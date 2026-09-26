@@ -143,8 +143,8 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (targetStatus == StatusType.Chaotic)
                 return;
 
-            // Do not create or show icons for zero or negative values.
-            if (value <= 0)
+            // Envy and Greed use an active zero-stack icon as a trait marker.
+            if (value < 0 || (value == 0 && !IsZeroStackMarker(targetStatus)))
             {
                 ClearStatus(targetStatus);
                 return;
@@ -200,14 +200,18 @@ namespace NueGames.NueDeck.Scripts.Characters
         public void UpdateStatusText(StatusType targetStatus, int value)
         {
             if (StatusDict[targetStatus] == null) return;
-            // If the status value is 0 or less, remove the icon instead of showing '0'
-            if (value <= 0)
+            if (value < 0 || (value == 0 && !IsZeroStackMarker(targetStatus)))
             {
                 ClearStatus(targetStatus);
                 return;
             }
 
             StatusDict[targetStatus].StatusValueText.text = $"{value}";
+        }
+
+        private static bool IsZeroStackMarker(StatusType statusType)
+        {
+            return statusType == StatusType.Envy || statusType == StatusType.Greed;
         }
         
         public void UpdateHealthText(int currentHealth,int maxHealth)
