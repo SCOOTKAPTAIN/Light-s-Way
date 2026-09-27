@@ -345,6 +345,12 @@ namespace NueGames.NueDeck.Scripts.Managers
             {
                 ally.CharacterStats.TriggerEndOfTurnStatuses(true);
 
+                foreach (var enemy in CurrentEnemiesList.ToList())
+                {
+                    if (enemy != null && !enemy.CharacterStats.IsDeath)
+                        enemy.CharacterStats.TriggerEntropyFeast();
+                }
+
                 if (ally.CharacterStats.IsDeath || CurrentCombatStateType == CombatStateType.EndCombat)
                 {
                     _isEndingTurn = false;
@@ -817,6 +823,7 @@ namespace NueGames.NueDeck.Scripts.Managers
                         {
                             enemy.CharacterStats.TriggerEndOfTurnStatuses(false, true);
                             enemy.CharacterStats.TriggerDeferredMightStatus();
+                            enemy.CharacterStats.GainChaoticPlaywrightScenery();
                         }
                     }
 

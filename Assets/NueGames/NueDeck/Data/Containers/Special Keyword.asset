@@ -233,7 +233,7 @@ MonoBehaviour:
       cards must be played before <color=#FFB430>Restricted</color> cards.
   - specialKeyword: 51
     header: Actor on Stage
-    contentText: 'When taking <color=#FFB430>Fatal</color> damage:
+    contentText: 'Upon taking <color=#FFB430>Fatal</color> damage:
 
       - <color=#FFB430>Survive</color>
       with <color=#FFB430>1</color> Health.
@@ -320,3 +320,15 @@ MonoBehaviour:
     header: Damage Cut
     contentText: Reduce incoming damage by a flat <color=#FFB430>{Damage Cut}</color>.
       Reduce <color=#FFB430>1</color> stack for each attack instance taken.
+  - specialKeyword: 72
+    header: Entropy Feast
+    contentText: 'Gain <color=#FFB430>5 Strength</color> per 1 leftover <color=#FFB430>Mana</color>
+      on turn end.
+
+'
+  - specialKeyword: 54
+    header: Glamouring Scenery
+    contentText: 'Prevents health loss from <color=#FFB430>Ongoing Performance</color>.
+      Reduce <color=#FFB430>1</color> stack for each attack instance taken.
+
+'

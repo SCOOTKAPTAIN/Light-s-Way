@@ -304,3 +304,18 @@ MonoBehaviour:
     showValue: 1
     specialKeywords: 47000000
     displayPriority: 1
+  - iconStatus: 72
+    iconSprite: {fileID: 21300000, guid: ea61aa08e794a4f4a9400c9d34670805, type: 3}
+    showValue: 0
+    specialKeywords: 48000000
+    displayPriority: 0
+  - iconStatus: 51
+    iconSprite: {fileID: 21300000, guid: f068f8a28bafc2b4ab400684a3896399, type: 3}
+    showValue: 1
+    specialKeywords: 36000000
+    displayPriority: 0
+  - iconStatus: 69
+    iconSprite: {fileID: 21300000, guid: 61e67e27ac6d0c04ba7d59b1e836c413, type: 3}
+    showValue: 0
+    specialKeywords: 44000000
+    displayPriority: 0

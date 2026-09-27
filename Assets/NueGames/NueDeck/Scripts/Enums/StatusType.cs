@@ -73,7 +73,8 @@
         SurvivalInstinct,
         Ego,
         Understanding,
-        Brittle
+        Brittle,
+        EntropyFeast
         
 
     }

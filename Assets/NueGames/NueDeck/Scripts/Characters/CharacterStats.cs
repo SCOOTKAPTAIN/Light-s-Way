@@ -78,6 +78,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         private int _mightStacksAtEnemyTurnStart;
         private bool _currentAttackIsAreaOfEffect;
         private bool _assimilationGrantsStrength;
+        private bool _chaoticAssimilationActivated;
         private int _amnesiaTemporaryProficiencyReduction;
         private int _survivalInstinctThresholdsTriggered;
        
@@ -179,6 +180,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Firing Line: triggers at the end of the player's turn and persists for combat.
             StatusDict[StatusType.FiringLine].IsPermanent = true;
 
+            // Entropy Feast is an enemy marker triggered when the player's turn ends.
+            StatusDict[StatusType.EntropyFeast].IsPermanent = true;
+
             // Vigilance: grants its stored Block value at the next ally turn, then clears.
             StatusDict[StatusType.Vigilance].ClearAtNextTurn = true;
             StatusDict[StatusType.Vigilance].OnTriggerAction += GrantVigilanceBlock;
@@ -236,6 +240,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.OngoingPerformance].IsPermanent = true;
             StatusDict[StatusType.OngoingPerformance].OnTriggerAction += TriggerOngoingPerformance;
             StatusDict[StatusType.OngoingPerformance].TriggerAtTurnEnd = true;
+            StatusDict[StatusType.GlamouringScenery].IsPermanent = true;
             StatusDict[StatusType.Might].DecreaseOverTurn = true;
             StatusDict[StatusType.Might].TriggerAtTurnEnd = true;
             StatusDict[StatusType.Resilience].DecreaseOverTurn = true;
@@ -250,6 +255,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.Bleeding].TriggerAtTurnEnd = true;
            
             StatusDict[StatusType.Judged].DecreaseOverTurn = true;
+             StatusDict[StatusType.Judged].TriggerAtTurnEnd = true;
 
             StatusDict[StatusType.Pursuit].DecreaseOverTurn = true;
 
@@ -622,7 +628,7 @@ namespace NueGames.NueDeck.Scripts.Characters
             // If Block was applied in a PREVIOUS turn, it will now be cleared in TriggerStatus
             // If Block is applied THIS turn, the flag will be set again
             _blockAppliedThisTurn = false;
-            
+
             // Evaluate stun state for this turn BEFORE any decrement/clear happens, so stacks map to full turns.
             var willStunThisTurn =
                 (StatusDict.ContainsKey(StatusType.Stun) && StatusDict[StatusType.Stun].StatusValue > 0) ||
@@ -679,6 +685,20 @@ namespace NueGames.NueDeck.Scripts.Characters
                 if (StatusDict[statusType].TriggerAtTurnEnd)
                     TriggerStatus(statusType);
             }
+        }
+
+        public void TriggerEntropyFeast()
+        {
+            var entropyFeast = StatusDict[StatusType.EntropyFeast];
+            if (!entropyFeast.IsActive || GameManager.Instance == null ||
+                GameManager.Instance.PersistentGameplayData == null)
+                return;
+
+            var leftoverMana = GameManager.Instance.PersistentGameplayData.CurrentMana;
+            if (leftoverMana <= 0)
+                return;
+
+            ApplyStatus(StatusType.Strength, leftoverMana * 5);
         }
 
         public void TriggerDeferredFragileStatus()
@@ -1052,6 +1072,30 @@ namespace NueGames.NueDeck.Scripts.Characters
                     ApplyStatus(StatusType.SeveredString, 1);
             }
 
+            var chaoticAssimilationAvailable = IsEnemyCharacter() &&
+                StatusDict[StatusType.Chaotic].IsActive &&
+                StatusDict[StatusType.Assimilation].IsActive &&
+                StatusDict[StatusType.Assimilation].StatusValue > 0;
+            var wouldActivateChaoticAssimilation = chaoticAssimilationAvailable &&
+                CurrentHealth - remainingDamage <= 0;
+            var assimilationDepleted = false;
+            if (wouldActivateChaoticAssimilation && !_chaoticAssimilationActivated)
+            {
+                _chaoticAssimilationActivated = true;
+                remainingDamage = Mathf.Max(0, CurrentHealth - 1);
+            }
+            else if (chaoticAssimilationAvailable && _chaoticAssimilationActivated && remainingDamage > 0)
+            {
+                ReduceChaoticHexerAssimilation(Mathf.RoundToInt(remainingDamage));
+                assimilationDepleted = !StatusDict[StatusType.Assimilation].IsActive ||
+                    StatusDict[StatusType.Assimilation].StatusValue <= 0;
+
+                if (assimilationDepleted)
+                    remainingDamage = CurrentHealth;
+                else
+                    remainingDamage = Mathf.Min(remainingDamage, Mathf.Max(0, CurrentHealth - 1));
+            }
+
             CurrentHealth -= remainingDamage;
 
             if (attacker != null && CombatManager.Instance?.CurrentMainAlly == attacker &&
@@ -1181,6 +1225,24 @@ namespace NueGames.NueDeck.Scripts.Characters
         {
             MaxHealth += value;
             OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
+        }
+
+        private void ReduceChaoticHexerAssimilation(int damage)
+        {
+            if (damage <= 0)
+                return;
+
+            var assimilation = StatusDict[StatusType.Assimilation];
+            assimilation.StatusValue = Mathf.Max(0, assimilation.StatusValue - damage);
+
+            if (assimilation.StatusValue <= 0)
+            {
+                ClearStatus(StatusType.Assimilation);
+                return;
+            }
+
+            OnStatusChanged?.Invoke(StatusType.Assimilation, assimilation.StatusValue);
+            OnStatusChangedPublic?.Invoke(StatusType.Assimilation, assimilation.StatusValue);
         }
 
         public void ClearAllStatus()
@@ -1552,13 +1614,27 @@ namespace NueGames.NueDeck.Scripts.Characters
                 return;
 
             var scenery = StatusDict[StatusType.GlamouringScenery];
-            if (scenery.IsActive && scenery.StatusValue > 0)
+            if (StatusDict[StatusType.Chaotic].IsActive && scenery.IsActive && scenery.StatusValue > 0)
                 return;
 
             var damage = Mathf.Max(1, Mathf.CeilToInt(MaxHealth * 0.10f));
             if (AudioManager.Instance != null)
                 AudioManager.Instance.PlayOneShotDebounced(AudioActionType.GenericDOTDamage, 0.25f);
             Damage(damage, true, "red", null);
+        }
+
+        public void GainChaoticPlaywrightScenery()
+        {
+            if (!IsEnemyCharacter() || !StatusDict[StatusType.Chaotic].IsActive ||
+                !StatusDict[StatusType.OngoingPerformance].IsActive)
+                return;
+
+            var missingHealth = Mathf.Max(0, MaxHealth - CurrentHealth);
+            var additionalStacks = MaxHealth > 0
+                ? Mathf.FloorToInt(missingHealth / (MaxHealth * 0.3f))
+                : 0;
+
+            ApplyStatus(StatusType.GlamouringScenery, 1 + additionalStacks);
         }
 
         private void CheckFrozenStatus()

@@ -22,7 +22,7 @@ MonoBehaviour:
       enemyList: []
       battleMusicOverride: {fileID: 8300000, guid: c4e081a6e9137c04081f75d8114c3213, type: 3}
       enemySpawnEntries:
-      - enemy: {fileID: 11400000, guid: 3a4fb99a878572c40a5c0710f7f767d0, type: 2}
+      - enemy: {fileID: 11400000, guid: 9f2f3075815a5364d932eb69efc03725, type: 2}
         positionNumber: 9
       startingCards: []
       customGoldRewards: []
@@ -48,16 +48,18 @@ MonoBehaviour:
       customGoldRewards: []
       customCardRewards: []
     specialEncounterList: []
-  - name: Act 2
-    stageId: 2
+  - name: Act 5
+    stageId: 5
     normalEncounterList:
     - targetBackgroundType: 0
       encounterId: 
       enemyList: []
       battleMusicOverride: {fileID: 0}
       enemySpawnEntries:
-      - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
+      - enemy: {fileID: 11400000, guid: 84e44cf7fd90d0c4bbd2d5ba5acefbf0, type: 2}
         positionNumber: 2
+      - enemy: {fileID: 11400000, guid: 20fed9e9b8f77b64086164ed5868e6dd, type: 2}
+        positionNumber: 1
       startingCards: []
       customGoldRewards: []
       customCardRewards: []

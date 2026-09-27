@@ -30,6 +30,8 @@
         SnuffOut,
         HexMark,
         RapidAnalysis,
-        Will
+        Will,
+        Stigmata,
+        Mimicry
     }
 }

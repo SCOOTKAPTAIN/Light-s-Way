@@ -23,7 +23,7 @@ MonoBehaviour:
 '
   maxHealth: 70
   enemyPrefab: {fileID: 243822687015991123, guid: 69590612a546c8442bbc210a6b86a830, type: 3}
-  mutatedVersion: {fileID: 11400000, guid: 68b3a6ae6e9d59e44a559d7a8f1b35ec, type: 2}
+  mutatedVersion: {fileID: 11400000, guid: 84e44cf7fd90d0c4bbd2d5ba5acefbf0, type: 2}
   chaosificationStatus:
     modifierName: 
     icon: {fileID: 0}
@@ -44,8 +44,10 @@ MonoBehaviour:
         minActionValue: 21
         maxActionValue: 26
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 0
         customFxType: 0
@@ -64,8 +66,10 @@ MonoBehaviour:
         minActionValue: 11
         maxActionValue: 13
         targetRestriction: 1
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 0
         customFxType: 0
@@ -84,8 +88,290 @@ MonoBehaviour:
         minActionValue: 2
         maxActionValue: 4
         targetRestriction: 1
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+  - actNumber: 2
+    maxHealth: 150
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Claw
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 6
+        minActionValue: 32
+        maxActionValue: 34
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 4
+      maxConsecutiveUses: 3
+    - name: Preservation
+      intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+      description: Gain <color=#FFB430>{value} Block</color>.
+      keywords: 00000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 7
+        minActionValue: 24
+        maxActionValue: 26
+        targetRestriction: 1
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 2
+    - name: Evolution
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Gain <color=#FFB430>{value} Strength</color> and <color=#FFB430>Fortitude</color>.
+      keywords: 0100000013000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 8
+        minActionValue: 3
+        maxActionValue: 7
+        targetRestriction: 1
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+  - actNumber: 3
+    maxHealth: 223
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Claw
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 6
+        minActionValue: 57
+        maxActionValue: 59
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 4
+      maxConsecutiveUses: 3
+    - name: Preservation
+      intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+      description: Gain <color=#FFB430>{value} Block</color>.
+      keywords: 00000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 7
+        minActionValue: 43
+        maxActionValue: 45
+        targetRestriction: 1
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 2
+    - name: Evolution
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Gain <color=#FFB430>{value} Strength</color> and <color=#FFB430>Fortitude</color>.
+      keywords: 0100000013000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 8
+        minActionValue: 10
+        maxActionValue: 15
+        targetRestriction: 1
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+  - actNumber: 4
+    maxHealth: 317
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Claw
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 6
+        minActionValue: 83
+        maxActionValue: 85
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 4
+      maxConsecutiveUses: 3
+    - name: Preservation
+      intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+      description: Gain <color=#FFB430>{value} Block</color>.
+      keywords: 00000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 7
+        minActionValue: 73
+        maxActionValue: 75
+        targetRestriction: 1
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 2
+    - name: Evolution
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Gain <color=#FFB430>{value} Strength</color> and <color=#FFB430>Fortitude</color>.
+      keywords: 0100000013000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 8
+        minActionValue: 14
+        maxActionValue: 21
+        targetRestriction: 1
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+  - actNumber: 5
+    maxHealth: 511
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Claw
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 6
+        minActionValue: 106
+        maxActionValue: 108
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 4
+      maxConsecutiveUses: 3
+    - name: Preservation
+      intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+      description: Gain <color=#FFB430>{value} Block</color>.
+      keywords: 00000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 7
+        minActionValue: 96
+        maxActionValue: 98
+        targetRestriction: 1
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 2
+      maxConsecutiveUses: 2
+    - name: Evolution
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Gain <color=#FFB430>{value} Strength</color> and <color=#FFB430>Fortitude</color>.
+      keywords: 0100000013000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 8
+        minActionValue: 16
+        maxActionValue: 25
+        targetRestriction: 1
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 0
         suppressPresentation: 0
         customFxType: 0
@@ -109,8 +395,10 @@ MonoBehaviour:
       minActionValue: 10
       maxActionValue: 10
       targetRestriction: 0
+      targetSlot: 0
       applyLightMultiplier: 1
       statusType: 0
+      cardToAdd: {fileID: 0}
       overridePresentation: 0
       suppressPresentation: 0
       customFxType: 0
@@ -129,8 +417,10 @@ MonoBehaviour:
       minActionValue: 2
       maxActionValue: 2
       targetRestriction: 0
+      targetSlot: 0
       applyLightMultiplier: 1
       statusType: 0
+      cardToAdd: {fileID: 0}
       overridePresentation: 0
       suppressPresentation: 0
       customFxType: 0

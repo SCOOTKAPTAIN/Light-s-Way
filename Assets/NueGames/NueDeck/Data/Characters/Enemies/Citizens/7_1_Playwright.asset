@@ -23,7 +23,7 @@ MonoBehaviour:
     for the writer must be the director of this performance to the death.\r\n\r\n"
   maxHealth: 10
   enemyPrefab: {fileID: 243822687015991123, guid: 6d8f8e1ae762e7648affc34865b27536, type: 3}
-  mutatedVersion: {fileID: 0}
+  mutatedVersion: {fileID: 11400000, guid: fce3afa1dc5bfc549afb1c70b2f88bcf, type: 2}
   chaosificationStatus:
     modifierName: 
     icon: {fileID: 0}
@@ -31,6 +31,266 @@ MonoBehaviour:
   useActBasedScaling: 1
   actConfigurations:
   - actNumber: 1
+    maxHealth: 10000
+    startingStatuses:
+    - statusType: 60
+      statusValue: 1
+    - statusType: 50
+      statusValue: 1
+    enemyAbilityList:
+    - name: Plot Armor
+      intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+      description: Apply <color=#FFB430>{value1} Cheat Death</color> to a random
+        ally. \nApply <color=#FFB430>{value2} Brush Off</color> to a random ally.
+      keywords: 3a0000003b000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 20
+        minActionValue: 25
+        maxActionValue: 25
+        targetRestriction: 2
+        targetSlot: 1
+        applyLightMultiplier: 0
+        statusType: 55
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 148
+        customAudioType: 151
+      - actionType: 20
+        minActionValue: 6
+        maxActionValue: 6
+        targetRestriction: 2
+        targetSlot: 2
+        applyLightMultiplier: 0
+        statusType: 56
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 148
+        customAudioType: 151
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+    - name: "Prot\xE9g\xE9 Encouragement"
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Apply <color=#FFB430>{value1} Strength</color> to a random ally.
+        \nApply <color=#FFB430>{value2} Might</color> to a random ally.
+      keywords: 3700000001000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 20
+        minActionValue: 3
+        maxActionValue: 3
+        targetRestriction: 2
+        targetSlot: 1
+        applyLightMultiplier: 0
+        statusType: 3
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 149
+        customAudioType: 152
+      - actionType: 20
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 2
+        targetSlot: 2
+        applyLightMultiplier: 0
+        statusType: 52
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 148
+        customAudioType: 151
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+    - name: Script Revision
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: 'Remove <color=#FFB430>Severed String</color> from <color=#FFB430>All</color>
+        allies.\n<color=#FFB430>Heal</color> them back to full health.\nTake <color=#FFB430>10%</color>
+        Max HP as damage for each removed.
+
+'
+      keywords: 34000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 18
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 3
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 150
+        customAudioType: 153
+      repeatCount: 0
+      conditions:
+      - target: 2
+        conditionType: 0
+        specificStatus: 49
+        threshold: 1
+      weight: 100
+      maxConsecutiveUses: 0
+    - name: Spotlight
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage. \nApply <color=#FFB430>Spotlight</color>.
+      keywords: 39000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 19
+        minActionValue: 7
+        maxActionValue: 9
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 151
+        customAudioType: 154
+      repeatCount: 0
+      conditions: []
+      weight: 4
+      maxConsecutiveUses: 1
+  - actNumber: 2
+    maxHealth: 10000
+    startingStatuses:
+    - statusType: 60
+      statusValue: 1
+    - statusType: 50
+      statusValue: 1
+    enemyAbilityList:
+    - name: Plot Armor
+      intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+      description: Apply <color=#FFB430>{value1} Cheat Death</color> to a random
+        ally. \nApply <color=#FFB430>{value2} Brush Off</color> to a random ally.
+      keywords: 3a0000003b000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 20
+        minActionValue: 40
+        maxActionValue: 40
+        targetRestriction: 2
+        targetSlot: 1
+        applyLightMultiplier: 0
+        statusType: 55
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 148
+        customAudioType: 151
+      - actionType: 20
+        minActionValue: 9
+        maxActionValue: 9
+        targetRestriction: 2
+        targetSlot: 2
+        applyLightMultiplier: 0
+        statusType: 56
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 148
+        customAudioType: 151
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+    - name: "Prot\xE9g\xE9 Encouragement"
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Apply <color=#FFB430>{value1} Strength</color> to a random ally.
+        \nApply <color=#FFB430>{value2} Might</color> to a random ally.
+      keywords: 3700000001000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 20
+        minActionValue: 4
+        maxActionValue: 4
+        targetRestriction: 2
+        targetSlot: 1
+        applyLightMultiplier: 0
+        statusType: 3
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 149
+        customAudioType: 152
+      - actionType: 20
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 2
+        targetSlot: 2
+        applyLightMultiplier: 0
+        statusType: 52
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 148
+        customAudioType: 151
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+    - name: Script Revision
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: 'Remove <color=#FFB430>Severed String</color> from <color=#FFB430>All</color>
+        allies.\n<color=#FFB430>Heal</color> them back to full health.\nTake <color=#FFB430>10%</color>
+        Max HP as damage for each removed.
+
+'
+      keywords: 34000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 18
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 3
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 150
+        customAudioType: 153
+      repeatCount: 0
+      conditions:
+      - target: 2
+        conditionType: 0
+        specificStatus: 49
+        threshold: 1
+      weight: 100
+      maxConsecutiveUses: 0
+    - name: Spotlight
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage. \nApply <color=#FFB430>Spotlight</color>.
+      keywords: 39000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 19
+        minActionValue: 12
+        maxActionValue: 16
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 151
+        customAudioType: 154
+      repeatCount: 0
+      conditions: []
+      weight: 4
+      maxConsecutiveUses: 1
+  - actNumber: 3
     maxHealth: 10000
     startingStatuses:
     - statusType: 60
@@ -81,7 +341,7 @@ MonoBehaviour:
       hideActionValue: 1
       actionList:
       - actionType: 20
-        minActionValue: 3
+        minActionValue: 5
         maxActionValue: 5
         targetRestriction: 2
         targetSlot: 1
@@ -93,8 +353,8 @@ MonoBehaviour:
         customFxType: 149
         customAudioType: 152
       - actionType: 20
-        minActionValue: 10
-        maxActionValue: 10
+        minActionValue: 1
+        maxActionValue: 1
         targetRestriction: 2
         targetSlot: 2
         applyLightMultiplier: 0
@@ -147,6 +407,266 @@ MonoBehaviour:
       - actionType: 19
         minActionValue: 18
         maxActionValue: 22
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 151
+        customAudioType: 154
+      repeatCount: 0
+      conditions: []
+      weight: 4
+      maxConsecutiveUses: 1
+  - actNumber: 4
+    maxHealth: 100000
+    startingStatuses:
+    - statusType: 60
+      statusValue: 1
+    - statusType: 50
+      statusValue: 1
+    enemyAbilityList:
+    - name: Plot Armor
+      intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+      description: Apply <color=#FFB430>{value1} Cheat Death</color> to a random
+        ally. \nApply <color=#FFB430>{value2} Brush Off</color> to a random ally.
+      keywords: 3a0000003b000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 20
+        minActionValue: 70
+        maxActionValue: 70
+        targetRestriction: 2
+        targetSlot: 1
+        applyLightMultiplier: 0
+        statusType: 55
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 148
+        customAudioType: 151
+      - actionType: 20
+        minActionValue: 25
+        maxActionValue: 25
+        targetRestriction: 2
+        targetSlot: 2
+        applyLightMultiplier: 0
+        statusType: 56
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 148
+        customAudioType: 151
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+    - name: "Prot\xE9g\xE9 Encouragement"
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Apply <color=#FFB430>{value1} Strength</color> to a random ally.
+        \nApply <color=#FFB430>{value2} Might</color> to a random ally.
+      keywords: 3700000001000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 20
+        minActionValue: 8
+        maxActionValue: 8
+        targetRestriction: 2
+        targetSlot: 1
+        applyLightMultiplier: 0
+        statusType: 3
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 149
+        customAudioType: 152
+      - actionType: 20
+        minActionValue: 2
+        maxActionValue: 2
+        targetRestriction: 2
+        targetSlot: 2
+        applyLightMultiplier: 0
+        statusType: 52
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 148
+        customAudioType: 151
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+    - name: Script Revision
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: 'Remove <color=#FFB430>Severed String</color> from <color=#FFB430>All</color>
+        allies.\n<color=#FFB430>Heal</color> them back to full health.\nTake <color=#FFB430>10%</color>
+        Max HP as damage for each removed.
+
+'
+      keywords: 34000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 18
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 3
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 150
+        customAudioType: 153
+      repeatCount: 0
+      conditions:
+      - target: 2
+        conditionType: 0
+        specificStatus: 49
+        threshold: 1
+      weight: 100
+      maxConsecutiveUses: 0
+    - name: Spotlight
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage. \nApply <color=#FFB430>Spotlight</color>.
+      keywords: 39000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 19
+        minActionValue: 30
+        maxActionValue: 34
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 151
+        customAudioType: 154
+      repeatCount: 0
+      conditions: []
+      weight: 4
+      maxConsecutiveUses: 1
+  - actNumber: 5
+    maxHealth: 100000
+    startingStatuses:
+    - statusType: 60
+      statusValue: 1
+    - statusType: 50
+      statusValue: 1
+    enemyAbilityList:
+    - name: Plot Armor
+      intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
+      description: Apply <color=#FFB430>{value1} Cheat Death</color> to a random
+        ally. \nApply <color=#FFB430>{value2} Brush Off</color> to a random ally.
+      keywords: 3a0000003b000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 20
+        minActionValue: 80
+        maxActionValue: 80
+        targetRestriction: 2
+        targetSlot: 1
+        applyLightMultiplier: 0
+        statusType: 55
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 148
+        customAudioType: 151
+      - actionType: 20
+        minActionValue: 40
+        maxActionValue: 40
+        targetRestriction: 2
+        targetSlot: 2
+        applyLightMultiplier: 0
+        statusType: 56
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 148
+        customAudioType: 151
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+    - name: "Prot\xE9g\xE9 Encouragement"
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Apply <color=#FFB430>{value1} Strength</color> to a random ally.
+        \nApply <color=#FFB430>{value2} Might</color> to a random ally.
+      keywords: 3700000001000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 20
+        minActionValue: 12
+        maxActionValue: 12
+        targetRestriction: 2
+        targetSlot: 1
+        applyLightMultiplier: 0
+        statusType: 3
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 149
+        customAudioType: 152
+      - actionType: 20
+        minActionValue: 3
+        maxActionValue: 3
+        targetRestriction: 2
+        targetSlot: 2
+        applyLightMultiplier: 0
+        statusType: 52
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 1
+        customFxType: 148
+        customAudioType: 151
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+    - name: Script Revision
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: 'Remove <color=#FFB430>Severed String</color> from <color=#FFB430>All</color>
+        allies.\n<color=#FFB430>Heal</color> them back to full health.\nTake <color=#FFB430>10%</color>
+        Max HP as damage for each removed.
+
+'
+      keywords: 34000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 18
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 3
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 150
+        customAudioType: 153
+      repeatCount: 0
+      conditions:
+      - target: 2
+        conditionType: 0
+        specificStatus: 49
+        threshold: 1
+      weight: 100
+      maxConsecutiveUses: 0
+    - name: Spotlight
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage. \nApply <color=#FFB430>Spotlight</color>.
+      keywords: 39000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 19
+        minActionValue: 38
+        maxActionValue: 43
         targetRestriction: 0
         targetSlot: 0
         applyLightMultiplier: 1

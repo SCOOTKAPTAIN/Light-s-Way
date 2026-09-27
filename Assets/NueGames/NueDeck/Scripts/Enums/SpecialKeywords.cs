@@ -73,7 +73,8 @@
         Ego,
         Understanding,
         Brittle,
-        DamageCut
+        DamageCut,
+        EntropyFeast
         
 
 

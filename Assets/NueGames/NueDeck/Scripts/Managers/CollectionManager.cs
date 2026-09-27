@@ -390,14 +390,76 @@ namespace NueGames.NueDeck.Scripts.Managers
             var sourcePile = selectedIndex < DrawPile.Count ? DrawPile : DiscardPile;
             var pileIndex = selectedIndex < DrawPile.Count ? selectedIndex : selectedIndex - DrawPile.Count;
             var cardData = sourcePile[pileIndex];
+            var sourceTransform = selectedIndex < DrawPile.Count
+                ? HandController.drawTransform
+                : HandController.discardTransform;
             sourcePile.RemoveAt(pileIndex);
             ExhaustPile.Add(cardData);
             RevertVanguardStanceEntry(ExhaustPile);
+
+            AnimateCardBetweenPiles(cardData, sourceTransform, HandController.exhaustTransform);
 
             if (UIManager != null && UIManager.CombatCanvas != null)
                 UIManager.CombatCanvas.SetPileTexts();
 
             return true;
+        }
+
+        private void AnimateCardBetweenPiles(CardData cardData, Transform sourceTransform, Transform destinationTransform)
+        {
+            if (cardData == null || sourceTransform == null || destinationTransform == null || GameManager == null)
+                return;
+
+            var cardClone = GameManager.BuildAndGetCard(cardData, sourceTransform);
+            StartCoroutine(AnimateCardToPile(cardClone, sourceTransform, destinationTransform));
+        }
+
+        private IEnumerator AnimateCardToPile(CardBase card, Transform sourceTransform, Transform destinationTransform)
+        {
+            if (card == null || sourceTransform == null || destinationTransform == null)
+                yield break;
+
+            var cardTransform = card.transform;
+            var startPosition = cardTransform.position;
+            cardTransform.SetParent(destinationTransform, true);
+            var endPosition = GetCardFlingTarget(startPosition, destinationTransform.position);
+            var startScale = cardTransform.localScale;
+            var endScale = Vector3.zero;
+            var startRotation = cardTransform.localRotation;
+            var endRotation = Quaternion.Euler(Random.value * 360f, Random.value * 360f, Random.value * 360f);
+
+            var timer = 0f;
+            const float duration = 1.5f;
+            while (timer < duration)
+            {
+                timer += Time.deltaTime;
+                var progress = Mathf.SmoothStep(0f, 1f, timer / duration);
+                cardTransform.position = Vector3.Lerp(startPosition, endPosition, progress);
+                cardTransform.position += Vector3.up * Mathf.Sin(progress * Mathf.PI) * 0.35f;
+                cardTransform.localRotation = Quaternion.Lerp(startRotation, endRotation, progress);
+                cardTransform.localScale = Vector3.Lerp(startScale, endScale, progress);
+                yield return null;
+            }
+
+            Destroy(card.gameObject);
+        }
+
+        private Vector3 GetCardFlingTarget(Vector3 startPosition, Vector3 fallbackPosition)
+        {
+            var camera = HandController != null && HandController.cam != null
+                ? HandController.cam
+                : Camera.main;
+            if (camera == null)
+                return fallbackPosition;
+
+            var screenPosition = camera.WorldToScreenPoint(startPosition);
+            if (screenPosition.z <= 0f)
+                return fallbackPosition;
+
+            return camera.ScreenToWorldPoint(new Vector3(
+                Screen.width * 0.5f,
+                Screen.height * 0.86f,
+                screenPosition.z));
         }
 
         // Piqued Interest: discards the selected Attack/Buff cards, then draws the same number of

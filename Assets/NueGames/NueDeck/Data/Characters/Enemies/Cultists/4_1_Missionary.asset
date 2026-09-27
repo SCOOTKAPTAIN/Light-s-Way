@@ -23,7 +23,7 @@ MonoBehaviour:
 '
   maxHealth: 10
   enemyPrefab: {fileID: 243822687015991123, guid: 423cb5c30def2ee46867530856c361b9, type: 3}
-  mutatedVersion: {fileID: 0}
+  mutatedVersion: {fileID: 11400000, guid: fa1f18591935ba041828d063b867068c, type: 2}
   chaosificationStatus:
     modifierName: 
     icon: {fileID: 0}
@@ -45,8 +45,10 @@ MonoBehaviour:
         minActionValue: 6
         maxActionValue: 6
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 1
         suppressPresentation: 0
         customFxType: 137
@@ -66,8 +68,10 @@ MonoBehaviour:
         minActionValue: 6
         maxActionValue: 6
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 1
         suppressPresentation: 0
         customFxType: 137
@@ -87,8 +91,10 @@ MonoBehaviour:
         minActionValue: 1
         maxActionValue: 1
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 0
         statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 1
         suppressPresentation: 0
         customFxType: 138
@@ -107,8 +113,390 @@ MonoBehaviour:
         minActionValue: 19
         maxActionValue: 21
         targetRestriction: 0
+        targetSlot: 0
         applyLightMultiplier: 1
         statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 139
+        customAudioType: 142
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+  - actNumber: 2
+    maxHealth: 290
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Confessional Knives
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>3</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 11
+        maxActionValue: 11
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 137
+        customAudioType: 140
+      repeatCount: 3
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Confessional Knives
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>3</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 11
+        maxActionValue: 11
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 137
+        customAudioType: 140
+      repeatCount: 3
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Veil and Verdict
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Apply <color=#FFB430>Blind</color>. \nGrant <color=#FFB430>Ambush</color>
+        to self.
+      keywords: 1d0000002d000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 15
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 138
+        customAudioType: 141
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Final Sermon
+      intention: {fileID: 11400000, guid: 8ff4d02922df38048be5b7df2bf1e027, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 0
+        minActionValue: 27
+        maxActionValue: 29
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 139
+        customAudioType: 142
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+  - actNumber: 3
+    maxHealth: 435
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Confessional Knives
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>3</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 14
+        maxActionValue: 14
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 137
+        customAudioType: 140
+      repeatCount: 3
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Confessional Knives
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>3</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 14
+        maxActionValue: 14
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 137
+        customAudioType: 140
+      repeatCount: 3
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Veil and Verdict
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Apply <color=#FFB430>Blind</color>. \nGrant <color=#FFB430>Ambush</color>
+        to self.
+      keywords: 1d0000002d000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 15
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 138
+        customAudioType: 141
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Final Sermon
+      intention: {fileID: 11400000, guid: 8ff4d02922df38048be5b7df2bf1e027, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 0
+        minActionValue: 37
+        maxActionValue: 39
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 139
+        customAudioType: 142
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+  - actNumber: 4
+    maxHealth: 714
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Confessional Knives
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>3</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 17
+        maxActionValue: 17
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 137
+        customAudioType: 140
+      repeatCount: 3
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Confessional Knives
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>3</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 17
+        maxActionValue: 17
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 137
+        customAudioType: 140
+      repeatCount: 3
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Veil and Verdict
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Apply <color=#FFB430>Blind</color>. \nGrant <color=#FFB430>Ambush</color>
+        to self.
+      keywords: 1d0000002d000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 15
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 138
+        customAudioType: 141
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Final Sermon
+      intention: {fileID: 11400000, guid: 8ff4d02922df38048be5b7df2bf1e027, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 0
+        minActionValue: 49
+        maxActionValue: 51
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 139
+        customAudioType: 142
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+  - actNumber: 5
+    maxHealth: 1135
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Confessional Knives
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>3</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 20
+        maxActionValue: 20
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 137
+        customAudioType: 140
+      repeatCount: 3
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Confessional Knives
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>3</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 20
+        maxActionValue: 20
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 137
+        customAudioType: 140
+      repeatCount: 3
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Veil and Verdict
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Apply <color=#FFB430>Blind</color>. \nGrant <color=#FFB430>Ambush</color>
+        to self.
+      keywords: 1d0000002d000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 15
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 138
+        customAudioType: 141
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+    - name: Final Sermon
+      intention: {fileID: 11400000, guid: 8ff4d02922df38048be5b7df2bf1e027, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 0
+        minActionValue: 63
+        maxActionValue: 65
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
         overridePresentation: 1
         suppressPresentation: 0
         customFxType: 139
@@ -132,8 +520,10 @@ MonoBehaviour:
       minActionValue: 0
       maxActionValue: 0
       targetRestriction: 0
+      targetSlot: 0
       applyLightMultiplier: 1
       statusType: 0
+      cardToAdd: {fileID: 0}
       overridePresentation: 0
       suppressPresentation: 0
       customFxType: 0

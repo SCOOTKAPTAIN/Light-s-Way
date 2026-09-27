@@ -127,7 +127,8 @@
         BookwormExchange,
         PiquedInterest,
         VastLibrary,
-        SacrificeKnowledge
+        SacrificeKnowledge,
+        Lacerated
 
         
     

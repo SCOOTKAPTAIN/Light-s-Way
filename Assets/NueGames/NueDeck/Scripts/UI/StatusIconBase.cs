@@ -52,7 +52,7 @@ namespace NueGames.NueDeck.Scripts.UI
             }
 
             var isZeroStackMarker = MyStatusIconData != null &&
-                (MyStatusIconData.IconStatus == StatusType.Envy || MyStatusIconData.IconStatus == StatusType.Greed);
+                (MyStatusIconData.IconStatus == StatusType.Envy || MyStatusIconData.IconStatus == StatusType.Greed || MyStatusIconData.IconStatus == StatusType.Ego);
 
             if (statusValue < 0 || (statusValue == 0 && !isZeroStackMarker))
             {
