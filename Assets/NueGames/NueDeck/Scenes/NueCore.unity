@@ -4629,6 +4629,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 22fcb0e1bded3db4d9851b1b62c795f8, type: 3}
   - name: lanternshatters
     clip: {fileID: 8300000, guid: bfcdd2fcef593df40a9e10fed84c6a77, type: 3}
+  - name: texttype
+    clip: {fileID: 8300000, guid: a5ccacced4d7cc24c80e32191e0309d7, type: 3}
   music_source: {fileID: 1005807859}
   sfx_source: {fileID: 2019502690}
 --- !u!4 &1891413829

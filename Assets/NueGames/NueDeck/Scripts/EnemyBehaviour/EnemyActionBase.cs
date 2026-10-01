@@ -19,6 +19,20 @@ namespace NueGames.NueDeck.Scripts.EnemyBehaviour
             return CalculateBaseValue(baseValue, actionData);
         }
 
+        public virtual int CalculateValueForPreview(float baseValue, CharacterBase selfCharacter, CharacterBase targetCharacter, EnemyActionData actionData)
+        {
+            var previousSuppressPursuitDamage = NueGames.NueDeck.Scripts.Utils.DamageEffects.SuppressPursuitDamage;
+            NueGames.NueDeck.Scripts.Utils.DamageEffects.SuppressPursuitDamage = true;
+            try
+            {
+                return CalculateValue(baseValue, selfCharacter, targetCharacter, actionData);
+            }
+            finally
+            {
+                NueGames.NueDeck.Scripts.Utils.DamageEffects.SuppressPursuitDamage = previousSuppressPursuitDamage;
+            }
+        }
+
         protected int CalculateBaseValue(float baseValue, EnemyActionData actionData)
         {
             return Mathf.RoundToInt(ApplyLightMultiplier(baseValue, actionData));

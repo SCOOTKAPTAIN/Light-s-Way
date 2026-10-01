@@ -548,7 +548,7 @@ namespace NueGames.NueDeck.Scripts.Characters
         private int CalculateActionValue(EnemyActionData actionData, CharacterBase targetCharacter)
         {
             var action = EnemyActionProcessor.GetAction(actionData.ActionType);
-            var value = action.CalculateValue(GetActionValue(actionData), this, targetCharacter, actionData);
+            var value = action.CalculateValueForPreview(GetActionValue(actionData), this, targetCharacter, actionData);
 
             if (action.UsesDamageModifiersForPreview && targetCharacter != null)
             {

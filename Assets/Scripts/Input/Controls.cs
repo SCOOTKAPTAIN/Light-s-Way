@@ -1201,6 +1201,17 @@ namespace Lightsway.InputSystem
                     ""action"": ""AdvanceText/ConfirmChoices"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a1e3eb0-6a8a-4d18-b1f7-1251fade46ae"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AdvanceText/ConfirmChoices"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }

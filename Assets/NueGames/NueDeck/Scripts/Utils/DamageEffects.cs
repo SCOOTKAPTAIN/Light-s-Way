@@ -7,6 +7,8 @@ namespace NueGames.NueDeck.Scripts.Utils
 {
     public static class DamageEffects
     {
+        public static bool SuppressPursuitDamage { get; set; }
+
         /// <summary>
         /// Gets the Light-based damage multiplier for enemies based on current Light level.
         /// 100-80: 1.0x (no buff), 79-50: 1.1x, 49-25: 1.15x, 24-10: 1.25x, 9-1: 1.4x, 0: 1.5x
@@ -155,7 +157,7 @@ namespace NueGames.NueDeck.Scripts.Utils
             Debug.Log($"[DamageEffects] Fragile×Weak×Slimed: {fragileMultiplier} × {weaknessMultiplier} × {slimedMultiplier} = {combinedMultiplier}, Adjusted: {adjustedBaseValue} × {combinedMultiplier} = {adjustedValue}");
 
             // Pursuit: Deal additional damage based on stacks and multipliers
-            if (attacker != null && attacker.CharacterStats.StatusDict[StatusType.Pursuit].StatusValue > 0)
+            if (!SuppressPursuitDamage && attacker != null && attacker.CharacterStats.StatusDict[StatusType.Pursuit].StatusValue > 0)
             {
                 int pursuitStacks = attacker.CharacterStats.StatusDict[StatusType.Pursuit].StatusValue;
                 int pursuitValue = Mathf.RoundToInt(pursuitStacks * combinedMultiplier);
