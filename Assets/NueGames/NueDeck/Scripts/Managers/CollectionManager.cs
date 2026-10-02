@@ -128,7 +128,7 @@ namespace NueGames.NueDeck.Scripts.Managers
 
             for (var i = 0; i < targetDrawCount; i++)
             {
-                if (GameManager.GameplayData.MaxCardOnHand<=HandPile.Count)
+                if (GameManager.PersistentGameplayData.Capacity <= HandPile.Count)
                     return;
                 
                 if (DrawPile.Count <= 0)
@@ -197,7 +197,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         public bool MoveDrawCardToHand(CardData targetCard)
         {
             if (targetCard == null || HandController == null || GameManager == null ||
-                GameManager.GameplayData == null || HandPile.Count >= GameManager.GameplayData.MaxCardOnHand)
+                GameManager.GameplayData == null || HandPile.Count >= GameManager.PersistentGameplayData.Capacity)
                 return false;
 
             var drawIndex = DrawPile.IndexOf(targetCard);
@@ -293,7 +293,7 @@ namespace NueGames.NueDeck.Scripts.Managers
 
             for (var index = 0; index < endlessChambers.StatusValue; index++)
             {
-                if (GameManager.GameplayData.MaxCardOnHand <= HandPile.Count)
+                if (GameManager.PersistentGameplayData.Capacity <= HandPile.Count)
                     break;
 
                 var cardClone = GameManager.BuildAndGetCard(quickDrawCard, HandController.transform);
@@ -481,7 +481,7 @@ namespace NueGames.NueDeck.Scripts.Managers
             }
 
             var drawnCount = 0;
-            var maxHandSize = GameManager.GameplayData.MaxCardOnHand;
+            var maxHandSize = GameManager.PersistentGameplayData.Capacity;
 
             foreach (var category in neededCategories)
             {
@@ -663,7 +663,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         private int DrawMatchingCopies(List<CardData> sourcePile, CardData targetCard)
         {
             var drawnCount = 0;
-            var maxHandSize = GameManager.GameplayData.MaxCardOnHand;
+            var maxHandSize = GameManager.PersistentGameplayData.Capacity;
 
             for (var index = sourcePile.Count - 1; index >= 0; index--)
             {

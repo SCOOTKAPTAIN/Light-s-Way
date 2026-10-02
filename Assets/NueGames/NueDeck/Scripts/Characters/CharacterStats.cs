@@ -660,6 +660,13 @@ namespace NueGames.NueDeck.Scripts.Characters
             // After processing all statuses (including decrement/clear), lock in the stun state for this turn
             // based on the pre-decrement snapshot so Stun stacks translate to full skipped turns.
             IsStunned = willStunThisTurn;
+
+            if (IsPlayerCharacter() && GameManager.Instance?.PersistentGameplayData != null)
+            {
+                var metabolism = GameManager.Instance.PersistentGameplayData.Metabolism;
+                if (metabolism > 0)
+                    HealWithPopup(metabolism);
+            }
         }
 
         private IEnumerator TriggerVigilanceAfterDelay()
@@ -858,6 +865,31 @@ namespace NueGames.NueDeck.Scripts.Characters
             CurrentHealth += value;
             if (CurrentHealth>MaxHealth)  CurrentHealth = MaxHealth;
             OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
+        }
+
+        public int HealWithPopup(int value)
+        {
+            if (value <= 0 || IsDeath)
+                return 0;
+
+            var healthBefore = CurrentHealth;
+            Heal(value);
+            var healthGained = CurrentHealth - healthBefore;
+
+            if (healthGained > 0 && FxManager.Instance != null)
+            {
+                var character = _characterCanvas != null
+                    ? _characterCanvas.GetComponentInParent<CharacterBase>()
+                    : null;
+                var spawnRoot = character != null && character.TextSpawnRoot != null
+                    ? character.TextSpawnRoot
+                    : _characterCanvas != null ? _characterCanvas.transform : null;
+
+                if (spawnRoot != null)
+                    FxManager.Instance.SpawnFloatingTextGreen(spawnRoot, healthGained.ToString());
+            }
+
+            return healthGained;
         }
         
         public bool Damage(int value, bool canPierceArmor = false, string damageTextColor = "red", NueGames.NueDeck.Scripts.Characters.CharacterBase attacker = null, bool triggerSabotaged = true)
@@ -1223,7 +1255,11 @@ namespace NueGames.NueDeck.Scripts.Characters
         
         public void IncreaseMaxHealth(int value)
         {
+            if (value <= 0)
+                return;
+
             MaxHealth += value;
+            CurrentHealth += value;
             OnHealthChanged?.Invoke(CurrentHealth,MaxHealth);
         }
 

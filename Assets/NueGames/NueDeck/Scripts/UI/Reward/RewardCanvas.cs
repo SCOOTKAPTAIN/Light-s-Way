@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Data.Collection.RewardData;
@@ -13,12 +14,15 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
     public class RewardCanvas : CanvasBase
     {
         protected override bool BlocksBackgroundInput => true;
+        private const string GoldColor = "#FFD700";
+        private const string HealColor = "#62E26F";
 
         [Header("References")]
         [SerializeField] private RewardContainerData rewardContainerData;
         [SerializeField] private Transform rewardRoot;
         [SerializeField] private RewardContainer rewardContainerPrefab;
         [SerializeField] private Transform rewardPanelRoot;
+        [SerializeField] private Sprite metabolismRewardIcon;
         [Header("Choice")]
         [SerializeField] private Transform choice2DCardSpawnRoot;
         [SerializeField] private ChoiceCard choiceCardUIPrefab;
@@ -47,6 +51,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
                 // Use default rewards
                 BuildReward(RewardType.Gold);
                 BuildReward(RewardType.Card);
+                BuildMetabolismReward();
                 return;
             }
             
@@ -67,6 +72,8 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
                     BuildCustomCardReward(cardRewardData);
                 }
             }
+
+            BuildMetabolismReward();
         }
         
         public void BuildReward(RewardType rewardType)
@@ -78,7 +85,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
             {
                 case RewardType.Gold:
                     var rewardGold = rewardContainerData.GetRandomGoldReward(out var goldRewardData);
-                    rewardClone.BuildReward(goldRewardData.RewardSprite,goldRewardData.RewardDescription);
+                    rewardClone.BuildReward(goldRewardData.RewardSprite, ColorGoldWord(goldRewardData.RewardDescription));
                     rewardClone.RewardButton.onClick.AddListener(()=>GetGoldReward(rewardClone,rewardGold));
                     break;
                 case RewardType.Card:
@@ -90,6 +97,16 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
                     rewardClone.RewardButton.onClick.AddListener(()=>GetCardReward(rewardClone,3));
                     break;
                 case RewardType.Relic:
+                    break;
+                case RewardType.MetabolismHeal:
+                    if (GameManager.PersistentGameplayData.Metabolism <= 0)
+                    {
+                        _currentRewardsList.Remove(rewardClone);
+                        Destroy(rewardClone.gameObject);
+                        return;
+                    }
+
+                    BuildMetabolismReward(rewardClone);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(rewardType), rewardType, null);
@@ -132,8 +149,38 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
             _currentRewardsList.Add(rewardClone);
             
             var goldAmount = UnityEngine.Random.Range(goldRewardData.MinGold, goldRewardData.MaxGold);
-            rewardClone.BuildReward(goldRewardData.RewardSprite, goldRewardData.RewardDescription);
+            rewardClone.BuildReward(goldRewardData.RewardSprite, ColorGoldWord(goldRewardData.RewardDescription));
             rewardClone.RewardButton.onClick.AddListener(() => GetGoldReward(rewardClone, goldAmount));
+        }
+
+        private void BuildMetabolismReward()
+        {
+            if (GameManager.PersistentGameplayData.Metabolism > 0)
+                BuildReward(RewardType.MetabolismHeal);
+        }
+
+        private void BuildMetabolismReward(RewardContainer rewardContainer)
+        {
+            var ally = CombatManager != null ? CombatManager.CurrentMainAlly : null;
+            var stats = ally != null ? ally.CharacterStats : null;
+            var metabolism = GameManager.PersistentGameplayData.Metabolism;
+            var healAmount = stats != null
+                ? Mathf.Max(1, Mathf.RoundToInt(stats.MaxHealth * metabolism * 0.02f))
+                : 0;
+
+            var recoveryPercent = $"<color={HealColor}>{metabolism * 2}%</color>";
+            var recoveryAmount = $"<color={HealColor}>{healAmount}</color>";
+            rewardContainer.BuildReward(metabolismRewardIcon, $"Recover {recoveryPercent} Health ({recoveryAmount})");
+            rewardContainer.RewardButton.onClick.AddListener(() => GetMetabolismReward(rewardContainer, healAmount));
+        }
+
+        private static string ColorGoldWord(string description)
+        {
+            return Regex.Replace(
+                description ?? string.Empty,
+                @"\bgold\b",
+                $"<color={GoldColor}>Gold</color>",
+                RegexOptions.IgnoreCase);
         }
         
         private void BuildCustomCardReward(CardRewardData cardRewardData)
@@ -179,6 +226,22 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
                 
             }
             
+            Destroy(rewardContainer.gameObject);
+        }
+
+        private void GetMetabolismReward(RewardContainer rewardContainer, int amount)
+        {
+            var ally = CombatManager != null ? CombatManager.CurrentMainAlly : null;
+            if (ally != null && ally.CharacterStats != null)
+            {
+                ally.CharacterStats.HealWithPopup(amount);
+                GameManager.PersistentGameplayData.SetAllyHealthData(
+                    ally.AllyCharacterData.CharacterID,
+                    ally.CharacterStats.CurrentHealth,
+                    ally.CharacterStats.MaxHealth);
+            }
+
+            _currentRewardsList.Remove(rewardContainer);
             Destroy(rewardContainer.gameObject);
         }
         #endregion

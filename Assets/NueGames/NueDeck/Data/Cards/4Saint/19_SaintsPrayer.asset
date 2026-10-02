@@ -24,10 +24,13 @@ MonoBehaviour:
     actionTargetType: 1
     actionValue: 1
     actionDelay: 0
+    isAreaOfEffect: 0
+  endTurnActionDataList: []
+  exhaustAfterEndTurn: 0
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: 'Gain 1 '
+  - descriptionText: 'Gain {1+Wisdom} '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0

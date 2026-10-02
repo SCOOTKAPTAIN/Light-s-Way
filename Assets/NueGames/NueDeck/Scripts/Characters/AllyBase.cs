@@ -35,8 +35,8 @@ namespace NueGames.NueDeck.Scripts.Characters
             {
                 GameManager.PersistentGameplayData.SetAllyHealthData(
                     AllyCharacterData.CharacterID,CharacterStats.CurrentHealth +
-                     GameManager.Instance.PersistentGameplayData.bonusMaxHealth,CharacterStats.MaxHealth
-                     + GameManager.Instance.PersistentGameplayData.bonusMaxHealth);
+                     GameManager.Instance.PersistentGameplayData.Vigor,CharacterStats.MaxHealth
+                     + GameManager.Instance.PersistentGameplayData.Vigor);
             }
             
             CharacterStats.OnDeath += OnDeath;

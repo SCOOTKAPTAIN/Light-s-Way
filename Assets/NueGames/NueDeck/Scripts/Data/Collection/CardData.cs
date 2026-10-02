@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using NueGames.NueDeck.Scripts.Data.Settings;
+using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
 using NueGames.NueDeck.Scripts.NueExtentions;
@@ -174,7 +175,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         {
             var str = new StringBuilder();
             
-            str.Append(DescriptionText);
+            str.Append(CardScaling.ResolveDescription(DescriptionText));
             
             if (EnableOverrideColor && !string.IsNullOrEmpty(str.ToString())) 
                 str.Replace(str.ToString(),ColorExtentions.ColorString(str.ToString(),OverrideColor));
@@ -238,7 +239,7 @@ namespace NueGames.NueDeck.Scripts.Data.Collection
         {
             var str = new StringBuilder();
             
-            str.Append(DescriptionText);
+            str.Append(CardScaling.ResolveDescription(DescriptionText));
             
             return str.ToString();
         }

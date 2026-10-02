@@ -112,7 +112,7 @@ namespace NueGames.NueDeck.Scripts.UI
         {
             var gameplayData = GameManager.PersistentGameplayData;
             SetStatsProficiencyText(gameplayData.Proficiency);
-            SetArcanaText(gameplayData.MaxMana);
+            SetArcanaText(gameplayData.Arcana);
             SetWisdomText(gameplayData.Wisdom);
             SetPotencyText(gameplayData.Potency);
             SetAffinityText(gameplayData.Affinity);

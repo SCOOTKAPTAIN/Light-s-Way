@@ -22,7 +22,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (CollectionManager == null || CollectionManager.HandController == null ||
                 inventoryCanvas == null || CollectionManager.DrawPile.Count == 0 || GameManager == null ||
                 GameManager.GameplayData == null ||
-                CollectionManager.HandPile.Count >= GameManager.GameplayData.MaxCardOnHand)
+                CollectionManager.HandPile.Count >= GameManager.PersistentGameplayData.Capacity)
                 yield break;
 
             CardData selectedCard = null;

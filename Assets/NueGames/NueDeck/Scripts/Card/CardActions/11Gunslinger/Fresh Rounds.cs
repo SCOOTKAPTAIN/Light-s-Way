@@ -33,7 +33,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                     break;
 
                 if (GameManager != null && GameManager.GameplayData != null &&
-                    GameManager.GameplayData.MaxCardOnHand <= CollectionManager.HandPile.Count)
+                    GameManager.PersistentGameplayData.Capacity <= CollectionManager.HandPile.Count)
                     break;
 
                 var cardClone = GameManager.BuildAndGetCard(quickDrawCardData, CollectionManager.HandController.transform);

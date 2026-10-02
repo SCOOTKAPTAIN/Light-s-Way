@@ -16,6 +16,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private int currentGold;
         [SerializeField] private int drawCount;
         [SerializeField] private int maxMana;
+        [SerializeField] private int maxCardOnHand;
         [SerializeField] private int currentMana;
         [SerializeField] private int lightLoss;
         [SerializeField] private bool canUseCards;
@@ -97,8 +98,9 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         }
         public void InitData()
         {
-            DrawCount = _gameplayData.DrawCount;
+            DrawCount = Mathf.Max(5, _gameplayData.DrawCount);
             MaxMana = _gameplayData.MaxMana;
+            MaxCardOnHand = Mathf.Max(12, _gameplayData.MaxCardOnHand);
             CurrentMana = MaxMana;
             CanUseCards = true;
             CanSelectCards = true;
@@ -145,6 +147,18 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         {
             get => maxMana;
             set => maxMana = value;
+        }
+
+        public int MaxCardOnHand
+        {
+            get => maxCardOnHand;
+            set => maxCardOnHand = Mathf.Max(0, value);
+        }
+
+        public int Arcana
+        {
+            get => MaxMana;
+            set => MaxMana = Mathf.Max(0, value);
         }
 
         public int CurrentMana
@@ -282,14 +296,14 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
 
         public int Abundance
         {
-            get => abundance;
-            set => abundance = value;
+            get => DrawCount;
+            set => DrawCount = Mathf.Max(0, value);
         }
 
         public int Capacity
         {
-            get => capacity;
-            set => capacity = value;
+            get => MaxCardOnHand;
+            set => MaxCardOnHand = value;
         }
 
         public int Radiance

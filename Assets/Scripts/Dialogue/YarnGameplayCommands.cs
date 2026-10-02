@@ -126,7 +126,55 @@ public sealed class YarnGameplayCommands : MonoBehaviour
     [YarnCommand("change_vigor")]
     public static void ChangeVigor(int amount)
     {
-        ChangePersistentStat("vigor", amount, value => GameManager.Instance.PersistentGameplayData.Vigor = value);
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData == null)
+            return;
+
+        var previousVigor = gameplayData.Vigor;
+        ChangePersistentStat("vigor", amount, value => gameplayData.Vigor = value);
+        ApplyVigorDelta(gameplayData.Vigor - previousVigor);
+    }
+
+    private static void ApplyVigorDelta(int delta)
+    {
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData == null)
+            return;
+
+        var combatManager = CombatManager.Instance;
+        var ally = combatManager != null ? combatManager.CurrentMainAlly : null;
+        if (ally != null && ally.CharacterStats != null)
+        {
+            if (delta > 0)
+                ally.CharacterStats.IncreaseMaxHealth(delta);
+            else if (delta < 0)
+                ally.CharacterStats.ApplyPermanentMaxHealthReduction(-delta);
+
+            gameplayData.SetAllyHealthData(
+                ally.AllyCharacterData.CharacterID,
+                ally.CharacterStats.CurrentHealth,
+                ally.CharacterStats.MaxHealth);
+
+            UIManager.Instance?.InformationCanvas?.SetHealthText(
+                ally.CharacterStats.CurrentHealth,
+                ally.CharacterStats.MaxHealth);
+            return;
+        }
+
+        if (gameplayData.AllyHealthDataList.Count > 0)
+        {
+            var healthData = gameplayData.AllyHealthDataList[0];
+            healthData.MaxHealth += delta;
+            healthData.CurrentHealth = Mathf.Clamp(healthData.CurrentHealth + delta, 1, healthData.MaxHealth);
+            UIManager.Instance?.InformationCanvas?.SetHealthText(healthData.CurrentHealth, healthData.MaxHealth);
+            return;
+        }
+
+        if (gameplayData.AllyList.Count > 0)
+        {
+            var health = gameplayData.AllyList[0].AllyCharacterData.MaxHealth + gameplayData.Vigor;
+            UIManager.Instance?.InformationCanvas?.SetHealthText(health, health);
+        }
     }
 
     [YarnCommand("change_insight")]

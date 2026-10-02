@@ -10,13 +10,13 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
     public class GameplayData : ScriptableObject
     {
         [Header("Gameplay Settings")] 
-        [SerializeField] private int drawCount = 4;
+        [SerializeField] private int drawCount = 5;
         [SerializeField] private int maxMana = 3;
         [SerializeField] private List<AllyBase> initalAllyList;
         
         [Header("Decks")] 
         [SerializeField] private DeckData initalDeck;
-        [SerializeField] private int maxCardOnHand;
+        [SerializeField] private int maxCardOnHand = 12;
         
         [Header("Card Settings")] 
         [SerializeField] private List<CardData> allCardsList;
