@@ -22,6 +22,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         [SerializeField] private RewardCanvas rewardCanvas;
         [SerializeField] private InventoryCanvas inventoryCanvas;
         [SerializeField] private CardSelectionCanvas cardSelectionCanvas;
+        [SerializeField] private GameObject combatPauseMenuPanel;
         
 
         [Header("Fader")]
@@ -37,6 +38,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         public RewardCanvas RewardCanvas => rewardCanvas;
         public InventoryCanvas InventoryCanvas => inventoryCanvas;
         public CardSelectionCanvas CardSelectionCanvas => cardSelectionCanvas;
+        public GameObject CombatPauseMenuPanel => combatPauseMenuPanel;
         #endregion
 
         #region Setup
@@ -85,6 +87,9 @@ namespace NueGames.NueDeck.Scripts.Managers
 
         private void OnEscapePressed(InputAction.CallbackContext context)
         {
+            if (CombatCanvas == null || !CombatCanvas.gameObject.activeInHierarchy)
+                return;
+
             if (CardSelectionCanvas != null && CardSelectionCanvas.gameObject.activeInHierarchy)
             {
                 CardSelectionCanvas.CloseCanvas();
@@ -99,7 +104,13 @@ namespace NueGames.NueDeck.Scripts.Managers
 
             var lightCardPanel = CombatCanvas != null ? CombatCanvas.LightCardSelectionPanel : null;
             if (lightCardPanel != null && lightCardPanel.IsOpen)
+            {
                 lightCardPanel.CloseCanvas();
+                return;
+            }
+
+            if (CombatPauseMenuPanel != null)
+                CombatPauseMenuPanel.SetActive(!CombatPauseMenuPanel.activeSelf);
         }
         #endregion
 

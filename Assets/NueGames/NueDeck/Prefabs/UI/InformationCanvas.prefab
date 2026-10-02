@@ -1792,6 +1792,7 @@ GameObject:
   - component: {fileID: 2516079123782478151}
   - component: {fileID: 1926899827604298830}
   - component: {fileID: 7730376862440079986}
+  - component: {fileID: 70775421152338549}
   m_Layer: 5
   m_Name: Stats
   m_TagString: Untagged
@@ -1858,6 +1859,39 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &70775421152338549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5283161846201004580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 679c9dbfd794dfd4aa3995349f97bb14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipTemplate: '<b>Stats</b>
+
+    Light: {Light}
+
+    Max Mana: {MaxMana}
+
+    Proficiency:
+    {Proficiency}
+
+    Wisdom: {Wisdom}
+
+    Potency: {Potency}
+
+    Affinity: {Affinity}
+
+    Metabolism:
+    {Metabolism}
+
+    Vigor: {Vigor}
+
+    Insight: {Insight}'
 --- !u!1 &5615337849625873971
 GameObject:
   m_ObjectHideFlags: 0

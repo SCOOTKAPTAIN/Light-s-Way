@@ -40,6 +40,9 @@ namespace Map
         private NodeStates currentState;
 
         private const float MaxClickDuration = 0.5f;
+        private const float NodeDetailsFadeDuration = 0.15f;
+
+        private CanvasGroup nodeDetailsCanvasGroup;
 
         void Update()
         {
@@ -278,11 +281,10 @@ namespace Map
             //     {
             //         MapView.Instance.NodeDetails.SetActive(false);
             //     }
-            if(GameManager.Instance.PersistentGameplayData.light < 49)
+            if (GameManager.Instance.PersistentGameplayData.light < 49)
             {
-                MapView.Instance.NodeDetails.SetActive(false);
-            }else
-            {MapView.Instance.NodeDetails.SetActive(true);}
+                FadeNodeDetails(false);
+            }
 
             switch(Node.nodeType)
             {
@@ -317,7 +319,40 @@ namespace Map
                 break;
 
             }
+
+            if (GameManager.Instance.PersistentGameplayData.light >= 49)
+                FadeNodeDetails(true);
             
+        }
+
+        private void FadeNodeDetails(bool show)
+        {
+            if (MapView.Instance == null || MapView.Instance.NodeDetails == null)
+                return;
+
+            var nodeDetails = MapView.Instance.NodeDetails;
+            if (nodeDetailsCanvasGroup == null)
+            {
+                nodeDetailsCanvasGroup = nodeDetails.GetComponent<CanvasGroup>();
+                if (nodeDetailsCanvasGroup == null)
+                    nodeDetailsCanvasGroup = nodeDetails.AddComponent<CanvasGroup>();
+
+                nodeDetailsCanvasGroup.interactable = false;
+                nodeDetailsCanvasGroup.blocksRaycasts = false;
+            }
+
+            nodeDetailsCanvasGroup.DOKill();
+            if (show)
+                nodeDetails.SetActive(true);
+
+            nodeDetailsCanvasGroup
+                .DOFade(show ? 1f : 0f, NodeDetailsFadeDuration)
+                .SetUpdate(true)
+                .OnComplete(() =>
+                {
+                    if (!show && nodeDetailsCanvasGroup != null)
+                        nodeDetails.SetActive(false);
+                });
         }
 
         public void OnPointerEnter(PointerEventData data)
@@ -336,7 +371,7 @@ namespace Map
         {
             if (MapView.Instance != null && MapView.Instance.NodeDetails != null)
             {
-                MapView.Instance.NodeDetails.SetActive(false);
+                FadeNodeDetails(false);
             }
 
             SetSelectionVisual(false);

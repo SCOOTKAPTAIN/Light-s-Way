@@ -35,6 +35,15 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private int actnumber;
         [SerializeField] public int light;
         [SerializeField] public int proficiency;
+        [SerializeField] private int wisdom;
+        [SerializeField] private int potency;
+        [SerializeField] private int affinity;
+        [SerializeField] private int metabolism;
+        [SerializeField] private int vigor;
+        [SerializeField] private int insight;
+        [SerializeField] private int abundance;
+        [SerializeField] private int capacity;
+        [SerializeField] private int radiance;
         [SerializeField] private bool ActAlreadyPlayed;
 
         [SerializeField] private int BonusMaxHealth;
@@ -106,6 +115,15 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             light = 100;
             actnumber = 0;
             lightLoss = 2;
+            wisdom = 0;
+            potency = 0;
+            affinity = 0;
+            metabolism = 0;
+            vigor = 0;
+            insight = 0;
+            abundance = 0;
+            capacity = 0;
+            radiance = 0;
             ActAlreadyPlayed = false;
             BonusMaxHealth = 0;
             defeatedBossIds = new List<string>(); // Initialize defeated boss list
@@ -224,6 +242,60 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             get => proficiency;
             set => proficiency = value;
 
+        }
+
+        public int Wisdom
+        {
+            get => wisdom;
+            set => wisdom = value;
+        }
+
+        public int Potency
+        {
+            get => potency;
+            set => potency = value;
+        }
+
+        public int Affinity
+        {
+            get => affinity;
+            set => affinity = value;
+        }
+
+        public int Metabolism
+        {
+            get => metabolism;
+            set => metabolism = value;
+        }
+
+        public int Vigor
+        {
+            get => vigor;
+            set => vigor = value;
+        }
+
+        public int Insight
+        {
+            get => insight;
+            set => insight = value;
+        }
+
+        public int Abundance
+        {
+            get => abundance;
+            set => abundance = value;
+        }
+
+        public int Capacity
+        {
+            get => capacity;
+            set => capacity = value;
+        }
+
+        public int Radiance
+        {
+            get => radiance;
+            set => radiance = value;
         }
 
         public int LightLoss

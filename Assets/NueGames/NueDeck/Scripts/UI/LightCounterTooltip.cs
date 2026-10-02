@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Managers;
 using TMPro;
@@ -15,6 +16,7 @@ namespace NueGames.NueDeck.Scripts.UI
         [Header("References")]
         [SerializeField] private GameObject tooltipPanel;
         [SerializeField] private TextMeshProUGUI tooltipText;
+        [SerializeField] private float fadeDuration = 0.15f;
         
         [Header("Light Thresholds")]
         [SerializeField] private List<LightThreshold> lightThresholds = new List<LightThreshold>();
@@ -22,6 +24,8 @@ namespace NueGames.NueDeck.Scripts.UI
         private GameManager GameManager => GameManager.Instance;
 
         private RectTransform CounterRect => transform as RectTransform;
+        private CanvasGroup tooltipCanvasGroup;
+        private Coroutine fadeRoutine;
 
         private void Update()
         {
@@ -37,10 +41,19 @@ namespace NueGames.NueDeck.Scripts.UI
                 HideTooltip();
         }
         
-        private void Start()
+        private void Awake()
         {
-            if (tooltipPanel != null)
-                tooltipPanel.SetActive(false);
+            if (tooltipPanel == null)
+                return;
+
+            tooltipCanvasGroup = tooltipPanel.GetComponent<CanvasGroup>();
+            if (tooltipCanvasGroup == null)
+                tooltipCanvasGroup = tooltipPanel.AddComponent<CanvasGroup>();
+
+            tooltipCanvasGroup.interactable = false;
+            tooltipCanvasGroup.blocksRaycasts = false;
+            tooltipCanvasGroup.alpha = 0f;
+            tooltipPanel.SetActive(false);
         }
         
         public void OnPointerEnter(PointerEventData eventData)
@@ -99,7 +112,7 @@ namespace NueGames.NueDeck.Scripts.UI
             }
             
             tooltipText.text = content;
-            tooltipPanel.SetActive(true);
+            ShowTooltipPanel();
         }
         
         /// <summary>
@@ -119,8 +132,55 @@ namespace NueGames.NueDeck.Scripts.UI
 
         private void HideTooltip()
         {
-            if (tooltipPanel != null)
+            if (tooltipPanel == null || tooltipCanvasGroup == null)
+                return;
+
+            StartFade(0f);
+        }
+
+        private void ShowTooltipPanel()
+        {
+            if (tooltipPanel == null || tooltipCanvasGroup == null)
+                return;
+
+            tooltipPanel.SetActive(true);
+            StartFade(1f);
+        }
+
+        private void StartFade(float targetAlpha)
+        {
+            if (fadeRoutine != null)
+                StopCoroutine(fadeRoutine);
+
+            fadeRoutine = StartCoroutine(FadeRoutine(targetAlpha));
+        }
+
+        private IEnumerator FadeRoutine(float targetAlpha)
+        {
+            float startAlpha = tooltipCanvasGroup.alpha;
+            float duration = Mathf.Max(0f, fadeDuration);
+
+            if (duration <= 0f)
+            {
+                tooltipCanvasGroup.alpha = targetAlpha;
+            }
+            else
+            {
+                float elapsed = 0f;
+                while (elapsed < duration)
+                {
+                    elapsed += Time.unscaledDeltaTime;
+                    tooltipCanvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsed / duration);
+                    yield return null;
+                }
+
+                tooltipCanvasGroup.alpha = targetAlpha;
+            }
+
+            if (Mathf.Approximately(targetAlpha, 0f))
                 tooltipPanel.SetActive(false);
+
+            fadeRoutine = null;
         }
 
         /// <summary>
