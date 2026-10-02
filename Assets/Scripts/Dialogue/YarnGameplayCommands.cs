@@ -183,6 +183,23 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         ChangePersistentStat("insight", amount, value => GameManager.Instance.PersistentGameplayData.Insight = value);
     }
 
+    [YarnCommand("spend_insight")]
+    public static void SpendInsight(int amount)
+    {
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData == null || amount <= 0)
+            return;
+
+        if (gameplayData.Insight < amount)
+        {
+            Debug.LogWarning($"Cannot spend {amount} Insight; only {gameplayData.Insight} is available.");
+            return;
+        }
+
+        gameplayData.Insight -= amount;
+        UIManager.Instance?.InformationCanvas?.RefreshStatsText();
+    }
+
     [YarnCommand("change_abundance")]
     public static void ChangeAbundance(int amount)
     {
@@ -226,6 +243,7 @@ public sealed class YarnGameplayCommands : MonoBehaviour
 
         setValue(Mathf.Max(0, currentValue + amount));
         UIManager.Instance?.InformationCanvas?.RefreshStatsText();
+        UIManager.Instance?.CombatCanvas?.LightCardSelectionPanel?.RefreshCostText();
     }
 
     [YarnCommand("change_health")]
@@ -369,6 +387,18 @@ public sealed class YarnGameplayCommands : MonoBehaviour
     public static int GetLight()
     {
         return GameManager.Instance?.PersistentGameplayData?.Light ?? 0;
+    }
+
+    [YarnFunction("insight")]
+    public static int GetInsight()
+    {
+        return GameManager.Instance?.PersistentGameplayData?.Insight ?? 0;
+    }
+
+    [YarnFunction("can_afford_insight")]
+    public static bool CanAffordInsight(int amount)
+    {
+        return amount >= 0 && GetInsight() >= amount;
     }
 
     [YarnCommand("picture")]

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,7 @@ namespace NueGames.NueDeck.Scripts.UI
         [SerializeField] private Transform cardContainer;
         [SerializeField] private ChoiceCard choiceCardPrefab;
         [SerializeField] private Button closeButton;
+        [SerializeField] private TextMeshProUGUI lightCostTextField;
         
         [Header("Card Data")]
         [SerializeField] private CardData rekindleCardData;
@@ -36,6 +38,20 @@ namespace NueGames.NueDeck.Scripts.UI
         private bool _previousCanSelectCards;
 
         public bool IsOpen => gameObject.activeInHierarchy;
+
+        public int GetEffectiveLightCost()
+        {
+            var radiance = GameManager != null && GameManager.PersistentGameplayData != null
+                ? GameManager.PersistentGameplayData.Radiance
+                : 0;
+            return Mathf.Max(0, lightCost - radiance);
+        }
+
+        public void RefreshCostText()
+        {
+            if (lightCostTextField != null)
+                lightCostTextField.text = $"(-{GetEffectiveLightCost()} <color=#FFB430>Light</color>)";
+        }
         
         private void Awake()
         {
@@ -60,6 +76,7 @@ namespace NueGames.NueDeck.Scripts.UI
             
             // Clear previous cards
             ClearDisplayedCards();
+            RefreshCostText();
             
             // Create the 3 cards
             CreateLightCards();
@@ -117,15 +134,16 @@ namespace NueGames.NueDeck.Scripts.UI
                 return;
             }
             
-            if (GameManager.PersistentGameplayData.light < lightCost)
+            var effectiveLightCost = GetEffectiveLightCost();
+            if (GameManager.PersistentGameplayData.light < effectiveLightCost)
             {
-                Debug.Log($"Not enough Light! Need {lightCost}, have {GameManager.PersistentGameplayData.light}");
+                Debug.Log($"Not enough Light! Need {effectiveLightCost}, have {GameManager.PersistentGameplayData.light}");
                 // Could add visual feedback here (shake, sound, etc.)
                 return;
             }
             
             // Deduct Light
-            GameManager.PersistentGameplayData.ChangeLight(-lightCost);
+            GameManager.PersistentGameplayData.ChangeLight(-effectiveLightCost);
             
             // Create card instance and add to hand using GameManager's method
             if (GameManager != null && CollectionManager != null && CollectionManager.HandController != null)

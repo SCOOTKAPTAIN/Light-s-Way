@@ -97,8 +97,12 @@ namespace NueGames.NueDeck.Scripts.UI
                 return;
             }
             
+            var lightCardCost = lightCardSelectionPanel != null
+                ? lightCardSelectionPanel.GetEffectiveLightCost()
+                : 10;
+
             // Check if player has enough Light
-            if (GameManager.PersistentGameplayData.light < 10)
+            if (GameManager.PersistentGameplayData.light < lightCardCost)
             {
                 // Play "not enough Light" effects on the ally character
                 if (CombatManager != null && CombatManager.CurrentMainAlly != null)

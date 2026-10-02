@@ -44,6 +44,7 @@ public class variabletest : MonoBehaviour
       UIManager.Instance.InformationCanvas.SetLightText(data.Light);
       RefreshHealthText(data);
       UIManager.Instance.InformationCanvas.RefreshStatsText();
+      UIManager.Instance.CombatCanvas?.LightCardSelectionPanel?.RefreshCostText();
    }
    }
 
