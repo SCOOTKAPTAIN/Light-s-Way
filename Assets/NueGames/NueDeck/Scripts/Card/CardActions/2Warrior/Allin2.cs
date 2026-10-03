@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -13,8 +14,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var targetCharacter = actionParameters.TargetCharacter;
             var selfCharacter = actionParameters.SelfCharacter;
 
+            var strengthMultiplier = CardScaling.AddWisdom(3f);
             var value = GameManager.PersistentGameplayData.proficiency + actionParameters.Value
-             + (selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue * 3);
+             + (selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue * strengthMultiplier);
 
             FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.AllIn2);
 

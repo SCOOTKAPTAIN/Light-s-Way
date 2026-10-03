@@ -1,6 +1,7 @@
 using NueGames.NueDeck.Scripts.Data.Settings;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -20,7 +21,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                 Mathf.RoundToInt(actionParameters.Value + GameManager.PersistentGameplayData.proficiency + actionParameters.SelfCharacter.CharacterStats
                     .StatusDict[StatusType.Fortitude].StatusValue));
 
-            newTarget.CharacterStats.ApplyStatus(StatusType.DebuffWard, 3);
+            newTarget.CharacterStats.ApplyStatus(
+                StatusType.DebuffWard,
+                Mathf.RoundToInt(CardScaling.AddAffinity(3f)));
 
 
             if (FxManager != null)

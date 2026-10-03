@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -13,9 +14,10 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (actionParameters.SelfCharacter != null)
             {
                 var removed = actionParameters.SelfCharacter.CharacterStats.ClearDebuffs();
+                var healthPerRemovedBuff = Mathf.RoundToInt(CardScaling.AddWisdom(actionParameters.Value));
                 if (removed > 0)
-                    actionParameters.SelfCharacter.CharacterStats.Heal(removed * 2);
-                    FxManager.SpawnFloatingTextGreen(actionParameters.SelfCharacter.transform, (removed * 2).ToString());
+                    actionParameters.SelfCharacter.CharacterStats.Heal(removed * healthPerRemovedBuff);
+                    FxManager.SpawnFloatingTextGreen(actionParameters.SelfCharacter.transform, (removed * healthPerRemovedBuff).ToString());
             }
 
             if (FxManager != null)

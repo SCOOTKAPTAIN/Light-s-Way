@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -16,7 +17,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (!newTarget) return;
 
             // Apply "The Best Defence" status
-            newTarget.CharacterStats.ApplyStatus(StatusType.TheBestDefense, 1);
+            newTarget.CharacterStats.ApplyStatus(
+                StatusType.TheBestDefense,
+                Mathf.RoundToInt(CardScaling.AddAffinity(1f)));
 
             if (FxManager != null)
                 FxManager.PlayFx(newTarget.transform, FxType.TheBestDefense2, new Vector3(0f, 0.4f, 0f));

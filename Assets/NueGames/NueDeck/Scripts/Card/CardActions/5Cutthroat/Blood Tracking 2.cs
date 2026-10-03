@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -15,9 +16,10 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             if (!targetCharacter || !selfCharacter) return;
 
-            // Get bleeding value from target, capped at 10
+            // Get bleeding value from target, capped by the Affinity-scaled limit.
             var bleedingValue = targetCharacter.CharacterStats.StatusDict[StatusType.Bleeding].StatusValue;
-            var bonusAmount = Mathf.Min(bleedingValue, 10);
+            var bonusLimit = Mathf.RoundToInt(CardScaling.ScaleByAffinity(10f));
+            var bonusAmount = Mathf.Min(bleedingValue, bonusLimit);
 
             if (bonusAmount > 0)
             {

@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -25,7 +26,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
 
-            targetCharacter.CharacterStats.ApplyStatus(StatusType.Bleeding, 1);
+            targetCharacter.CharacterStats.ApplyStatus(
+                StatusType.Bleeding,
+                Mathf.RoundToInt(CardScaling.AddPotency(1f)));
 
 
             if (AudioManager != null)

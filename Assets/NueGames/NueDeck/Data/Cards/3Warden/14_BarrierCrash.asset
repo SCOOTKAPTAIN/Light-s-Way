@@ -24,10 +24,13 @@ MonoBehaviour:
     actionTargetType: 0
     actionValue: 0
     actionDelay: 0
+    isAreaOfEffect: 0
+  endTurnActionDataList: []
+  exhaustAfterEndTurn: 0
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: 'Deal damage equal to your current '
+  - descriptionText: 'Deal damage equal to '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -56,3 +59,4 @@ MonoBehaviour:
     overrideColorOnValueScaled: 0
   specialKeywordsList: 00000000
   audioType: 24
+  cardCategory: 0

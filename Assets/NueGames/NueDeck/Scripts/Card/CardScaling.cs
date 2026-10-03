@@ -11,10 +11,19 @@ namespace NueGames.NueDeck.Scripts.Card
     {
         private static readonly Regex DescriptionExpression = new Regex(@"\{([^{}]+)\}", RegexOptions.Compiled);
         private static readonly Regex ExpressionToken = new Regex(@"\s*(?<number>\d+(?:\.\d+)?)|\s*(?<name>[A-Za-z][A-Za-z0-9]*)|\s*(?<operator>[+\-*/()])", RegexOptions.Compiled);
+        private static readonly Regex AffinityExpression = new Regex(@"^\s*(?<base>\d+(?:\.\d+)?)\s*\+\s*Affinity\s*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public static float AddWisdom(float value) => value + GetStat("Wisdom");
 
         public static float AddPotency(float value) => value + GetStat("Potency");
+
+        public static float AddAffinity(float value) => ScaleByAffinity(value);
+
+        public static float ScaleByAffinity(float value)
+        {
+            var scaledValue = value * (1f + GetStat("Affinity") * 0.1f);
+            return Mathf.FloorToInt(scaledValue + 0.5f);
+        }
 
         public static float MultiplyByAffinity(float value) => value * (1f + GetStat("Affinity") * 0.1f);
 
@@ -25,6 +34,10 @@ namespace NueGames.NueDeck.Scripts.Card
 
             return DescriptionExpression.Replace(description, match =>
             {
+                var affinityMatch = AffinityExpression.Match(match.Groups[1].Value);
+                if (affinityMatch.Success && float.TryParse(affinityMatch.Groups["base"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out var affinityBase))
+                    return FormatValue(ScaleByAffinity(affinityBase));
+
                 if (!TryEvaluate(match.Groups[1].Value, out var value))
                     return match.Value;
 

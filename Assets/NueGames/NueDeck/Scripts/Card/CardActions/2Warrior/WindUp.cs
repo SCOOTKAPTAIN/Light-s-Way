@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -15,8 +16,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             
             if (!newTarget) return;
 
-            // Gain 1 Strength
-            newTarget.CharacterStats.ApplyStatus(StatusType.Strength, 1);
+            newTarget.CharacterStats.ApplyStatus(
+                StatusType.Strength,
+                Mathf.RoundToInt(CardScaling.AddAffinity(actionParameters.Value)));
 
             // Return this card to the player's hand after play.
             // Do not reset per-turn cost scaling, so the cost increases correctly each time it is played.

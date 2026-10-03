@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -12,7 +13,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
            FxManager.PlayFx( actionParameters.SelfCharacter.transform, FxType.AllIn, new Vector3(0, 0.4f, 0));
 
-           actionParameters.SelfCharacter.CharacterStats.ApplyStatus(StatusType.Strength,Mathf.RoundToInt(actionParameters.Value));
+           actionParameters.SelfCharacter.CharacterStats.ApplyStatus(
+               StatusType.Strength,
+               Mathf.RoundToInt(CardScaling.AddAffinity(actionParameters.Value)));
 
 
 

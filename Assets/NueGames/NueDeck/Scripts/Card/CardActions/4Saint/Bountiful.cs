@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -10,7 +11,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
         public override void DoAction(CardActionParameters actionParameters)
         {
             if (CollectionManager != null)
-                CollectionManager.DrawCards(Mathf.RoundToInt(actionParameters.Value));
+                CollectionManager.DrawCards(
+                    Mathf.RoundToInt(CardScaling.AddWisdom(actionParameters.Value)));
             else
                 Debug.LogError("There is no CollectionManager");
             

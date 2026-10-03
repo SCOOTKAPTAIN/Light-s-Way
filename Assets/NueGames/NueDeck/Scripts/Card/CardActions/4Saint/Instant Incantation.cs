@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -11,7 +12,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
         {
             if (actionParameters.SelfCharacter != null)
             {
-                actionParameters.SelfCharacter.CharacterStats.ApplyStatus(StatusType.FreeNextCard, 1);
+                actionParameters.SelfCharacter.CharacterStats.ApplyStatus(
+                    StatusType.FreeNextCard,
+                    Mathf.RoundToInt(CardScaling.AddAffinity(1f)));
             }
 
             if (FxManager != null)

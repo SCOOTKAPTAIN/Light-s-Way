@@ -574,6 +574,7 @@ namespace NueGames.NueDeck.Editor
         }
         private void RefreshCardData()
         {
+            AssetDatabase.Refresh();
             SelectedCardData = null;
             ClearCachedCardData();
             AllCardDataList?.Clear();

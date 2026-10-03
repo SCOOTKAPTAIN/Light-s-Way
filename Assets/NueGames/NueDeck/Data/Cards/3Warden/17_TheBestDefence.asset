@@ -24,14 +24,18 @@ MonoBehaviour:
     actionTargetType: 1
     actionValue: 0
     actionDelay: 0
+    isAreaOfEffect: 0
   - cardActionType: 80
     actionTargetType: 1
     actionValue: 0
     actionDelay: 1
+    isAreaOfEffect: 0
+  endTurnActionDataList: []
+  exhaustAfterEndTurn: 0
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: Grants
+  - descriptionText: Gain {1 + Affinity}
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -49,16 +53,16 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: ' for the rest of this combat.'
+  - descriptionText: '. '
     enableOverrideColor: 0
-    overrideColor: {r: 0, g: 0, b: 0, a: 1}
+    overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
     useModifier: 0
     modifiedActionValueIndex: 0
     modiferStats: 0
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: ' Exhaust'
+  - descriptionText: Exhaust
     enableOverrideColor: 1
     overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
     useModifier: 0
