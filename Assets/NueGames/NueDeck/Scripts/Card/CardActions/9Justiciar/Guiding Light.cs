@@ -1,5 +1,6 @@
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -24,13 +25,14 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
 
-            // Apply 1 Fragile for every 15 Light
+            // Apply 1 + Potency Fragile for every 20 Light
             var currentLight = GameManager.PersistentGameplayData.light;
-            var fragileStacks = Mathf.FloorToInt(currentLight / 20f);
+            var fragileStacks = Mathf.FloorToInt(currentLight / 20f) *
+                Mathf.RoundToInt(CardScaling.AddPotency(1f));
             
             if (fragileStacks > 0)
             {
-                targetCharacter.CharacterStats.ApplyStatus(StatusType.Fragile, fragileStacks);
+                targetCharacter.CharacterStats.ApplyStatus(StatusType.Fragile, fragileStacks, selfCharacter);
             }
 
             if (AudioManager != null)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -52,7 +53,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             }
 
             // Repeat for each debuff + 1 (at least once)
-            int repeatCount = debuffCount + 1;
+            int additionalHitsPerDebuff = Mathf.RoundToInt(CardScaling.AddWisdom(1f));
+            int repeatCount = 1 + debuffCount * additionalHitsPerDebuff;
 
             for (int i = 0; i < repeatCount; i++)
             {
@@ -65,7 +67,10 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
 
-                targetCharacter.CharacterStats.ApplyStatus(StatusType.Weak, 1);
+                targetCharacter.CharacterStats.ApplyStatus(
+                    StatusType.Weak,
+                    Mathf.RoundToInt(CardScaling.AddPotency(2f)),
+                    selfCharacter);
                 
             }
 

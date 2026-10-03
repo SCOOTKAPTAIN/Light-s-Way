@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -25,6 +26,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             {
                 debuffvalue = Mathf.RoundToInt(actionParameters.Value);
             }
+
+            debuffvalue = Mathf.RoundToInt(CardScaling.AddPotency(debuffvalue));
 
             if (debuffvalue > 0)
             {

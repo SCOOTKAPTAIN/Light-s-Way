@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -15,9 +16,14 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (!targetCharacter) return;
 
             if (actionParameters.IsFirstTarget)
-                selfCharacter.CharacterStats.ApplyStatus(StatusType.Strength, Mathf.RoundToInt(2));
+                selfCharacter.CharacterStats.ApplyStatus(
+                    StatusType.Strength,
+                    Mathf.RoundToInt(CardScaling.AddAffinity(2f)));
 
-            targetCharacter.CharacterStats.ApplyStatus(StatusType.Fragile,Mathf.RoundToInt(3));
+            targetCharacter.CharacterStats.ApplyStatus(
+                StatusType.Fragile,
+                Mathf.RoundToInt(CardScaling.AddPotency(3f)),
+                selfCharacter);
 
 
             if (FxManager != null)

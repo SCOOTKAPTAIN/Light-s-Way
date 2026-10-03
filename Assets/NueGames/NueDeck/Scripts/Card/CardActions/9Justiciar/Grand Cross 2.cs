@@ -15,7 +15,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var selfCharacter = actionParameters.SelfCharacter;
 
             var fragileStacks = targetCharacter.CharacterStats.StatusDict[StatusType.Fragile].StatusValue;
-            var damage = fragileStacks * 4;
+            var damage = Mathf.RoundToInt(fragileStacks * CardScaling.AddWisdom(4f));
 
             damage = Mathf.RoundToInt(NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(targetCharacter, selfCharacter, damage));
 

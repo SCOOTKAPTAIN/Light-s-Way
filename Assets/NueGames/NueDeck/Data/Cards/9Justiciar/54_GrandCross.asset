@@ -31,7 +31,7 @@ MonoBehaviour:
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: 'Apply 1 '
+  - descriptionText: 'Apply {1+Potency} '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: '. Apply 2 '
+  - descriptionText: '. Apply {2+Potency} '
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: . Deal damage equal to 4x
+  - descriptionText: '. Deal damage equal to {4+Wisdom}x'
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0

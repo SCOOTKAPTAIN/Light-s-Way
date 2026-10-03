@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -18,7 +19,10 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             FxManager.PlayFxAtPosition(anchor.position, FxType.LaughAtWeakness, new Vector3(0f, 0.4f, 0f));
 
-            targetCharacter.CharacterStats.ApplyStatus(StatusType.Weak, 1);
+            targetCharacter.CharacterStats.ApplyStatus(
+                StatusType.Weak,
+                Mathf.RoundToInt(CardScaling.AddPotency(1f)),
+                selfCharacter);
 
             if (AudioManager != null)
                 AudioManager.PlayOneShot(actionParameters.CardData.AudioType);

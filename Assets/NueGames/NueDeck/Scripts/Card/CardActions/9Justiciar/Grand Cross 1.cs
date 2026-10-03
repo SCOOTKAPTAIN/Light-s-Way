@@ -13,9 +13,15 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             var targetCharacter = actionParameters.TargetCharacter;
 
-            targetCharacter.CharacterStats.ApplyStatus(StatusType.Judged, 1);
+            targetCharacter.CharacterStats.ApplyStatus(
+                StatusType.Judged,
+                Mathf.RoundToInt(CardScaling.AddPotency(1f)),
+                actionParameters.SelfCharacter);
             
-            targetCharacter.CharacterStats.ApplyStatus(StatusType.Fragile, 2);
+            targetCharacter.CharacterStats.ApplyStatus(
+                StatusType.Fragile,
+                Mathf.RoundToInt(CardScaling.AddPotency(2f)),
+                actionParameters.SelfCharacter);
 
             if (FxManager != null)
                 FxManager.PlayFx(targetCharacter.transform, FxType.GrandCross);
