@@ -1,5 +1,6 @@
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using System.Linq;
 using UnityEngine;
 
@@ -26,7 +27,10 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
 
             // Apply 2 Frostbite stacks
-            targetCharacter.CharacterStats.ApplyStatus(StatusType.Frostbite, 2, selfCharacter);
+            targetCharacter.CharacterStats.ApplyStatus(
+                StatusType.Frostbite,
+                Mathf.RoundToInt(CardScaling.AddPotency(2f)),
+                selfCharacter);
 
 
             if (AudioManager != null)

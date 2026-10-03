@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -15,9 +16,13 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             
             if (!newTarget) return;
 
-           newTarget.CharacterStats.ApplyStatus(StatusType.Armor,1);
+           newTarget.CharacterStats.ApplyStatus(
+               StatusType.Armor,
+               Mathf.RoundToInt(CardScaling.AddAffinity(1f)));
 
-                    newTarget.CharacterStats.ApplyStatus(StatusType.Pursuit,8);
+           newTarget.CharacterStats.ApplyStatus(
+               StatusType.Pursuit,
+               Mathf.RoundToInt(CardScaling.AddAffinity(8f)));
 
             if (FxManager != null)
                 FxManager.PlayFx(newTarget.transform, FxType.EnGarde);

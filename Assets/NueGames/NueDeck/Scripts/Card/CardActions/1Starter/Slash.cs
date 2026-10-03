@@ -1,5 +1,6 @@
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -32,8 +33,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                 FxManager.PlayFxAtPosition(actionParameters.TargetCharacter.transform.position, FxType.PerfectHarmonySlash);
                 AudioManager.PlayOneShot(AudioActionType.PerfectHarmonySlash);
                 targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
-                targetCharacter.CharacterStats.ApplyStatus(StatusType.Burning, 1, selfCharacter);
-                targetCharacter.CharacterStats.ApplyStatus(StatusType.Frostbite, 1, selfCharacter);
+                var harmonyEffectValue = Mathf.RoundToInt(CardScaling.AddPotency(1f));
+                targetCharacter.CharacterStats.ApplyStatus(StatusType.Burning, harmonyEffectValue, selfCharacter);
+                targetCharacter.CharacterStats.ApplyStatus(StatusType.Frostbite, harmonyEffectValue, selfCharacter);
                
             }
             else

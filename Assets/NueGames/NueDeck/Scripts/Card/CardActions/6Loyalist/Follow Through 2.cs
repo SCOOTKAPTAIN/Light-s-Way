@@ -1,5 +1,6 @@
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -18,7 +19,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var hasBlock = targetCharacter.CharacterStats.StatusDict[StatusType.Block].IsActive && targetCharacter.CharacterStats.StatusDict[StatusType.Block].StatusValue > 0;
             if (!hasBlock)
             {
-            selfCharacter.CharacterStats.ApplyStatus(StatusType.Pursuit, 5);
+            selfCharacter.CharacterStats.ApplyStatus(
+                StatusType.Pursuit,
+                Mathf.RoundToInt(CardScaling.AddAffinity(5f)));
 
              FxManager.PlayFx(actionParameters.SelfCharacter.transform, FxType.FollowThrough2, new Vector3(0.2f,0.2f, 0));
              AudioManager.PlayOneShot(AudioActionType.FollowThrough2);

@@ -1,5 +1,6 @@
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -24,7 +25,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             targetCharacter.CharacterStats.Damage(Mathf.RoundToInt(value), false, "red", selfCharacter);
 
-            selfCharacter.CharacterStats.ApplyStatus(StatusType.Pursuit, 4);
+            selfCharacter.CharacterStats.ApplyStatus(
+                StatusType.Pursuit,
+                Mathf.RoundToInt(CardScaling.AddAffinity(4f)));
 
             if (AudioManager != null)
                 AudioManager.PlayOneShot(AudioActionType.RapierStrikes2);
