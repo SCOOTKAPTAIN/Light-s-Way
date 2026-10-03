@@ -1,5 +1,6 @@
 ﻿using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -20,15 +21,21 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
            switch (roll)
            {
                case 0:
-                   newTarget.CharacterStats.ApplyStatus(StatusType.Armor, 1);
+                   newTarget.CharacterStats.ApplyStatus(
+                       StatusType.Armor,
+                       Mathf.RoundToInt(CardScaling.AddAffinity(1f)));
                    break;
            
                case 1:
-                   newTarget.CharacterStats.ApplyStatus(StatusType.Fortitude, 2);
+                   newTarget.CharacterStats.ApplyStatus(
+                       StatusType.Fortitude,
+                       Mathf.RoundToInt(CardScaling.AddAffinity(2f)));
                    break;
 
                case 2:
-                   newTarget.CharacterStats.ApplyStatus(StatusType.Strength, 2);
+                   newTarget.CharacterStats.ApplyStatus(
+                       StatusType.Strength,
+                       Mathf.RoundToInt(CardScaling.AddAffinity(2f)));
                    break;
 
                case 3:

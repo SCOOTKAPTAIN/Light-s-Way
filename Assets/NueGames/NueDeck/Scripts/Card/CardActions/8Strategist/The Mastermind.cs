@@ -1,5 +1,6 @@
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using NueGames.NueDeck.Scripts.Card;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -12,7 +13,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             var self = actionParameters.SelfCharacter;
             if (!self) return;
 
-            var amount = Mathf.RoundToInt(actionParameters.Value);
+            var amount = Mathf.RoundToInt(CardScaling.AddAffinity(actionParameters.Value));
             if (amount <= 0) amount = 3; // default +3 draw if not specified
 
             self.CharacterStats.ApplyStatus(StatusType.Mastermind, amount);
