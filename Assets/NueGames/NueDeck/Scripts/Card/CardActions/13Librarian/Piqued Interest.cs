@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
+using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
 {
@@ -24,7 +25,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                 yield break;
 
             List<CardBase> selectedCards = null;
-            selectionCanvas.BeginSelection("Select up to 3 cards", 3, cards => selectedCards = cards,
+            var selectionLimit = Mathf.RoundToInt(CardScaling.AddWisdom(3f));
+            selectionCanvas.BeginSelection("Select up to " + selectionLimit + " cards", selectionLimit,
+                cards => selectedCards = cards,
                 IsAttackOrBuffCard);
 
             while (selectedCards == null)

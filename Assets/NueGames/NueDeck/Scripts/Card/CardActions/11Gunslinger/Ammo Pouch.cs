@@ -1,4 +1,5 @@
-﻿using NueGames.NueDeck.Scripts.Enums;
+﻿using NueGames.NueDeck.Scripts.Card;
+using NueGames.NueDeck.Scripts.Enums;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -13,7 +14,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (selfCharacter == null)
                 return;
 
-            var stacks = Mathf.Max(1, Mathf.RoundToInt(actionParameters.Value));
+            var stacks = Mathf.Max(1, Mathf.RoundToInt(CardScaling.AddAffinity(1f)));
             selfCharacter.CharacterStats.ApplyStatus(StatusType.Deadstock, stacks);
 
             FxManager.PlayFx(selfCharacter.transform, FxType.AmmoPouch, new Vector3(0f, 0.4f, 0f));

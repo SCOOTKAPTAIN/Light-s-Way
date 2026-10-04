@@ -67,7 +67,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: 5
+  - descriptionText: '{5+Wisdom}'
     enableOverrideColor: 1
     overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
     useModifier: 0

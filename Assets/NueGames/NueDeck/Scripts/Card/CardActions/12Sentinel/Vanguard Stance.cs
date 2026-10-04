@@ -1,3 +1,4 @@
+using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
 using UnityEngine;
@@ -6,8 +7,6 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 {
     public class VanguardStance : CardActionBase
     {
-        private const int HonorGain = 1;
-
         public override CardActionType ActionType => CardActionType.VanguardStance;
         public override void DoAction(CardActionParameters actionParameters)
         {
@@ -21,7 +20,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                 Mathf.RoundToInt(actionParameters.Value + GameManager.PersistentGameplayData.proficiency + actionParameters.SelfCharacter.CharacterStats
                     .StatusDict[StatusType.Fortitude].StatusValue));
 
-            newTarget.CharacterStats.ApplyStatus(StatusType.Honor, HonorGain);
+            newTarget.CharacterStats.ApplyStatus(StatusType.Honor,
+                Mathf.RoundToInt(CardScaling.AddAffinity(1f)));
 
             if (FxManager != null)
                 FxManager.PlayFx(newTarget.transform, FxType.VanguardStance, new Vector3(0.3f,0.2f,0f));

@@ -1,4 +1,5 @@
-﻿using NueGames.NueDeck.Scripts.Enums;
+﻿using NueGames.NueDeck.Scripts.Card;
+using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
 using UnityEngine;
 
@@ -16,7 +17,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             selfCharacter.CharacterStats.ApplyStatus(
                 StatusType.Vigilance,
                 Mathf.RoundToInt(actionParameters.Value + GameManager.PersistentGameplayData.proficiency + selfCharacter.CharacterStats.StatusDict[StatusType.Fortitude].StatusValue));
-                selfCharacter.CharacterStats.ApplyStatus(StatusType.Fortitude, 1);
+                selfCharacter.CharacterStats.ApplyStatus(StatusType.Fortitude,
+                    Mathf.RoundToInt(CardScaling.AddAffinity(1f)));
 
             if (FxManager != null)
                 FxManager.PlayFx(selfCharacter.transform, FxType.DefensePreparation);

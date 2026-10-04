@@ -1,4 +1,5 @@
-﻿using NueGames.NueDeck.Scripts.Enums;
+﻿using NueGames.NueDeck.Scripts.Card;
+using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             selfCharacter.CharacterStats.ApplyStatus(
                 StatusType.Bastion,
-                Mathf.RoundToInt(actionParameters.Value));
+                Mathf.RoundToInt(CardScaling.AddAffinity(actionParameters.Value)));
 
             if (FxManager != null)
                 FxManager.PlayFx(selfCharacter.transform, FxType.StalwartBuffer);

@@ -1,3 +1,4 @@
+using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
 using UnityEngine;
@@ -16,8 +17,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
 
             var proficiency = GameManager.PersistentGameplayData.proficiency;
             var strengthValue = selfCharacter.CharacterStats.StatusDict[StatusType.Strength].StatusValue;
-            var cardsPlayedBonus = CollectionManager.CardsPlayedThisTurn * 5;
-            var value = actionParameters.Value + proficiency + strengthValue + cardsPlayedBonus - 5;
+            var cardsPlayedBonus = Mathf.Max(0, CollectionManager.CardsPlayedThisTurn - 1) * CardScaling.AddWisdom(5f);
+            var value = actionParameters.Value + proficiency + strengthValue + cardsPlayedBonus;
             
             Debug.Log($"[OneLastBullet] Base: {actionParameters.Value} + Proficiency: {proficiency} + Strength: {strengthValue} + Cards played bonus: {cardsPlayedBonus} = {value}");
 

@@ -25,7 +25,9 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             }
 
             List<CardBase> discardedCards = null;
-            selectionCanvas.BeginSelection("Discard up to 3 cards", 3, cards => discardedCards = cards);
+            var discardLimit = Mathf.RoundToInt(CardScaling.AddWisdom(3f));
+            selectionCanvas.BeginSelection("Discard up to " + discardLimit + " cards", discardLimit,
+                cards => discardedCards = cards);
 
             while (discardedCards == null)
                 yield return null;

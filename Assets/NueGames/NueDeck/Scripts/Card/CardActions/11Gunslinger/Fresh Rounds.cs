@@ -1,4 +1,5 @@
 ﻿using System;
+using NueGames.NueDeck.Scripts.Card;
 using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.Managers;
@@ -23,7 +24,7 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
                 return;
             }
 
-            int quickDrawCount = Mathf.Max(0, Mathf.RoundToInt(actionParameters.Value));
+            int quickDrawCount = Mathf.Max(0, Mathf.RoundToInt(CardScaling.AddWisdom(actionParameters.Value)));
             if (quickDrawCount <= 0)
                 return;
 

@@ -1,4 +1,5 @@
-﻿using NueGames.NueDeck.Scripts.Enums;
+﻿using NueGames.NueDeck.Scripts.Card;
+using NueGames.NueDeck.Scripts.Enums;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.Card.CardActions
@@ -13,7 +14,8 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             if (selfCharacter == null)
                 return;
 
-            selfCharacter.CharacterStats.ApplyStatus(StatusType.EndlessChambers, 1);
+            selfCharacter.CharacterStats.ApplyStatus(StatusType.EndlessChambers,
+                Mathf.RoundToInt(CardScaling.AddAffinity(1f)));
 
             FxManager.PlayFx(selfCharacter.transform, FxType.EtherealSlinger, new Vector3(0f, 0.4f, 0f));
 
