@@ -1,0 +1,16 @@
+﻿title: intro
+---
+Narrator: Who do you dream of becoming?
+
+-> Adventurer #paneldetails=Gain_2_Proficiency
+	<<change_proficiency 2>>
+	Narrator: The road calls, and your skill grows with every step.
+
+-> Scholar #paneldetails=Gain_1_Wisdom
+	<<change_wisdom 1>>
+	Narrator: Knowledge will guide your path.
+
+-> Doctor #paneldetails=Gain_5_Metabolism
+	<<change_metabolism 5>>
+	Narrator: You choose to preserve life and strengthen the body.
+===

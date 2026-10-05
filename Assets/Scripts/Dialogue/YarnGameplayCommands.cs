@@ -24,6 +24,9 @@ public sealed class YarnGameplayCommands : MonoBehaviour
     [Header("Optional Background Animator")]
     [SerializeField] private Animator backgroundAnimator;
 
+    [Header("Dialogue UI")]
+    [SerializeField] private GameObject speakerFrame;
+
     private void Awake()
     {
         if (screenEffectGroup != null)
@@ -59,6 +62,20 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         await FadeToAsync(color, 0f, duration * 0.5f);
     }
 
+    [YarnCommand("flash_to_black")]
+    public async YarnTask FlashToBlack(float whiteFadeDuration, float blackFadeDuration)
+    {
+        if (screenEffectGroup == null || screenEffectImage == null)
+        {
+            Debug.LogWarning("Yarn screen effect references are not assigned.", this);
+            return;
+        }
+
+        screenEffectGroup.gameObject.SetActive(true);
+        await FadeToAsync(Color.white, 1f, whiteFadeDuration);
+        await FadeColorToAsync(Color.black, blackFadeDuration);
+    }
+
     [YarnCommand("sfx")]
     public void PlaySfx(string name)
     {
@@ -69,6 +86,65 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         }
 
         DialogueAudioManager.instance.PlaySFX(name);
+    }
+
+    [YarnCommand("playmusic")]
+    public void PlayMusic(string name)
+    {
+        if (DialogueAudioManager.instance == null)
+        {
+            Debug.LogWarning("Cannot play Yarn music because DialogueAudioManager.instance is missing.", this);
+            return;
+        }
+
+        DialogueAudioManager.instance.PlayMusic(name);
+    }
+
+    [YarnCommand("pausemusic")]
+    public void PauseMusic()
+    {
+        if (DialogueAudioManager.instance == null)
+        {
+            Debug.LogWarning("Cannot pause Yarn music because DialogueAudioManager.instance is missing.", this);
+            return;
+        }
+
+        DialogueAudioManager.instance.PauseMusic();
+    }
+
+    [YarnCommand("hide_speaker_frame")]
+    public void HideSpeakerFrame()
+    {
+        if (speakerFrame != null)
+        {
+            speakerFrame.SetActive(false);
+        }
+    }
+
+    [YarnCommand("show_speaker_frame")]
+    public void ShowSpeakerFrame()
+    {
+        if (speakerFrame != null)
+        {
+            speakerFrame.SetActive(true);
+        }
+    }
+
+    [YarnCommand("card_reward")]
+    public async YarnTask CardReward(string poolName)
+    {
+        var rewardCanvas = UIManager.Instance?.RewardCanvas;
+        if (rewardCanvas == null)
+        {
+            Debug.LogWarning("Cannot open a Yarn card reward because UIManager.RewardCanvas is missing.", this);
+            return;
+        }
+
+        var completionSource = new YarnTaskCompletionSource<bool>();
+        if (!rewardCanvas.OpenCardReward(poolName, () => completionSource.TrySetResult(true)))
+            return;
+
+        await completionSource.Task;
     }
 
     [YarnCommand("change_gold")]
@@ -472,6 +548,23 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         }
 
         screenEffectGroup.alpha = targetAlpha;
+    }
+
+    private async YarnTask FadeColorToAsync(Color targetColor, float duration)
+    {
+        float safeDuration = Mathf.Max(0f, duration);
+        Color startColor = screenEffectImage.color;
+        float elapsed = 0f;
+
+        while (elapsed < safeDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            screenEffectImage.color = Color.Lerp(startColor, targetColor, elapsed / safeDuration);
+            await YarnTask.Yield();
+        }
+
+        screenEffectImage.color = targetColor;
+        screenEffectGroup.alpha = 1f;
     }
 
     private static bool TryGetEffectColor(string colorName, out Color color)

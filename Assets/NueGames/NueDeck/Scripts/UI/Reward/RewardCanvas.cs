@@ -75,6 +75,35 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
 
             BuildMetabolismReward();
         }
+
+        public bool OpenCardReward(string poolName, Action onSelected)
+        {
+            if (rewardContainerData == null || rewardContainerData.CardRewardDataList == null)
+            {
+                Debug.LogWarning("Cannot open a card reward because RewardContainerData is missing.", this);
+                return false;
+            }
+
+            var cardRewardData = rewardContainerData.CardRewardDataList.Find(
+                reward => reward != null && string.Equals(reward.name, poolName, StringComparison.OrdinalIgnoreCase));
+            if (cardRewardData == null)
+            {
+                Debug.LogWarning($"No card reward pool named '{poolName}' was found.", this);
+                return false;
+            }
+
+            _cardRewardList.Clear();
+            _cardRewardList.AddRange(cardRewardData.GetWeightedRandomCards(3));
+            if (_cardRewardList.Count == 0)
+            {
+                Debug.LogWarning($"Card reward pool '{poolName}' does not contain any cards.", this);
+                return false;
+            }
+
+            OpenCanvas();
+            ShowCardChoices(_cardRewardList.Count, onSelected);
+            return true;
+        }
         
         public void BuildReward(RewardType rewardType)
         {
@@ -208,25 +237,30 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
 
         private void GetCardReward(RewardContainer rewardContainer,int amount = 3)
         {
+            ShowCardChoices(Mathf.Min(amount, _cardRewardList.Count), null);
+            _currentRewardsList.Remove(rewardContainer);
+            Destroy(rewardContainer.gameObject);
+        }
+
+        private void ShowCardChoices(int amount, Action onSelected)
+        {
             ChoicePanel.gameObject.SetActive(true);
-            
+
             for (int i = 0; i < amount; i++)
             {
                 Transform spawnTransform = choice2DCardSpawnRoot;
-              
                 var choice = Instantiate(choiceCardUIPrefab, spawnTransform);
-                
                 var reward = _cardRewardList.RandomItem();
                 choice.BuildReward(reward);
-                choice.OnCardChose += ResetChoice;
-                
+                choice.OnCardChose += () =>
+                {
+                    ResetChoice();
+                    onSelected?.Invoke();
+                };
+
                 _cardRewardList.Remove(reward);
                 _spawnedChoiceList.Add(choice);
-                _currentRewardsList.Remove(rewardContainer);
-                
             }
-            
-            Destroy(rewardContainer.gameObject);
         }
 
         private void GetMetabolismReward(RewardContainer rewardContainer, int amount)

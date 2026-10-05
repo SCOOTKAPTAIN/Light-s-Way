@@ -163,6 +163,14 @@ public class DialogueAudioManager : MonoBehaviour
         music_source.Play();
     }
 
+    public void PauseMusic()
+    {
+        if (music_source == null)
+            return;
+
+        music_source.Pause();
+    }
+
     // public void PlayMusic(string name) //Call this function from any script u want to add music
     // {
     //     Sound sound = Array.Find(music_sound, x => x.name == name); //Search audio from array

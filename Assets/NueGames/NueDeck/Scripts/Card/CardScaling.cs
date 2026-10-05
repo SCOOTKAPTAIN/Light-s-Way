@@ -9,6 +9,7 @@ namespace NueGames.NueDeck.Scripts.Card
 {
     public static class CardScaling
     {
+        private const bool ForceCardProgressionStatsToTenForTesting = false;
         private static readonly Regex DescriptionExpression = new Regex(@"\{([^{}]+)\}", RegexOptions.Compiled);
         private static readonly Regex ExpressionToken = new Regex(@"\s*(?<number>\d+(?:\.\d+)?)|\s*(?<name>[A-Za-z][A-Za-z0-9]*)|\s*(?<operator>[+\-*/()])", RegexOptions.Compiled);
         private static readonly Regex AffinityExpression = new Regex(@"^\s*(?<base>\d+(?:\.\d+)?)\s*\+\s*Affinity\s*$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -53,17 +54,17 @@ namespace NueGames.NueDeck.Scripts.Card
 
             switch (name.ToLowerInvariant())
             {
-                case "proficiency": return data.Proficiency;
-                case "arcana": return data.Arcana;
-                case "wisdom": return data.Wisdom;
-                case "potency": return data.Potency;
-                case "affinity": return data.Affinity;
-                case "metabolism": return data.Metabolism;
-                case "vigor": return data.Vigor;
-                case "insight": return data.Insight;
-                case "abundance": return data.Abundance;
-                case "capacity": return data.Capacity;
-                case "radiance": return data.Radiance;
+                case "proficiency": return ForceCardProgressionStatsToTenForTesting ? 10f : data.Proficiency;
+                case "arcana": return ForceCardProgressionStatsToTenForTesting ? 10f : data.Arcana;
+                case "wisdom": return ForceCardProgressionStatsToTenForTesting ? 10f : data.Wisdom;
+                case "potency": return ForceCardProgressionStatsToTenForTesting ? 10f : data.Potency;
+                case "affinity": return ForceCardProgressionStatsToTenForTesting ? 10f : data.Affinity;
+                case "metabolism": return ForceCardProgressionStatsToTenForTesting ? 10f : data.Metabolism;
+                case "vigor": return ForceCardProgressionStatsToTenForTesting ? 10f : data.Vigor;
+                case "insight": return ForceCardProgressionStatsToTenForTesting ? 10f : data.Insight;
+                case "abundance": return ForceCardProgressionStatsToTenForTesting ? 10f : data.Abundance;
+                case "capacity": return ForceCardProgressionStatsToTenForTesting ? 10f : data.Capacity;
+                case "radiance": return ForceCardProgressionStatsToTenForTesting ? 10f : data.Radiance;
                 case "light": return data.Light;
                 case "mana": return data.CurrentMana;
                 case "maxmana": return data.MaxMana;
