@@ -18,12 +18,31 @@ public sealed class YarnOptionHoverDescription : MonoBehaviour, IPointerEnterHan
     {
         optionItem = GetComponent<OptionItem>();
 
+        ResetDescription();
+    }
+
+    private void OnEnable()
+    {
+        ResetDescription();
+    }
+
+    private void ResetDescription()
+    {
         if (descriptionPanel != null)
         {
+            if (fadeCoroutine != null)
+            {
+                StopCoroutine(fadeCoroutine);
+                fadeCoroutine = null;
+            }
+
             descriptionPanel.alpha = 0f;
             descriptionPanel.interactable = false;
             descriptionPanel.blocksRaycasts = false;
             descriptionPanel.gameObject.SetActive(false);
+
+            if (descriptionText != null)
+                descriptionText.text = string.Empty;
         }
     }
 

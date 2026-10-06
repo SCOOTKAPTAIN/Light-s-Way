@@ -1,16 +1,71 @@
 ﻿title: intro
 ---
-Narrator: Who do you dream of becoming?
+<<hide_information YarnCommands>>
+<<playmusic YarnCommands clock>>
+<<fade_out YarnCommands 0>>
+<<wait 3>>
+<<picture YarnCommands intro_1>>
+<<fade_in YarnCommands 3>>
+…
+Dark.
+Cold.
+You lay motionless, unable to move.
+How could you move? Everything is pointless.
+The horrible sight sticks deeply into your mind.
+The assailants are gone, but they took everything.
+Blood. Dead bodies. Pure dread.
+Your family. 
+They gave everything to hide you from this slaughter. 
+And now, all that remains is the darkness slowly closing in around you. 
+You've given up on life. You no longer have the strength—or the will—to stand. You can only wait for the inevitable. 
+As fear takes hold of you, your mind drifts back to the life you once imagined. What kind of person could you have become? 
 
+You reminisce about your aspirations. What kind of person did you dream of becoming? 
 -> Adventurer #paneldetails=Gain_2_Proficiency
 	<<change_proficiency 2>>
-	Narrator: The road calls, and your skill grows with every step.
-
+	You envisioned a life stepping beyond the safety of the known world.
+	<<jump adventurer_purpose>>
 -> Scholar #paneldetails=Gain_1_Wisdom
 	<<change_wisdom 1>>
-	Narrator: Knowledge will guide your path.
-
+	You envisioned a life dedicated to the pursuit of knowledge.
+	<<jump scholar_purpose>>
 -> Doctor #paneldetails=Gain_5_Metabolism
 	<<change_metabolism 5>>
-	Narrator: You choose to preserve life and strengthen the body.
+	You envisioned a life devoted to the study and practice of medicine.
+	<<jump doctor_purpose>>
+===
+
+title: adventurer_purpose
+---
+What drove you to pursue such a life?
+-> To overcome adversaries and challenges #paneldetails=Gain_1_Proficiency_after_each_Elite_and_Boss_Encounters
+    You welcomed every challenge as an opportunity to prove yourself. The greater the obstacle, the greater the satisfaction of overcoming it.
+-> To forge both your body and mind #paneldetails=Gain_5_Affinity
+    You sought to become someone who could endure anything the world threw at you. Through hardship, you would sharpen both body and mind into something stronger.
+-> To discover uncharted horizons #paneldetails=Reduce_Light_drain_from_node_movement_by_50%
+   The unknown called to you. You longed to venture beyond familiar lands and see places no one had seen before
+===
+
+title: scholar_purpose
+---
+What drove you to pursue such a life?
+-> To unravel the secrets of the world #paneldetails=Gain_1_Insight_at_the_start_of_each_act
+    You were captivated by the unknown. Every mystery left unanswered only stirred your curiosity further, driving you to seek truths hidden from ordinary men.
+-> To harness arcanic might #paneldetails=Gain_1_Arcana
+    You saw magic as the greatest expression of knowledge. You wished to understand its nature, master its power, and reach heights no ordinary scholar could.
+-> To illuminate others towards the path of Light #paneldetails=Gain_15_Light_at_the_start_of_each_act
+   Knowledge, to you, was meant to be shared. You wished to guide others through their ignorance and help them find their own path toward the Light.
+
+===
+
+title: doctor_purpose
+---
+What drove you to pursue such a life?
+-> To lend your hand to those in need #paneldetails=Gain_100_Vigor
+    You wished to be someone people could rely on in their darkest moments. To ease suffering, save lives, and give hope to those who had none.
+-> To master the intricacies of human anatomy #paneldetails=Gain_1_Potency
+    The human body fascinated you. You wanted a deep understanding of every bone, organ, and mechanism that allowed life to persist.
+-> To amass vast wealth and renown #paneldetails=Gain_600_Gold_and_1_Insight
+   You dreamed of becoming a renowned physician, not merely for the sake of helping others, but for the wealth and recognition that came with such a position.
+
 ===

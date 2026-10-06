@@ -49,6 +49,18 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         return FadeToAsync(Color.black, 1f, duration);
     }
 
+    [YarnCommand("hide_information")]
+    public void HideInformation()
+    {
+        UIManager.Instance?.InformationCanvas?.CloseCanvas();
+    }
+
+    [YarnCommand("show_information")]
+    public void ShowInformation()
+    {
+        UIManager.Instance?.InformationCanvas?.OpenCanvas();
+    }
+
     [YarnCommand("flash")]
     public async YarnTask Flash(string colorName, float duration)
     {

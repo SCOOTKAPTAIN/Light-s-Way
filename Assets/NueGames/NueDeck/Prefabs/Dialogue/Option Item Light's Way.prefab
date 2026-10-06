@@ -391,6 +391,7 @@ GameObject:
   - component: {fileID: 2576261519635394347}
   - component: {fileID: 7024802871071626850}
   - component: {fileID: 7791084853419585363}
+  - component: {fileID: 7601078392516261952}
   m_Layer: 5
   m_Name: Option Item Light's Way
   m_TagString: Untagged
@@ -606,6 +607,20 @@ MonoBehaviour:
   descriptionPanel: {fileID: 2542000910068491781}
   descriptionText: {fileID: 8435020913018157345}
   fadeDuration: 0.15
+--- !u!114 &7601078392516261952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8135782471263027723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386a0c2d92a89204cbf128335aa1e9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverSound: {fileID: 8300000, guid: dd7f5d552d257c940a80db507d318cfc, type: 3}
+  clickSound: {fileID: 8300000, guid: 3640ec68d3378044e8e4b62abe8f5560, type: 3}
 --- !u!1 &8991218257036012306
 GameObject:
   m_ObjectHideFlags: 0
