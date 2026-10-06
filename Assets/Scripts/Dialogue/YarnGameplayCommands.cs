@@ -378,6 +378,19 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         ChangeLight(Mathf.RoundToInt(100f * percent / 100f));
     }
 
+    [YarnCommand("set_light_loss")]
+    public static void SetLightLoss(int value)
+    {
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData == null)
+        {
+            Debug.LogWarning("Cannot set light loss because PersistentGameplayData is missing.");
+            return;
+        }
+
+        gameplayData.LightLoss = Mathf.Max(0, value);
+    }
+
     [YarnCommand("change_max_health")]
     public static void ChangeMaxHealth(int amount)
     {

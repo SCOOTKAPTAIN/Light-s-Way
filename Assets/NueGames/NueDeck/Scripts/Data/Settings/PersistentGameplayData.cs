@@ -118,7 +118,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             proficiency = 1;
             light = 100;
             actnumber = 0;
-            lightLoss = 2;
+            lightLoss = 1;
             wisdom = 0;
             potency = 0;
             affinity = 0;

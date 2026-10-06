@@ -45,6 +45,7 @@ What drove you to pursue such a life?
 	<<change_affinity 5>>
     You sought to become someone who could endure anything the world threw at you. Through hardship, you would sharpen both body and mind into something stronger.
 -> To discover uncharted horizons #paneldetails=Reduce_Light_drain_from_node_movement_by_50%
+	<<set_light_loss 1>>
    The unknown called to you. You longed to venture beyond familiar lands and see places no one had seen before
 ===
 

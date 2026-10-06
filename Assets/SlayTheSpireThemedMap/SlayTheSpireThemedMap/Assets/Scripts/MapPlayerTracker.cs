@@ -281,7 +281,8 @@ namespace Map
             bool hasPreviousNode = mapManager.CurrentMap.path.Count > 0;
             bool isConnectedMove = hasPreviousNode && mapManager.CurrentMap.GetNode(mapManager.CurrentMap.path[^1]).outgoing.Any(point => point.Equals(mapNode.Node.point));
             bool isLaneChange = hasPreviousNode && !isConnectedMove && IsSameColumnMove(mapNode);
-            int travelCost = !hasPreviousNode || isConnectedMove ? GameManager.Instance.PersistentGameplayData.LightLoss : 10;
+            int lightLoss = GameManager.Instance.PersistentGameplayData.LightLoss;
+            int travelCost = !hasPreviousNode || isConnectedMove ? lightLoss : lightLoss * 5;
 
             if (isLaneChange && GameManager.Instance.PersistentGameplayData.light < travelCost)
             {
