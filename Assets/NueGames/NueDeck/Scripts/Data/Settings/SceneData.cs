@@ -6,11 +6,10 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
     public class SceneData : ScriptableObject
     {
         public int mainMenuSceneIndex = 0;
-        public int mapSceneIndex = 1;
-        public int combatSceneIndex = 2;
-
-        public int dialogueSceneIndex = 4;
-        public int merchantSceneIndex = 5;
+        public int mapSceneIndex = 5;
+        public int combatSceneIndex = 3;
+        public int dialogueSceneIndex = 7;
+        public int merchantSceneIndex = 6;
         public int endingSceneIndex = 10;
     }
 }

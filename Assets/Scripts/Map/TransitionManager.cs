@@ -35,6 +35,7 @@ public class TransitionManager : MonoBehaviour
 
             }else
             {
+                GameManager.Instance.PersistentGameplayData.ApplyActStartBonuses();
                 PlayAct();
             }
             
@@ -61,6 +62,7 @@ public class TransitionManager : MonoBehaviour
         DialogueAudioManager.instance.DynamicMusic("map");
         UIManager.Instance.InformationCanvas.gameObject.SetActive(true);
         GameManager.Instance.PersistentGameplayData.ActNumber++;
+        GameManager.Instance.PersistentGameplayData.ApplyActStartBonuses();
         Debug.Log("before intro" + GameManager.Instance.PersistentGameplayData.ActNumber);
     }
 

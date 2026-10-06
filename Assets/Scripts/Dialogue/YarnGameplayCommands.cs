@@ -173,6 +173,42 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         UIManager.Instance?.InformationCanvas?.SetGoldText(gameplayData.CurrentGold);
     }
 
+    [YarnCommand("remove_initial_card")]
+    public static void RemoveInitialCard(string cardName)
+    {
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData == null)
+            return;
+
+        gameplayData.QueueInitialCardRemoval(cardName);
+    }
+
+    [YarnCommand("add_random_uncommon_card")]
+    public static void AddRandomUncommonCard()
+    {
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData == null)
+            return;
+
+        gameplayData.AddRandomUncommonOrHigherCard = true;
+    }
+
+    [YarnCommand("reset_intro_bonuses")]
+    public static void ResetIntroBonuses()
+    {
+        var gameManager = GameManager.Instance;
+        var gameplayData = gameManager?.PersistentGameplayData;
+        if (gameManager == null || gameplayData == null)
+            return;
+
+        gameplayData.ResetIntroBonuses();
+        gameManager.SetInitalHand();
+        UIManager.Instance?.InformationCanvas?.RefreshStatsText();
+        UIManager.Instance?.InformationCanvas?.SetGoldText(gameplayData.CurrentGold);
+        UIManager.Instance?.InformationCanvas?.SetLightText(gameplayData.Light);
+        UIManager.Instance?.InformationCanvas?.SetProficiencyText(gameplayData.Proficiency);
+    }
+
     [YarnCommand("change_proficiency")]
     public static void ChangeProficiency(int amount)
     {
@@ -216,6 +252,26 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         }
 
         gameplayData.GainProficiencyAfterEliteOrBoss = true;
+    }
+
+    [YarnCommand("enable_insight_at_act_start")]
+    public static void EnableInsightAtActStart()
+    {
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData == null)
+            return;
+
+        gameplayData.GainInsightAtActStart = true;
+    }
+
+    [YarnCommand("enable_light_at_act_start")]
+    public static void EnableLightAtActStart()
+    {
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData == null)
+            return;
+
+        gameplayData.GainLightAtActStart = true;
     }
 
     [YarnCommand("change_metabolism")]
@@ -389,6 +445,23 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         }
 
         gameplayData.LightLoss = Mathf.Max(0, value);
+    }
+
+    [YarnCommand("load_map_scene")]
+    public static void LoadMapScene()
+    {
+        var gameManager = GameManager.Instance;
+        var uiManager = UIManager.Instance;
+        if (gameManager == null || uiManager == null)
+        {
+            Debug.LogError("Cannot load the map because GameManager or UIManager is missing.");
+            return;
+        }
+
+        uiManager.SetCanvas(uiManager.CombatCanvas, false, true);
+        uiManager.SetCanvas(uiManager.InformationCanvas, true, false);
+        uiManager.SetCanvas(uiManager.RewardCanvas, false, true);
+        uiManager.ChangeScene(gameManager.SceneData.mapSceneIndex);
     }
 
     [YarnCommand("change_max_health")]

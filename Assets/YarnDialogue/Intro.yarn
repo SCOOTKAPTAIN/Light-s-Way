@@ -6,7 +6,7 @@
 <<wait 3>>
 <<picture YarnCommands intro_1>>
 <<fade_in YarnCommands 3>>
-…
+...
 Dark.
 Cold.
 You lay motionless, unable to move.
@@ -19,7 +19,11 @@ They gave everything to hide you from this slaughter.
 And now, all that remains is the darkness slowly closing in around you. 
 You've given up on life. You no longer have the strength—or the will—to stand. You can only wait for the inevitable. 
 As fear takes hold of you, your mind drifts back to the life you once imagined. What kind of person could you have become? 
+<<jump profession>>
+===
 
+title: profession
+---
 You reminisce about your aspirations. What kind of person did you dream of becoming? 
 -> Adventurer #paneldetails=Gain_2_Proficiency
 	<<change_proficiency 2>>
@@ -41,23 +45,32 @@ What drove you to pursue such a life?
 -> To overcome adversaries and challenges #paneldetails=Gain_1_Proficiency_after_each_Elite_and_Boss_battles
 	<<enable_elite_boss_proficiency>>
     You welcomed every challenge as an opportunity to prove yourself. The greater the obstacle, the greater the satisfaction of overcoming it.
+	<<jump reason>>
 -> To forge both your body and mind #paneldetails=Gain_5_Affinity
 	<<change_affinity 5>>
     You sought to become someone who could endure anything the world threw at you. Through hardship, you would sharpen both body and mind into something stronger.
+	<<jump reason>>
 -> To discover uncharted horizons #paneldetails=Reduce_Light_drain_from_node_movement_by_50%
 	<<set_light_loss 1>>
-   The unknown called to you. You longed to venture beyond familiar lands and see places no one had seen before
+   The unknown called you. You longed to venture beyond familiar lands and see places no one had seen before
+	<<jump reason>>
 ===
 
 title: scholar_purpose
 ---
 What drove you to pursue such a life?
 -> To unravel the secrets of the world #paneldetails=Gain_1_Insight_at_the_start_of_each_act
+	<<enable_insight_at_act_start>>
     You were captivated by the unknown. Every mystery left unanswered only stirred your curiosity further, driving you to seek truths hidden from ordinary men.
+	<<jump reason>>
 -> To harness arcanic might #paneldetails=Gain_1_Arcana
+	<<change_arcana 1>>
     You saw magic as the greatest expression of knowledge. You wished to understand its nature, master its power, and reach heights no ordinary scholar could.
+	<<jump reason>>
 -> To illuminate others towards the path of Light #paneldetails=Gain_15_Light_at_the_start_of_each_act
+	<<enable_light_at_act_start>>
    Knowledge, to you, was meant to be shared. You wished to guide others through their ignorance and help them find their own path toward the Light.
+	<<jump reason>>
 
 ===
 
@@ -65,10 +78,82 @@ title: doctor_purpose
 ---
 What drove you to pursue such a life?
 -> To lend your hand to those in need #paneldetails=Gain_100_Vigor
+	<<change_vigor 100>>
     You wished to be someone people could rely on in their darkest moments. To ease suffering, save lives, and give hope to those who had none.
+	<<jump reason>>
 -> To master the intricacies of human anatomy #paneldetails=Gain_1_Potency
+	<<change_potency 1>>
     The human body fascinated you. You wanted a deep understanding of every bone, organ, and mechanism that allowed life to persist.
+	<<jump reason>>
 -> To amass vast wealth and renown #paneldetails=Gain_600_Gold_and_1_Insight
-   You dreamed of becoming a renowned physician, not merely for the sake of helping others, but for the wealth and recognition that came with such a position.
+	<<change_gold 600>>
+	<<change_insight 1>>
+   You dreamed of becoming a renowned physician, not merely for the sake of helping others, but for the wealth and recognition that came with it.
+	<<jump reason>>
+
+===
+
+title: reason
+---
+But you never did any of those things, because you…
+-> Found other things to enjoy #paneldetails=Gain_1_Abundance_and_2_Capacity
+	<<change_abundance 1>>
+	<<change_capacity 2>>
+    You kept finding things far more interesting, and in the end, that dream of yours became nothing more than a distant memory.
+-> Were too afraid to take a single step #paneldetails=Remove_1_copy_of_Slash_and_Guard_from_the_starting_deck
+	<<remove_initial_card Slash>>
+	<<remove_initial_card Guard>>
+    Paralyzed by the fear of failure and the uncertainty, you let every opportunity slip away untouched.
+-> Had to stay with your family #paneldetails=Put_1_random_Uncommon_or_higher_card_into_your_deck
+	<<add_random_uncommon_card>>
+    Duty and affection binds you to your home, putting your own aspirations on hold to support the people you love, not that it matters now anyway…
+<<jump resolution>>
+===
+
+title: resolution
+---
+…
+Are you certain that is your past?
+-> Yes, I'm sure.
+    <<jump beginning>>
+-> No, something's wrong.
+	<<reset_intro_bonuses>>
+    <<jump profession>>
+===
+
+title: beginning
+---
+...
+Having finished reminiscing about the life you never lived, you close your eyes and prepare for your imminent death.
+<<pausemusic YarnCommands>>
+…
+…
+“No.”
+<<picture YarnCommands intro_2>>
+<<playmusic YarnCommands intro>>
+“I don't like this ending.”
+A faint voice echoes within you.
+Buried beneath the despair, something still remains.
+A flicker.
+A spark.
+A will to live.
+Yes...
+There's still hope.
+There's still a way.
+There's no way you will end it like this.
+You move your hand.
+Then your arm.
+Slowly, painfully, you force yourself onto your feet.
+You reach for the lantern.
+Its light is faint.
+But it is enough.
+You take your first step.
+<<picture YarnCommands intro_3>>
+And begin your journey to the Sanctuary.
+<<pausemusic YarnCommands>>
+<<sfx YarnCommands startjourney>>
+<<hide_speaker_frame YarnCommands>>
+<<flash_to_black YarnCommands 4 3>>
+<<load_map_scene>>
 
 ===

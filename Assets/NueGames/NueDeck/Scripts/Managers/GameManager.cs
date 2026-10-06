@@ -3,6 +3,7 @@ using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Data.Containers;
 using NueGames.NueDeck.Scripts.Data.Settings;
 using NueGames.NueDeck.Scripts.EnemyBehaviour;
+using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.NueExtentions;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -75,6 +76,25 @@ namespace NueGames.NueDeck.Scripts.Managers
             else
                 foreach (var cardData in GameplayData.InitalDeck.CardList)
                     PersistentGameplayData.CurrentCardsList.Add(cardData);
+
+            foreach (var cardName in PersistentGameplayData.InitialCardsToRemove)
+            {
+                var cardIndex = PersistentGameplayData.CurrentCardsList.FindIndex(card =>
+                    card != null && string.Equals(card.CardName, cardName, System.StringComparison.OrdinalIgnoreCase));
+                if (cardIndex >= 0)
+                    PersistentGameplayData.CurrentCardsList.RemoveAt(cardIndex);
+            }
+
+            if (PersistentGameplayData.AddRandomUncommonOrHigherCard)
+            {
+                var eligibleCards = GameplayData.AllCardsList.FindAll(card =>
+                    card != null && card.Rarity >= RarityType.Uncommon && card.Rarity != RarityType.Status);
+                if (eligibleCards.Count > 0)
+                    PersistentGameplayData.CurrentCardsList.Add(eligibleCards.RandomItem());
+            }
+
+            PersistentGameplayData.InitialCardsToRemove.Clear();
+            PersistentGameplayData.AddRandomUncommonOrHigherCard = false;
         }
         public void NextEncounter()
         {

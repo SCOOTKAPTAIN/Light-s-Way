@@ -1,13 +1,13 @@
 using System;
+using NueGames.NueDeck.Scripts.Managers;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Yarn.Unity;
 
 public sealed class YarnIntroDialogue : MonoBehaviour
 {
     [Header("Yarn")]
     [SerializeField] private DialogueRunner dialogueRunner;
-    [SerializeField] private string startNode = "Start";
+    [SerializeField] private string startNode = "intro";
     [SerializeField] private float startDelay = 1f;
 
     [Header("Intro Presentation")]
@@ -16,7 +16,6 @@ public sealed class YarnIntroDialogue : MonoBehaviour
     [SerializeField] private Animator fadeAnimator;
     [SerializeField] private string fadeOutState = "FadeOut";
     [SerializeField] private float fadeOutDelay = 1f;
-    [SerializeField] private string nextSceneName;
 
     private async void Start()
     {
@@ -38,12 +37,6 @@ public sealed class YarnIntroDialogue : MonoBehaviour
 
         await dialogueRunner.StartDialogue(startNode);
 
-        if (string.IsNullOrWhiteSpace(nextSceneName))
-        {
-            Debug.LogWarning("YarnIntroDialogue finished without a next scene name.", this);
-            return;
-        }
-
         if (fadeAnimator != null && !string.IsNullOrWhiteSpace(fadeOutState))
         {
             fadeAnimator.Play(fadeOutState);
@@ -54,6 +47,17 @@ public sealed class YarnIntroDialogue : MonoBehaviour
             }
         }
 
-        SceneManager.LoadScene(nextSceneName);
+        var uiManager = UIManager.Instance;
+        var gameManager = GameManager.Instance;
+        if (uiManager == null || gameManager == null)
+        {
+            Debug.LogError("Cannot transition from the intro because GameManager or UIManager is missing.", this);
+            return;
+        }
+
+        uiManager.SetCanvas(uiManager.CombatCanvas, false, true);
+        uiManager.SetCanvas(uiManager.InformationCanvas, true, false);
+        uiManager.SetCanvas(uiManager.RewardCanvas, false, true);
+        uiManager.ChangeScene(gameManager.SceneData.mapSceneIndex);
     }
 }

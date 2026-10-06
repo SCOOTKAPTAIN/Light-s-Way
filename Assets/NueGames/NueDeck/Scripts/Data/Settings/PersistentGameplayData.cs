@@ -48,6 +48,8 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private bool ActAlreadyPlayed;
         [SerializeField] private bool gainProficiencyAfterEliteOrBoss;
         [SerializeField] private bool eliteBossProficiencyRewardArmed;
+        [SerializeField] private bool gainInsightAtActStart;
+        [SerializeField] private bool gainLightAtActStart;
 
         [SerializeField] private int BonusMaxHealth;
 
@@ -55,6 +57,8 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
        
        // Boss tracking
        [SerializeField] private List<string> defeatedBossIds; // Tracks bosses defeated this run
+    [SerializeField] private List<string> initialCardsToRemove;
+    [SerializeField] private bool addRandomUncommonOrHigherCard;
 
         public PersistentGameplayData(GameplayData gameplayData)
         {
@@ -118,7 +122,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             proficiency = 1;
             light = 100;
             actnumber = 0;
-            lightLoss = 1;
+            lightLoss = 2;
             wisdom = 0;
             potency = 0;
             affinity = 0;
@@ -131,8 +135,12 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             ActAlreadyPlayed = false;
             gainProficiencyAfterEliteOrBoss = false;
             eliteBossProficiencyRewardArmed = false;
+            gainInsightAtActStart = true;
+            gainLightAtActStart = false;
             BonusMaxHealth = 0;
             defeatedBossIds = new List<string>(); // Initialize defeated boss list
+            initialCardsToRemove = new List<string>();
+            addRandomUncommonOrHigherCard = false;
             if (PostFXManager.Instance != null)
                 PostFXManager.Instance.UpdateEffects(light);
         }
@@ -274,6 +282,29 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             set => eliteBossProficiencyRewardArmed = value;
         }
 
+        public bool GainInsightAtActStart
+        {
+            get => gainInsightAtActStart;
+            set => gainInsightAtActStart = value;
+        }
+
+        public bool GainLightAtActStart
+        {
+            get => gainLightAtActStart;
+            set => gainLightAtActStart = value;
+        }
+
+        public void ApplyActStartBonuses()
+        {
+            if (GainInsightAtActStart)
+                Insight += 1;
+
+            if (GainLightAtActStart)
+                ChangeLight(15);
+
+            UIManager.Instance?.InformationCanvas?.RefreshStatsText();
+        }
+
         public int Wisdom
         {
             get => wisdom;
@@ -355,6 +386,43 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         {
             get => defeatedBossIds;
             set => defeatedBossIds = value;
+        }
+
+        public List<string> InitialCardsToRemove => initialCardsToRemove;
+
+        public bool AddRandomUncommonOrHigherCard
+        {
+            get => addRandomUncommonOrHigherCard;
+            set => addRandomUncommonOrHigherCard = value;
+        }
+
+        public void QueueInitialCardRemoval(string cardName)
+        {
+            if (!string.IsNullOrWhiteSpace(cardName) && !initialCardsToRemove.Contains(cardName))
+                initialCardsToRemove.Add(cardName);
+        }
+
+        public void ResetIntroBonuses()
+        {
+            DrawCount = Mathf.Max(5, _gameplayData.DrawCount);
+            MaxCardOnHand = Mathf.Max(12, _gameplayData.MaxCardOnHand);
+            CurrentGold = 0;
+            Light = 100;
+            Proficiency = 1;
+            Wisdom = 0;
+            Potency = 0;
+            Affinity = 0;
+            Metabolism = 0;
+            Vigor = 0;
+            Insight = 0;
+            Radiance = 0;
+            LightLoss = 2;
+            GainProficiencyAfterEliteOrBoss = false;
+            EliteBossProficiencyRewardArmed = false;
+            GainInsightAtActStart = false;
+            GainLightAtActStart = false;
+            InitialCardsToRemove.Clear();
+            AddRandomUncommonOrHigherCard = false;
         }
         
         /// <summary>
