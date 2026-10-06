@@ -135,7 +135,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             ActAlreadyPlayed = false;
             gainProficiencyAfterEliteOrBoss = false;
             eliteBossProficiencyRewardArmed = false;
-            gainInsightAtActStart = true;
+            gainInsightAtActStart = false;
             gainLightAtActStart = false;
             BonusMaxHealth = 0;
             defeatedBossIds = new List<string>(); // Initialize defeated boss list
