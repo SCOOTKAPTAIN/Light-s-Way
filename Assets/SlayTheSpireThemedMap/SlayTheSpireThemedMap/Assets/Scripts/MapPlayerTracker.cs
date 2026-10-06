@@ -343,6 +343,8 @@ namespace Map
                 case NodeType.EliteEnemy:
                 Debug.Log("Go to a dangerous battle!");
                 EncounterManager.instance.SelectEncounter(EncounterType.Elite);
+                GameManager.Instance.PersistentGameplayData.EliteBossProficiencyRewardArmed =
+                    GameManager.Instance.PersistentGameplayData.GainProficiencyAfterEliteOrBoss;
 
                 DialogueAudioManager.instance.PlaySFX("enterbattle");
                 DialogueAudioManager.instance.DynamicMusic("battle");
@@ -366,6 +368,8 @@ namespace Map
                 Debug.Log("Go to a boss battle!");
                 // Select boss encounter BEFORE incrementing act (so Act 1 boss uses Act 1 data)
                 EncounterManager.instance.SelectEncounter(EncounterType.Boss);
+                GameManager.Instance.PersistentGameplayData.EliteBossProficiencyRewardArmed =
+                    GameManager.Instance.PersistentGameplayData.GainProficiencyAfterEliteOrBoss;
                 GameManager.Instance.PersistentGameplayData.actalreadyplayed = false;
                 
                 DialogueAudioManager.instance.PlaySFX("enterbattle");

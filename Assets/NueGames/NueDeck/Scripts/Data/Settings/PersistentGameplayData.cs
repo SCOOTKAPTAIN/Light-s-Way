@@ -46,6 +46,8 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private int capacity;
         [SerializeField] private int radiance;
         [SerializeField] private bool ActAlreadyPlayed;
+        [SerializeField] private bool gainProficiencyAfterEliteOrBoss;
+        [SerializeField] private bool eliteBossProficiencyRewardArmed;
 
         [SerializeField] private int BonusMaxHealth;
 
@@ -127,6 +129,8 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             capacity = 0;
             radiance = 0;
             ActAlreadyPlayed = false;
+            gainProficiencyAfterEliteOrBoss = false;
+            eliteBossProficiencyRewardArmed = false;
             BonusMaxHealth = 0;
             defeatedBossIds = new List<string>(); // Initialize defeated boss list
             if (PostFXManager.Instance != null)
@@ -256,6 +260,18 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             get => proficiency;
             set => proficiency = value;
 
+        }
+
+        public bool GainProficiencyAfterEliteOrBoss
+        {
+            get => gainProficiencyAfterEliteOrBoss;
+            set => gainProficiencyAfterEliteOrBoss = value;
+        }
+
+        public bool EliteBossProficiencyRewardArmed
+        {
+            get => eliteBossProficiencyRewardArmed;
+            set => eliteBossProficiencyRewardArmed = value;
         }
 
         public int Wisdom

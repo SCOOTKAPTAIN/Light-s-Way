@@ -1314,7 +1314,8 @@ MonoBehaviour:
   rewardRoot: {fileID: 8356462358083751223}
   rewardContainerPrefab: {fileID: 4144854971553763347, guid: 7728fa9ef774a574fa112e56a3a8c0ef, type: 3}
   rewardPanelRoot: {fileID: 3975758537094236638}
-  metabolismRewardIcon: {fileID: -6948255274759803926, guid: fc912518309c4af40b2a6c9354ac21ff, type: 3}
+  metabolismRewardIcon: {fileID: 2362709154896444531, guid: e2b5e4c4ff029e94b9e04d2d5577c2a0, type: 3}
+  proficiencyRewardIcon: {fileID: 1964703568689129369, guid: e2b5e4c4ff029e94b9e04d2d5577c2a0, type: 3}
   choice2DCardSpawnRoot: {fileID: 4296046879590768356}
   choiceCardUIPrefab: {fileID: 4977405248093799515, guid: 064f09601e0b46348b1488f9cc7fd9e6, type: 3}
   choicePanel: {fileID: 3729220889032712400}

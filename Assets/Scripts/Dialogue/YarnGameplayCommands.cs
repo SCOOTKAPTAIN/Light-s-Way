@@ -205,6 +205,19 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         ChangePersistentStat("affinity", amount, value => GameManager.Instance.PersistentGameplayData.Affinity = value);
     }
 
+    [YarnCommand("enable_elite_boss_proficiency")]
+    public static void EnableEliteBossProficiency()
+    {
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData == null)
+        {
+            Debug.LogWarning("Cannot enable Elite/Boss proficiency reward because PersistentGameplayData is missing.");
+            return;
+        }
+
+        gameplayData.GainProficiencyAfterEliteOrBoss = true;
+    }
+
     [YarnCommand("change_metabolism")]
     public static void ChangeMetabolism(int amount)
     {

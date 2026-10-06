@@ -23,6 +23,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
         [SerializeField] private RewardContainer rewardContainerPrefab;
         [SerializeField] private Transform rewardPanelRoot;
         [SerializeField] private Sprite metabolismRewardIcon;
+        [SerializeField] private Sprite proficiencyRewardIcon;
         [Header("Choice")]
         [SerializeField] private Transform choice2DCardSpawnRoot;
         [SerializeField] private ChoiceCard choiceCardUIPrefab;
@@ -52,6 +53,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
                 BuildReward(RewardType.Gold);
                 BuildReward(RewardType.Card);
                 BuildMetabolismReward();
+                BuildEliteBossProficiencyReward();
                 return;
             }
             
@@ -74,6 +76,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
             }
 
             BuildMetabolismReward();
+            BuildEliteBossProficiencyReward();
         }
 
         public bool OpenCardReward(string poolName, Action onSelected)
@@ -203,6 +206,20 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
             rewardContainer.RewardButton.onClick.AddListener(() => GetMetabolismReward(rewardContainer, healAmount));
         }
 
+        private void BuildEliteBossProficiencyReward()
+        {
+            var gameplayData = GameManager.PersistentGameplayData;
+            if (!gameplayData.EliteBossProficiencyRewardArmed)
+                return;
+
+            gameplayData.EliteBossProficiencyRewardArmed = false;
+
+            var rewardClone = Instantiate(rewardContainerPrefab, rewardRoot);
+            _currentRewardsList.Add(rewardClone);
+            rewardClone.BuildReward(proficiencyRewardIcon, "Gain <color=#FFD700>1 Proficiency</color>");
+            rewardClone.RewardButton.onClick.AddListener(() => GetEliteBossProficiencyReward(rewardClone));
+        }
+
         private static string ColorGoldWord(string description)
         {
             return Regex.Replace(
@@ -274,6 +291,17 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
                     ally.CharacterStats.CurrentHealth,
                     ally.CharacterStats.MaxHealth);
             }
+
+            _currentRewardsList.Remove(rewardContainer);
+            Destroy(rewardContainer.gameObject);
+        }
+
+        private void GetEliteBossProficiencyReward(RewardContainer rewardContainer)
+        {
+            var gameplayData = GameManager.PersistentGameplayData;
+            gameplayData.Proficiency += 1;
+            UIManager.InformationCanvas?.SetProficiencyText(gameplayData.Proficiency);
+            UIManager.InformationCanvas?.SetStatsProficiencyText(gameplayData.Proficiency);
 
             _currentRewardsList.Remove(rewardContainer);
             Destroy(rewardContainer.gameObject);

@@ -716,6 +716,7 @@ namespace NueGames.NueDeck.Scripts.Managers
 
            
         }
+
         #endregion
         
         #region Routines

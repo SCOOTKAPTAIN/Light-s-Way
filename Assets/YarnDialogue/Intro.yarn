@@ -38,9 +38,11 @@ You reminisce about your aspirations. What kind of person did you dream of becom
 title: adventurer_purpose
 ---
 What drove you to pursue such a life?
--> To overcome adversaries and challenges #paneldetails=Gain_1_Proficiency_after_each_Elite_and_Boss_Encounters
+-> To overcome adversaries and challenges #paneldetails=Gain_1_Proficiency_after_each_Elite_and_Boss_battles
+	<<enable_elite_boss_proficiency>>
     You welcomed every challenge as an opportunity to prove yourself. The greater the obstacle, the greater the satisfaction of overcoming it.
 -> To forge both your body and mind #paneldetails=Gain_5_Affinity
+	<<change_affinity 5>>
     You sought to become someone who could endure anything the world threw at you. Through hardship, you would sharpen both body and mind into something stronger.
 -> To discover uncharted horizons #paneldetails=Reduce_Light_drain_from_node_movement_by_50%
    The unknown called to you. You longed to venture beyond familiar lands and see places no one had seen before
