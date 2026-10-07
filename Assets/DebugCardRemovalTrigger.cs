@@ -4,7 +4,7 @@ public class DebugCardRemovalTrigger : MonoBehaviour
 {
     public void TriggerCardRemoval()
     {
-        Object.FindFirstObjectByType<CardRemovalManager>()?.OpenCardRemovalScreen();
+        Object.FindFirstObjectByType<CardRemovalManager>()?.OpenCardRemovalScreen(null);
 
     }
 }

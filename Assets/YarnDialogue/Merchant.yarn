@@ -1,7 +1,7 @@
 ﻿title: Merchant_Meet
 ---
 <<fade_out YarnCommands 0>>
-<<wait 2>>
+<<wait 1>>
 <<picture YarnCommands merchant>>
 <<fade_in YarnCommands 1>>
 Merchant: Kihihi... Welcome, young lady.
@@ -16,6 +16,7 @@ title: merchant_heal
 <<elseif gold() >= 200>>
 	<<change_gold -200>>
 	<<change_health_percent 50>>
+	<<merchant_purchase_success>>
 	Merchant: There. You look less dead already.
 <<else>>
 	<<jump merchant_broke>>
@@ -27,7 +28,8 @@ title: merchant_vigor
 <<if gold() >= 150>>
 	<<change_gold -150>>
 	<<change_vigor 25>>
-	Merchant: A little more strength for that fragile frame.
+	<<merchant_purchase_success>>
+	Merchant: A little more fortitude for that fragile frame.
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -38,7 +40,8 @@ title: merchant_metabolism
 <<if gold() >= 150>>
 	<<change_gold -150>>
 	<<change_metabolism 1>>
-	Merchant: Your body will put those resources to better use now.
+	<<merchant_purchase_success>>
+	Merchant: Such a lively body! Better keep that stomach full.
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -51,7 +54,8 @@ title: merchant_light
 <<elseif gold() >= 150>>
 	<<change_gold -150>>
 	<<change_light 10>>
-	Merchant: There. A little more Light to guide you.
+	<<merchant_purchase_success>>
+	Merchant: Here's something to brigthen the flames, stay safe young lady...
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -59,17 +63,20 @@ title: merchant_light
 
 title: merchant_broke
 ---
-Merchant: Come back when you can actually afford something.
+<<merchant_purchase_broke>>
+Merchant: Sorry, young lady, but I don't do charity. Best come back when you're a lil' richer. Kihihi...
 ===
 
 title: merchant_light_full
 ---
-Merchant: Your Light is already full. Even I cannot sell you more of it.
+<<merchant_purchase_broke>>
+Merchant: Your lantern is already as bright as it gets, young lady. Unless you're feeling generous enough to make a little donation? Kihihi...
 ===
 
 title: merchant_health_full
 ---
-Merchant: You are already the definition of picture of health. Do not waste your Gold.
+<<merchant_purchase_broke>>
+Merchant: You're already the very picture of health. Don't waste your Gold, young lady.
 ===
 
 title: merchant_proficiency
@@ -77,7 +84,8 @@ title: merchant_proficiency
 <<if gold() >= 250>>
 	<<change_gold -250>>
 	<<change_proficiency 1>>
-	Merchant: A sharper edge for a reasonable price.
+	<<merchant_purchase_success>>
+	Merchant: Here are some books you can read and learn from. Been tryin' to get rid of 'em, they're too heavy, y'know?
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -88,7 +96,8 @@ title: merchant_insight
 <<if gold() >= 150>>
 	<<change_gold -150>>
 	<<change_insight 1>>
-	Merchant: Open your eyes, and the world will reveal more of itself.
+	<<merchant_purchase_success>>
+	Merchant: Open your eyes, and the world shall reveal more of itself.
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -99,7 +108,8 @@ title: merchant_affinity
 <<if gold() >= 200>>
 	<<change_gold -200>>
 	<<change_affinity 2>>
-	Merchant: Even a cold heart can be made to resonate.
+	<<merchant_purchase_success>>
+	Merchant: You'll get a little more mileage out of those fancy tricks now.
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -110,10 +120,62 @@ title: merchant_capacity
 <<if gold() >= 100>>
 	<<change_gold -100>>
 	<<change_capacity 2>>
+	<<merchant_purchase_success>>
 	Merchant: A little more room for what the journey demands.
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
+===
+
+title: merchant_card_removal
+---
+<<if not has_removable_card()>>
+	Merchant: Your belongings are already too thin. Come back with something worth removing.
+<<elseif gold() >= 300>>
+	<<open_card_removal MerchantYarnCommands>>
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_card_removal_complete
+---
+<<merchant_purchase_success>>
+Merchant: One less burden for the road.
+===
+
+title: merchant_card_procurement
+---
+<<if gold() >= 200>>
+	<<open_default_card_procurement MerchantYarnCommands>>
+    <<merchant_purchase_success>>
+	Merchant: A useful addition to your collection, eh? ...No? Shit.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_premium_procurement
+---
+	<<if not has_premium_procurement()>>
+	Merchant: That particular stock has not arrived yet.
+	<<elseif gold() >= 600>>
+	<<open_premium_card_procurement MerchantYarnCommands>>
+    <<merchant_purchase_success>>
+	Merchant: Now THESE are some fine selections! I guarantee you won't be disappointed. Kihihi...
+	<<else>>
+	<<jump merchant_broke>>
+	<<endif>>
+===
+
+title: merchant_bye_bye
+---
+<<close_shop_panel MerchantYarnCommands>>
+<<hide_speaker_frame YarnCommands>>
+Merchant: Try not to die out there. Kihihi... 
+<<fade_out YarnCommands 2>>
+<<wait 2>>
+<<load_map_scene>>
 ===
 
 title: merchant_potency
@@ -121,7 +183,8 @@ title: merchant_potency
 <<if gold() >= 300>>
 	<<change_gold -300>>
 	<<change_potency 1>>
-	Merchant: Power is expensive. Fortunately, you look desperate enough to pay.
+	<<merchant_purchase_success>>
+	Merchant: A little more ‘sting’ for that edge of yours. They're gonna feel that, alright.
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -132,7 +195,8 @@ title: merchant_arcana
 <<if gold() >= 600>>
 	<<change_gold -600>>
 	<<change_arcana 1>>
-	Merchant: The arcane does not come cheaply.
+	<<merchant_purchase_success>>
+	Merchant: Just chant whatever this scroll says and yer magic circuits will improve. Can't guarantee no side effects, though. Kihihi...
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -143,7 +207,8 @@ title: merchant_wisdom
 <<if gold() >= 1000>>
 	<<change_gold -1000>>
 	<<change_wisdom 1>>
-	Merchant: Wisdom takes a lifetime. I can offer you the shorter version.
+	<<merchant_purchase_success>>
+	Merchant: Wisdom takes a lifetime. I can offer you the shortcut. Kihihi...
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -154,6 +219,7 @@ title: merchant_radiance
 <<if gold() >= 1000>>
 	<<change_gold -1000>>
 	<<change_radiance 1>>
+	<<merchant_purchase_success>>
 	Merchant: A brighter soul attracts both friends and trouble.
 <<else>>
 	<<jump merchant_broke>>
@@ -165,7 +231,8 @@ title: merchant_abundance
 <<if gold() >= 1000>>
 	<<change_gold -1000>>
 	<<change_abundance 1>>
-	Merchant: More opportunities, more problems. What a bargain.
+	<<merchant_purchase_success>>
+	Merchant: More opportunities, more headaches. What a bargain.
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>

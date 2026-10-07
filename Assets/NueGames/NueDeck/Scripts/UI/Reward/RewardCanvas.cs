@@ -9,6 +9,7 @@ using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.NueExtentions;
 using NueGames.NueDeck.ThirdParty.NueTooltip.Core;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace NueGames.NueDeck.Scripts.UI.Reward
 {
@@ -34,6 +35,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
         private readonly List<RewardContainer> _currentRewardsList = new List<RewardContainer>();
         private readonly List<ChoiceCard> _spawnedChoiceList = new List<ChoiceCard>();
         private readonly List<CardData> _cardRewardList = new List<CardData>();
+        private Button _choiceNextButton;
 
         public ChoicePanel ChoicePanel => choicePanel;
         
@@ -94,6 +96,24 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
             if (cardRewardData == null)
             {
                 Debug.LogWarning($"No card reward pool named '{poolName}' was found.", this);
+                return false;
+            }
+
+            return OpenCardReward(cardRewardData, onSelected);
+        }
+
+        public bool OpenDefaultCardReward(Action onSelected)
+        {
+            if (rewardContainerData == null || rewardContainerData.CardRewardDataList == null || rewardContainerData.CardRewardDataList.Count == 0)
+            {
+                Debug.LogWarning("Cannot open the default card reward because RewardContainerData is missing or empty.", this);
+                return false;
+            }
+
+            var cardRewardList = rewardContainerData.GetRandomCardRewardList(out var cardRewardData);
+            if (cardRewardData == null || cardRewardList == null || cardRewardList.Count == 0)
+            {
+                Debug.LogWarning("Cannot open the default card reward because no cards were generated.", this);
                 return false;
             }
 
@@ -191,6 +211,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
         public override void CloseCanvas()
         {
             TooltipManager.Instance?.HideTooltip();
+            SetChoiceNextButtonVisible(true);
             base.CloseCanvas();
         }
         
@@ -348,6 +369,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
         private void ShowCardChoices(int amount, Action onSelected)
         {
             ChoicePanel.gameObject.SetActive(true);
+            SetChoiceNextButtonVisible(false);
 
             for (int i = 0; i < amount; i++)
             {
@@ -364,6 +386,19 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
                 _cardRewardList.Remove(reward);
                 _spawnedChoiceList.Add(choice);
             }
+        }
+
+        private void SetChoiceNextButtonVisible(bool isVisible)
+        {
+            if (_choiceNextButton == null && ChoicePanel != null)
+            {
+                var nextButtonTransform = ChoicePanel.transform.Find("Midground/NextButton");
+                if (nextButtonTransform != null)
+                    _choiceNextButton = nextButtonTransform.GetComponent<Button>();
+            }
+
+            if (_choiceNextButton != null)
+                _choiceNextButton.gameObject.SetActive(isVisible);
         }
 
         private void GetMetabolismReward(RewardContainer rewardContainer, int amount)

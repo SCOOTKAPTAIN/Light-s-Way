@@ -132,10 +132,13 @@ public sealed class YarnGameplayCommands : MonoBehaviour
     [YarnCommand("hide_speaker_frame")]
     public void HideSpeakerFrame()
     {
-        if (speakerFrame != null)
+        if (speakerFrame == null)
         {
-            speakerFrame.SetActive(false);
+            Debug.LogWarning("Cannot hide the speaker frame because it is not assigned.", this);
+            return;
         }
+
+        speakerFrame.SetActive(false);
     }
 
     [YarnCommand("show_speaker_frame")]

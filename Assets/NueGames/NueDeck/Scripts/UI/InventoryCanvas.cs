@@ -20,6 +20,7 @@ namespace NueGames.NueDeck.Scripts.UI
         public LayoutGroup CardSpawnRoot => cardSpawnRoot;
 
         private List<CardBase> _spawnedCardList = new List<CardBase>();
+        private Button _returnButton;
 
         public void ChangeTitle(string newTitle) => TitleTextField.text = newTitle;
 
@@ -100,6 +101,8 @@ namespace NueGames.NueDeck.Scripts.UI
                 if (img != null)
                     img.raycastTarget = false;
             }
+
+                    SetRemovalButtonInteractable(true);
         }
 
 
@@ -117,6 +120,23 @@ namespace NueGames.NueDeck.Scripts.UI
         public void SetCardsForRemoval(List<CardData> cardDataList, System.Action<CardData> onCardChosen)
         {
             SetCardsForSelection(cardDataList, onCardChosen);
+            SetRemovalButtonInteractable(false);
+        }
+
+        public void SetRemovalButtonInteractable(bool interactable)
+        {
+            if (_returnButton == null)
+            {
+                var returnButtonTransform = transform.Find("CardPanel/ReturnButton");
+                if (returnButtonTransform != null)
+                    _returnButton = returnButtonTransform.GetComponent<Button>();
+            }
+
+            if (_returnButton != null)
+            {
+                _returnButton.interactable = interactable;
+                _returnButton.gameObject.SetActive(interactable);
+            }
         }
 
         public void SetCardsForSelection(List<CardData> cardDataList, System.Action<CardData> onCardChosen)

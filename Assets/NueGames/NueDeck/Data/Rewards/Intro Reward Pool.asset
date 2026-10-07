@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47c4f39c13d642f6985cca3f815566cb, type: 3}
+  m_Name: Intro Reward Pool
+  m_EditorClassIdentifier: 
+  rewardSprite: {fileID: -3950371456468266679, guid: fc912518309c4af40b2a6c9354ac21ff, type: 3}
+  rewardDescription: Obtain a random <color=#FFB430>Card</color>
+  commonCards:
+  - {fileID: 11400000, guid: 1e43cdb39f5836b44942f367125cadde, type: 2}
+  - {fileID: 11400000, guid: e1783ca46b526944c969405b4c0a29ec, type: 2}
+  - {fileID: 11400000, guid: 212e35dcd1cb47942a7e2f4d45f55d10, type: 2}
+  - {fileID: 11400000, guid: bc5683722f5142f4e94fa65a825b1fa4, type: 2}
+  - {fileID: 11400000, guid: 43d63d96a90ea604b935f80163db0a3f, type: 2}
+  - {fileID: 11400000, guid: adccd787210f7c44b992378d2c6bd8c0, type: 2}
+  - {fileID: 11400000, guid: 3a541abe254a1bc4aa43dfb6770f1d4c, type: 2}
+  - {fileID: 11400000, guid: 8d7f8cb2361572145aaaf63bc60e1279, type: 2}
+  - {fileID: 11400000, guid: 4b3aedffc3991d24781fada5ca0f2b02, type: 2}
+  - {fileID: 11400000, guid: fbb7f18fffa396c4a8955ad118261243, type: 2}
+  - {fileID: 11400000, guid: 5cb56877aeeff014d85b0e298b279b45, type: 2}
+  - {fileID: 11400000, guid: 67814b982abfbbd4ab43046b116469bd, type: 2}
+  - {fileID: 11400000, guid: 11cdac88e49fba14cb3df48fa7e19df1, type: 2}
+  - {fileID: 11400000, guid: 1f880e9881b259c48975558c97d9e103, type: 2}
+  - {fileID: 11400000, guid: d1bf5f2ff91b06f4aaf816e32200bea0, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: ec282954ced7dcc4ebba1fc6b4a28e3e, type: 2}
+  - {fileID: 11400000, guid: c7f07edcc627f414caafb1bf363a75aa, type: 2}
+  - {fileID: 11400000, guid: bd9832c34c7892f4ba7dfe23bfb91f5f, type: 2}
+  - {fileID: 11400000, guid: 8f655889219afa649a967e88e37f98ec, type: 2}
+  - {fileID: 11400000, guid: ce29eed32554adb4c91c7366000b15b1, type: 2}
+  - {fileID: 11400000, guid: 805d8fda8b67dc8479bd6ceb014f1b08, type: 2}
+  - {fileID: 11400000, guid: 79c3747908f8a2d45a0db2af74bda5bd, type: 2}
+  - {fileID: 11400000, guid: fb9d55d602ed121449213c922d0a83aa, type: 2}
+  - {fileID: 11400000, guid: c4daecc49efbb1d49ac014985a99082d, type: 2}
+  - {fileID: 11400000, guid: 53e86b5867b175c44a7cfbf408b48d62, type: 2}
+  - {fileID: 11400000, guid: 5b8a898c39a5c6444a4419863bfcd756, type: 2}
+  - {fileID: 11400000, guid: d51785c6e54cd9c42923d7a71e314bb1, type: 2}
+  - {fileID: 11400000, guid: 144dc0e6585d7bd45a1b89a2c9c71067, type: 2}
+  - {fileID: 11400000, guid: d8f9f1102ef127e4a8618cafb637b7b4, type: 2}
+  - {fileID: 11400000, guid: 9103ab01aded9a34b8527693e99c54ca, type: 2}
+  - {fileID: 11400000, guid: 41924b9e49e044246a2f4a7704df7be4, type: 2}
+  - {fileID: 11400000, guid: cedc2cca1d307f44eb80e3a38cb6426a, type: 2}
+  - {fileID: 11400000, guid: 8ef9f872fa0614a438c8d2901c152ff6, type: 2}
+  - {fileID: 11400000, guid: 1ed39ed6a1f4a5f49a2edf53a8fe275b, type: 2}
+  - {fileID: 11400000, guid: 8bcee06837fc6354799076853bd4f76c, type: 2}
+  - {fileID: 11400000, guid: 1ae19f48c4cede6418431a92f9124d00, type: 2}
+  - {fileID: 11400000, guid: c0635b60577c46ad8f270f49876ffc3a, type: 2}
+  - {fileID: 11400000, guid: 874f5280270ef3c4e8cc6385402e5c12, type: 2}
+  - {fileID: 11400000, guid: d4f06be3a5825fa468e4d21554525383, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: 7c0346c1ea2628b4aabea815c44d7d83, type: 2}
+  - {fileID: 11400000, guid: 35f61991de8c05240a1aa946cb36a4d4, type: 2}
+  - {fileID: 11400000, guid: c39724ac1b06e8c44a30eb4cd8a2b035, type: 2}
+  - {fileID: 11400000, guid: fd02bf122a9224043b6266cd180cfa7c, type: 2}
+  - {fileID: 11400000, guid: d1651bc5a177be54b9bf76e46c2a49dd, type: 2}
+  - {fileID: 11400000, guid: 86d57b23275886e4580e254cd893c7ed, type: 2}
+  - {fileID: 11400000, guid: 1b5add5d4a6da5c44840cd0559b00bc5, type: 2}
+  - {fileID: 11400000, guid: ca0349468bd30fd4d8b6df52028e4f29, type: 2}
+  - {fileID: 11400000, guid: 77b0c07cb0ee9bf4e89cd78c2bd6ef2a, type: 2}
+  - {fileID: 11400000, guid: 5add832582ff7a941b87939c6568c880, type: 2}
+  - {fileID: 11400000, guid: 2828c0dfc33d88e4599cf5e9ea5693d8, type: 2}
+  - {fileID: 11400000, guid: 842f01eeed16cf34db1f15f26d44cb44, type: 2}
+  - {fileID: 11400000, guid: 971c4442f2e3f9044b47e846453e3f91, type: 2}
+  - {fileID: 11400000, guid: 2bbb437e61a101c449fd82ee575de396, type: 2}
+  - {fileID: 11400000, guid: 01e7f36ced2dd7f47aded3f1772e9c6f, type: 2}
+  - {fileID: 11400000, guid: 37946817af071bd4fae77ca437893f01, type: 2}
+  - {fileID: 11400000, guid: 76e6bc532a84d85469026d0b76f1a9c7, type: 2}
+  - {fileID: 11400000, guid: f4ec1c50226113f458b892b4c5297575, type: 2}
+  - {fileID: 11400000, guid: aa91770f66d2a5d4a8f4887259e3740e, type: 2}
+  - {fileID: 11400000, guid: 9c3687d44acffec4a961204b02963367, type: 2}
+  - {fileID: 11400000, guid: b9a2fc071b9984f49a5010473ea6e938, type: 2}
+  - {fileID: 11400000, guid: d3e4f9a7b2c6418ba5e0d7c9f613824b, type: 2}
+  - {fileID: 11400000, guid: 9aa5b663e5f1030438b5bfa38170af35, type: 2}
+  - {fileID: 11400000, guid: bb77a747f6e442c4fa91b6fd10843c16, type: 2}
+  mysticCards:
+  - {fileID: 11400000, guid: db2324cf57b051c4190ae600362eed61, type: 2}
+  - {fileID: 11400000, guid: f7676216173a1e144bff8528fd521c6d, type: 2}
+  - {fileID: 11400000, guid: 7508ffe8c7316074494f352538532e4e, type: 2}
+  - {fileID: 11400000, guid: c2bf3ea34bb249e4583335792808a032, type: 2}
+  - {fileID: 11400000, guid: b83a3e2eec4c66c44aacb0eb71b3ae8c, type: 2}
+  - {fileID: 11400000, guid: 784c52b158055b040a259712f52cc1a8, type: 2}
+  - {fileID: 11400000, guid: aa35e581b14784f468ec3ac7c0e364dc, type: 2}
+  - {fileID: 11400000, guid: 1c3573190387441468aa62643a08d250, type: 2}
+  - {fileID: 11400000, guid: f36c1773dd122db4b9b82c75358d51a5, type: 2}
+  - {fileID: 11400000, guid: e4f4a67ede6795b42b5e55dd6446eb42, type: 2}
+  - {fileID: 11400000, guid: 5f2e8b6a41cd4f0da8b31e07c9634f2b, type: 2}
+  - {fileID: 11400000, guid: cdd2f3ac902877b4aa0653b2badf43b2, type: 2}
+  commonWeight: 58
+  uncommonWeight: 28
+  rareWeight: 5
+  mysticWeight: 0

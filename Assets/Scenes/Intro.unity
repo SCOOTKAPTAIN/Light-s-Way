@@ -3673,7 +3673,7 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: fee87c821d9ea754aab174d10075377d, type: 3}
   backgroundAnimator: {fileID: 2125829730}
   speakerFrame: {fileID: 1534638189}
-  randomUncommonCardPool: {fileID: 11400000, guid: 6cecd2669f04dbf40be0053e0a29c0c5, type: 2}
+  randomUncommonCardPool: {fileID: 11400000, guid: 2a939728e8fac754aa4c391265dcfb2d, type: 2}
 --- !u!4 &1939543852
 Transform:
   m_ObjectHideFlags: 0
