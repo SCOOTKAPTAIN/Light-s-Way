@@ -171,10 +171,10 @@ title: merchant_premium_procurement
 title: merchant_bye_bye
 ---
 <<close_shop_panel MerchantYarnCommands>>
-<<hide_speaker_frame YarnCommands>>
 Merchant: Try not to die out there. Kihihi... 
+<<hide_speaker_frame YarnCommands>>
+<<wait 1>>
 <<fade_out YarnCommands 2>>
-<<wait 2>>
 <<load_map_scene>>
 ===
 
