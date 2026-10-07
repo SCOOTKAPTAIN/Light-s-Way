@@ -114,7 +114,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             CurrentEncounterId = 0;
             SelectedEncounter = null;
             CurrentStageId = 0;
-            CurrentGold = 0;
+            CurrentGold = 10000;
             CurrentCardsList = new List<CardData>();
             IsFinalEncounter = false;
             allyHealthDataDataList = new List<AllyHealthData>();

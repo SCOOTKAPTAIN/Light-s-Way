@@ -593,6 +593,23 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         return currentAlly != null ? currentAlly.CharacterStats.CurrentHealth : 0;
     }
 
+    [YarnFunction("is_full_health")]
+    public static bool IsFullHealth()
+    {
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData?.AllyList == null || gameplayData.AllyList.Count == 0)
+            return false;
+
+        var allyData = gameplayData.AllyList[0].AllyCharacterData;
+        var currentAlly = CombatManager.Instance?.CurrentMainAlly;
+        int maxHealth = currentAlly != null ? currentAlly.CharacterStats.MaxHealth : allyData.MaxHealth;
+        int currentHealth = currentAlly != null
+            ? currentAlly.CharacterStats.CurrentHealth
+            : GetPersistentCurrentHealth(gameplayData, allyData.CharacterID, maxHealth);
+
+        return maxHealth > 0 && currentHealth >= maxHealth;
+    }
+
     [YarnFunction("light")]
     public static int GetLight()
     {

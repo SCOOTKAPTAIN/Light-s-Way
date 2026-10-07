@@ -9,7 +9,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         public int mapSceneIndex = 5;
         public int combatSceneIndex = 3;
         public int dialogueSceneIndex = 7;
-        public int merchantSceneIndex = 6;
+        public int merchantSceneIndex = 12;
         public int endingSceneIndex = 10;
     }
 }

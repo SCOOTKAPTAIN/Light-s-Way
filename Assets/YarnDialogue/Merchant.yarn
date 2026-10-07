@@ -1,4 +1,173 @@
 ﻿title: Merchant_Meet
 ---
-Merchant: 
+<<fade_out YarnCommands 0>>
+<<wait 2>>
+<<picture YarnCommands merchant>>
+<<fade_in YarnCommands 1>>
+Merchant: Kihihi... Welcome, young lady.
+Merchant: Here to buy somethin'? I got wares that might interest you.
+<<open_shop_panel MerchantYarnCommands>>
 ===
+
+title: merchant_heal
+---
+<<if is_full_health()>>
+	<<jump merchant_health_full>>
+<<elseif gold() >= 200>>
+	<<change_gold -200>>
+	<<change_health_percent 50>>
+	Merchant: There. You look less dead already.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_vigor
+---
+<<if gold() >= 150>>
+	<<change_gold -150>>
+	<<change_vigor 25>>
+	Merchant: A little more strength for that fragile frame.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_metabolism
+---
+<<if gold() >= 150>>
+	<<change_gold -150>>
+	<<change_metabolism 1>>
+	Merchant: Your body will put those resources to better use now.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_light
+---
+<<if light() >= 100>>
+	<<jump merchant_light_full>>
+<<elseif gold() >= 150>>
+	<<change_gold -150>>
+	<<change_light 10>>
+	Merchant: There. A little more Light to guide you.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_broke
+---
+Merchant: Come back when you can actually afford something.
+===
+
+title: merchant_light_full
+---
+Merchant: Your Light is already full. Even I cannot sell you more of it.
+===
+
+title: merchant_health_full
+---
+Merchant: You are already the definition of picture of health. Do not waste your Gold.
+===
+
+title: merchant_proficiency
+---
+<<if gold() >= 250>>
+	<<change_gold -250>>
+	<<change_proficiency 1>>
+	Merchant: A sharper edge for a reasonable price.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_insight
+---
+<<if gold() >= 150>>
+	<<change_gold -150>>
+	<<change_insight 1>>
+	Merchant: Open your eyes, and the world will reveal more of itself.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_affinity
+---
+<<if gold() >= 200>>
+	<<change_gold -200>>
+	<<change_affinity 2>>
+	Merchant: Even a cold heart can be made to resonate.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_capacity
+---
+<<if gold() >= 100>>
+	<<change_gold -100>>
+	<<change_capacity 2>>
+	Merchant: A little more room for what the journey demands.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_potency
+---
+<<if gold() >= 300>>
+	<<change_gold -300>>
+	<<change_potency 1>>
+	Merchant: Power is expensive. Fortunately, you look desperate enough to pay.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_arcana
+---
+<<if gold() >= 600>>
+	<<change_gold -600>>
+	<<change_arcana 1>>
+	Merchant: The arcane does not come cheaply.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_wisdom
+---
+<<if gold() >= 1000>>
+	<<change_gold -1000>>
+	<<change_wisdom 1>>
+	Merchant: Wisdom takes a lifetime. I can offer you the shorter version.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_radiance
+---
+<<if gold() >= 1000>>
+	<<change_gold -1000>>
+	<<change_radiance 1>>
+	Merchant: A brighter soul attracts both friends and trouble.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+
+title: merchant_abundance
+---
+<<if gold() >= 1000>>
+	<<change_gold -1000>>
+	<<change_abundance 1>>
+	Merchant: More opportunities, more problems. What a bargain.
+<<else>>
+	<<jump merchant_broke>>
+<<endif>>
+===
+

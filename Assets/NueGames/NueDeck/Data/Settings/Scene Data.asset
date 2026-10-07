@@ -16,5 +16,5 @@ MonoBehaviour:
   mapSceneIndex: 5
   combatSceneIndex: 3
   dialogueSceneIndex: 7
-  merchantSceneIndex: 6
+  merchantSceneIndex: 12
   endingSceneIndex: 8
