@@ -7,6 +7,7 @@ using NueGames.NueDeck.Scripts.Data.Collection.RewardData;
 using NueGames.NueDeck.Scripts.Data.Containers;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.NueExtentions;
+using NueGames.NueDeck.ThirdParty.NueTooltip.Core;
 using UnityEngine;
 
 namespace NueGames.NueDeck.Scripts.UI.Reward
@@ -14,6 +15,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
     public class RewardCanvas : CanvasBase
     {
         protected override bool BlocksBackgroundInput => true;
+        private const int CardChoiceCount = 3;
         private const string GoldColor = "#FFD700";
         private const string HealColor = "#62E26F";
 
@@ -95,17 +97,101 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
                 return false;
             }
 
+            return OpenCardReward(cardRewardData, onSelected);
+        }
+
+        public bool OpenCardReward(CardRewardData cardRewardData, Action onSelected)
+        {
+            if (cardRewardData == null)
+            {
+                Debug.LogWarning("Cannot open a card reward because the card reward pool is missing.", this);
+                return false;
+            }
+
             _cardRewardList.Clear();
-            _cardRewardList.AddRange(cardRewardData.GetWeightedRandomCards(3));
+            _cardRewardList.AddRange(cardRewardData.GetWeightedRandomCards(CardChoiceCount));
+            while (_cardRewardList.Count < CardChoiceCount)
+            {
+                var fallbackCard = cardRewardData.GetWeightedRandomCard();
+                if (fallbackCard == null)
+                    break;
+
+                _cardRewardList.Add(fallbackCard);
+            }
             if (_cardRewardList.Count == 0)
             {
-                Debug.LogWarning($"Card reward pool '{poolName}' does not contain any cards.", this);
+                Debug.LogWarning($"Card reward pool '{cardRewardData.name}' does not contain any cards.", this);
                 return false;
             }
 
             OpenCanvas();
-            ShowCardChoices(_cardRewardList.Count, onSelected);
+            ShowCardChoices(_cardRewardList.Count, () =>
+            {
+                CloseCanvas();
+                onSelected?.Invoke();
+            });
             return true;
+        }
+
+        public bool OpenCardReward(CardRewardData cardRewardData, int rounds, int choicesPerRound, Action onSelected)
+        {
+            if (cardRewardData == null || rounds <= 0 || choicesPerRound <= 0)
+            {
+                Debug.LogWarning("Cannot open a multi-round card reward because its pool or choice settings are invalid.", this);
+                return false;
+            }
+
+            var allCards = cardRewardData.GetWeightedRandomCards(rounds * choicesPerRound);
+            while (allCards.Count < rounds * choicesPerRound)
+            {
+                var fallbackCard = cardRewardData.GetWeightedRandomCard();
+                if (fallbackCard == null)
+                    break;
+
+                allCards.Add(fallbackCard);
+            }
+
+            if (allCards.Count == 0)
+            {
+                Debug.LogWarning($"Card reward pool '{cardRewardData.name}' does not contain any cards.", this);
+                return false;
+            }
+
+            OpenCanvas();
+            ShowCardRewardRound(allCards, 0, rounds, choicesPerRound, onSelected);
+            return true;
+        }
+
+        private void ShowCardRewardRound(
+            List<CardData> allCards,
+            int roundIndex,
+            int rounds,
+            int choicesPerRound,
+            Action onSelected)
+        {
+            _cardRewardList.Clear();
+            int startIndex = roundIndex * choicesPerRound;
+            int availableChoices = Mathf.Min(choicesPerRound, allCards.Count - startIndex);
+            for (int i = 0; i < availableChoices; i++)
+                _cardRewardList.Add(allCards[startIndex + i]);
+
+            ShowCardChoices(_cardRewardList.Count, () =>
+            {
+                if (roundIndex + 1 < rounds && (roundIndex + 1) * choicesPerRound < allCards.Count)
+                {
+                    ShowCardRewardRound(allCards, roundIndex + 1, rounds, choicesPerRound, onSelected);
+                    return;
+                }
+
+                CloseCanvas();
+                onSelected?.Invoke();
+            });
+        }
+
+        public override void CloseCanvas()
+        {
+            TooltipManager.Instance?.HideTooltip();
+            base.CloseCanvas();
         }
         
         public void BuildReward(RewardType rewardType)

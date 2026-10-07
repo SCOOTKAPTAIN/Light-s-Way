@@ -82,6 +82,7 @@ namespace NueGames.NueDeck.Scripts.UI
             radianceTemplate = RadianceField != null ? RadianceField.text : "{Radiance}";
 
             ResetCanvas();
+            CloseCanvas();
         }
         #endregion
         
@@ -132,6 +133,7 @@ namespace NueGames.NueDeck.Scripts.UI
         {
             if (field != null)
             {
+                template ??= $"{{{statName}}}";
                 var pattern = $@"\{{{Regex.Escape(statName)}\s*(?:(?<operator>[+\-*/])\s*(?<operand>-?\d+(?:\.\d+)?))?\}}";
                 field.text = Regex.Replace(template, pattern, match =>
                 {

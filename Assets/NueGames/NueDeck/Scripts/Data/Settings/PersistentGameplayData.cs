@@ -58,7 +58,6 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
        // Boss tracking
        [SerializeField] private List<string> defeatedBossIds; // Tracks bosses defeated this run
     [SerializeField] private List<string> initialCardsToRemove;
-    [SerializeField] private bool addRandomUncommonOrHigherCard;
 
         public PersistentGameplayData(GameplayData gameplayData)
         {
@@ -140,7 +139,6 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             BonusMaxHealth = 0;
             defeatedBossIds = new List<string>(); // Initialize defeated boss list
             initialCardsToRemove = new List<string>();
-            addRandomUncommonOrHigherCard = false;
             if (PostFXManager.Instance != null)
                 PostFXManager.Instance.UpdateEffects(light);
         }
@@ -390,12 +388,6 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
 
         public List<string> InitialCardsToRemove => initialCardsToRemove;
 
-        public bool AddRandomUncommonOrHigherCard
-        {
-            get => addRandomUncommonOrHigherCard;
-            set => addRandomUncommonOrHigherCard = value;
-        }
-
         public void QueueInitialCardRemoval(string cardName)
         {
             if (!string.IsNullOrWhiteSpace(cardName) && !initialCardsToRemove.Contains(cardName))
@@ -422,7 +414,6 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             GainInsightAtActStart = false;
             GainLightAtActStart = false;
             InitialCardsToRemove.Clear();
-            AddRandomUncommonOrHigherCard = false;
         }
         
         /// <summary>

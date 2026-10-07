@@ -52,7 +52,7 @@ What drove you to pursue such a life?
     <<jump reason>>
 -> To discover uncharted horizons #paneldetails=Reduce_Light_drain_from_node_movement_by_50%
     <<set_light_loss 1>>
-    The unknown called you. You longed to venture beyond familiar lands and see places no one had seen before
+    The unknown called you. You longed to venture beyond familiar lands and see places no one had seen before.
     <<jump reason>>
 ===
 
@@ -63,8 +63,9 @@ What drove you to pursue such a life?
     <<enable_insight_at_act_start>>
     You were captivated by the unknown. Every mystery left unanswered only stirred your curiosity further, driving you to seek truths hidden from ordinary men.
     <<jump reason>>
--> To harness arcanic might #paneldetails=Gain_1_Arcana
+-> To harness arcanic might #paneldetails=Gain_1_Arcana_but_reduce_Light_by_20
     <<change_arcana 1>>
+    <<change_light -20>>
     You saw magic as the greatest expression of knowledge. You wished to understand its nature, master its power, and reach heights no ordinary scholar could.
     <<jump reason>>
 -> To illuminate others towards the path of Light #paneldetails=Gain_15_Light_at_the_start_of_each_act
@@ -77,8 +78,8 @@ What drove you to pursue such a life?
 title: doctor_purpose
 ---
 What drove you to pursue such a life?
--> To lend your hand to those in need #paneldetails=Gain_100_Vigor
-    <<change_vigor 100>>
+-> To lend your hand to those in need #paneldetails=Gain_150_Vigor
+    <<change_vigor 150>>
     You wished to be someone people could rely on in their darkest moments. To ease suffering, save lives, and give hope to those who had none.
     <<jump reason>>
 -> To master the intricacies of human anatomy #paneldetails=Gain_1_Potency
@@ -104,7 +105,7 @@ But you never did any of those things, because you…
     <<remove_initial_card Slash>>
     <<remove_initial_card Guard>>
     Paralyzed by the fear of failure and the uncertainty, you let every opportunity slip away untouched.
--> Had to stay with your family #paneldetails=Put_1_random_Uncommon_or_higher_card_into_your_deck
+-> Had to stay with your family #paneldetails=Choose_3_random_cards_and_add_them_into_your_deck
     <<add_random_uncommon_card>>
     Duty and affection binds you to your home, putting your own aspirations on hold to support the people you love, not that it matters now anyway…
 <<jump resolution>>	
@@ -138,14 +139,10 @@ A flicker.
 A spark.
 A will to live.
 Yes...
-There's still hope.
-There's still a way.
-There's no way you will end it like this.
-You move your hand.
-Then your arm.
+There's still hope. There's still a way. There's no way you will end it like this.
+You move your hand. Then your arm.
 Slowly, painfully, you force yourself onto your feet.
-You reach for the lantern.
-Its light is faint.
+You reach for the lantern. Its light is faint.
 But it is enough.
 You take your first step.
 <<picture YarnCommands intro_3>>

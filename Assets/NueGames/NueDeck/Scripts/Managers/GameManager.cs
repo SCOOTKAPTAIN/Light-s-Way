@@ -77,6 +77,11 @@ namespace NueGames.NueDeck.Scripts.Managers
                 foreach (var cardData in GameplayData.InitalDeck.CardList)
                     PersistentGameplayData.CurrentCardsList.Add(cardData);
 
+            ApplyInitialCardRemovals();
+        }
+
+        public void ApplyInitialCardRemovals()
+        {
             foreach (var cardName in PersistentGameplayData.InitialCardsToRemove)
             {
                 var cardIndex = PersistentGameplayData.CurrentCardsList.FindIndex(card =>
@@ -85,17 +90,9 @@ namespace NueGames.NueDeck.Scripts.Managers
                     PersistentGameplayData.CurrentCardsList.RemoveAt(cardIndex);
             }
 
-            if (PersistentGameplayData.AddRandomUncommonOrHigherCard)
-            {
-                var eligibleCards = GameplayData.AllCardsList.FindAll(card =>
-                    card != null && card.Rarity >= RarityType.Uncommon && card.Rarity != RarityType.Status);
-                if (eligibleCards.Count > 0)
-                    PersistentGameplayData.CurrentCardsList.Add(eligibleCards.RandomItem());
-            }
-
             PersistentGameplayData.InitialCardsToRemove.Clear();
-            PersistentGameplayData.AddRandomUncommonOrHigherCard = false;
         }
+
         public void NextEncounter()
         {
             //PersistentGameplayData.CurrentEncounterId;

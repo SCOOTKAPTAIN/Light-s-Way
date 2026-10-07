@@ -1,4 +1,6 @@
 using System;
+using NueGames.NueDeck.Scripts.Data.Collection;
+using NueGames.NueDeck.Scripts.Data.Collection.RewardData;
 using NueGames.NueDeck.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +28,9 @@ public sealed class YarnGameplayCommands : MonoBehaviour
 
     [Header("Dialogue UI")]
     [SerializeField] private GameObject speakerFrame;
+
+    [Header("Intro Rewards")]
+    [SerializeField] private CardRewardData randomUncommonCardPool;
 
     private void Awake()
     {
@@ -184,13 +189,23 @@ public sealed class YarnGameplayCommands : MonoBehaviour
     }
 
     [YarnCommand("add_random_uncommon_card")]
-    public static void AddRandomUncommonCard()
+    public static async YarnTask AddRandomUncommonCard()
     {
-        var gameplayData = GameManager.Instance?.PersistentGameplayData;
-        if (gameplayData == null)
+        var rewardCanvas = UIManager.Instance?.RewardCanvas;
+        var commandTarget = FindFirstObjectByType<YarnGameplayCommands>();
+        if (rewardCanvas == null || commandTarget == null || commandTarget.randomUncommonCardPool == null)
+        {
+            Debug.LogWarning("Cannot open the intro card reward because the reward canvas or dedicated CardRewardData pool is missing.");
             return;
+        }
 
-        gameplayData.AddRandomUncommonOrHigherCard = true;
+        var completionSource = new YarnTaskCompletionSource<bool>();
+        if (!rewardCanvas.OpenCardReward(commandTarget.randomUncommonCardPool, 3, 3, () => completionSource.TrySetResult(true)))
+        {
+            return;
+        }
+
+        await completionSource.Task;
     }
 
     [YarnCommand("reset_intro_bonuses")]
@@ -239,6 +254,12 @@ public sealed class YarnGameplayCommands : MonoBehaviour
     public static void ChangeAffinity(int amount)
     {
         ChangePersistentStat("affinity", amount, value => GameManager.Instance.PersistentGameplayData.Affinity = value);
+    }
+
+    [YarnCommand("change_arcana")]
+    public static void ChangeArcana(int amount)
+    {
+        ChangePersistentStat("arcana", amount, value => GameManager.Instance.PersistentGameplayData.Arcana = value);
     }
 
     [YarnCommand("enable_elite_boss_proficiency")]
@@ -389,6 +410,7 @@ public sealed class YarnGameplayCommands : MonoBehaviour
             "wisdom" => gameplayData.Wisdom,
             "potency" => gameplayData.Potency,
             "affinity" => gameplayData.Affinity,
+            "arcana" => gameplayData.Arcana,
             "metabolism" => gameplayData.Metabolism,
             "vigor" => gameplayData.Vigor,
             "insight" => gameplayData.Insight,
@@ -458,6 +480,7 @@ public sealed class YarnGameplayCommands : MonoBehaviour
             return;
         }
 
+        gameManager.ApplyInitialCardRemovals();
         uiManager.SetCanvas(uiManager.CombatCanvas, false, true);
         uiManager.SetCanvas(uiManager.InformationCanvas, true, false);
         uiManager.SetCanvas(uiManager.RewardCanvas, false, true);
@@ -605,6 +628,7 @@ public sealed class YarnGameplayCommands : MonoBehaviour
             }
 
             screenImage.sprite = picture.sprite;
+            screenImage.color = Color.white;
             screenImage.enabled = picture.sprite != null;
             return;
         }
