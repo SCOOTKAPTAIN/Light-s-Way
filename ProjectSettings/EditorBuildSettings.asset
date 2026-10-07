@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MapScene.unity
     guid: f40f4a6c1d59e7442a534fef3f1fadfa
   - enabled: 1
-    path: Assets/Scenes/MerchantScene.unity
+    path: Assets/Scenes/MerchantSceneLegacy.unity
     guid: f6ec526398437324aa91fc7ace3b4ee7
   - enabled: 1
     path: Assets/Scenes/DialogueScene.unity
@@ -33,11 +33,17 @@ EditorBuildSettings:
     path: Assets/NueGames/NueDeck/Scenes/NueCore.unity
     guid: 8730f6846a1505f4cbae9e87de5abdc9
   - enabled: 1
-    path: Assets/Scenes/Intro.unity
+    path: Assets/Scenes/IntroLegacy.unity
     guid: 48b31e58513d9de4e9a22db5716ff426
   - enabled: 1
     path: Assets/Scenes/EndingScene.unity
     guid: d3e00441ff9fff64e929e24b4bdac2d9
+  - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 9cf980bedc5dfde49b9d420202c317fe
+  - enabled: 1
+    path: Assets/Scenes/MerchantScene.unity
+    guid: 45fd69e6b0e2edc42b024e61152a5848
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: b59425b54235ebb4ba020d195a61fe80, type: 3}
   m_UseUCBPForAssetBundles: 0
