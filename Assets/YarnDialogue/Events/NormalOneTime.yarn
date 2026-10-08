@@ -1,0 +1,7 @@
+﻿title: normal_onetime
+---
+Tester: Normal one time event occured!
+-> Hell yeah!
+    Good, Normal one time event proceeds smoothly.
+    <<load_map_scene>>
+===

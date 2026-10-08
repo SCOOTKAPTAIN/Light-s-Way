@@ -51,7 +51,6 @@ public sealed class EncounterSceneController : MonoBehaviour
         await dialogueRunner.StartDialogue(entry.YarnNode);
 
         EncounterEventContext.ResetSelectionForSceneExit();
-        YarnGameplayCommands.LoadMapScene();
     }
 
     private EncounterEventPool SelectPool()

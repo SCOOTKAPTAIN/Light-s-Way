@@ -1789,12 +1789,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dafb48c9261e9f64882b86adff1f44f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueRunner: {fileID: 0}
-  restSitePool: {fileID: 0}
-  normalRepeatPool: {fileID: 0}
-  normalOneTimePool: {fileID: 0}
-  ominousRepeatPool: {fileID: 0}
-  ominousOneTimePool: {fileID: 0}
+  dialogueRunner: {fileID: 2087036543}
+  restSitePool: {fileID: 11400000, guid: 61aa83821881b4a4fae340240588171f, type: 2}
+  normalRepeatPool: {fileID: 11400000, guid: aef30cdf70065fa43873485f076dbaef, type: 2}
+  normalOneTimePool: {fileID: 11400000, guid: 0a6923fc5a7fcae46acfb6d1c4065767, type: 2}
+  ominousRepeatPool: {fileID: 11400000, guid: 1f326427e40091946a5e06a9fba5528a, type: 2}
+  ominousOneTimePool: {fileID: 11400000, guid: e7ba563c11faa3d498c4f96afd4715f9, type: 2}
 --- !u!4 &981768241
 Transform:
   m_ObjectHideFlags: 0
