@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ce79f501ff2f3945865c2be2e9e08dc, type: 3}
-  m_Name: NormalRepeatPool
+  m_Name: 4_OminousRepeatPool
   m_EditorClassIdentifier: 
   events:
-  - eventId: normal_repeat
-    yarnNode: normal_repeat
-    weight: 0
+  - eventId: ominous_repeat
+    yarnNode: ominous_repeat
+    weight: 1
