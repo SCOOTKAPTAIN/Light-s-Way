@@ -150,6 +150,7 @@ namespace NueGames.NueDeck.Scripts.UI
             {
                 var cardClone = GameManager.BuildAndGetCard(selectedCardData, CollectionManager.HandController.transform);
                 CollectionManager.HandController.AddCardToHand(cardClone);
+                UIManager.Instance?.CombatCanvas?.SetPileTexts();
                 
                 Debug.Log($"Added {selectedCardData.CardName} to hand. Light remaining: {GameManager.PersistentGameplayData.light}");
             }

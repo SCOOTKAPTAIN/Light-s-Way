@@ -1,7 +1,37 @@
 ﻿title: restsite_normal
 ---
-Tester: Rest site occured!
--> Hell yeah!
-    Good, rest site proceeds smoothly.
-    <<load_map_scene>>
+<<fade_out YarnCommands 0>>
+<<wait 1>>
+<<picture YarnCommands restsite>>
+<<fade_in YarnCommands 1>>
+You have found a safe place. For now, no harm can reach you here.
+What will you do? 
+-> Rest <<if not is_full_health()>> #paneldetails=Heal_40%_Health
+    <<change_health_percent 40>>
+    You take advantage of the tranquility and allow yourself to rest. Your journey is still far from over, after all.
+    <<jump rest_end>>
+-> Pray <<if light() < 100>> #paneldetails=Gain_10_Light
+    <<change_light 10>>
+    You fall to your knees and begin to pray. You ask for the strength to endure whatever ordeals still await you.
+    As you pray, you begin to feel something stir within you.
+    When you finish, you notice that the lantern has begun to glow brighter.
+    <<jump rest_end>>
+-> Ponder #paneldetails=Gain_1_Insight
+    <<change_insight 1>>
+    You sit down and take a moment to reminisce about life.
+    In the quiet of your mind, a clearer understanding takes shape.
+    <<jump rest_end>>
+-> Train #paneldetails=Gain_2_Proficiency
+    <<change_proficiency 2>>
+    The dangers of this world will only grow stronger. You decide to hone your skills and prepare yourself for what lies ahead.
+    <<jump rest_end>>
+===
+
+
+title: rest_end
+---
+<<hide_speaker_frame YarnCommands>>
+<<wait 1>>
+<<fade_out YarnCommands 2>>
+<<load_map_scene>>
 ===
