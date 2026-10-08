@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 2_NormalRepeatPool
   m_EditorClassIdentifier: 
   events:
-  - eventId: normal_repeat
-    yarnNode: normal_repeat
-    weight: 0
+  - eventId: demonic_delicacies
+    yarnNode: demonic_delicacies
+    weight: 2

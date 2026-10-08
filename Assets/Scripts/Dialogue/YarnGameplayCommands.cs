@@ -2,6 +2,7 @@ using System;
 using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Data.Collection.RewardData;
 using NueGames.NueDeck.Scripts.Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Yarn.Unity;
@@ -29,6 +30,15 @@ public sealed class YarnGameplayCommands : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private GameObject speakerFrame;
 
+    [Header("Bloom Text")]
+    [SerializeField] private CanvasGroup bloomTextPanel;
+    [SerializeField] private TMP_Text bloomText;
+    [SerializeField, Min(0f)] private float bloomFadeInDuration = 0.2f;
+    [SerializeField, Min(0f)] private float bloomHoldDuration = 1f;
+    [SerializeField, Min(0f)] private float bloomFadeOutDuration = 0.4f;
+    [SerializeField, Min(0.01f)] private float bloomStartScale = 0.85f;
+    [SerializeField, Min(1f)] private float bloomPeakScale = 1.05f;
+
     [Header("Intro Rewards")]
     [SerializeField] private CardRewardData randomUncommonCardPool;
 
@@ -39,6 +49,14 @@ public sealed class YarnGameplayCommands : MonoBehaviour
             screenEffectGroup.alpha = 0f;
             screenEffectGroup.interactable = false;
             screenEffectGroup.blocksRaycasts = false;
+        }
+
+        if (bloomTextPanel != null)
+        {
+            bloomTextPanel.alpha = 0f;
+            bloomTextPanel.interactable = false;
+            bloomTextPanel.blocksRaycasts = false;
+            bloomTextPanel.gameObject.SetActive(false);
         }
     }
 
@@ -148,6 +166,12 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         {
             speakerFrame.SetActive(true);
         }
+    }
+
+    [YarnCommand("bloom_text")]
+    public YarnTask BloomText(string message)
+    {
+        return BloomTextAsync(message);
     }
 
     [YarnCommand("card_reward")]
@@ -484,6 +508,15 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         }
 
         gameManager.ApplyInitialCardRemovals();
+        if (DialogueAudioManager.instance != null)
+        {
+            DialogueAudioManager.instance.DynamicMusic("map");
+        }
+        else
+        {
+            Debug.LogWarning("Cannot update map music because DialogueAudioManager.instance is missing.", gameManager);
+        }
+
         uiManager.SetCanvas(uiManager.CombatCanvas, false, true);
         uiManager.SetCanvas(uiManager.InformationCanvas, true, false);
         uiManager.SetCanvas(uiManager.RewardCanvas, false, true);
@@ -720,6 +753,68 @@ public sealed class YarnGameplayCommands : MonoBehaviour
 
         screenEffectImage.color = targetColor;
         screenEffectGroup.alpha = 1f;
+    }
+
+    private async YarnTask BloomTextAsync(string message)
+    {
+        if (bloomTextPanel == null || bloomText == null)
+        {
+            Debug.LogWarning("Cannot show Yarn bloom text because the panel or text reference is missing.", this);
+            return;
+        }
+
+        var panelTransform = bloomTextPanel.transform as RectTransform;
+        if (panelTransform == null)
+        {
+            Debug.LogWarning("Cannot show Yarn bloom text because the panel is not a RectTransform.", this);
+            return;
+        }
+
+        bloomText.text = message ?? string.Empty;
+        bloomTextPanel.gameObject.SetActive(true);
+        bloomTextPanel.alpha = 0f;
+        panelTransform.localScale = Vector3.one * bloomStartScale;
+
+        await AnimateBloomTextAsync(panelTransform, 0f, 1f, bloomStartScale, bloomPeakScale, bloomFadeInDuration);
+
+        if (bloomHoldDuration > 0f)
+            await YarnTask.Delay(TimeSpan.FromSeconds(bloomHoldDuration));
+
+        await AnimateBloomTextAsync(panelTransform, 1f, 0f, bloomPeakScale, 1f, bloomFadeOutDuration);
+
+        bloomTextPanel.gameObject.SetActive(false);
+    }
+
+    private async YarnTask AnimateBloomTextAsync(
+        RectTransform panelTransform,
+        float startAlpha,
+        float targetAlpha,
+        float startScale,
+        float targetScale,
+        float duration)
+    {
+        float safeDuration = Mathf.Max(0f, duration);
+        if (safeDuration <= 0f)
+        {
+            bloomTextPanel.alpha = targetAlpha;
+            panelTransform.localScale = Vector3.one * targetScale;
+            return;
+        }
+
+        float elapsed = 0f;
+        while (elapsed < safeDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float progress = Mathf.Clamp01(elapsed / safeDuration);
+            float easedProgress = Mathf.SmoothStep(0f, 1f, progress);
+            bloomTextPanel.alpha = Mathf.Lerp(startAlpha, targetAlpha, easedProgress);
+            float scale = Mathf.Lerp(startScale, targetScale, easedProgress);
+            panelTransform.localScale = Vector3.one * scale;
+            await YarnTask.Yield();
+        }
+
+        bloomTextPanel.alpha = targetAlpha;
+        panelTransform.localScale = Vector3.one * targetScale;
     }
 
     private static bool TryGetEffectColor(string colorName, out Color color)

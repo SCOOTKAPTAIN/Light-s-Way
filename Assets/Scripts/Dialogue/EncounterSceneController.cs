@@ -16,6 +16,7 @@ public sealed class EncounterSceneController : MonoBehaviour
 
     private bool hasStarted;
     private bool selectedOneTimePool;
+    private bool selectedRepeatPool;
 
     private async void Start()
     {
@@ -47,6 +48,8 @@ public sealed class EncounterSceneController : MonoBehaviour
 
         if (selectedOneTimePool)
             EncounterEventContext.ConsumeOneTimeEvent(GetEventId(entry));
+        else if (selectedRepeatPool)
+            EncounterEventContext.RecordRepeatEvent(GetEventId(entry));
 
         await dialogueRunner.StartDialogue(entry.YarnNode);
 
@@ -56,6 +59,7 @@ public sealed class EncounterSceneController : MonoBehaviour
     private EncounterEventPool SelectPool()
     {
         selectedOneTimePool = false;
+        selectedRepeatPool = false;
 
         if (EncounterEventContext.IsRestSite)
             return restSitePool;
@@ -68,6 +72,7 @@ public sealed class EncounterSceneController : MonoBehaviour
                 return ominousOneTimePool;
             }
 
+            selectedRepeatPool = true;
             return ominousRepeatPool;
         }
 
@@ -77,6 +82,7 @@ public sealed class EncounterSceneController : MonoBehaviour
             return normalOneTimePool;
         }
 
+        selectedRepeatPool = true;
         return normalRepeatPool;
     }
 
@@ -91,6 +97,9 @@ public sealed class EncounterSceneController : MonoBehaviour
             if (entry == null || string.IsNullOrWhiteSpace(entry.YarnNode))
                 continue;
 
+            if (entry.Weight <= 0)
+                continue;
+
             if (selectedOneTimePool && EncounterEventContext.HasConsumedOneTimeEvent(GetEventId(entry)))
                 continue;
 
@@ -99,6 +108,14 @@ public sealed class EncounterSceneController : MonoBehaviour
 
         if (candidates.Count == 0)
             return null;
+
+        if (selectedRepeatPool)
+        {
+            var availableCandidates = candidates.FindAll(candidate =>
+                !EncounterEventContext.IsRepeatEventOnCooldown(GetEventId(candidate)));
+            if (availableCandidates.Count > 0)
+                candidates = availableCandidates;
+        }
 
         int totalWeight = 0;
         foreach (EncounterEventPool.Entry candidate in candidates)
@@ -122,7 +139,7 @@ public sealed class EncounterSceneController : MonoBehaviour
 
         foreach (EncounterEventPool.Entry entry in pool.Events)
         {
-            if (entry != null && !string.IsNullOrWhiteSpace(entry.YarnNode) &&
+            if (entry != null && entry.Weight > 0 && !string.IsNullOrWhiteSpace(entry.YarnNode) &&
                 !EncounterEventContext.HasConsumedOneTimeEvent(GetEventId(entry)))
                 return true;
         }

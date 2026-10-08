@@ -10,11 +10,11 @@ public sealed class EncounterEventPool : ScriptableObject
     {
         [SerializeField] private string eventId;
         [SerializeField] private string yarnNode;
-        [SerializeField, Min(1)] private int weight = 1;
+        [SerializeField, Min(0)] private int weight = 1;
 
         public string EventId => eventId;
         public string YarnNode => yarnNode;
-        public int Weight => Mathf.Max(1, weight);
+        public int Weight => Mathf.Max(0, weight);
     }
 
     [SerializeField] private List<Entry> events = new List<Entry>();

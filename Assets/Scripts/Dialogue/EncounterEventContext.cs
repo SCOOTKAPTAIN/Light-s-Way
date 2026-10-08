@@ -12,7 +12,9 @@ public enum EncounterEventKind
 
 public static class EncounterEventContext
 {
+    private const int RepeatEventCooldownLength = 2;
     private static readonly HashSet<string> ConsumedOneTimeEventIds = new(StringComparer.Ordinal);
+    private static readonly Queue<string> RecentRepeatEventIds = new();
 
     public static bool IsRestSite { get; private set; }
     public static bool IsNormalEvent { get; private set; }
@@ -48,9 +50,25 @@ public static class EncounterEventContext
             ConsumedOneTimeEventIds.Add(eventId);
     }
 
+    public static bool IsRepeatEventOnCooldown(string eventId)
+    {
+        return !string.IsNullOrWhiteSpace(eventId) && RecentRepeatEventIds.Contains(eventId);
+    }
+
+    public static void RecordRepeatEvent(string eventId)
+    {
+        if (string.IsNullOrWhiteSpace(eventId))
+            return;
+
+        RecentRepeatEventIds.Enqueue(eventId);
+        while (RecentRepeatEventIds.Count > RepeatEventCooldownLength)
+            RecentRepeatEventIds.Dequeue();
+    }
+
     public static void ResetRun()
     {
         ConsumedOneTimeEventIds.Clear();
+        RecentRepeatEventIds.Clear();
         ResetSelection();
     }
 
