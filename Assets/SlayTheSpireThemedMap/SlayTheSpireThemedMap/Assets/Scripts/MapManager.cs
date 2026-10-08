@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -31,16 +31,13 @@ namespace Map
             {
                 string mapJson = PlayerPrefs.GetString(MapSaveKey);
                 Map map = JsonConvert.DeserializeObject<Map>(mapJson);
-                // using this instead of .Contains()
                 if (map.path.Any(p => p.Equals(map.GetBossNode().point)))
                 {
-                    // payer has already reached the boss, generate a new map
                     GenerateNewMap();
                 }
                 else
                 {
                     CurrentMap = map;
-                    // player has not reached the boss yet, load the current map
                     view.ShowMap(map);
                 }
             }
@@ -48,7 +45,6 @@ namespace Map
             {
                 GenerateNewMap();
             }
-           // GenerateNewMap();
         }
 
         public void GenerateNewMap()

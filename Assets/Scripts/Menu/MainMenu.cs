@@ -20,7 +20,9 @@ public class MainMenu : MonoBehaviour
      private void Start() 
      {
         GameManager.Instance.PersistentGameplayData.AllyList[0].AllyCharacterData.MaxHealth = 100;
-        PlayerPrefs.DeleteKey("Map");
+        for (int actNumber = 0; actNumber <= 4; actNumber++)
+            PlayerPrefs.DeleteKey($"Map_Act_{actNumber}");
+        PlayerPrefs.Save();
         
     }
     public void PlayGame()
