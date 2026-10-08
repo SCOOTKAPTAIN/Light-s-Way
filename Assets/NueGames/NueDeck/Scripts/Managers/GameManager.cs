@@ -56,6 +56,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         public void InitGameplayData()
         { 
             PersistentGameplayData = new PersistentGameplayData(gameplayData);
+            EncounterEventContext.ResetRun();
             if (UIManager)
                 UIManager.InformationCanvas.ResetCanvas();
            

@@ -33,7 +33,8 @@ namespace Map
             Map,
             Combat,
             Dialogue,
-            Merchant
+            Merchant,
+            Encounters
         }
 
         public virtual void HideTooltipInfo(TooltipManager tooltipManager)
@@ -49,7 +50,7 @@ namespace Map
         private IEnumerator DelaySceneChange(SceneType type)
         {
             // Save the current map if transitioning from the map scene
-            if (type == SceneType.Combat || type == SceneType.Dialogue)
+               if (type == SceneType.Combat || type == SceneType.Dialogue || type == SceneType.Encounters)
            {
                var mapManager = UnityEngine.Object.FindFirstObjectByType<MapManager>();
                if (mapManager != null)
@@ -107,6 +108,13 @@ namespace Map
                    UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
                    UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
                    break;
+                    case SceneType.Encounters:
+                         HideTooltipInfo(TooltipManager.Instance);
+                         UIManager.ChangeScene(GameManager.SceneData.encountersSceneIndex);
+                         UIManager.SetCanvas(UIManager.CombatCanvas, false, true);
+                         UIManager.SetCanvas(UIManager.InformationCanvas, true, false);
+                         UIManager.SetCanvas(UIManager.RewardCanvas, false, true);
+                         break;
                 
                default:
                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -117,6 +125,11 @@ namespace Map
         {
              StartCoroutine(DelaySceneChange(SceneType.Dialogue));
         }
+
+           public void OpenEncounterScene()
+           {
+               StartCoroutine(DelaySceneChange(SceneType.Encounters));
+           }
 
          public void OpenMerchantScene()
         {
@@ -354,9 +367,9 @@ namespace Map
                     break;
                 case NodeType.RestSite:
                 Debug.Log("Go to a resting place.");
+                EncounterEventContext.SelectRestSite();
                 DialogueAudioManager.instance.PlaySFX("enterevent");
-                MapPlayerTracker.Instance.OpenDialogueScene();
-                GameManager.Instance.PersistentGameplayData.restevent = true;
+                MapPlayerTracker.Instance.OpenEncounterScene();
                     break;
                 case NodeType.Treasure:
                     break;
@@ -379,8 +392,9 @@ namespace Map
                     break;
                 case NodeType.Mystery:
                 Debug.Log("Events happening!");
+                EncounterEventContext.SelectRandomEvent(GameManager.Instance.PersistentGameplayData.light);
                 DialogueAudioManager.instance.PlaySFX("enterevent");
-                MapPlayerTracker.Instance.OpenDialogueScene();
+                MapPlayerTracker.Instance.OpenEncounterScene();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
