@@ -19,3 +19,6 @@ MonoBehaviour:
   - eventId: mauled_by_monsters
     yarnNode: mauled_by_monsters
     weight: 2
+  - eventId: Breakdown
+    yarnNode: Breakdown
+    weight: 2

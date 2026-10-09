@@ -25,3 +25,6 @@ MonoBehaviour:
   - eventId: priestess_of_light
     yarnNode: priestess_of_light
     weight: 2
+  - eventId: HardworkingGirl
+    yarnNode: HardworkingGirl
+    weight: 2

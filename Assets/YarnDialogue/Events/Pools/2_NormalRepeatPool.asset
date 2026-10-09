@@ -15,22 +15,19 @@ MonoBehaviour:
   events:
   - eventId: demonic_delicacies
     yarnNode: demonic_delicacies
-    weight: 0
+    weight: 2
   - eventId: gold_pouch
     yarnNode: gold_pouch
-    weight: 0
+    weight: 2
   - eventId: plague_doctor
     yarnNode: plague_doctor
-    weight: 0
+    weight: 2
   - eventId: blacksmith
     yarnNode: blacksmith
-    weight: 0
+    weight: 2
   - eventId: peculiar_curiosities
     yarnNode: peculiar_curiosities
-    weight: 0
+    weight: 2
   - eventId: ploppin_race
     yarnNode: ploppin_race
-    weight: 0
-  - eventId: Breakdown
-    yarnNode: Breakdown
     weight: 2

@@ -22,28 +22,82 @@ The darkness is close. Closer than you think...
     You search for something to hold on to, but the darkness finds no weakness to exploit, for you already are.
 <<endif>>
 <<if breakdown_stat() == "Proficiency">>
-    Breakdown: [red]Lose 4 Proficiency[/red]
+    <<jump breakdown_proficiency>>
 <<elseif breakdown_stat() == "Wisdom">>
-    Breakdown: [red]Lose 1 Wisdom[/red]
+    <<jump breakdown_wisdom>>
 <<elseif breakdown_stat() == "Arcana">>
-    Breakdown: [red]Lose 1 Arcana[/red]
+    <<jump breakdown_arcana>>
 <<elseif breakdown_stat() == "Abundance">>
-    Breakdown: [red]Lose 1 Abundance[/red]
+    <<jump breakdown_abundance>>
 <<elseif breakdown_stat() == "Affinity">>
-    Breakdown: [red]Lose 4 Affinity[/red]
+    <<jump breakdown_affinity>>
 <<elseif breakdown_stat() == "Metabolism">>
-    Breakdown: [red]Lose 4 Metabolism[/red]
+    <<jump breakdown_metabolism>>
+<<else>>
+    <<jump breakdown_end>>
 <<endif>>
--> Breakdown #paneldetails=Apply_the_displayed_stat_loss
-    <<apply_breakdown>>
-    <<picture_color YarnCommands white>>
-    The fog recedes slowly, leaving you shaken and diminished.
-    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
--> I am strong. I am resolute. <<if insight() >= 1>> #paneldetails=Spend_1_Insight_to_negate_the_stat_loss
-    <<spend_insight 1>><<negate_breakdown>>
-    You grit your teeth and force yourself to take a deep breath.
-    <<picture_color YarnCommands white>>
-    The darkness loosens its grip.
-    The panic subsides without taking anything from you.
-    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: breakdown_proficiency
+---
+-> Breakdown #paneldetails=Lose_4_Proficiency
+    <<apply_breakdown>><<jump breakdown_end>>
+-> [gold]I am strong. I am resolute.[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight_to_negate_the_loss
+    <<spend_insight 1>><<negate_breakdown>><<jump breakdown_negated>>
+===
+
+title: breakdown_wisdom
+---
+-> Breakdown #paneldetails=Lose_1_Wisdom
+    <<apply_breakdown>><<jump breakdown_end>>
+-> [gold]I am strong. I am resolute.[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight_to_negate_the_loss
+    <<spend_insight 1>><<negate_breakdown>><<jump breakdown_negated>>
+===
+
+title: breakdown_arcana
+---
+-> Breakdown #paneldetails=Lose_1_Arcana
+    <<apply_breakdown>><<jump breakdown_end>>
+-> [gold]I am strong. I am resolute.[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight_to_negate_the_loss
+    <<spend_insight 1>><<negate_breakdown>><<jump breakdown_negated>>
+===
+
+title: breakdown_abundance
+---
+-> Breakdown #paneldetails=Lose_1_Abundance
+    <<apply_breakdown>><<jump breakdown_end>>
+-> [gold]I am strong. I am resolute.[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight_to_negate_the_loss
+    <<spend_insight 1>><<negate_breakdown>><<jump breakdown_negated>>
+===
+
+title: breakdown_affinity
+---
+-> Breakdown #paneldetails=Lose_4_Affinity
+    <<apply_breakdown>><<jump breakdown_end>>
+-> [gold]I am strong. I am resolute.[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight_to_negate_the_loss
+    <<spend_insight 1>><<negate_breakdown>><<jump breakdown_negated>>
+===
+
+title: breakdown_metabolism
+---
+-> Breakdown #paneldetails=Lose_4_Metabolism
+    <<apply_breakdown>><<jump breakdown_end>>
+-> [gold]I am strong. I am resolute.[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight_to_negate_the_loss
+    <<spend_insight 1>><<negate_breakdown>><<jump breakdown_negated>>
+===
+
+title: breakdown_end
+---
+<<picture_color YarnCommands white>>
+The fog recedes slowly, leaving you shaken and diminished.
+<<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: breakdown_negated
+---
+You grit your teeth and force yourself to take a deep breath.
+<<picture_color YarnCommands white>>
+The darkness loosens its grip.
+The panic subsides without taking anything from you.
+<<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
 ===
