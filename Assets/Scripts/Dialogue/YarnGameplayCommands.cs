@@ -12,6 +12,19 @@ using Yarn.Unity;
 
 public sealed class YarnGameplayCommands : ReplacementMarkupHandler
 {
+    private enum BreakdownStat
+    {
+        None,
+        Proficiency,
+        Wisdom,
+        Arcana,
+        Abundance,
+        Affinity,
+        Metabolism
+    }
+
+    private static BreakdownStat pendingBreakdownStat;
+
     [Serializable]
     private struct NamedSprite
     {
@@ -343,6 +356,20 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
         UIManager.Instance?.InformationCanvas?.SetGoldText(gameplayData.CurrentGold);
     }
 
+    [YarnCommand("lose_all_gold")]
+    public static void LoseAllGold()
+    {
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData == null)
+        {
+            Debug.LogWarning("Cannot remove all Yarn gold because PersistentGameplayData is missing.");
+            return;
+        }
+
+        gameplayData.CurrentGold = 0;
+        UIManager.Instance?.InformationCanvas?.SetGoldText(0);
+    }
+
     [YarnCommand("remove_initial_card")]
     public static void RemoveInitialCard(string cardName)
     {
@@ -478,6 +505,16 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
         ApplyVigorToMaxHealth(gameplayData, gameplayData.Vigor - previousVigor);
         UIManager.Instance?.InformationCanvas?.RefreshStatsText();
         UIManager.Instance?.CombatCanvas?.LightCardSelectionPanel?.RefreshCostText();
+    }
+
+    [YarnCommand("change_vigor_percent")]
+    public static void ChangeVigorPercent(float percent)
+    {
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData == null)
+            return;
+
+        ChangeVigor(Mathf.RoundToInt(gameplayData.Vigor * percent / 100f));
     }
 
     private static void ApplyVigorToMaxHealth(
@@ -810,6 +847,75 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
     public static bool Chance(int percent)
     {
         return UnityEngine.Random.Range(0, 100) < Mathf.Clamp(percent, 0, 100);
+    }
+
+    [YarnCommand("roll_breakdown")]
+    public static void RollBreakdown()
+    {
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        if (gameplayData == null)
+        {
+            pendingBreakdownStat = BreakdownStat.None;
+            return;
+        }
+
+        var eligibleStats = new List<BreakdownStat>();
+        if (gameplayData.Proficiency >= 4)
+            eligibleStats.Add(BreakdownStat.Proficiency);
+        if (gameplayData.Wisdom >= 1)
+            eligibleStats.Add(BreakdownStat.Wisdom);
+        if (gameplayData.Arcana >= 1)
+            eligibleStats.Add(BreakdownStat.Arcana);
+        if (gameplayData.Abundance >= 1)
+            eligibleStats.Add(BreakdownStat.Abundance);
+        if (gameplayData.Affinity >= 4)
+            eligibleStats.Add(BreakdownStat.Affinity);
+        if (gameplayData.Metabolism >= 4)
+            eligibleStats.Add(BreakdownStat.Metabolism);
+
+        pendingBreakdownStat = eligibleStats.Count > 0
+            ? eligibleStats[UnityEngine.Random.Range(0, eligibleStats.Count)]
+            : BreakdownStat.None;
+    }
+
+    [YarnFunction("breakdown_stat")]
+    public static string GetBreakdownStat()
+    {
+        return pendingBreakdownStat.ToString();
+    }
+
+    [YarnCommand("apply_breakdown")]
+    public static void ApplyBreakdown()
+    {
+        switch (pendingBreakdownStat)
+        {
+            case BreakdownStat.Proficiency:
+                ChangeProficiency(-4);
+                break;
+            case BreakdownStat.Wisdom:
+                ChangeWisdom(-1);
+                break;
+            case BreakdownStat.Arcana:
+                ChangeArcana(-1);
+                break;
+            case BreakdownStat.Abundance:
+                ChangeAbundance(-1);
+                break;
+            case BreakdownStat.Affinity:
+                ChangeAffinity(-4);
+                break;
+            case BreakdownStat.Metabolism:
+                ChangeMetabolism(-4);
+                break;
+        }
+
+        pendingBreakdownStat = BreakdownStat.None;
+    }
+
+    [YarnCommand("negate_breakdown")]
+    public static void NegateBreakdown()
+    {
+        pendingBreakdownStat = BreakdownStat.None;
     }
 
     [YarnFunction("light")]

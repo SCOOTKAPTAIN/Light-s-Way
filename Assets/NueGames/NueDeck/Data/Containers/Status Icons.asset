@@ -66,7 +66,7 @@ MonoBehaviour:
     displayPriority: 4
   - iconStatus: 13
     iconSprite: {fileID: 21300000, guid: bc5c7911c8ad6934a9c78ad7f9df1192, type: 3}
-    showValue: 0
+    showValue: 1
     specialKeywords: 0a000000
     displayPriority: 4
   - iconStatus: 14

@@ -45,7 +45,6 @@ MonoBehaviour:
   - specialKeyword: 10
     header: Cantrip
     contentText: Next card played has it's cost reduced to <color=#FFB430>0</color>.
-      (<color=#FFB430>Unstackable</color>).
   - specialKeyword: 11
     header: Nephilim
     contentText: Refund <color=#FFB430>1 Mana</color> and gain <color=#FFB430>1 Health</color>

@@ -19,3 +19,9 @@ MonoBehaviour:
   - eventId: psychic
     yarnNode: psychic
     weight: 2
+  - eventId: no_good_deeds_go_unpunished
+    yarnNode: no_good_deeds_go_unpunished
+    weight: 2
+  - eventId: priestess_of_light
+    yarnNode: priestess_of_light
+    weight: 2

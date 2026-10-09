@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 5_OminousOneTimePool
   m_EditorClassIdentifier: 
   events:
-  - eventId: ominous_onetime
-    yarnNode: ominous_onetime
-    weight: 0
+  - eventId: no_good_deeds_ominous
+    yarnNode: no_good_deeds_ominous
+    weight: 2

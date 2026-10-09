@@ -23,7 +23,7 @@ namespace NueGames.NueDeck.Scripts.Card
         public static float ScaleByAffinity(float value)
         {
             var scaledValue = value * (1f + GetStat("Affinity") * 0.1f);
-            return Mathf.FloorToInt(scaledValue + 0.5f);
+            return Mathf.FloorToInt(scaledValue);
         }
 
         public static float MultiplyByAffinity(float value) => value * (1f + GetStat("Affinity") * 0.1f);

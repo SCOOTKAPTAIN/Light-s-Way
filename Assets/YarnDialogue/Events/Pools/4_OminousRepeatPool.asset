@@ -16,3 +16,6 @@ MonoBehaviour:
   - eventId: gold_pouch_ominous
     yarnNode: gold_pouch_ominous
     weight: 2
+  - eventId: mauled_by_monsters
+    yarnNode: mauled_by_monsters
+    weight: 2

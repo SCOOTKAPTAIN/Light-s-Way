@@ -1,0 +1,49 @@
+﻿title: Breakdown
+---
+<<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands placeholder>><<picture_color YarnCommands black>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "Breakdown">>
+Your heart begins to pound faster and faster.
+The world around you darkens as a thick fog closes in.
+You clutch your chest and sink to your knees, breathing heavily as panic takes hold.
+The darkness is close. Closer than you think...
+<<roll_breakdown>>
+<<if breakdown_stat() == "Proficiency">>
+    You feel your hard-earned discipline slipping away.
+<<elseif breakdown_stat() == "Wisdom">>
+    The thoughts you once trusted become distant and unclear.
+<<elseif breakdown_stat() == "Arcana">>
+    Your mana circuits goes haywire. Flickering and fading away.
+<<elseif breakdown_stat() == "Abundance">>
+    Your sense of keenness drains away, leaving you feeling unprepared.
+<<elseif breakdown_stat() == "Affinity">>
+    The connections you have built begin to weaken.
+<<elseif breakdown_stat() == "Metabolism">>
+    Your body's hard-won vitality falters beneath the pressure.
+<<else>>
+    You search for something to hold on to, but the darkness finds no weakness to exploit, for you already are.
+<<endif>>
+<<if breakdown_stat() == "Proficiency">>
+    Breakdown: [red]Lose 4 Proficiency[/red]
+<<elseif breakdown_stat() == "Wisdom">>
+    Breakdown: [red]Lose 1 Wisdom[/red]
+<<elseif breakdown_stat() == "Arcana">>
+    Breakdown: [red]Lose 1 Arcana[/red]
+<<elseif breakdown_stat() == "Abundance">>
+    Breakdown: [red]Lose 1 Abundance[/red]
+<<elseif breakdown_stat() == "Affinity">>
+    Breakdown: [red]Lose 4 Affinity[/red]
+<<elseif breakdown_stat() == "Metabolism">>
+    Breakdown: [red]Lose 4 Metabolism[/red]
+<<endif>>
+-> Breakdown #paneldetails=Apply_the_displayed_stat_loss
+    <<apply_breakdown>>
+    <<picture_color YarnCommands white>>
+    The fog recedes slowly, leaving you shaken and diminished.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> I am strong. I am resolute. <<if insight() >= 1>> #paneldetails=Spend_1_Insight_to_negate_the_stat_loss
+    <<spend_insight 1>><<negate_breakdown>>
+    You grit your teeth and force yourself to take a deep breath.
+    <<picture_color YarnCommands white>>
+    The darkness loosens its grip.
+    The panic subsides without taking anything from you.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===

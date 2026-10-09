@@ -1,0 +1,101 @@
+﻿title: HardworkingGirl
+---
+<<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands placeholder>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "Hardworking Girl">>
+You come across a small settlement of survivors. Even in such chaotic times, people are still able to band together for survival.
+As you walk past, you see groups of people working hard as their bodies sweat and tire from heavy work.
+One of the workers is struggling under the weight of a large crate. He looks exhausted and could pass out at any moment.
+<<jump hardworking_girl_1>>
+===
+
+title: hardworking_girl_1
+---
+What should you do?
+-> Lend him a hand #paneldetails=Lose_10%_Vigor._Gain_2_Proficiency.
+    <<change_vigor_percent -10>><<change_proficiency 2>>
+    You approach him and offer some help. At first, the man is hesitant to accept help from such a young girl, but you insist.
+    You take hold of the crate and help carry it across the settlement.
+    By the time the crate is unloaded, the worker is already treating you like one of their own.
+    Worker: "Thank you! Sorry for doubting you. Your parents must be proud!"
+    You wear the smuggest grin on your face.
+    <<jump hardworking_girl_2>>
+-> Leave
+    You are too delicate for such physical work. You pray for the man's well-being and go on your way.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: hardworking_girl_2
+---
+After the first delivery, another survivor approaches the man with another task.
+Survivor: "Abigail needs help with inventory in the storage room, mind helpin her out?"
+-> Volunteer to replace him #paneldetails=Lose_10%_Vigor._Gain_1_Abundance.
+    <<change_vigor_percent -10>><<change_abundance 1>>
+    You offer to take over the task. The survivor glances at you, then back at the man. He nods.
+    Survivor: "Well, if you insist."
+    You help organize the supplies in the storage room.
+    The settlement's stores are noticeably better arranged by the time you finish.
+    Scylla: "That's all of em! I could've done this myself, but thank you, little one!"
+    The Scylla extends one her tentacles to shake your hand.
+    <<jump hardworking_girl_3>>
+-> He's had his rest. Let him work.
+    The man seems motivated, let him do his part. You leave the settlement and be on your way.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: hardworking_girl_3
+---
+The settlement's residents begin working together more efficiently.
+Nearby, a group of beastmen are carrying logs to repair a damaged structure.
+-> Offer to help #paneldetails=Lose_10%_Vigor._Gain_5_Affinity.
+    <<change_vigor_percent -10>><<change_affinity 5>>
+    You approach the beastmen and offer to help carry the logs.
+    They exchange glances with each other, unsure whether you're jesting or not.
+    To break the silence, you grab one of the logs and effortlessly hoist it onto your shoulder before carrying it toward the construction site.
+    The beastmen stare at you in disbelief.
+    Beastman 1: "Where does all that strength come from?!"
+    Beastman 2: "Unbelievable, such a frail frame, bearing all that burden..."
+    Beastman 3: "You've certainly earned our respect, little one!"
+    Beastman 1: "Can't let her beat us, can we?! Let's go!"
+    <<jump hardworking_girl_4>>
+-> They can handle it
+    You've done enough here. Time to split.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: hardworking_girl_4
+---
+As the beatmen hype themselves up, they finish repairing the structure and head off for drinks.
+The workers are now repairing the settlement's defenses.
+One of the protective wards is in need of repairs. A magician stands beside a ritual circle, rummaging through her books.
+-> I'm familiar with those rune patterns #paneldetails=Lose_10%_Vigor._Gain_1_Arcana_and_2_Metabolism.
+    <<change_vigor_percent -10>><<change_arcana 1>><<change_metabolism 2>>
+    You approach the magician and take a closer look at the ritual circle.
+    You give her pointers, pointing out a few mistakes in the arrangement.
+    Mage: "Wait, you're right! Ooh... I overlooked a couple of steps..."
+    You help her rearrange the runes and reinforce the ritual circle.
+    <<jump hardworking_girl_5>>
+-> She'll figure it out
+    Experience is the greatest teacher. Let her solve this predicament herself.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: hardworking_girl_5
+---
+As the final rune falls into place, the circle lights up, and the protective ward hums back to life.
+Mage: "Incredible! Thank you, miss! I hope to become your apprentice someday!"
+As you bid farewell with the mage, you hear a heated argument coming from the settlement square.
+A burly man stands face-to-face with a towering demon, both refusing to back down.
+Two war-weary veterans, a human and a demon, still harbor hatred for each other despite the world's descent into darkness.
+-> Mediate them #paneldetails=Lose_10%_Vigor._Gain_1_Wisdom_and_1_Insight.
+    <<change_vigor_percent -10>><<change_wisdom 1>><<change_insight 1>>
+    You step between the two before either can make a move.
+    You remind them that whatever happened during the war, the world has changed since then.
+    The man slowly lowers his weapon. After a long silence, the demon lets out a frustrated growl and turns away.
+    They part ways without another word, leaving the survivors to breathe a sigh of relief.
+    [nomarkup]...[/nomarkup]
+    You've done everything you can. This settlement has finally brimmed with the life the world you once knew.
+    The survivors thank you gratefully as you wave goodbye and continue your journey.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> This one's out of my control...
+    You decide that the settlement is at least safe enough from external dangers, let them handle the internal ones.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===

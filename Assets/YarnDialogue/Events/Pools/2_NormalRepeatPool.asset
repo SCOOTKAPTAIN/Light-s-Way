@@ -28,6 +28,9 @@ MonoBehaviour:
   - eventId: peculiar_curiosities
     yarnNode: peculiar_curiosities
     weight: 0
-  - eventId: priestess_of_light
-    yarnNode: priestess_of_light
+  - eventId: ploppin_race
+    yarnNode: ploppin_race
+    weight: 0
+  - eventId: Breakdown
+    yarnNode: Breakdown
     weight: 2

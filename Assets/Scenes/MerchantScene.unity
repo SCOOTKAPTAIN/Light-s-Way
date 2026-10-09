@@ -2854,7 +2854,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5615085282992408992, guid: f8300a2dba3e6334aac540137723f624, type: 3}
       propertyPath: m_text
-      value: 150
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 5663373949701663297, guid: f8300a2dba3e6334aac540137723f624, type: 3}
       propertyPath: m_TargetGraphic

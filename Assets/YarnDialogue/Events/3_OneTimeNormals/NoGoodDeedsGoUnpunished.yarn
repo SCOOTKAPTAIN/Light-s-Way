@@ -1,0 +1,120 @@
+﻿title: no_good_deeds_go_unpunished
+---
+<<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands beggar_innocent>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "No Good Deeds Go Unpunished">>
+You come across a beggar sitting beside the road, holding out a worn cup.
+Beggar: "Please, traveler. Spare a coin for the less fortunate."
+-> Give him money #paneldetails=Lose_100_Gold._Gain_15_Light.
+    <<if gold() >= 100>>
+        <<change_gold -100>><<change_light 15>>
+        You drop some Gold into the beggar's cup.
+        Beggar: "Ooh! May the goddess bless you for your kindness."
+        <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+    <<else>>
+        <<jump no_good_deeds_broke>>
+    <<endif>>
+-> Ignore him #paneldetails=Lose_10_Light.
+    You pay no attention to him, ignoring his pleas.
+    Beggar: "May damnation befall your selfish self!"
+    His words sting your heart as you leave him behind.
+    <<change_light -10>>
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> [gold]Observe him[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight
+    <<spend_insight 1>>
+    <<jump no_good_deeds_insight_safe>>
+===
+
+title: no_good_deeds_insight_safe
+---
+You study the beggar meticulously before making your decision.
+[pause=0.5/].[pause=0.5/].[pause=0.5/].[pause=0.5/]  [br/][green]He appears to be genuinely desperate.[/green]
+-> Give him money #paneldetails=Lose_100_Gold._Gain_15_Light.
+    <<if gold() >= 100>>
+        <<change_gold -100>><<change_light 15>>
+        You drop some Gold into the beggar's cup.
+        Beggar: "Ooh! May the goddess bless you for your kindness."
+        <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+    <<else>>
+        <<jump no_good_deeds_broke>>
+    <<endif>>
+-> Don't give him anything #paneldetails=Lose_10_Light.
+    You decide not to give anything and leave the beggar to his misfortune.
+    Beggar: "May damnation befall your selfish self!"
+    His words sting your heart as you leave him behind.
+    <<change_light -10>>
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: no_good_deeds_ominous
+---
+<<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands beggar_innocent>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "No Good Deeds Go Unpunished">>
+You come across a beggar sitting beside the road, holding out a worn cup.
+Beggar: "Please, traveler. Spare a coin for the less fortunate."
+-> Give him money #paneldetails=Lose_100_Gold._Gain_15_Light.
+    <<if gold() >= 100>>
+        <<change_gold -100>>
+        As you reach for your coin pouch, the beggar's posture suddenly changes.
+        <<picture YarnCommands beggar_evil>>
+        <<hide_speaker_frame YarnCommands>><<sfx YarnCommands hit>><<flash YarnCommands red 0.3>>
+        <<change_health_percent -30>>
+        The beggar drives a hidden blade into you.
+        <<sfx YarnCommands chaosoccurs>>
+        Beggar: "Ha! Fool! Easy pickings!"
+        <<lose_all_gold>>
+        As you writhe in shock and pain, he snatches the rest of your Gold and disappears into the wilderness.
+        <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+    <<else>>
+        <<jump no_good_deeds_broke_ominous>>
+    <<endif>>
+-> Ignore him #paneldetails=Lose_10_Light.
+    You pay no attention to him, ignoring his pleas.
+    Beggar: "May damnation befall your selfish self!"
+    His words sting your heart as you leave him behind.
+    [pause=0.5/].[pause=0.5/].[pause=0.5/].[pause=0.5/]
+    Beggar: "Tch..."
+    <<change_light -10>>
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> [gold]Observe him[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight
+    <<spend_insight 1>>
+    <<jump no_good_deeds_insight_ominous>>
+===
+
+title: no_good_deeds_insight_ominous
+---
+You study the beggar meticulously before making your decision.
+[pause=0.5/].[pause=0.5/].[pause=0.5/].[pause=0.5/]  [br/][red]You spot a hidden dagger beneath his robes.[/red]
+-> Take him out #paneldetails=Gain_400_Gold._Gain_1_Arcana.
+    <<sfx YarnCommands hit>><<flash YarnCommands red 0.3>>
+    You quickly dispatch the beggar before he can react.
+    As he clutches his slit throat, you look through his possessions.
+    Pouches of Gold and a magic tome. Probably stolen.
+    "If you steal, you must expect to be stolen from."
+    Heh, how ironic.
+    You take his possessions and carry on with your journey. 
+    <<change_gold 400>><<change_arcana 1>>
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> Call out his ploy #paneldetails=Gain_1_Wisdom._Gain_10_Light.
+    <<change_wisdom 1>><<change_light 10>>
+    The beggar notices that you have seen through him.
+    You warn him not to do anything foolish.
+    Beggar: "F-fine... I won't do anything..."
+    He runs away into the wilderness.
+    You feel quite fulfilled by this act of mercy.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: no_good_deeds_broke
+---
+The beggar glances at your empty coin pouch and lowers his cup.
+Beggar: "Ahh... So you have suffered the same fate as us..."
+You move on, unable to offer anything.
+<<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: no_good_deeds_broke_ominous
+---
+The beggar glances at your empty coin pouch and lowers his cup.
+Beggar: "Bah! You're broke as shit!"
+Beggar: "Get lost! You're useless to me."
+You move on, grateful he didn't do anything worse.
+<<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===

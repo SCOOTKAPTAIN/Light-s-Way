@@ -1,0 +1,99 @@
+﻿title: mauled_by_monsters
+---
+<<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands placeholder>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "Mauled by the Darkness">>
+<<sfx YarnCommands chaosoccurs>>
+You hear a low growl from the darkness. A pack of shadowy creatures emerges from the surrounding gloom, their claws and teeth glinting in the faint light.
+They lunge at you from every direction. You have little time to think.
+<<jump mauled_by_monsters_1>>
+===
+
+title: mauled_by_monsters_1
+---
+The first creature lunges, their claws aiming for your flesh.
+-> Desperately fend it off #paneldetails=50%_chance_to_lose_10%_Health
+    <<if chance(50)>>
+        <<change_health_percent -10>><<sfx YarnCommands hit>><<flash YarnCommands red 0.3>>
+        You retailate, but not before its claws rake across your side.
+    <<else>>
+        You evade at the last moment and strike the creature dead.
+    <<endif>>
+    <<jump mauled_by_monsters_2>>
+-> [gold]Stay calm and predict their movements[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight._Avoid_Damage.
+    <<spend_insight 1>>
+    You steady your breathing and read the creature's movements before it attacks.
+    You evade the lunge completely and force it back into the darkness.
+    <<jump mauled_by_monsters_2>>
+===
+
+title: mauled_by_monsters_2
+---
+Another monster circles behind you, ready to strike.
+-> Brace yourself #paneldetails=50%_chance_to_lose_10%_Health
+    <<if chance(50)>>
+        <<change_health_percent -10>><<sfx YarnCommands hit>><<flash YarnCommands red 0.3>>
+        Surprised, you have no time to react as it lands a clean hit on you.
+    <<else>>
+        You use its momentum against it, sending it crashing into its packmate.
+    <<endif>>
+    <<jump mauled_by_monsters_3>>
+-> [gold]Prepare your blade and stab it as it lunges[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight._Avoid_Damage.
+    <<spend_insight 1>>
+    Its pounce ends in its timely demise as it lunges straight onto the tip of your blade.
+    <<jump mauled_by_monsters_3>>
+===
+
+title: mauled_by_monsters_3
+---
+The pack gathers around you again, their glowing eyes multiplying in the darkness.
+One of them leaps high while the others close in from below.
+-> Wildly swing your blade #paneldetails=50%_chance_to_lose_10%_Health
+    <<if chance(50)>>
+        <<change_health_percent -10>><<sfx YarnCommands hit>><<flash YarnCommands red 0.3>>
+        You knock the leaping monster away, but another claws your leg as it passes.
+    <<else>>
+        You wait until the last possible moment, then roll beneath the attack and slash at the creature's exposed flank.
+    <<endif>>
+    <<jump mauled_by_monsters_4>>
+-> [gold]Dodge and let them crash into one another[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight._Avoid_Damage.
+    <<spend_insight 1>>
+    You remain still long enough to see the attack's true pattern.
+    At the last moment, you evade, allowing the two creatures to crash into each other.
+    <<jump mauled_by_monsters_4>>
+===
+
+title: mauled_by_monsters_4
+---
+The monsters grow more desperate, swarming over the ground like a living tide.
+-> Break through before they surround you #paneldetails=50%_chance_to_lose_10%_Health
+    <<if chance(50)>>
+        <<change_health_percent -10>><<sfx YarnCommands hit>><<flash YarnCommands red 0.3>>
+        You break through the swarm, but several claws find their mark before you escape.
+    <<else>>
+        You keep moving and refuse to let the pack surround you, cutting a path through the swarm.
+    <<endif>>
+    <<jump mauled_by_monsters_5>>
+-> [gold]Find the weakest link[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight._Avoid_Damage.
+    <<spend_insight 1>>
+    You discern those who lagged behind and take advantage of the opening to slip through.
+    <<jump mauled_by_monsters_5>>
+===
+
+title: mauled_by_monsters_5
+---
+The largest of them finally steps forward; a Tall Boy towering over the rest of the pack.
+It raises its arms and brings them down in a crushing blow.
+-> Fight with everything you got #paneldetails=50%_chance_to_lose_10%_Health
+    <<if chance(50)>>
+        <<change_health_percent -10>><<sfx YarnCommands hit>><<flash YarnCommands red 0.3>>
+        You stop the creature's arms from closing on you, but its shockwave leaves a deep bruise across your body.
+    <<else>>
+        You predict the slam, sidestep the attack, and drive the monster into the ground.
+    <<endif>>
+    The darkness subsides, and the assault finally comes to an end.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> [gold]Raise your lantern up high[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight._Avoid_Damage.
+    <<spend_insight 1>>
+    You raise your lantern high.
+    Its radiance floods the darkness, forcing the creatures to retreat as the assault finally comes to an end.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===

@@ -93,8 +93,8 @@ title: merchant_proficiency
 
 title: merchant_insight
 ---
-<<if gold() >= 150>>
-	<<change_gold -150>>
+<<if gold() >= 250>>
+	<<change_gold -250>>
 	<<change_insight 1>>
 	<<merchant_purchase_success>>
 	Merchant: "Open your eyes, and the world shall reveal more of itself."
