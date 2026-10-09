@@ -1161,11 +1161,11 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 496376934}
     - targetCorrespondingSourceObject: {fileID: 8989238115576895453, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
-      insertIndex: 8
-      addedObject: {fileID: 127813023}
-    - targetCorrespondingSourceObject: {fileID: 8989238115576895453, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
-      insertIndex: -1
+      insertIndex: 7
       addedObject: {fileID: 2090621412}
+    - targetCorrespondingSourceObject: {fileID: 8989238115576895453, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
+      insertIndex: 9
+      addedObject: {fileID: 127813023}
     - targetCorrespondingSourceObject: {fileID: 279775570707090529, guid: e75f7099a69ce3b469d565d045c707d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1914597042}

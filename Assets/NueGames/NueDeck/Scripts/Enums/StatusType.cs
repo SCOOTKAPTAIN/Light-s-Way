@@ -74,7 +74,8 @@
         Ego,
         Understanding,
         Brittle,
-        EntropyFeast
+        EntropyFeast,
+        Rend
         
 
     }

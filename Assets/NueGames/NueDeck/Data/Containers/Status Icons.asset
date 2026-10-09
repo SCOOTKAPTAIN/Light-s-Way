@@ -319,3 +319,8 @@ MonoBehaviour:
     showValue: 0
     specialKeywords: 44000000
     displayPriority: 0
+  - iconStatus: 73
+    iconSprite: {fileID: 21300000, guid: 566aea19aaf451847a745085523c0f72, type: 3}
+    showValue: 1
+    specialKeywords: 49000000
+    displayPriority: 3

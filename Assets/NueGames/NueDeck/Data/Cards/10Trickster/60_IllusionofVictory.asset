@@ -24,17 +24,17 @@ MonoBehaviour:
     actionTargetType: 2
     actionValue: 0
     actionDelay: 0
-    isAreaOfEffect: 0
+    isAreaOfEffect: 1
   - cardActionType: 97
     actionTargetType: 2
     actionValue: 0
     actionDelay: 1
-    isAreaOfEffect: 0
+    isAreaOfEffect: 1
   - cardActionType: 98
     actionTargetType: 2
     actionValue: 0
     actionDelay: 0.8
-    isAreaOfEffect: 0
+    isAreaOfEffect: 1
   endTurnActionDataList: []
   exhaustAfterEndTurn: 0
   removeAfterBattle: 0

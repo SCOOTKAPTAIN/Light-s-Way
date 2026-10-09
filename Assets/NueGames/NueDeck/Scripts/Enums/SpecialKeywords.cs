@@ -74,7 +74,8 @@
         Understanding,
         Brittle,
         DamageCut,
-        EntropyFeast
+        EntropyFeast,
+        Rend
         
 
 

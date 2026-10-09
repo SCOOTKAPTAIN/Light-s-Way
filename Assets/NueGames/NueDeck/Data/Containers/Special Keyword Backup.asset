@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Special Keyword Backup
   m_EditorClassIdentifier: 
   specialKeywordBaseList:
+  - specialKeyword: 73
+    header: Rend
+    contentText: Attacks deal additional <color=#FFB430>{Rend}</color> Bleeding.
   - specialKeyword: 0
     header: Block
     contentText: Reduce incoming damage by <color=#FFB430>{Block}</color>. <color=#FFB430>Temporary</color>.

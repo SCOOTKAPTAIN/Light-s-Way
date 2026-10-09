@@ -169,7 +169,9 @@
         Tame,
         Understanding,
         Will,
-        Mimicry
+        Mimicry,
+        Bite,
+        SharpenFang
         
 
 

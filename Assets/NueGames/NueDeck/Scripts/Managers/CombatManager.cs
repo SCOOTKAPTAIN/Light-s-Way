@@ -381,21 +381,29 @@ namespace NueGames.NueDeck.Scripts.Managers
             var damage = 3 * CollectionManager.ExhaustPile.Count * stacks;
             var enemies = CurrentEnemiesList.ToList();
 
-            foreach (var enemy in enemies)
+            ally.CharacterStats.SetCurrentAttackAreaOfEffect(true);
+            try
             {
-                if (enemy == null || enemy.CharacterStats == null)
-                    continue;
+                foreach (var enemy in enemies)
+                {
+                    if (enemy == null || enemy.CharacterStats == null)
+                        continue;
 
-                var modifiedDamage = Mathf.RoundToInt(
-                    NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(
-                        enemy, ally, damage));
+                    var modifiedDamage = Mathf.RoundToInt(
+                        NueGames.NueDeck.Scripts.Utils.DamageEffects.ApplyFragileAndPursuit(
+                            enemy, ally, damage));
 
-                if (!enemy)
-                    continue;
+                    if (!enemy)
+                        continue;
 
-                FxManager?.PlayFxAtPosition(enemy.transform.position, FxType.FiringLine);
-                AudioManager?.PlayOneShot(AudioActionType.FiringLine);
-                enemy.CharacterStats.Damage(modifiedDamage, false, "red", ally);
+                    FxManager?.PlayFxAtPosition(enemy.transform.position, FxType.FiringLine);
+                    AudioManager?.PlayOneShot(AudioActionType.FiringLine);
+                    enemy.CharacterStats.Damage(modifiedDamage, false, "red", ally);
+                }
+            }
+            finally
+            {
+                ally.CharacterStats.SetCurrentAttackAreaOfEffect(false);
             }
         }
         public void OnAllyDeath(AllyBase targetAlly)

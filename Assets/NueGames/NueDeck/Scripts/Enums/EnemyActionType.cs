@@ -32,6 +32,8 @@
         RapidAnalysis,
         Will,
         Stigmata,
-        Mimicry
+        Mimicry,
+        Bite,
+        SharpenFang
     }
 }

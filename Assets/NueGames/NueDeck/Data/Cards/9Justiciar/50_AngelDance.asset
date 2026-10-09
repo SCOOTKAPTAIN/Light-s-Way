@@ -24,10 +24,14 @@ MonoBehaviour:
     actionTargetType: 0
     actionValue: 7
     actionDelay: 0
+    isAreaOfEffect: 0
   - cardActionType: 65
     actionTargetType: 2
     actionValue: 4
     actionDelay: 0.7
+    isAreaOfEffect: 1
+  endTurnActionDataList: []
+  exhaustAfterEndTurn: 0
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
@@ -132,3 +136,4 @@ MonoBehaviour:
     overrideColorOnValueScaled: 0
   specialKeywordsList: 06000000
   audioType: 60
+  cardCategory: 0

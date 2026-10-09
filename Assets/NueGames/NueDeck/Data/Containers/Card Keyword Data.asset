@@ -303,3 +303,6 @@ MonoBehaviour:
     header: Damage Cut
     contentText: Reduce incoming damage by a flat <color=#FFB430>X</color>. Reduce
       <color=#FFB430>1</color> stack for each attack instance taken.
+  - specialKeyword: 73
+    header: Rend
+    contentText: Attacks inflict additional <color=#FFB430>X</color> Bleeding.

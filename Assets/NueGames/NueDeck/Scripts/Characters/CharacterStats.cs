@@ -1557,10 +1557,18 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (combatManager == null)
                 return;
 
-            foreach (var enemy in combatManager.CurrentEnemiesList.ToList())
+            character.CharacterStats.SetCurrentAttackAreaOfEffect(true);
+            try
             {
-                if (enemy != null && enemy.CharacterStats != null && !enemy.CharacterStats.IsDeath)
-                    enemy.CharacterStats.Damage(reverberation.StatusValue, false, "red", character);
+                foreach (var enemy in combatManager.CurrentEnemiesList.ToList())
+                {
+                    if (enemy != null && enemy.CharacterStats != null && !enemy.CharacterStats.IsDeath)
+                        enemy.CharacterStats.Damage(reverberation.StatusValue, false, "red", character);
+                }
+            }
+            finally
+            {
+                character.CharacterStats.SetCurrentAttackAreaOfEffect(false);
             }
         }
 

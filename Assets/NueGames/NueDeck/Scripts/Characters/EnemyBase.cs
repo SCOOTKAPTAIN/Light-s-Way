@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using NueGames.NueDeck.Scripts.Data.Characters;
 using NueGames.NueDeck.Scripts.Data.Containers;

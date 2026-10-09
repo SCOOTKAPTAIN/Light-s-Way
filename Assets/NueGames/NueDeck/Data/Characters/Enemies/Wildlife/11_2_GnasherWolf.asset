@@ -1,0 +1,219 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
+  m_Name: 11_2_GnasherWolf
+  m_EditorClassIdentifier: 
+  characterID: 11_2
+  characterName: Wolf
+  characterDescription: 'Common Ploppin found all over the world.
+
+    They''re more
+    scared of you than anything.'
+  maxHealth: 70
+  enemyPrefab: {fileID: 243822687015991123, guid: 0e52d8174b24bae4f8a7865b1c1c21d9, type: 3}
+  mutatedVersion: {fileID: 0}
+  chaosificationStatus:
+    modifierName: Gnasher
+    icon: {fileID: 21300000, guid: a5f8a8c067dc5c84a97f4a9c0d5e5af5, type: 3}
+    description: Increase <color=#FFB430>Rend</color> gained from <color=#FFB430>Sharpen
+      Fangs</color>
+  useActBasedScaling: 1
+  actConfigurations:
+  - actNumber: 1
+    maxHealth: 165
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Bite
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 31
+        minActionValue: 12
+        maxActionValue: 14
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 7
+      maxConsecutiveUses: 3
+    - name: Bite
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 31
+        minActionValue: 12
+        maxActionValue: 14
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 7
+      maxConsecutiveUses: 3
+    - name: Sharpen Fangs
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: 'Gain <color=#FFB430>{value} Rend</color>. '
+      keywords: 49000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 32
+        minActionValue: 3
+        maxActionValue: 8
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+  - actNumber: 2
+    maxHealth: 270
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Bite
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 31
+        minActionValue: 19
+        maxActionValue: 21
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 7
+      maxConsecutiveUses: 3
+    - name: Bite
+      intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 31
+        minActionValue: 19
+        maxActionValue: 21
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 7
+      maxConsecutiveUses: 3
+    - name: Sharpen Fangs
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: 'Gain <color=#FFB430>{value} Rend</color>. '
+      keywords: 49000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 32
+        minActionValue: 3
+        maxActionValue: 8
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 0
+        customAudioType: 0
+      repeatCount: 0
+      conditions: []
+      weight: 0
+      maxConsecutiveUses: 0
+  followAbilityPattern: 1
+  useWeightedSelection: 0
+  preventRepeatAbility: 0
+  startingStatuses: []
+  enemyAbilityList:
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 0
+      minActionValue: 10
+      maxActionValue: 10
+      targetRestriction: 0
+      targetSlot: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 6
+    maxConsecutiveUses: 0
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 2
+      minActionValue: 2
+      maxActionValue: 2
+      targetRestriction: 0
+      targetSlot: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 5
+    maxConsecutiveUses: 0

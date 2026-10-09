@@ -24,10 +24,13 @@ MonoBehaviour:
     actionTargetType: 2
     actionValue: 0
     actionDelay: 0
+    isAreaOfEffect: 1
+  endTurnActionDataList: []
+  exhaustAfterEndTurn: 0
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
-  - descriptionText: 'Apply {1+Potency}'
+  - descriptionText: Apply {1+Potency}
     enableOverrideColor: 0
     overrideColor: {r: 0, g: 0, b: 0, a: 1}
     useModifier: 0

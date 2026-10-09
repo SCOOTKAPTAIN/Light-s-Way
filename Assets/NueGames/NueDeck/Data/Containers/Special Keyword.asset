@@ -331,3 +331,6 @@ MonoBehaviour:
       Reduce <color=#FFB430>1</color> stack for each attack instance taken.
 
 '
+  - specialKeyword: 73
+    header: Rend
+    contentText: Attacks inflict additional <color=#FFB430>{Rend}</color> Bleeding.

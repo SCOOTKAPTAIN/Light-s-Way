@@ -24,26 +24,34 @@ MonoBehaviour:
     actionTargetType: 2
     actionValue: 0
     actionDelay: 0
+    isAreaOfEffect: 1
   - cardActionType: 86
     actionTargetType: 2
     actionValue: 2
     actionDelay: 0.9
+    isAreaOfEffect: 1
   - cardActionType: 86
     actionTargetType: 2
     actionValue: 2
     actionDelay: 0.25
+    isAreaOfEffect: 1
   - cardActionType: 86
     actionTargetType: 2
     actionValue: 2
     actionDelay: 0.25
+    isAreaOfEffect: 1
   - cardActionType: 86
     actionTargetType: 2
     actionValue: 2
     actionDelay: 0.25
+    isAreaOfEffect: 1
   - cardActionType: 100
     actionTargetType: 2
     actionValue: 2
     actionDelay: 0.85
+    isAreaOfEffect: 1
+  endTurnActionDataList: []
+  exhaustAfterEndTurn: 0
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
@@ -130,3 +138,4 @@ MonoBehaviour:
     overrideColorOnValueScaled: 0
   specialKeywordsList: 0c00000007000000
   audioType: 39
+  cardCategory: 0

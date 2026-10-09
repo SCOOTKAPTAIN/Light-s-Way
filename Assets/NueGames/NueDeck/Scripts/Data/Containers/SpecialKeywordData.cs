@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using NueGames.NueDeck.Scripts.Enums;
@@ -120,6 +120,7 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 SpecialKeywords.Understanding => StatusType.Understanding,
                 SpecialKeywords.Brittle => StatusType.Brittle,
                 SpecialKeywords.DamageCut => StatusType.DamageCut,
+                SpecialKeywords.Rend => StatusType.Rend,
                // SpecialKeywords.TheBestDefence => StatusType.TheBestDefense,
                 _ => StatusType.None
             };

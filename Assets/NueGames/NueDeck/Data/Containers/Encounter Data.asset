@@ -20,10 +20,10 @@ MonoBehaviour:
     - targetBackgroundType: 0
       encounterId: 
       enemyList: []
-      battleMusicOverride: {fileID: 8300000, guid: c4e081a6e9137c04081f75d8114c3213, type: 3}
+      battleMusicOverride: {fileID: 0}
       enemySpawnEntries:
-      - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
-        positionNumber: 9
+      - enemy: {fileID: 11400000, guid: ceb434836a7a9c44690ba6eb029fe4af, type: 2}
+        positionNumber: 1
       startingCards: []
       customGoldRewards: []
       customCardRewards: []
