@@ -211,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 1
   textSpawnRoot: {fileID: 2463341200963954810}
-  enemyCharacterData: {fileID: 11400000, guid: ceb434836a7a9c44690ba6eb029fe4af, type: 2}
+  enemyCharacterData: {fileID: 11400000, guid: d7fedbd717e8d124583861e35902c499, type: 2}
   enemyCanvas: {fileID: 7422249267346903092}
   deathSoundProfileData: {fileID: 11400000, guid: 7e15e2a10065ab54c8eaf26154af0156, type: 2}
   spriteRenderer: {fileID: 0}

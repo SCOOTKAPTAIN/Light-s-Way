@@ -1,0 +1,292 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
+  m_Name: 13_2_ManiacDevil
+  m_EditorClassIdentifier: 
+  characterID: 13_2
+  characterName: Devil
+  characterDescription: 'Common Ploppin found all over the world.
+
+    They''re more
+    scared of you than anything.'
+  maxHealth: 70
+  enemyPrefab: {fileID: 243822687015991123, guid: 203a8181d6b964540bd4e45ebd6f9e68, type: 3}
+  mutatedVersion: {fileID: 0}
+  chaosificationStatus:
+    modifierName: Maniac
+    icon: {fileID: 21300000, guid: a5f8a8c067dc5c84a97f4a9c0d5e5af5, type: 3}
+    description: <color=#FFB430>Ravage</color> hit count <color=#FFB430>+2</color>
+  useActBasedScaling: 1
+  actConfigurations:
+  - actNumber: 3
+    maxHealth: 391
+    startingStatuses:
+    - statusType: 45
+      statusValue: 1
+    enemyAbilityList:
+    - name: Ravage
+      intention: {fileID: 11400000, guid: 3efa0e2373ea36845a3c7fd56786a097, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>3</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 6
+        maxActionValue: 6
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 131
+        customAudioType: 133
+      repeatCount: 5
+      conditions:
+      - target: 0
+        conditionType: 1
+        specificStatus: 45
+        threshold: 0
+      weight: 4
+      maxConsecutiveUses: 2
+    - name: Heart Dive
+      intention: {fileID: 11400000, guid: 8ff4d02922df38048be5b7df2bf1e027, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage. \nRemove <color=#FFB430>Flying</color>.
+      keywords: 2e000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 35
+        minActionValue: 44
+        maxActionValue: 46
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 32
+        customAudioType: 36
+      repeatCount: 0
+      conditions:
+      - target: 0
+        conditionType: 0
+        specificStatus: 45
+        threshold: 0
+      weight: 3
+      maxConsecutiveUses: 1
+    - name: Feral Madnesss
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Gain <color=#FFB430>{value} Pursuit</color>.
+      keywords: 08000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 13
+        minActionValue: 3
+        maxActionValue: 3
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 8
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 63
+        customAudioType: 93
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+    - name: Take Off
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Gain <color=#FFB430>Flying</color>.
+      keywords: 2e000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 34
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 168
+        customAudioType: 171
+      repeatCount: 0
+      conditions:
+      - target: 0
+        conditionType: 1
+        specificStatus: 45
+        threshold: 0
+      weight: 3
+      maxConsecutiveUses: 1
+  - actNumber: 4
+    maxHealth: 666
+    startingStatuses:
+    - statusType: 45
+      statusValue: 1
+    enemyAbilityList:
+    - name: Ravage
+      intention: {fileID: 11400000, guid: 3efa0e2373ea36845a3c7fd56786a097, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>3</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 9
+        maxActionValue: 9
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 131
+        customAudioType: 133
+      repeatCount: 5
+      conditions:
+      - target: 0
+        conditionType: 1
+        specificStatus: 45
+        threshold: 0
+      weight: 4
+      maxConsecutiveUses: 2
+    - name: Heart Dive
+      intention: {fileID: 11400000, guid: 8ff4d02922df38048be5b7df2bf1e027, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage. \nRemove <color=#FFB430>Flying</color>.
+      keywords: 2e000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 35
+        minActionValue: 52
+        maxActionValue: 54
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 32
+        customAudioType: 36
+      repeatCount: 0
+      conditions:
+      - target: 0
+        conditionType: 0
+        specificStatus: 45
+        threshold: 0
+      weight: 3
+      maxConsecutiveUses: 1
+    - name: Feral Madnesss
+      intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
+      description: Gain <color=#FFB430>{value} Pursuit</color>.
+      keywords: 08000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 13
+        minActionValue: 4
+        maxActionValue: 4
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 8
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 63
+        customAudioType: 93
+      repeatCount: 0
+      conditions: []
+      weight: 3
+      maxConsecutiveUses: 1
+    - name: Take Off
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Gain <color=#FFB430>Flying</color>.
+      keywords: 2e000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 34
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 168
+        customAudioType: 171
+      repeatCount: 0
+      conditions:
+      - target: 0
+        conditionType: 1
+        specificStatus: 45
+        threshold: 0
+      weight: 3
+      maxConsecutiveUses: 1
+  followAbilityPattern: 0
+  useWeightedSelection: 1
+  preventRepeatAbility: 0
+  startingStatuses: []
+  enemyAbilityList:
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 0
+      minActionValue: 10
+      maxActionValue: 10
+      targetRestriction: 0
+      targetSlot: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 6
+    maxConsecutiveUses: 0
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 2
+      minActionValue: 2
+      maxActionValue: 2
+      targetRestriction: 0
+      targetSlot: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 5
+    maxConsecutiveUses: 0

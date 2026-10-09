@@ -6,8 +6,8 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 13_Devil_Controller
+  m_Name: 19_Sacrificial_Controller
   m_Controller: {fileID: 9100000, guid: c24a72cd744b2a54c8242307e2419359, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: e60d19f3150505d42b6350eb9b70259d, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: f8fd9075354733c48a2e1c287788af08, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b482da8722e6754488ddeb752c9a2acf, type: 2}

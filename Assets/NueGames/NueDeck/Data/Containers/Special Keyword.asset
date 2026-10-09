@@ -336,7 +336,7 @@ MonoBehaviour:
     contentText: Attacks inflict additional <color=#FFB430>{Rend} Bleeding</color>.
   - specialKeyword: 46
     header: Flying
-    contentText: Take <color=#FFB430>80%</color> less damage from <color=#FFB430>Non-AOE</color>
+    contentText: Take <color=#FFB430>80%</color> less damage from <color=#FFB430>Non-AoE</color>
       attacks.
   - specialKeyword: 47
     header: Hidden

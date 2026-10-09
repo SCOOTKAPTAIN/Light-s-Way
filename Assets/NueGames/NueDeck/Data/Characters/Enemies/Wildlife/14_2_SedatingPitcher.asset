@@ -40,8 +40,8 @@ MonoBehaviour:
       hideActionValue: 0
       actionList:
       - actionType: 14
-        minActionValue: 7
-        maxActionValue: 7
+        minActionValue: 4
+        maxActionValue: 4
         targetRestriction: 0
         targetSlot: 0
         applyLightMultiplier: 1
@@ -110,8 +110,8 @@ MonoBehaviour:
       hideActionValue: 0
       actionList:
       - actionType: 0
-        minActionValue: 29
-        maxActionValue: 31
+        minActionValue: 23
+        maxActionValue: 25
         targetRestriction: 0
         targetSlot: 0
         applyLightMultiplier: 1

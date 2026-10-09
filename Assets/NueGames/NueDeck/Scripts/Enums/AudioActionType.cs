@@ -1,4 +1,4 @@
-﻿namespace NueGames.NueDeck.Scripts.Enums
+namespace NueGames.NueDeck.Scripts.Enums
 {
     public enum AudioActionType
     {
