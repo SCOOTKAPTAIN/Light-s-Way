@@ -22,12 +22,12 @@ MonoBehaviour:
   - eventId: plague_doctor
     yarnNode: plague_doctor
     weight: 0
-  - eventId: psychic
-    yarnNode: psychic
-    weight: 0
   - eventId: blacksmith
     yarnNode: blacksmith
     weight: 0
-  - eventId: veteran_adventurer
-    yarnNode: veteran_adventurer
+  - eventId: peculiar_curiosities
+    yarnNode: peculiar_curiosities
+    weight: 0
+  - eventId: priestess_of_light
+    yarnNode: priestess_of_light
     weight: 2

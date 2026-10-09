@@ -202,6 +202,14 @@ namespace NueGames.NueDeck.Scripts.Characters
             
             // Pass the last used ability to prevent repeats (per-instance)
             NextAbility = GetActSpecificAbility(abilityList, _lastUsedAbility, _usedAbilityCount);
+            if (NextAbility == null)
+            {
+                EnemyCanvas.IntentImage.gameObject.SetActive(false);
+                EnemyCanvas.NextActionValueText.gameObject.SetActive(false);
+                Debug.LogWarning($"Enemy '{name}' has no abilities with valid targets.");
+                return;
+            }
+
             if (NextAbility == _lastUsedAbility)
                 _lastAbilityConsecutiveUses++;
             else
@@ -245,6 +253,13 @@ namespace NueGames.NueDeck.Scripts.Characters
         /// </summary>
         private EnemyAbilityData GetActSpecificAbility(List<EnemyAbilityData> abilityList, EnemyAbilityData lastUsedAbility, int usedAbilityCount)
         {
+            abilityList = abilityList
+                .Where(IsAbilityTargetAvailable)
+                .ToList();
+
+            if (abilityList.Count == 0)
+                return null;
+
             if (EnemyCharacterData.UseActBasedScaling)
             {
                 // When using act-based scaling, respect the enemy's ability selection settings
@@ -350,11 +365,11 @@ namespace NueGames.NueDeck.Scripts.Characters
                     .ToList();
             }
             
-            // Safety check: if still empty, just return first ability
+            // No ability with a valid target remains.
             if (availableAbilities.Count == 0)
             {
-                Debug.LogWarning($"Enemy '{name}' has no available abilities after filtering. Returning first ability from original list.");
-                return abilityList[0];
+                Debug.LogWarning($"Enemy '{name}' has no available abilities after filtering.");
+                return null;
             }
             
             // Calculate total weight

@@ -1,17 +1,33 @@
 ﻿title: peculiar_curiosities
 ---
 <<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands placeholder>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "Peculiar Curiosities">>
-You stumble upon a house filled with strange apparatus and scattered research notes.
-Among the clutter, one relic stands out a device said to replicate items by using mana.
-An old belt hangs from a nearby hook. It looks rather dull, but its construction is surprisingly sturdy.
--> Use the relic device #paneldetails=Duplicate_1_card_from_your_deck.
-    You carefully place the relic into the device and follow the instructions written in the research notes.
-    The apparatus hums as mana gathers around it, and a duplicate of one of your cards takes shape.
+You push open the door to a house that shouldn't still be standing. Inside, apparatus covers every surface and interesting contraptions and tools could be found among everything.
+Galvanometer, Beakers, Spectroscope, Gyroscope, Distillation unit, Astrolabe, and a Retort.
+Somehow, you can recognize and name each apparatus without hesitation.
+But why?
+Amid the mess, one particular item stands out.
+A "Duplicator".
+A note beside it claims that this is one the greatest invention ever made by 'Grandmaster Dwarf Tinkerer Sovenhau'. Apparently, through the use of ritual runes, the device can bring a perfect replica of an object into reality.
+What a remarkable invention! A device like this could change a person's life!
+-> Use the device #paneldetails=Duplicate_1_card_from_your_deck._Lose_20_Health.
+    You carefully place your supplies into the device. The machine whirls into life.
+    The crystal lens blazes white-hot and for a moment you feel burns searing through your skin.
+    And then...
+    <<sfx YarnCommands explode>>
+    <<flash YarnCommands red 0.3>>
+    <<change_health 20>>
+    The blast throws you against the wall. Your ears ringing, sharpnels can be seen piercing into your skin.
+    As the dust settles, you see something emerging from the smoke.
     <<duplicate_card YarnCommands>>
+    It's your supplies! Its edges curled black, but otherwise a perfect replica.
+    You gather the supplies and nurse your injuries. At least now you know the machine works...
+    ...Once.
     <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
--> Shift your attention to the belt #paneldetails=Gain_3_Capacity.
-    You inspect the belt more closely and discover several hidden compartments woven into its design.
-    You adjust the straps and fasten it around your waist, increasing the amount you can carry.
+-> THIS one's more interesting, though... #paneldetails=Gain_3_Capacity.
+    You drop the device and take a gander at the table; Something else catches your eye.
+    There lies a simple, sturdy belt. Looks worn-out...
+    Magnificent! What a lifesaver! You could use the extra space!
+    You took the belt and strap it around your waist before leaving the premises, pleased with your findings.
     <<change_capacity 3>>
     <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
 ===

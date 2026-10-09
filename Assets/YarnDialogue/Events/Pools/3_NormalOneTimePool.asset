@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: 3_NormalOneTimePool
   m_EditorClassIdentifier: 
   events:
-  - eventId: normal_onetime
-    yarnNode: normal_onetime
-    weight: 0
+  - eventId: veteran_adventurer
+    yarnNode: veteran_adventurer
+    weight: 2
+  - eventId: psychic
+    yarnNode: psychic
+    weight: 2

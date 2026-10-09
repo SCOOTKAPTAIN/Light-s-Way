@@ -806,6 +806,12 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
         return maxHealth > 0 && currentHealth >= maxHealth;
     }
 
+    [YarnFunction("chance")]
+    public static bool Chance(int percent)
+    {
+        return UnityEngine.Random.Range(0, 100) < Mathf.Clamp(percent, 0, 100);
+    }
+
     [YarnFunction("light")]
     public static int GetLight()
     {

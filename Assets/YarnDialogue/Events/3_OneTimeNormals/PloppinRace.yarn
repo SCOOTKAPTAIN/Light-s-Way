@@ -1,0 +1,59 @@
+﻿title: ploppin_race
+---
+<<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands placeholder>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "Indulging Desires">>
+You wander into a bustling tavern, where a raucous crowd has gathered around a makeshift track.
+Laughter and shouts fill the air as blue, squishy creatures bounce around.
+As you approach, you realize they are gambling...
+With Ploppins?!
+<<jump ploppin_race_choice>>
+===
+
+title: ploppin_race_choice
+---
+-> Take part in the gamble #paneldetails=Lose_250_Gold._60%_chance_to_gain_500_Gold.
+    <<if gold() >= 250>>
+        <<change_gold -250>>
+        <<jump ploppin_race_gamble>>
+    <<else>>
+        <<jump ploppin_race_broke>>
+    <<endif>>
+-> I don't partake in such vices #paneldetails=Gain_6_Light
+    <<change_light 6>>
+    This is an utter waste of your time. You set off on your journey once again.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: ploppin_race_gamble
+---
+You place your wager on a Ploppin and join the crowd around the track.
+The Ploppins rush forward as the spectators shout encouragement for their chosen racers!
+<<if chance(60)>>
+    [green]Your chosen Ploppin pulls ahead at the last moment and crosses the finish line first![/green]
+    You happily cheer as your winning wager is paid out.
+    <<change_gold 500>>
+    You collect your winnings with a big grin.
+<<else>>
+    [red]Your chosen Ploppin stumbles at the final obstacle and loses the race.[/red]
+    You groan as your wager disappears into the unknown...
+<<endif>>
+After the race, another group of Ploppins is brought to the starting line.
+-> More! #paneldetails=Lose_250_Gold._60%_chance_to_gain_500_Gold._-3_Light.
+    <<if gold() >= 250>>
+        <<change_gold -250>>
+        <<change_light -3>>
+        <<jump ploppin_race_gamble>>
+    <<else>>
+        <<jump ploppin_race_broke>>
+    <<endif>>
+-> That's enough...
+    A wise general knows when not to push their luck. You leave the venue.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: ploppin_race_broke
+---
+You look over your empty coin pouch and sigh...
+-> Leave
+    Feeling ashamed, you step away from the crowd.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===

@@ -46,6 +46,7 @@ public sealed class CardDuplicationManager : MonoBehaviour
         inventoryCanvas.OpenCanvas();
         inventoryCanvas.ChangeTitle("Choose a card to duplicate");
         inventoryCanvas.SetCardsForSelection(deck, OnCardChosen);
+        inventoryCanvas.SetReturnButtonInteractable(false);
         completedCallback = onCompleted;
     }
 

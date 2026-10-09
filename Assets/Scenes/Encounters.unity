@@ -3958,6 +3958,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 1bb153c81097f934a8ffdbe3ee2e94cb, type: 3}
   - id: veteran
     sprite: {fileID: 21300000, guid: b15dffaa0b1d7b446a7cc9d38b538fde, type: 3}
+  - id: priestess
+    sprite: {fileID: -9003192873244736225, guid: a85bac37f48b4164e961259a5ca50148, type: 3}
   backgroundAnimator: {fileID: 2125829730}
   speakerFrame: {fileID: 1534638189}
   bloomTextPanel: {fileID: 926115793}

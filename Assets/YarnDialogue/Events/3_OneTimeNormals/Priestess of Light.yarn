@@ -1,0 +1,27 @@
+﻿title: priestess_of_light
+---
+<<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands priestess>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "Priestess of Light">>
+As you wander through the sun-drenched clearing, a figure clad in flowing white robes catches your eye.
+A priestess of Light stands beneath an ancient oak, her golden hair cascading like sunlight over her shoulders.
+She offers you a warm smile and raises a hand in greeting.
+Priestess: "Greetings. The Light has guided you here. How can I be of service?"
+-> Pray with her #paneldetails=Gain_25_Light
+    Kneeling beside the priestess, you join her in a heartfelt prayer, feeling a warm glow envelop you.
+    A gentle radiance settles over you, filling your body with renewed hope.
+    <<change_light 25>>
+    Priestess: "Stand tall, child. The Light has not abandoned you."
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> Ask for a blessing #paneldetails=Gain_60_Vigor._Heal_20%_Health.
+    With a humble request, you seek the priestess’s blessing. She lays her hands upon you, and a surge of energy courses through your veins. 
+    <<change_vigor 60>><<change_health_percent 20>>
+    Priestess: "May the Light guide your way, child."
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> [gold]Listen to her sermon[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight._Gain_1_Wisdom._Gain_1_Radiance.
+    <<spend_insight 1>>
+    You take a moment to absorb her words of wisdom as she delivers a passionate sermon.
+    You listen closely, finding meaning in every word.
+    <<change_wisdom 1>><<change_radiance 1>>
+    Priestess: "Understanding Light will lead you to a path of illumination, child."
+    You thank her for her teachings.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===

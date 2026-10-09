@@ -125,6 +125,11 @@ namespace NueGames.NueDeck.Scripts.UI
 
         public void SetRemovalButtonInteractable(bool interactable)
         {
+            SetReturnButtonInteractable(interactable);
+        }
+
+        public void SetReturnButtonInteractable(bool interactable)
+        {
             if (_returnButton == null)
             {
                 var returnButtonTransform = transform.Find("CardPanel/ReturnButton");

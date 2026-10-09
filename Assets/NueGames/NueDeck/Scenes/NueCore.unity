@@ -9215,6 +9215,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a5ccacced4d7cc24c80e32191e0309d7, type: 3}
   - name: hit
     clip: {fileID: 8300000, guid: 385f32d7754e96b48845a899b15c05f8, type: 3}
+  - name: explode
+    clip: {fileID: 8300000, guid: 9e13433c76d6b8c47a2ae12496839f86, type: 3}
   music_source: {fileID: 1005807859}
   sfx_source: {fileID: 2019502690}
 --- !u!4 &1891413829
