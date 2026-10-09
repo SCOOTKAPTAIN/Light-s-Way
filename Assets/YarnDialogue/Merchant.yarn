@@ -4,8 +4,8 @@
 <<wait 1>>
 <<picture YarnCommands merchant>>
 <<fade_in YarnCommands 1>>
-Merchant: Kihihi... Welcome, young lady.
-Merchant: Here to buy somethin'? I got wares that might interest you.
+Merchant: "Kihihi... Welcome, young lady."
+Merchant: "Here to buy somethin'? I got wares that might interest you."
 <<open_shop_panel MerchantYarnCommands>>
 ===
 
@@ -17,7 +17,7 @@ title: merchant_heal
 	<<change_gold -200>>
 	<<change_health_percent 50>>
 	<<merchant_purchase_success>>
-	Merchant: There. You look less dead already.
+	Merchant: "There. You look less dead already."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -29,7 +29,7 @@ title: merchant_vigor
 	<<change_gold -150>>
 	<<change_vigor 25>>
 	<<merchant_purchase_success>>
-	Merchant: A little more fortitude for that fragile frame.
+	Merchant: "A little more fortitude for that fragile frame."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -41,7 +41,7 @@ title: merchant_metabolism
 	<<change_gold -150>>
 	<<change_metabolism 1>>
 	<<merchant_purchase_success>>
-	Merchant: Such a lively body! Better keep that stomach full.
+	Merchant: "Such a lively body! Better keep that stomach full."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -55,7 +55,7 @@ title: merchant_light
 	<<change_gold -150>>
 	<<change_light 10>>
 	<<merchant_purchase_success>>
-	Merchant: Here's something to brigthen the flames, stay safe young lady...
+	Merchant: "Here's something to brigthen the flames, stay safe young lady..."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -64,19 +64,19 @@ title: merchant_light
 title: merchant_broke
 ---
 <<merchant_purchase_broke>>
-Merchant: Sorry, young lady, but I don't do charity. Best come back when you're a lil' richer. Kihihi...
+Merchant: "Sorry, young lady, but I don't do charity. Best come back when you're a lil' richer. Kihihi..."
 ===
 
 title: merchant_light_full
 ---
 <<merchant_purchase_broke>>
-Merchant: Your lantern is already as bright as it gets, young lady. Unless you're feeling generous enough to make a little donation? Kihihi...
+Merchant: "Your lantern is already as bright as it gets, young lady. Unless you're feeling generous enough to make a little donation? Kihihi..."
 ===
 
 title: merchant_health_full
 ---
 <<merchant_purchase_broke>>
-Merchant: You're already the very picture of health. Don't waste your Gold, young lady.
+Merchant: "You're already the very picture of health. Don't waste your Gold, young lady."
 ===
 
 title: merchant_proficiency
@@ -85,7 +85,7 @@ title: merchant_proficiency
 	<<change_gold -250>>
 	<<change_proficiency 1>>
 	<<merchant_purchase_success>>
-	Merchant: Here are some books you can read and learn from. Been tryin' to get rid of 'em, they're too heavy, y'know?
+	Merchant: "Here are some books you can read and learn from. Been tryin' to get rid of 'em, they're too heavy, y'know?"
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -97,7 +97,7 @@ title: merchant_insight
 	<<change_gold -150>>
 	<<change_insight 1>>
 	<<merchant_purchase_success>>
-	Merchant: Open your eyes, and the world shall reveal more of itself.
+	Merchant: "Open your eyes, and the world shall reveal more of itself."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -109,7 +109,7 @@ title: merchant_affinity
 	<<change_gold -200>>
 	<<change_affinity 2>>
 	<<merchant_purchase_success>>
-	Merchant: You'll get a little more mileage out of those fancy tricks now.
+	Merchant: "You'll get a little more mileage out of those fancy tricks now."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -121,7 +121,7 @@ title: merchant_capacity
 	<<change_gold -100>>
 	<<change_capacity 2>>
 	<<merchant_purchase_success>>
-	Merchant: A little more room for what the journey demands.
+	Merchant: "A little more room for what the journey demands."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -130,7 +130,7 @@ title: merchant_capacity
 title: merchant_card_removal
 ---
 <<if not has_removable_card()>>
-	Merchant: Your belongings are already too thin. Come back with something worth removing.
+	Merchant: "Your belongings are already too thin. Come back with something worth removing."
 <<elseif gold() >= 300>>
 	<<open_card_removal MerchantYarnCommands>>
 <<else>>
@@ -141,7 +141,7 @@ title: merchant_card_removal
 title: merchant_card_removal_complete
 ---
 <<merchant_purchase_success>>
-Merchant: One less burden for the road.
+Merchant: "One less burden for the road."
 ===
 
 title: merchant_card_procurement
@@ -149,7 +149,7 @@ title: merchant_card_procurement
 <<if gold() >= 200>>
 	<<open_default_card_procurement MerchantYarnCommands>>
     <<merchant_purchase_success>>
-	Merchant: A useful addition to your collection, eh? ...No? Shit.
+	Merchant: "A useful addition to your collection, eh? ...No? Shit."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -158,11 +158,11 @@ title: merchant_card_procurement
 title: merchant_premium_procurement
 ---
 	<<if not has_premium_procurement()>>
-	Merchant: That particular stock has not arrived yet.
+	Merchant: "That particular stock has not arrived yet."
 	<<elseif gold() >= 600>>
 	<<open_premium_card_procurement MerchantYarnCommands>>
     <<merchant_purchase_success>>
-	Merchant: Now THESE are some fine selections! I guarantee you won't be disappointed. Kihihi...
+	Merchant: "Now THESE are some fine selections! I guarantee you won't be disappointed. Kihihi..."
 	<<else>>
 	<<jump merchant_broke>>
 	<<endif>>
@@ -171,7 +171,7 @@ title: merchant_premium_procurement
 title: merchant_bye_bye
 ---
 <<close_shop_panel MerchantYarnCommands>>
-Merchant: Try not to die out there. Kihihi... 
+Merchant: "Try not to die out there. Kihihi... "
 <<hide_speaker_frame YarnCommands>>
 <<wait 1>>
 <<fade_out YarnCommands 2>>
@@ -184,7 +184,7 @@ title: merchant_potency
 	<<change_gold -300>>
 	<<change_potency 1>>
 	<<merchant_purchase_success>>
-	Merchant: A little more ‘sting’ for that edge of yours. They're gonna feel that, alright.
+	Merchant: "A little more ‘sting’ for that edge of yours. They're gonna feel that, alright."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -196,7 +196,7 @@ title: merchant_arcana
 	<<change_gold -600>>
 	<<change_arcana 1>>
 	<<merchant_purchase_success>>
-	Merchant: Just chant whatever this scroll says and yer magic circuits will improve. Can't guarantee no side effects, though. Kihihi...
+	Merchant: "Just chant whatever this scroll says and yer magic circuits will improve. Can't guarantee no side effects, though. Kihihi..."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -208,7 +208,7 @@ title: merchant_wisdom
 	<<change_gold -1000>>
 	<<change_wisdom 1>>
 	<<merchant_purchase_success>>
-	Merchant: Wisdom takes a lifetime. I can offer you the shortcut. Kihihi...
+	Merchant: "Wisdom takes a lifetime. Thankfully, I can offer you the shortcut. Kihihi..."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -220,7 +220,7 @@ title: merchant_radiance
 	<<change_gold -1000>>
 	<<change_radiance 1>>
 	<<merchant_purchase_success>>
-	Merchant: A brighter soul attracts both friends and trouble.
+	Merchant: "A brighter soul attracts both friends and trouble."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>
@@ -232,7 +232,7 @@ title: merchant_abundance
 	<<change_gold -1000>>
 	<<change_abundance 1>>
 	<<merchant_purchase_success>>
-	Merchant: More opportunities, more headaches. What a bargain.
+	Merchant: "More opportunities, more headaches. What a bargain."
 <<else>>
 	<<jump merchant_broke>>
 <<endif>>

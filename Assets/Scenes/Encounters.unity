@@ -3961,11 +3961,15 @@ MonoBehaviour:
   bloomTextPanel: {fileID: 926115793}
   bloomText: {fileID: 709081807}
   bloomFadeInDuration: 0.2
-  bloomHoldDuration: 2
+  bloomHoldDuration: 1.4
   bloomFadeOutDuration: 0.4
   bloomStartScale: 0.85
   bloomPeakScale: 1.05
   randomUncommonCardPool: {fileID: 11400000, guid: 2a939728e8fac754aa4c391265dcfb2d, type: 2}
+  commonPlusCardPool: {fileID: 11400000, guid: 6091cc91e0cd2f149bb073a853661b25, type: 2}
+  uncommonPlusCardPool: {fileID: 11400000, guid: 942dc0c4f325a6340ab8be0ab2eba646, type: 2}
+  rarePlusCardPool: {fileID: 11400000, guid: a6d47d94a77be2d4aaeec9290829c053, type: 2}
+  mysticCardPool: {fileID: 11400000, guid: 455a9e87282790f48bad9d2924f7a1da, type: 2}
 --- !u!4 &1939543852
 Transform:
   m_ObjectHideFlags: 0

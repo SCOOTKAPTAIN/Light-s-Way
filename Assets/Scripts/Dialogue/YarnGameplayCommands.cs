@@ -1,13 +1,16 @@
 using System;
+using System.Collections.Generic;
+using System.Text;
 using NueGames.NueDeck.Scripts.Data.Collection;
 using NueGames.NueDeck.Scripts.Data.Collection.RewardData;
 using NueGames.NueDeck.Scripts.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Yarn.Markup;
 using Yarn.Unity;
 
-public sealed class YarnGameplayCommands : MonoBehaviour
+public sealed class YarnGameplayCommands : ReplacementMarkupHandler
 {
     [Serializable]
     private struct NamedSprite
@@ -42,8 +45,16 @@ public sealed class YarnGameplayCommands : MonoBehaviour
     [Header("Intro Rewards")]
     [SerializeField] private CardRewardData randomUncommonCardPool;
 
+    [Header("Event Card Rewards")]
+    [SerializeField] private CardRewardData commonPlusCardPool;
+    [SerializeField] private CardRewardData uncommonPlusCardPool;
+    [SerializeField] private CardRewardData rarePlusCardPool;
+    [SerializeField] private CardRewardData mysticCardPool;
+
     private void Awake()
     {
+        RegisterColorMarkup();
+
         if (screenEffectGroup != null)
         {
             screenEffectGroup.alpha = 0f;
@@ -58,6 +69,48 @@ public sealed class YarnGameplayCommands : MonoBehaviour
             bloomTextPanel.blocksRaycasts = false;
             bloomTextPanel.gameObject.SetActive(false);
         }
+    }
+
+    private void RegisterColorMarkup()
+    {
+        var dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+        var lineProvider = dialogueRunner?.LineProvider as LineProviderBehaviour;
+        if (lineProvider == null)
+        {
+            Debug.LogWarning("Cannot register Yarn color markup because the line provider is missing.", this);
+            return;
+        }
+
+        lineProvider.RegisterMarkerProcessor("gold", this);
+        lineProvider.RegisterMarkerProcessor("green", this);
+        lineProvider.RegisterMarkerProcessor("red", this);
+    }
+
+    public override ReplacementMarkerResult ProcessReplacementMarker(
+        MarkupAttribute marker,
+        StringBuilder childBuilder,
+        List<MarkupAttribute> childAttributes,
+        string localeCode)
+    {
+        string color = marker.Name.ToLowerInvariant() switch
+        {
+            "gold" => "#FFB430",
+            "green" => "green",
+            "red" => "red",
+            _ => null
+        };
+
+        if (color != null)
+        {
+            childBuilder.Insert(0, $"<color={color}>");
+            childBuilder.Append("</color>");
+        }
+
+        return new ReplacementMarkerResult
+        {
+            Diagnostics = new List<LineParser.MarkupDiagnostic>(),
+            InvisibleCharacters = 0
+        };
     }
 
     [YarnCommand("fade_in")]
@@ -189,6 +242,72 @@ public sealed class YarnGameplayCommands : MonoBehaviour
             return;
 
         await completionSource.Task;
+    }
+
+    [YarnCommand("gain_common_cards")]
+    public YarnTask GainCommonCards()
+    {
+        return OpenConfiguredCardReward(commonPlusCardPool, "common+");
+    }
+
+    [YarnCommand("gain_uncommon_cards")]
+    public YarnTask GainUncommonCards()
+    {
+        return OpenConfiguredCardReward(uncommonPlusCardPool, "uncommon+");
+    }
+
+    [YarnCommand("gain_rare_cards")]
+    public YarnTask GainRareCards()
+    {
+        return OpenConfiguredCardReward(rarePlusCardPool, "rare+");
+    }
+
+    [YarnCommand("gain_mystic_cards")]
+    public YarnTask GainMysticCards()
+    {
+        return OpenConfiguredCardReward(mysticCardPool, "mystic");
+    }
+
+    [YarnCommand("remove_card")]
+    public YarnTask RemoveCard()
+    {
+        var removalManager = FindFirstObjectByType<CardRemovalManager>(FindObjectsInactive.Include);
+        if (removalManager == null)
+            removalManager = gameObject.AddComponent<CardRemovalManager>();
+
+        if (!removalManager.HasRemovableCard())
+        {
+            Debug.LogWarning("Cannot remove a card because the persistent deck is empty.", this);
+            return YarnTask.CompletedTask;
+        }
+
+        var completionSource = new YarnTaskCompletionSource<bool>();
+        removalManager.OpenCardRemovalScreen(removed => completionSource.TrySetResult(removed));
+        return WaitForCardRemoval(completionSource);
+    }
+
+    [YarnCommand("give_card")]
+    public void GiveCard(string cardName)
+    {
+        var gameManager = GameManager.Instance;
+        var gameplayData = gameManager?.PersistentGameplayData;
+        var allCards = gameManager?.GameplayData?.AllCardsList;
+        if (gameplayData == null || allCards == null)
+        {
+            Debug.LogWarning($"Cannot give card '{cardName}' because card data is unavailable.", this);
+            return;
+        }
+
+        var cardData = allCards.Find(card =>
+            card != null && string.Equals(card.CardName, cardName, StringComparison.OrdinalIgnoreCase));
+        if (cardData == null)
+        {
+            Debug.LogWarning($"Cannot give card because no card named '{cardName}' was found.", this);
+            return;
+        }
+
+        gameplayData.CurrentCardsList.Add(cardData);
+        Debug.Log($"Added '{cardData.CardName}' to the player's deck.", this);
     }
 
     [YarnCommand("change_gold")]
@@ -701,6 +820,25 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         screenImage.enabled = false;
     }
 
+    [YarnCommand("picture_color")]
+    public void SetPictureColor(string colorName)
+    {
+        if (screenImage == null)
+        {
+            Debug.LogWarning("Cannot tint the Yarn picture because Screen Image is missing.", this);
+            return;
+        }
+
+        if (!TryGetEffectColor(colorName, out var color))
+        {
+            Debug.LogWarning($"Unknown Yarn picture color '{colorName}'. Use white, red, black, or a hex color.", this);
+            return;
+        }
+
+        screenImage.color = color;
+        screenImage.enabled = screenImage.sprite != null;
+    }
+
     [YarnCommand("background")]
     public void PlayBackground(string state)
     {
@@ -736,6 +874,37 @@ public sealed class YarnGameplayCommands : MonoBehaviour
         }
 
         screenEffectGroup.alpha = targetAlpha;
+    }
+
+    private async YarnTask OpenConfiguredCardReward(CardRewardData cardRewardData, string rewardName)
+    {
+        var rewardCanvas = UIManager.Instance?.RewardCanvas;
+        if (rewardCanvas == null)
+        {
+            Debug.LogWarning($"Cannot open the {rewardName} card reward because RewardCanvas is missing.", this);
+            return;
+        }
+
+        if (cardRewardData == null)
+        {
+            Debug.LogWarning($"Cannot open the {rewardName} card reward because its CardRewardData is not assigned.", this);
+            return;
+        }
+
+        var completionSource = new YarnTaskCompletionSource<bool>();
+        if (!rewardCanvas.OpenCardReward(
+                cardRewardData,
+                () => completionSource.TrySetResult(true)))
+        {
+            return;
+        }
+
+        await completionSource.Task;
+    }
+
+    private static async YarnTask WaitForCardRemoval(YarnTaskCompletionSource<bool> completionSource)
+    {
+        await completionSource.Task;
     }
 
     private async YarnTask FadeColorToAsync(Color targetColor, float duration)

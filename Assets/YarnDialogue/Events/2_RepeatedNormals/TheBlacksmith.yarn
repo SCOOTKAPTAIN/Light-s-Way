@@ -1,0 +1,52 @@
+﻿title: blacksmith
+---
+<<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands placeholder>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "The Blacksmith">>
+You come across a sturdy tent set up beside the road.
+The clang of metal draws your attention, and you find a blacksmith working over a glowing forge.
+Blacksmith: "Ho there! Come closer, traveler. I've got wares that'll serve you well."
+He wipes his brow and proudly presents the weapons and armor arranged around his tent.
+Blacksmith: "Take a look. Something here will definitely catch your eye."
+<<jump blacksmith_choice>>
+===
+
+title: blacksmith_choice
+---
+-> Buy new equipment #paneldetails=Lose_100_Gold._Gain_1_Proficiency
+    <<if gold() >= 150>>
+        <<change_gold -150>><<change_proficiency 1>>
+        <<sfx YarnCommands buy>>
+        After some deliberation, you select a piece of equipment that catches your eye.
+        You place the chosen equipment on the table, alongside the appropriate sum of Gold.
+        The blacksmith gives it a final inspection before handing it over, satisfied with another sale.
+        <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+    <<else>>
+        <<jump blacksmith_broke>>
+    <<endif>>
+-> Window shop 
+    You look over the blacksmith's wares without buying anything.
+    The blacksmith watches you closely, growing more irritated with every passing moment.
+    Eventually, you thank him and move on.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> [gold]Examine the unfinished swords[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight._Gain_2_Proficiency._Gain_30_Vigor.
+    <<spend_insight 1>>
+    You notice several unfinished crafts resting near the forge.
+    You point them out and offer to complete them in exchange for one.
+    The blacksmith studies your suggestion, then breaks into a grin.
+    Blacksmith: "Oh? Think you got what it takes?"
+    He examines you for a moment before shrugging.
+    Blacksmith: "Well, I'm not one to turn down free labor. Go on, then. Let's see what you've got."
+    <<change_proficiency 2>><<change_vigor 30>>
+    You get to work, carefully refining the blades until they are fit for use. The blacksmith watches your technique with growing interest.
+    Blacksmith: "Impressive! Would you consider becoming my apprentice?"
+    You politely decline his offer.
+    You set aside the finished swords and take one for yourself, the blacksmith sends you off with a hearty smile and a grateful wave.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: blacksmith_broke
+---
+<<sfx YarnCommands broke>>
+Blacksmith: "The finest gear requires the finest gold. Sorry, traveler."
+He folds his arms and waits for you to make another choice.
+<<jump blacksmith_choice>>
+===

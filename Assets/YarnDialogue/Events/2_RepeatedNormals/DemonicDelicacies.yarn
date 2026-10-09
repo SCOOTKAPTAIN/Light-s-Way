@@ -8,7 +8,7 @@
 You stumble upon a gathering of bugmen and beastmen, huddled around a fire. 
 They feast merrily, passing around skewered rats, bowls of writhing insects, and other unrecognizable morsels whose appearance turns your stomach.
 One of the bugmen notices you standing nearby. Its antennae twitch, and it raises a skewer in greeting.
-Bugmen: Oi! Miss! Don't be shy! There's plenty to go around!
+Bugmen: "Oi! Miss! Don't be shy! There's plenty to go around!"
 He offers you a skewer. Something on it squirms...
 -> Partake in the feast(?) #paneldetails=Gain_3_Metabolism._-10%_Health._-5_Light.
     <<change_metabolism 3>>
@@ -18,15 +18,9 @@ He offers you a skewer. Something on it squirms...
     You stare at the assortment of... food. You forced yourself to swallow the wretched delicacy.
     The taste is indescribable, and you immediately regret having a mouth. 
     You feel as if your stomach is able to gulp down trash now, but you pray never to have such experience again.
-    <<hide_speaker_frame YarnCommands>>
-    <<wait 1>>
-    <<fade_out YarnCommands 2>>
-    <<load_map_scene>>
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
 -> Respectfully decline and back away slowly... 
     You put up your hand and refuse. The bugmen seem disappointed, but respect your decision.
     You try not to linger any longer, lest more of them offer you another...
-    <<hide_speaker_frame YarnCommands>>
-    <<wait 1>>
-    <<fade_out YarnCommands 2>>
-    <<load_map_scene>>
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
 ===

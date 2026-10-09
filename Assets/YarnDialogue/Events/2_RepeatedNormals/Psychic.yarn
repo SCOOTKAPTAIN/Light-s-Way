@@ -1,0 +1,32 @@
+﻿title: psychic
+---
+<<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands placeholder>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "The Psychic">>
+You meet a psychic seated beside the road, She studies you for a moment, her expression growing increasingly thoughtful.
+Psychic: "My, my... You're carrying quite a burden, aren't you?"
+She gestures for you to sit down.
+Psychic: "I can see it in your eyes. Something troubles you deeply. Perhaps I can help ease your mind, if you're willing to let me."
+After a moment's hesitation, you agree. The psychic settles down before you and begins her work.
+Psychic: "Now, tell me... Is there something you'd rather forget? Or something you desperately wish to remember?"
+-> Remember #paneldetails=Gain_1_Uncommon+_Card
+    <<picture_color YarnCommands black>>
+    You close your eyes and search your mind for something worth holding on to.
+    Something stirs within. You reached for it, grasping at whatever it is shown in front of you.
+    <<gain_uncommon_cards YarnCommands>>
+    You allow memories you hold to return. Among them, you find knowledge worth keeping.
+    Yet, a particular one refuses your hold, drifting away, deeper into the darkness.
+-> Forget #paneldetails=Remove_1_Card_from_your_deck
+    <<picture_color YarnCommands black>>
+    You close your eyes and allow yourself to sink into the depths of your mind.
+    You see one... shackled and bound.
+    <<remove_card YarnCommands>>
+    You loosen the chains that hold it captive, allowing it to drift into nothingness.
+    After seeing it off, you glance down at your hand.
+    [red]Pitch black.[/red]
+    It seems some things you will never be able to get rid of.
+<<picture_color YarnCommands white>>
+You open your eyes back.
+Psychic: "You seem more tranquil... and yet, I can still sense a lingering unease within you."
+Psychic: "I'm afraid this is something only you can resolve."
+You rise to your feet and thank the Psychic. She responds with a warm smile before bidding you farewell.
+<<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===

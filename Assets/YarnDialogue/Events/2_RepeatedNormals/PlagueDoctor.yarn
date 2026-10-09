@@ -1,0 +1,20 @@
+﻿title: plague_doctor
+---
+<<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands placeholder>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "The Plague Doctor">>
+You come across a man in a doctor's garb, observing some carcasses.
+He appears lost in thought, muttering to himself as he examines a collection of worn notes in his hands.
+Doctor: "...Remarkable. The musculature is quite different from what I had expected..."
+He lets out a delighted chuckle.
+He doesn't seem to have noticed you yet.
+-> Ask for a lecture #paneldetails=Gain_1_Potency._-15_Light
+    <<change_potency 1>><<change_light -15>>
+    You approach the doctor, intrigued by his observations.
+    He launches into an impassioned lecture on demonic anatomy, comparing it to that of ordinary monsters..
+    You listen intently. His knowledge is extraordinary, and his explanations are surprisingly enlightening.
+    However... his rather graphic "enthusiasm" on the matter has left you... quite disturbed.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> Leave him to himself. 
+    You decide it is better not to pry into his work.
+    You quietly move on.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===

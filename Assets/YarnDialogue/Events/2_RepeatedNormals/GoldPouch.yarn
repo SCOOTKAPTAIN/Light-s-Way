@@ -1,0 +1,96 @@
+title: gold_pouch
+---
+<<fade_out YarnCommands 0>>
+<<wait 1>>
+<<picture YarnCommands placeholder>>
+<<fade_in YarnCommands 1>>
+<<bloom_text YarnCommands "The Gold Pouch">>
+As you walk along the road, something catches your eye in the distance.
+A small pouch lies abandoned in the middle of the path.
+Upon closer look, it seems to be valuable and whoever it belongs to... doesn’t seem to be around.
+-> Reach for the pouch #paneldetails=Gain_400_Gold
+    <<change_gold 400>>
+    You open the pouch and find a collection of coins inside.
+    You decide to keep the pouch and pocket its contents.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> Too suspicious... 
+    Something about this doesn’t sit right... Best leave it be.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> [gold]Examine your surroundings[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight
+    <<spend_insight 1>>
+    <<jump gold_pouch_insight_safe>>
+
+===
+
+title: gold_pouch_insight_safe
+---
+You pause and carefully observe the foliage around you.
+[pause=0.5/].[pause=0.5/].[pause=0.5/].[pause=0.5/]  [br/][green]Nothing is out of the ordinary![/green]
+-> Finders keepers! #paneldetails=Gain_400_Gold
+    <<change_gold 400>>
+    You gleefully pocket the gold you found inside the pouch.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> Better to leave it alone, after all... #paneldetails=Gain_5_Light
+    <<change_light 5>>
+    Even with such reassurance, taking what isn't yours doesn't sit well with you.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===
+
+title: gold_pouch_ominous
+---
+<<fade_out YarnCommands 0>>
+<<wait 1>>
+<<picture YarnCommands placeholder>>
+<<fade_in YarnCommands 1>>
+<<bloom_text YarnCommands "The Gold Pouch">>
+As you walk along the road, something catches your eye in the distance.
+A small pouch lies abandoned in the middle of the path.
+Upon closer look, it seems to be valuable and whoever it belongs to... doesn’t seem to be around.
+-> Reach for the pouch #paneldetails=Gain_400_Gold
+    You walk close to the pouch as if it's beckoning you...
+    Gold. More than enough to make the detour worthwhile.
+    Before you realize it, a figure bursts out from the bushes.
+    Madwoman: "DO NOT TOUCH THAT! MINE! MINE!"
+    <<hide_speaker_frame YarnCommands>>
+    <<sfx YarnCommands hit>>
+    <<flash YarnCommands red 0.3>>
+    <<change_health_percent -20>>
+    <<wait 0.3>>
+    The madwoman throws herself at you, surprised, she tackled you to the ground. You struggle to fend her off, but she snatches the pouch from your grasp and scrambles away into the distance.
+    You slowly get back on your feet, battered and bruised.
+    Your eyes drift toward the bushes.
+    <<sfx YarnCommands chaosoccurs>>
+    <<change_light -10>>
+    There, partially concealed among the foliage, lies a mangled corpse of a wealthy man.
+    You suddenly wish you had never touched the pouch.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> Too suspicious... 
+    Something about this doesn’t sit right... Best leave it be.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> [gold]Examine your surroundings[/gold] <<if insight() >= 1>> #paneldetails=Spend_1_Insight
+    <<spend_insight 1>>
+    <<jump gold_pouch_insight_ominous>>
+
+===
+
+title: gold_pouch_insight_ominous
+---
+You pause and carefully observe the foliage around you.
+[pause=0.5/].[pause=0.5/].[pause=0.5/].[pause=0.5/]  [br/][red]Your hear some rustling in the bushes![/red]
+-> You only live once... #paneldetails=Gain_400_Gold._Lose_10%_Health.
+    <<change_gold 400>>
+    Despite the danger, you hastily try and reach for the pouch!
+    A madwoman suddenly charges out from the bushes, screaming at the top of her lungs!
+    Madwoman: "DO NOT TOUCH THAT! MINE! MINE!"
+    <<hide_speaker_frame YarnCommands>>
+    <<flash YarnCommands red 0.3>>
+    <<sfx YarnCommands hit>>
+    <<change_health_percent -10>>
+    <<wait 0.3>>
+    Anticipating her ambush, you quickly sidestep her charge, though not before she manages to graze you... 
+    She stumbles, and you quickly snatch the pouch before making your escape.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> Back up and run away.
+    You feel like staying alive for today, you pick up your legs and run as far away as possible.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===

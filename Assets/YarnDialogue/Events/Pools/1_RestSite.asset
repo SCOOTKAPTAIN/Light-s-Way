@@ -15,4 +15,4 @@ MonoBehaviour:
   events:
   - eventId: restsite_normal
     yarnNode: restsite_normal
-    weight: 0
+    weight: 10

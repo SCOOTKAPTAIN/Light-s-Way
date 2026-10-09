@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 4_OminousRepeatPool
   m_EditorClassIdentifier: 
   events:
-  - eventId: ominous_repeat
-    yarnNode: ominous_repeat
-    weight: 1
+  - eventId: gold_pouch_ominous
+    yarnNode: gold_pouch_ominous
+    weight: 2

@@ -4,6 +4,7 @@
 <<wait 1>>
 <<picture YarnCommands restsite>>
 <<fade_in YarnCommands 1>>
+<<bloom_text YarnCommands "Place of Respite">>
 You have found a safe place. For now, no harm can reach you here.
 What will you do? 
 -> Rest <<if not is_full_health()>> #paneldetails=Heal_40%_Health
