@@ -27,4 +27,7 @@ MonoBehaviour:
     weight: 0
   - eventId: blacksmith
     yarnNode: blacksmith
+    weight: 0
+  - eventId: veteran_adventurer
+    yarnNode: veteran_adventurer
     weight: 2

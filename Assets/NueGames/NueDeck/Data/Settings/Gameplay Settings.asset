@@ -37,6 +37,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 11cdac88e49fba14cb3df48fa7e19df1, type: 2}
   - {fileID: 11400000, guid: a17c94e2b3d6417a9b6f2ce93f8e5adc, type: 2}
   - {fileID: 11400000, guid: 5f2e8b6a41cd4f0da8b31e07c9634f2b, type: 2}
+  - {fileID: 11400000, guid: 7c0346c1ea2628b4aabea815c44d7d83, type: 2}
+  - {fileID: 11400000, guid: b9a2fc071b9984f49a5010473ea6e938, type: 2}
   cardPrefab: {fileID: 2689473134106589740, guid: a9728682a56595f4989b8f224d934689, type: 3}
   defaultName: Elaria
   useStageSystem: 0

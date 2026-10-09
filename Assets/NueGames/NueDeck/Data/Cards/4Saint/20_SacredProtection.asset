@@ -24,6 +24,9 @@ MonoBehaviour:
     actionTargetType: 1
     actionValue: 0
     actionDelay: 0
+    isAreaOfEffect: 0
+  endTurnActionDataList: []
+  exhaustAfterEndTurn: 0
   removeAfterBattle: 0
   requiredLight: 0
   cardDescriptionDataList:
@@ -36,7 +39,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: Debuffs
+  - descriptionText: Inflictions
     enableOverrideColor: 1
     overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
     useModifier: 0
@@ -72,7 +75,7 @@ MonoBehaviour:
     usePrefixOnModifiedValue: 0
     modifiedValuePrefix: '*'
     overrideColorOnValueScaled: 0
-  - descriptionText: Debuffs
+  - descriptionText: Infliction
     enableOverrideColor: 1
     overrideColor: {r: 1, g: 0.7058824, b: 0.1882353, a: 1}
     useModifier: 0

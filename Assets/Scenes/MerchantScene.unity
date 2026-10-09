@@ -10198,10 +10198,21 @@ MonoBehaviour:
   - id: intro_3
     sprite: {fileID: 21300000, guid: fee87c821d9ea754aab174d10075377d, type: 3}
   - id: merchant
-    sprite: {fileID: -3456532010920386237, guid: 48624cbd0a658994e908d10445dbfe19, type: 3}
+    sprite: {fileID: 21300000, guid: 48624cbd0a658994e908d10445dbfe19, type: 3}
   backgroundAnimator: {fileID: 2125829730}
   speakerFrame: {fileID: 1534638189}
+  bloomTextPanel: {fileID: 0}
+  bloomText: {fileID: 0}
+  bloomFadeInDuration: 0.2
+  bloomHoldDuration: 1
+  bloomFadeOutDuration: 0.4
+  bloomStartScale: 0.85
+  bloomPeakScale: 1.05
   randomUncommonCardPool: {fileID: 11400000, guid: 6cecd2669f04dbf40be0053e0a29c0c5, type: 2}
+  commonPlusCardPool: {fileID: 0}
+  uncommonPlusCardPool: {fileID: 0}
+  rarePlusCardPool: {fileID: 0}
+  mysticCardPool: {fileID: 0}
 --- !u!4 &1939543852
 Transform:
   m_ObjectHideFlags: 0

@@ -3953,9 +3953,11 @@ MonoBehaviour:
   - id: intro_3
     sprite: {fileID: 21300000, guid: fee87c821d9ea754aab174d10075377d, type: 3}
   - id: restsite
-    sprite: {fileID: 6429236640308549408, guid: c4dcc5b354d6d7e438799ddcee9a8302, type: 3}
+    sprite: {fileID: 21300000, guid: c4dcc5b354d6d7e438799ddcee9a8302, type: 3}
   - id: placeholder
-    sprite: {fileID: 6008755849024553855, guid: 1bb153c81097f934a8ffdbe3ee2e94cb, type: 3}
+    sprite: {fileID: 21300000, guid: 1bb153c81097f934a8ffdbe3ee2e94cb, type: 3}
+  - id: veteran
+    sprite: {fileID: 21300000, guid: b15dffaa0b1d7b446a7cc9d38b538fde, type: 3}
   backgroundAnimator: {fileID: 2125829730}
   speakerFrame: {fileID: 1534638189}
   bloomTextPanel: {fileID: 926115793}

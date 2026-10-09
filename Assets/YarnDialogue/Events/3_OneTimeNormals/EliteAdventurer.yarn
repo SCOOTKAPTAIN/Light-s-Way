@@ -1,0 +1,29 @@
+﻿title: veteran_adventurer
+---
+<<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands veteran>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "The Veteran Adventurer">>
+You come across an adventurer resting by the roadside.
+His equipment is worn from years of travel, yet carefully maintained.
+Noticing your approach, he raises a hand in greeting.
+Veteran: "Hey there! Taking a breather myself. What brings you this way?"
+He sizes up your equipment, then flashes a friendly grin.
+Veteran: "An adventurer too, eh? Or perhaps you're just trying to get by in this barren world..."
+Veteran: "Whatever the case, fancy learning a thing or two? I've picked up a few tricks that might be beneficial to you."
+-> Train endurance with him #paneldetails=Gain_2_Affinity._Add_Polish_Shield_to_your_deck._-5%_Health.
+    <<change_affinity 2>><<change_health_percent -5>><<give_card YarnCommands "Polish Shield">>
+    Veteran: "Endurance is what keeps you standing when everyone else falls apart. Come on, let's work on your posture."
+    You spend some time training with the veteran, learning how to brace against incoming blows and mastering the fundamentals of defense, pushing through each exercise until your body aches.
+    By the end, you feel exhausted, yet proud of the new profound skills you have acquired.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> Train strength with him #paneldetails=Gain_2_Affinity._-Add_Wind_Up_to_your_deck._-5%_Health.
+    <<change_affinity 2>><<change_health_percent -5>><<give_card YarnCommands "Wind Up">>
+    Veteran: "Proper technique is good, but a little strength goes a long way, too. Let's see what you can handle."
+    You train together, learning how to put your whole body behind every strike to make every of them count.
+    By the end, you feel exhausted, yet proud of the new profound skills you have acquired.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> Chat with him #paneldetails=Gain_1_Proficiency
+    <<change_proficiency 1>>
+    You sit down beside the veteran and exchange stories about your travels.
+    Amidst the conversation, he shares some practical lessons learned from his years of hard-fought adventures.
+    It's a surprisingly fruitful conversation. You leave with a better understanding of your own abilities.
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===

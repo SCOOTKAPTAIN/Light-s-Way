@@ -5707,7 +5707,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- <color=#FFB430>Potency</color> ({Potency})
 
-    Increase <color=#FFB430>Debuffs</color>
+    Increase <color=#FFB430>Inflictions</color>
     applied from cards by <color=#FFB430>{Potency}</color> stack.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ac2999d95bba5aa46b92e9c444264b8c, type: 2}
