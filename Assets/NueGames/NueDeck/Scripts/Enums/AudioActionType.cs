@@ -171,7 +171,16 @@
         Will,
         Mimicry,
         Bite,
-        SharpenFang
+        SharpenFang,
+        Peck,
+        SwoopIn,
+        TakeOff,
+        Bile,
+        InflateSac,
+        Engulf,
+        Ravage,
+        FeralMadness,
+        HeartDive
         
 
 

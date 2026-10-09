@@ -16,6 +16,9 @@ MonoBehaviour:
   - specialKeyword: 73
     header: Rend
     contentText: Attacks deal additional <color=#FFB430>{Rend}</color> Bleeding.
+  - specialKeyword: 46
+    header: Flying
+    contentText: Take <color=#FFB430>80%</color> less damage from non-area-of-effect attacks.
   - specialKeyword: 0
     header: Block
     contentText: Reduce incoming damage by <color=#FFB430>{Block}</color>. <color=#FFB430>Temporary</color>.

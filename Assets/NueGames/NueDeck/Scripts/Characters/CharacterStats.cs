@@ -180,6 +180,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Firing Line: triggers at the end of the player's turn and persists for combat.
             StatusDict[StatusType.FiringLine].IsPermanent = true;
 
+            // Flying persists until an action explicitly removes it.
+            StatusDict[StatusType.Flying].IsPermanent = true;
+
             // Entropy Feast is an enemy marker triggered when the player's turn ends.
             StatusDict[StatusType.EntropyFeast].IsPermanent = true;
 
@@ -287,6 +290,10 @@ namespace NueGames.NueDeck.Scripts.Characters
             // Obscured: debuff that should trigger/clear at turn end, not turn start
             StatusDict[StatusType.Obscured].TriggerAtTurnEnd = true;
             StatusDict[StatusType.Obscured].DecreaseOverTurn = true;
+
+            // Hidden: temporary evasion that decays at turn end.
+            StatusDict[StatusType.Hidden].TriggerAtTurnEnd = true;
+            StatusDict[StatusType.Hidden].DecreaseOverTurn = true;
 
             // Slimed: player debuff that increases on card use, clears at turn end
             StatusDict[StatusType.Slimed].ClearAtNextTurn = true;

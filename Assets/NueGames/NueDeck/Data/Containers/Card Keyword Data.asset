@@ -305,4 +305,4 @@ MonoBehaviour:
       <color=#FFB430>1</color> stack for each attack instance taken.
   - specialKeyword: 73
     header: Rend
-    contentText: Attacks inflict additional <color=#FFB430>X</color> Bleeding.
+    contentText: Attacks inflict additional <color=#FFB430>X Bleeding</color>.

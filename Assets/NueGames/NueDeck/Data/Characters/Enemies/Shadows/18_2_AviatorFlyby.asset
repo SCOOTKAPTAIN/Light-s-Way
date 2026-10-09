@@ -1,0 +1,313 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2612027158f847538279f7d8f10dff91, type: 3}
+  m_Name: 18_2_AviatorFlyby
+  m_EditorClassIdentifier: 
+  characterID: 18_1
+  characterName: Flyby
+  characterDescription: 'Common Ploppin found all over the world.
+
+    They''re more
+    scared of you than anything.'
+  maxHealth: 70
+  enemyPrefab: {fileID: 243822687015991123, guid: a05a2b7776e6d8e4f8da11f1eb1cc519, type: 3}
+  mutatedVersion: {fileID: 0}
+  chaosificationStatus:
+    modifierName: Aviator
+    icon: {fileID: 21300000, guid: a5f8a8c067dc5c84a97f4a9c0d5e5af5, type: 3}
+    description: Disables the <color=#FFB430>Stun</color> penalty from <color=#FFB430>Swoop
+      In</color>.
+  useActBasedScaling: 1
+  actConfigurations:
+  - actNumber: 1
+    maxHealth: 30
+    startingStatuses:
+    - statusType: 45
+      statusValue: 1
+    enemyAbilityList:
+    - name: Peck
+      intention: {fileID: 11400000, guid: 3efa0e2373ea36845a3c7fd56786a097, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>2</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 2
+        maxActionValue: 2
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 167
+        customAudioType: 170
+      repeatCount: 2
+      conditions: []
+      weight: 4
+      maxConsecutiveUses: 2
+    - name: Swoop In
+      intention: {fileID: 11400000, guid: 8ff4d02922df38048be5b7df2bf1e027, type: 2}
+      description: 'Deal <color=#FFB430>{value}</color> damage. \nWhen <color=#FFB430>Blocked</color>:
+        \nApply <color=#FFB430>1 Stun</color> to self. \nRemove <color=#FFB430>Flying</color>.'
+      keywords: 2e00000005000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 33
+        minActionValue: 11
+        maxActionValue: 13
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 168
+        customAudioType: 171
+      repeatCount: 0
+      conditions: []
+      weight: 6
+      maxConsecutiveUses: 1
+    - name: Take Off
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Gain <color=#FFB430>Flying</color>.
+      keywords: 2e000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 34
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 168
+        customAudioType: 171
+      repeatCount: 0
+      conditions:
+      - target: 0
+        conditionType: 1
+        specificStatus: 45
+        threshold: 0
+      weight: 100
+      maxConsecutiveUses: 10
+  - actNumber: 2
+    maxHealth: 52
+    startingStatuses:
+    - statusType: 45
+      statusValue: 1
+    enemyAbilityList:
+    - name: Peck
+      intention: {fileID: 11400000, guid: 3efa0e2373ea36845a3c7fd56786a097, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>2</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 4
+        maxActionValue: 4
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 167
+        customAudioType: 170
+      repeatCount: 2
+      conditions: []
+      weight: 4
+      maxConsecutiveUses: 2
+    - name: Swoop In
+      intention: {fileID: 11400000, guid: 8ff4d02922df38048be5b7df2bf1e027, type: 2}
+      description: 'Deal <color=#FFB430>{value}</color> damage. \nWhen <color=#FFB430>Blocked</color>:
+        \nApply <color=#FFB430>1 Stun</color> to self. \nRemove <color=#FFB430>Flying</color>.'
+      keywords: 2e00000005000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 33
+        minActionValue: 13
+        maxActionValue: 15
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 168
+        customAudioType: 171
+      repeatCount: 0
+      conditions: []
+      weight: 6
+      maxConsecutiveUses: 1
+    - name: Take Off
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Gain <color=#FFB430>Flying</color>.
+      keywords: 2e000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 34
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 168
+        customAudioType: 171
+      repeatCount: 0
+      conditions:
+      - target: 0
+        conditionType: 1
+        specificStatus: 45
+        threshold: 0
+      weight: 100
+      maxConsecutiveUses: 10
+  - actNumber: 3
+    maxHealth: 110
+    startingStatuses:
+    - statusType: 45
+      statusValue: 1
+    enemyAbilityList:
+    - name: Peck
+      intention: {fileID: 11400000, guid: 3efa0e2373ea36845a3c7fd56786a097, type: 2}
+      description: Deal <color=#FFB430>{value}</color> damage <color=#FFB430>2</color>
+        times.
+      keywords: 
+      hideActionValue: 0
+      actionList:
+      - actionType: 14
+        minActionValue: 6
+        maxActionValue: 6
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 167
+        customAudioType: 170
+      repeatCount: 2
+      conditions: []
+      weight: 4
+      maxConsecutiveUses: 2
+    - name: Swoop In
+      intention: {fileID: 11400000, guid: 8ff4d02922df38048be5b7df2bf1e027, type: 2}
+      description: 'Deal <color=#FFB430>{value}</color> damage. \nWhen <color=#FFB430>Blocked</color>:
+        \nApply <color=#FFB430>1 Stun</color> to self. \nRemove <color=#FFB430>Flying</color>.'
+      keywords: 2e00000005000000
+      hideActionValue: 0
+      actionList:
+      - actionType: 33
+        minActionValue: 20
+        maxActionValue: 22
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 168
+        customAudioType: 171
+      repeatCount: 0
+      conditions: []
+      weight: 6
+      maxConsecutiveUses: 1
+    - name: Take Off
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Gain <color=#FFB430>Flying</color>.
+      keywords: 2e000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 34
+        minActionValue: 1
+        maxActionValue: 1
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 1
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 0
+        suppressPresentation: 0
+        customFxType: 168
+        customAudioType: 171
+      repeatCount: 0
+      conditions:
+      - target: 0
+        conditionType: 1
+        specificStatus: 45
+        threshold: 0
+      weight: 100
+      maxConsecutiveUses: 10
+  followAbilityPattern: 0
+  useWeightedSelection: 1
+  preventRepeatAbility: 0
+  startingStatuses: []
+  enemyAbilityList:
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 0
+      minActionValue: 10
+      maxActionValue: 10
+      targetRestriction: 0
+      targetSlot: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 6
+    maxConsecutiveUses: 0
+  - name: Attack Single
+    intention: {fileID: 11400000, guid: 2af475f5121b73d4c99b67551230aa48, type: 2}
+    description: 
+    keywords: 
+    hideActionValue: 0
+    actionList:
+    - actionType: 2
+      minActionValue: 2
+      maxActionValue: 2
+      targetRestriction: 0
+      targetSlot: 0
+      applyLightMultiplier: 1
+      statusType: 0
+      cardToAdd: {fileID: 0}
+      overridePresentation: 0
+      suppressPresentation: 0
+      customFxType: 0
+      customAudioType: 0
+    repeatCount: 1
+    conditions: []
+    weight: 5
+    maxConsecutiveUses: 0

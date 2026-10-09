@@ -379,6 +379,18 @@ MonoBehaviour:
     fxPrefab: {fileID: 4931249800145279701, guid: 69cc4400f7283f548a62fc3d2868cfe7, type: 3}
   - fxType: 166
     fxPrefab: {fileID: 4931249800145279701, guid: a23e024e030342b4b9d5c4646893a3fe, type: 3}
+  - fxType: 167
+    fxPrefab: {fileID: 4931249800145279701, guid: 5271dac848e50824d8bbc3f994b5efe9, type: 3}
+  - fxType: 168
+    fxPrefab: {fileID: 4931249800145279701, guid: dfd6959687127474fb3a6b1a0a19ded0, type: 3}
+  - fxType: 169
+    fxPrefab: {fileID: 4931249800145279701, guid: 82f8c1c8f16578d4887fc83f6f82d9b5, type: 3}
+  - fxType: 170
+    fxPrefab: {fileID: 4931249800145279701, guid: 198ac7dba93775b4eb216eb19296c6bb, type: 3}
+  - fxType: 171
+    fxPrefab: {fileID: 6582740879243116295, guid: 3193c83e22243b64b83514c41555d709, type: 3}
+  - fxType: 172
+    fxPrefab: {fileID: 4931249800145279701, guid: 110a61813e79d934591acd90c94f2b7e, type: 3}
   scaleToPlayerSprite: 1
   referencePlayerSpriteHeight: 0.98
   minimumCombatFxScale: 0.25

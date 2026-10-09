@@ -34,6 +34,9 @@
         Stigmata,
         Mimicry,
         Bite,
-        SharpenFang
+        SharpenFang,
+        SwoopIn,
+        TakeOff,
+        HeartDive
     }
 }

@@ -333,4 +333,12 @@ MonoBehaviour:
 '
   - specialKeyword: 73
     header: Rend
-    contentText: Attacks inflict additional <color=#FFB430>{Rend}</color> Bleeding.
+    contentText: Attacks inflict additional <color=#FFB430>{Rend} Bleeding</color>.
+  - specialKeyword: 46
+    header: Flying
+    contentText: Take <color=#FFB430>80%</color> less damage from <color=#FFB430>Non-AOE</color>
+      attacks.
+  - specialKeyword: 47
+    header: Hidden
+    contentText: <color=#FFB430>Untargetable</color> for <color=#FFB430>{Hidden}</color>
+      turn(s).

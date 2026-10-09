@@ -83,6 +83,7 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 SpecialKeywords.Fragile => StatusType.Fragile,
                 SpecialKeywords.Bleeding => StatusType.Bleeding,
                 SpecialKeywords.Pursuit => StatusType.Pursuit,
+                SpecialKeywords.Flying => StatusType.Flying,
                 SpecialKeywords.Armor => StatusType.Armor,
                 SpecialKeywords.Frostbite => StatusType.Frostbite,
                 SpecialKeywords.Burning => StatusType.Burning,
