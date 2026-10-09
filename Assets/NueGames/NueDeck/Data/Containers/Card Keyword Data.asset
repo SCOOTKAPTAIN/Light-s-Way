@@ -246,7 +246,7 @@ MonoBehaviour:
       2 <color=#FFB430>Strength</color> or <color=#FFB430>Fortitude</color> each
       turn.
 
-      - 30: Doubles <color=#FFB430>Debuffs</color> applied by actions.
+      - 30: Doubles <color=#FFB430>Inflictions</color> applied by actions.
 
       -
       40: Gain 1 <color=#FFB430>Might</color> each turn.
@@ -261,7 +261,7 @@ MonoBehaviour:
       for <color=#FFB430>X</color> turn(s).
   - specialKeyword: 62
     header: Total Assimilation
-    contentText: Prevents <color=#FFB430>Assimilation</color> to be reduced. \n<color=#FFB430>Debuffs</color>
+    contentText: Prevents <color=#FFB430>Assimilation</color> to be reduced. \n<color=#FFB430>Inflictions</color>
       from actions will instead <color=#FFB430>Permanently</color> reduce their corresponding
       status.
   - specialKeyword: 63
@@ -293,7 +293,7 @@ MonoBehaviour:
     header: Understanding
     contentText: "Gain bonuses based on your actions:\r\n- Gain <color=#FFB430>Block</color>
       \u2192 <color=#FFB430>+1 Strength</color>\r\n- Gain <color=#FFB430>Strength</color>
-      \u2192 <color=#FFB430>+5 Damage Cut</color>\r\n- Apply <color=#FFB430>Debuff</color>
+      \u2192 <color=#FFB430>+5 Damage Cut</color>\r\n- Apply <color=#FFB430>Infliction</color>
       \u2192 <color=#FFB430>+1 Armor</color>\r\n- Draw <color=#FFB430>Card</color>
       \u2192 <color=#FFB430>+3 Health</color>\r\n"
   - specialKeyword: 70

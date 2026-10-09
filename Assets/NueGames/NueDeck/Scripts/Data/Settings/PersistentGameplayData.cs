@@ -126,7 +126,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             potency = 0;
             affinity = 0;
             metabolism = 0;
-            vigor = 0;
+            vigor = 100;
             insight = 1;
             abundance = 0;
             capacity = 0;
@@ -405,7 +405,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             Potency = 0;
             Affinity = 0;
             Metabolism = 0;
-            Vigor = 0;
+            Vigor = 100;
             Insight = 0;
             Radiance = 0;
             LightLoss = 2;

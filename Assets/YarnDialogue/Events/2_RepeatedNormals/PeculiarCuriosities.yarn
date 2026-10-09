@@ -1,0 +1,17 @@
+﻿title: peculiar_curiosities
+---
+<<fade_out YarnCommands 0>><<wait 1>><<picture YarnCommands placeholder>><<fade_in YarnCommands 1>><<bloom_text YarnCommands "Peculiar Curiosities">>
+You stumble upon a house filled with strange apparatus and scattered research notes.
+Among the clutter, one relic stands out a device said to replicate items by using mana.
+An old belt hangs from a nearby hook. It looks rather dull, but its construction is surprisingly sturdy.
+-> Use the relic device #paneldetails=Duplicate_1_card_from_your_deck.
+    You carefully place the relic into the device and follow the instructions written in the research notes.
+    The apparatus hums as mana gathers around it, and a duplicate of one of your cards takes shape.
+    <<duplicate_card YarnCommands>>
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+-> Shift your attention to the belt #paneldetails=Gain_3_Capacity.
+    You inspect the belt more closely and discover several hidden compartments woven into its design.
+    You adjust the straps and fasten it around your waist, increasing the amount you can carry.
+    <<change_capacity 3>>
+    <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
+===

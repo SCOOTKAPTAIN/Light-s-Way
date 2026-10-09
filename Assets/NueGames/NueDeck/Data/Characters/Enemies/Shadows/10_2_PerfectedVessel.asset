@@ -139,7 +139,7 @@ MonoBehaviour:
     - name: Will
       intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
       description: Gain <color=#FFB430>{value} Block</color>.\nGain <color=#FFB430>1
-        Armor</color>. Reduce <color=#FFB430>Debuffs</color> stacks by <color=#FFB430>3</color>.
+        Armor</color>. Reduce <color=#FFB430>Inflictions</color> stacks by <color=#FFB430>3</color>.
       keywords: 45000000000000000e000000
       hideActionValue: 0
       actionList:
@@ -289,7 +289,7 @@ MonoBehaviour:
     - name: Will
       intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
       description: Gain <color=#FFB430>{value} Block</color>.\nGain <color=#FFB430>1
-        Armor</color>. Reduce <color=#FFB430>Debuffs</color> stacks by <color=#FFB430>3</color>.
+        Armor</color>. Reduce <color=#FFB430>Inflictions</color> stacks by <color=#FFB430>3</color>.
       keywords: 45000000000000000e000000
       hideActionValue: 0
       actionList:
@@ -439,7 +439,7 @@ MonoBehaviour:
     - name: Will
       intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
       description: Gain <color=#FFB430>{value} Block</color>.\nGain <color=#FFB430>1
-        Armor</color>. Reduce <color=#FFB430>Debuffs</color> stacks by <color=#FFB430>3</color>.
+        Armor</color>. Reduce <color=#FFB430>Inflictions</color> stacks by <color=#FFB430>3</color>.
       keywords: 45000000000000000e000000
       hideActionValue: 0
       actionList:
@@ -589,7 +589,7 @@ MonoBehaviour:
     - name: Will
       intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
       description: Gain <color=#FFB430>{value} Block</color>.\nGain <color=#FFB430>1
-        Armor</color>. Reduce <color=#FFB430>Debuffs</color> stacks by <color=#FFB430>3</color>.
+        Armor</color>. Reduce <color=#FFB430>Inflictions</color> stacks by <color=#FFB430>3</color>.
       keywords: 45000000000000000e000000
       hideActionValue: 0
       actionList:
@@ -739,7 +739,7 @@ MonoBehaviour:
     - name: Will
       intention: {fileID: 11400000, guid: b0b1e7f2f78bb444eb1666e4accf22ee, type: 2}
       description: Gain <color=#FFB430>{value} Block</color>.\nGain <color=#FFB430>1
-        Armor</color>. Reduce <color=#FFB430>Debuffs</color> stacks by <color=#FFB430>3</color>.
+        Armor</color>. Reduce <color=#FFB430>Inflictions</color> stacks by <color=#FFB430>3</color>.
       keywords: 45000000000000000e000000
       hideActionValue: 0
       actionList:

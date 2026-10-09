@@ -14,7 +14,7 @@ Veteran: "Whatever the case, fancy learning a thing or two? I've picked up a few
     You spend some time training with the veteran, learning how to brace against incoming blows and mastering the fundamentals of defense, pushing through each exercise until your body aches.
     By the end, you feel exhausted, yet proud of the new profound skills you have acquired.
     <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
--> Train strength with him #paneldetails=Gain_2_Affinity._-Add_Wind_Up_to_your_deck._-5%_Health.
+-> Train strength with him #paneldetails=Gain_2_Affinity._Add_Wind_Up_to_your_deck._-5%_Health.
     <<change_affinity 2>><<change_health_percent -5>><<give_card YarnCommands "Wind Up">>
     Veteran: "Proper technique is good, but a little strength goes a long way, too. Let's see what you can handle."
     You train together, learning how to put your whole body behind every strike to make every of them count.

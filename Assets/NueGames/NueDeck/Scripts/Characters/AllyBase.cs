@@ -22,6 +22,8 @@ namespace NueGames.NueDeck.Scripts.Characters
 
             if (!GameManager)
                 throw new Exception("There is no GameManager");
+
+            CharacterStats.MaxHealth = Mathf.Max(1, GameManager.PersistentGameplayData.Vigor);
             
             var data = GameManager.PersistentGameplayData.AllyHealthDataList.Find(x =>
                 x.CharacterId == AllyCharacterData.CharacterID);
@@ -29,14 +31,18 @@ namespace NueGames.NueDeck.Scripts.Characters
             if (data != null)
             {
                 CharacterStats.CurrentHealth = data.CurrentHealth;
-                CharacterStats.MaxHealth = data.MaxHealth;
+                CharacterStats.MaxHealth = Mathf.Max(1, GameManager.PersistentGameplayData.Vigor);
+                CharacterStats.CurrentHealth = Mathf.Clamp(
+                    CharacterStats.CurrentHealth,
+                    1,
+                    CharacterStats.MaxHealth);
             }
             else
             {
                 GameManager.PersistentGameplayData.SetAllyHealthData(
-                    AllyCharacterData.CharacterID,CharacterStats.CurrentHealth +
-                     GameManager.Instance.PersistentGameplayData.Vigor,CharacterStats.MaxHealth
-                     + GameManager.Instance.PersistentGameplayData.Vigor);
+                    AllyCharacterData.CharacterID,
+                    CharacterStats.MaxHealth,
+                    CharacterStats.MaxHealth);
             }
             
             CharacterStats.OnDeath += OnDeath;

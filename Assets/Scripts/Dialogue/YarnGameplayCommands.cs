@@ -286,6 +286,25 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
         return WaitForCardRemoval(completionSource);
     }
 
+    [YarnCommand("duplicate_card")]
+    public YarnTask DuplicateCard()
+    {
+        var duplicationManager = FindFirstObjectByType<CardDuplicationManager>(FindObjectsInactive.Include);
+        if (duplicationManager == null)
+            duplicationManager = gameObject.AddComponent<CardDuplicationManager>();
+
+        if (!duplicationManager.HasDuplicableCard())
+        {
+            Debug.LogWarning("Cannot duplicate a card because the persistent deck is empty.", this);
+            return YarnTask.CompletedTask;
+        }
+
+        var completionSource = new YarnTaskCompletionSource<bool>();
+        duplicationManager.OpenCardDuplicationScreen(
+            duplicated => completionSource.TrySetResult(duplicated));
+        return WaitForCardDuplication(completionSource);
+    }
+
     [YarnCommand("give_card")]
     public void GiveCard(string cardName)
     {
@@ -454,25 +473,31 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
         if (gameplayData == null)
             return;
 
-        var previousVigor = gameplayData.Vigor;
-        ChangePersistentStat("vigor", amount, value => gameplayData.Vigor = value);
-        ApplyVigorDelta(gameplayData.Vigor - previousVigor);
+        int previousVigor = gameplayData.Vigor;
+        gameplayData.Vigor = Mathf.Max(1, gameplayData.Vigor + amount);
+        ApplyVigorToMaxHealth(gameplayData, gameplayData.Vigor - previousVigor);
+        UIManager.Instance?.InformationCanvas?.RefreshStatsText();
+        UIManager.Instance?.CombatCanvas?.LightCardSelectionPanel?.RefreshCostText();
     }
 
-    private static void ApplyVigorDelta(int delta)
+    private static void ApplyVigorToMaxHealth(
+        NueGames.NueDeck.Scripts.Data.Settings.PersistentGameplayData gameplayData,
+        int vigorDelta)
     {
-        var gameplayData = GameManager.Instance?.PersistentGameplayData;
-        if (gameplayData == null)
-            return;
+        int newMaxHealth = Mathf.Max(1, gameplayData.Vigor);
 
         var combatManager = CombatManager.Instance;
         var ally = combatManager != null ? combatManager.CurrentMainAlly : null;
         if (ally != null && ally.CharacterStats != null)
         {
-            if (delta > 0)
-                ally.CharacterStats.IncreaseMaxHealth(delta);
-            else if (delta < 0)
-                ally.CharacterStats.ApplyPermanentMaxHealthReduction(-delta);
+            ally.CharacterStats.MaxHealth = newMaxHealth;
+            ally.CharacterStats.CurrentHealth = Mathf.Clamp(
+                ally.CharacterStats.CurrentHealth + Mathf.Max(0, vigorDelta),
+                1,
+                newMaxHealth);
+            ally.CharacterStats.OnHealthChanged?.Invoke(
+                ally.CharacterStats.CurrentHealth,
+                ally.CharacterStats.MaxHealth);
 
             gameplayData.SetAllyHealthData(
                 ally.AllyCharacterData.CharacterID,
@@ -488,16 +513,18 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
         if (gameplayData.AllyHealthDataList.Count > 0)
         {
             var healthData = gameplayData.AllyHealthDataList[0];
-            healthData.MaxHealth += delta;
-            healthData.CurrentHealth = Mathf.Clamp(healthData.CurrentHealth + delta, 1, healthData.MaxHealth);
+            healthData.MaxHealth = newMaxHealth;
+            healthData.CurrentHealth = Mathf.Clamp(
+                healthData.CurrentHealth + Mathf.Max(0, vigorDelta),
+                1,
+                newMaxHealth);
             UIManager.Instance?.InformationCanvas?.SetHealthText(healthData.CurrentHealth, healthData.MaxHealth);
             return;
         }
 
         if (gameplayData.AllyList.Count > 0)
         {
-            var health = gameplayData.AllyList[0].AllyCharacterData.MaxHealth + gameplayData.Vigor;
-            UIManager.Instance?.InformationCanvas?.SetHealthText(health, health);
+            UIManager.Instance?.InformationCanvas?.SetHealthText(newMaxHealth, newMaxHealth);
         }
     }
 
@@ -654,6 +681,7 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
 
         var allyData = gameplayData.AllyList[0].AllyCharacterData;
         allyData.MaxHealth = Mathf.Max(1, allyData.MaxHealth + amount);
+        gameplayData.Vigor = Mathf.Max(1, gameplayData.Vigor + amount);
 
         var currentAlly = CombatManager.Instance?.CurrentMainAlly;
         if (currentAlly != null)
@@ -690,7 +718,9 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
 
         var allyData = gameplayData.AllyList[0].AllyCharacterData;
         var currentAlly = CombatManager.Instance?.CurrentMainAlly;
-        int maxHealth = currentAlly != null ? currentAlly.CharacterStats.MaxHealth : allyData.MaxHealth;
+        int maxHealth = currentAlly != null
+            ? currentAlly.CharacterStats.MaxHealth
+            : Mathf.Max(1, gameplayData.Vigor);
         int currentHealth = currentAlly != null
             ? currentAlly.CharacterStats.CurrentHealth
             : GetPersistentCurrentHealth(gameplayData, allyData.CharacterID, maxHealth);
@@ -738,14 +768,23 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
         var currentAlly = CombatManager.Instance?.CurrentMainAlly;
         return currentAlly != null
             ? currentAlly.CharacterStats.MaxHealth
-            : gameplayData.AllyList[0].AllyCharacterData.MaxHealth;
+            : Mathf.Max(1, gameplayData.Vigor);
     }
 
     [YarnFunction("health")]
     public static int GetHealth()
     {
         var currentAlly = CombatManager.Instance?.CurrentMainAlly;
-        return currentAlly != null ? currentAlly.CharacterStats.CurrentHealth : 0;
+        if (currentAlly != null)
+            return currentAlly.CharacterStats.CurrentHealth;
+
+        var gameplayData = GameManager.Instance?.PersistentGameplayData;
+        var allyData = gameplayData?.AllyList != null && gameplayData.AllyList.Count > 0
+            ? gameplayData.AllyList[0].AllyCharacterData
+            : null;
+        return gameplayData != null && allyData != null
+            ? GetPersistentCurrentHealth(gameplayData, allyData.CharacterID, Mathf.Max(1, gameplayData.Vigor))
+            : 0;
     }
 
     [YarnFunction("is_full_health")]
@@ -757,7 +796,9 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
 
         var allyData = gameplayData.AllyList[0].AllyCharacterData;
         var currentAlly = CombatManager.Instance?.CurrentMainAlly;
-        int maxHealth = currentAlly != null ? currentAlly.CharacterStats.MaxHealth : allyData.MaxHealth;
+        int maxHealth = currentAlly != null
+            ? currentAlly.CharacterStats.MaxHealth
+            : Mathf.Max(1, gameplayData.Vigor);
         int currentHealth = currentAlly != null
             ? currentAlly.CharacterStats.CurrentHealth
             : GetPersistentCurrentHealth(gameplayData, allyData.CharacterID, maxHealth);
@@ -903,6 +944,11 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
     }
 
     private static async YarnTask WaitForCardRemoval(YarnTaskCompletionSource<bool> completionSource)
+    {
+        await completionSource.Task;
+    }
+
+    private static async YarnTask WaitForCardDuplication(YarnTaskCompletionSource<bool> completionSource)
     {
         await completionSource.Task;
     }
