@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b334db8796c452484543bb144328230, type: 3}
-  m_Name: Elite Gold Reward
+  m_Name: Boss Gold Reward
   m_EditorClassIdentifier: 
   rewardSprite: {fileID: 9009275649748190749, guid: fc912518309c4af40b2a6c9354ac21ff, type: 3}
   rewardDescription: Earn some gold
-  minGold: 500
-  maxGold: 600
+  minGold: 1000
+  maxGold: 1200

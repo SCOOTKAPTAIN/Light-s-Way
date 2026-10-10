@@ -118,7 +118,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             CurrentCardsList = new List<CardData>();
             IsFinalEncounter = false;
             allyHealthDataDataList = new List<AllyHealthData>();
-            proficiency = 1;
+            proficiency = 1000;
             light = 100;
             actnumber = 0;
             lightLoss = 2;

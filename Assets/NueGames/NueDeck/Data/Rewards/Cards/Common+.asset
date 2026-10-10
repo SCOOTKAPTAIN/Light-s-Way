@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Common+
   m_EditorClassIdentifier: 
   rewardSprite: {fileID: -3950371456468266679, guid: fc912518309c4af40b2a6c9354ac21ff, type: 3}
-  rewardDescription: Obtain a random <color=#FFB430>Card</color>
+  rewardDescription: Obtain a random <color=#FFB430>Common+ Card</color>
   commonCards:
   - {fileID: 11400000, guid: 1e43cdb39f5836b44942f367125cadde, type: 2}
   - {fileID: 11400000, guid: e1783ca46b526944c969405b4c0a29ec, type: 2}

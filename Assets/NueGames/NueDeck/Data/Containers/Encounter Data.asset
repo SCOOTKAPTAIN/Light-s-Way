@@ -18,15 +18,83 @@ MonoBehaviour:
     stageId: 1
     normalEncounterList:
     - targetBackgroundType: 0
-      encounterId: 
+      encounterId: 1_Ploppin
       enemyList: []
       battleMusicOverride: {fileID: 0}
-      enemySpawnEntries: []
+      enemySpawnEntries:
+      - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
+        positionNumber: 10
       startingCards: []
       customGoldRewards: []
       customCardRewards: []
-    eliteEncounterList: []
-    bossEncounterList: []
+    - targetBackgroundType: 0
+      encounterId: 1_Flyby
+      enemyList: []
+      battleMusicOverride: {fileID: 0}
+      enemySpawnEntries:
+      - enemy: {fileID: 11400000, guid: 836b6cf61f3db444dabe249c1d1b6173, type: 2}
+        positionNumber: 10
+      startingCards: []
+      customGoldRewards: []
+      customCardRewards: []
+    eliteEncounterList:
+    - targetBackgroundType: 0
+      encounterId: 1_Wolf
+      enemyList: []
+      battleMusicOverride: {fileID: 0}
+      enemySpawnEntries:
+      - enemy: {fileID: 11400000, guid: ceb434836a7a9c44690ba6eb029fe4af, type: 2}
+        positionNumber: 10
+      startingCards: []
+      customGoldRewards:
+      - {fileID: 11400000, guid: ba3ed0eef6f22904c890cd5859f20881, type: 2}
+      customCardRewards:
+      - {fileID: 11400000, guid: 6cecd2669f04dbf40be0053e0a29c0c5, type: 2}
+      - {fileID: 11400000, guid: 942dc0c4f325a6340ab8be0ab2eba646, type: 2}
+    - targetBackgroundType: 0
+      encounterId: 1_Shadowling_Ploppin
+      enemyList: []
+      battleMusicOverride: {fileID: 0}
+      enemySpawnEntries:
+      - enemy: {fileID: 11400000, guid: 20fed9e9b8f77b64086164ed5868e6dd, type: 2}
+        positionNumber: 2
+      - enemy: {fileID: 11400000, guid: 83dc457709acbfa43a9a74f5fe652944, type: 2}
+        positionNumber: 3
+      startingCards: []
+      customGoldRewards:
+      - {fileID: 11400000, guid: ba3ed0eef6f22904c890cd5859f20881, type: 2}
+      customCardRewards:
+      - {fileID: 11400000, guid: 6cecd2669f04dbf40be0053e0a29c0c5, type: 2}
+      - {fileID: 11400000, guid: 942dc0c4f325a6340ab8be0ab2eba646, type: 2}
+    - targetBackgroundType: 0
+      encounterId: 1_Shadowling_Flyby
+      enemyList: []
+      battleMusicOverride: {fileID: 0}
+      enemySpawnEntries:
+      - enemy: {fileID: 11400000, guid: 20fed9e9b8f77b64086164ed5868e6dd, type: 2}
+        positionNumber: 2
+      - enemy: {fileID: 11400000, guid: 836b6cf61f3db444dabe249c1d1b6173, type: 2}
+        positionNumber: 3
+      startingCards: []
+      customGoldRewards:
+      - {fileID: 11400000, guid: ba3ed0eef6f22904c890cd5859f20881, type: 2}
+      customCardRewards:
+      - {fileID: 11400000, guid: 6cecd2669f04dbf40be0053e0a29c0c5, type: 2}
+      - {fileID: 11400000, guid: 942dc0c4f325a6340ab8be0ab2eba646, type: 2}
+    bossEncounterList:
+    - targetBackgroundType: 0
+      encounterId: Pitcher_Boss1
+      enemyList: []
+      battleMusicOverride: {fileID: 8300000, guid: 4701672edaad8d64b816090c92443baa, type: 3}
+      enemySpawnEntries:
+      - enemy: {fileID: 11400000, guid: d7fedbd717e8d124583861e35902c499, type: 2}
+        positionNumber: 10
+      startingCards: []
+      customGoldRewards:
+      - {fileID: 11400000, guid: 18f9cfb47bf530e45846b7b905747de9, type: 2}
+      customCardRewards:
+      - {fileID: 11400000, guid: 6cecd2669f04dbf40be0053e0a29c0c5, type: 2}
+      - {fileID: 11400000, guid: a6d47d94a77be2d4aaeec9290829c053, type: 2}
     specialEncounterList: []
   - name: Act 5
     stageId: 5

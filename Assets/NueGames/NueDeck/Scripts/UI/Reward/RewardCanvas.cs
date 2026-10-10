@@ -27,6 +27,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
         [SerializeField] private Transform rewardPanelRoot;
         [SerializeField] private Sprite metabolismRewardIcon;
         [SerializeField] private Sprite proficiencyRewardIcon;
+        [SerializeField] private Sprite insightRewardIcon;
         [Header("Choice")]
         [SerializeField] private Transform choice2DCardSpawnRoot;
         [SerializeField] private ChoiceCard choiceCardUIPrefab;
@@ -58,7 +59,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
                 BuildReward(RewardType.Card);
                 BuildMetabolismReward();
                 BuildEliteBossProficiencyReward();
-                BuildEliteInsightReward();
+                BuildEliteBossInsightReward();
                 return;
             }
             
@@ -82,7 +83,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
 
             BuildMetabolismReward();
             BuildEliteBossProficiencyReward();
-            BuildEliteInsightReward();
+            BuildEliteBossInsightReward();
         }
 
         public bool OpenCardReward(string poolName, Action onSelected)
@@ -332,9 +333,10 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
             rewardClone.RewardButton.onClick.AddListener(() => GetEliteBossProficiencyReward(rewardClone));
         }
 
-        private void BuildEliteInsightReward()
+        private void BuildEliteBossInsightReward()
         {
-            if (GameManager.PersistentGameplayData.CurrentEncounterTypeIndex != 1)
+            int encounterTypeIndex = GameManager.PersistentGameplayData.CurrentEncounterTypeIndex;
+            if (encounterTypeIndex != 1 && encounterTypeIndex != 2)
                 return;
 
             BuildReward(RewardType.Insight);
@@ -342,7 +344,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
 
         private void BuildInsightReward(RewardContainer rewardContainer)
         {
-            rewardContainer.BuildReward(proficiencyRewardIcon, "Gain <color=#62E2FF>1 Insight</color>");
+            rewardContainer.BuildReward(insightRewardIcon, "Gain <color=#62E2FF>1 Insight</color>");
             rewardContainer.RewardButton.onClick.AddListener(() => GetInsightReward(rewardContainer));
         }
 
