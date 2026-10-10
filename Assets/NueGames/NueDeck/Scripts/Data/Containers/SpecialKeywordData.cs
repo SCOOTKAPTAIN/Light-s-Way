@@ -122,6 +122,7 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 SpecialKeywords.Brittle => StatusType.Brittle,
                 SpecialKeywords.DamageCut => StatusType.DamageCut,
                 SpecialKeywords.Rend => StatusType.Rend,
+                SpecialKeywords.Marksman => StatusType.Marksman,
                // SpecialKeywords.TheBestDefence => StatusType.TheBestDefense,
                 _ => StatusType.None
             };

@@ -75,7 +75,8 @@
         Brittle,
         DamageCut,
         EntropyFeast,
-        Rend
+        Rend,
+        Marksman
         
 
 

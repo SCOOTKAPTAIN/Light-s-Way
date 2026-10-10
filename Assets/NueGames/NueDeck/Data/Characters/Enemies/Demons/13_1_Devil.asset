@@ -90,14 +90,14 @@ MonoBehaviour:
       intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
       description: Gain <color=#FFB430>{value} Pursuit</color>.
       keywords: 08000000
-      hideActionValue: 1
+      hideActionValue: 0
       actionList:
       - actionType: 13
         minActionValue: 3
         maxActionValue: 3
         targetRestriction: 0
         targetSlot: 0
-        applyLightMultiplier: 1
+        applyLightMultiplier: 0
         statusType: 8
         cardToAdd: {fileID: 0}
         overridePresentation: 1
@@ -119,7 +119,7 @@ MonoBehaviour:
         maxActionValue: 1
         targetRestriction: 0
         targetSlot: 0
-        applyLightMultiplier: 1
+        applyLightMultiplier: 0
         statusType: 0
         cardToAdd: {fileID: 0}
         overridePresentation: 0
@@ -197,14 +197,14 @@ MonoBehaviour:
       intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
       description: Gain <color=#FFB430>{value} Pursuit</color>.
       keywords: 08000000
-      hideActionValue: 1
+      hideActionValue: 0
       actionList:
       - actionType: 13
         minActionValue: 4
         maxActionValue: 4
         targetRestriction: 0
         targetSlot: 0
-        applyLightMultiplier: 1
+        applyLightMultiplier: 0
         statusType: 8
         cardToAdd: {fileID: 0}
         overridePresentation: 1
@@ -226,7 +226,7 @@ MonoBehaviour:
         maxActionValue: 1
         targetRestriction: 0
         targetSlot: 0
-        applyLightMultiplier: 1
+        applyLightMultiplier: 0
         statusType: 0
         cardToAdd: {fileID: 0}
         overridePresentation: 0

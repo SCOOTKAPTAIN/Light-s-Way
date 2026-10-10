@@ -55,7 +55,7 @@ MonoBehaviour:
         maxActionValue: 1
         targetRestriction: 0
         targetSlot: 0
-        applyLightMultiplier: 1
+        applyLightMultiplier: 0
         statusType: 2
         cardToAdd: {fileID: 0}
         overridePresentation: 0
@@ -68,18 +68,18 @@ MonoBehaviour:
       maxConsecutiveUses: 2
     - name: Inflate Sac
       intention: {fileID: 11400000, guid: b849ecb3ceb3bc84986834a21e9b0a2d, type: 2}
-      description: Apply <color=#FFB430>{value} Brush Off</color>.\nGain <color=#FFB430>{value2}
+      description: Apply <color=#FFB430>{value} Cheat Death</color>.\nGain <color=#FFB430>{value2}
         Strength</color>.
-      keywords: 3b00000001000000
+      keywords: 3a00000001000000
       hideActionValue: 0
       actionList:
       - actionType: 13
-        minActionValue: 10
-        maxActionValue: 10
+        minActionValue: 25
+        maxActionValue: 25
         targetRestriction: 0
         targetSlot: 0
-        applyLightMultiplier: 1
-        statusType: 56
+        applyLightMultiplier: 0
+        statusType: 55
         cardToAdd: {fileID: 0}
         overridePresentation: 1
         suppressPresentation: 0
@@ -90,7 +90,7 @@ MonoBehaviour:
         maxActionValue: 2
         targetRestriction: 0
         targetSlot: 0
-        applyLightMultiplier: 1
+        applyLightMultiplier: 0
         statusType: 3
         cardToAdd: {fileID: 0}
         overridePresentation: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
         maxActionValue: 5
         targetRestriction: 0
         targetSlot: 0
-        applyLightMultiplier: 1
+        applyLightMultiplier: 0
         statusType: 2
         cardToAdd: {fileID: 0}
         overridePresentation: 0

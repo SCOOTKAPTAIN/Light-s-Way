@@ -16,6 +16,9 @@ MonoBehaviour:
   - specialKeyword: 73
     header: Rend
     contentText: Attacks deal additional <color=#FFB430>{Rend}</color> Bleeding.
+  - specialKeyword: 74
+    header: Marksman
+    contentText: Attacks become <color=#FFB430>Piercing</color> but deal <color=#FFB430>50%</color> less damage.
   - specialKeyword: 46
     header: Flying
     contentText: Take <color=#FFB430>80%</color> less damage from non-area-of-effect attacks.

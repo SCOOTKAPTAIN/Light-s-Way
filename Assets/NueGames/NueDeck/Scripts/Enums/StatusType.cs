@@ -75,7 +75,8 @@
         Understanding,
         Brittle,
         EntropyFeast,
-        Rend
+        Rend,
+        Marksman
         
 
     }

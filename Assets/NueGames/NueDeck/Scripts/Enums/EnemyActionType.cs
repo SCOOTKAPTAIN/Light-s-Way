@@ -37,6 +37,12 @@ namespace NueGames.NueDeck.Scripts.Enums
         SharpenFang,
         SwoopIn,
         TakeOff,
-        HeartDive
+        HeartDive,
+        Lament,
+        Absolution,
+        SlowButPrecise,
+        TakeAim,
+        CorrosiveSpit,
+        JellyCarapace
     }
 }

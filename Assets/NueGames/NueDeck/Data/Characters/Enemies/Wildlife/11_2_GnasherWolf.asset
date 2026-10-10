@@ -87,7 +87,7 @@ MonoBehaviour:
         maxActionValue: 8
         targetRestriction: 0
         targetSlot: 0
-        applyLightMultiplier: 1
+        applyLightMultiplier: 0
         statusType: 0
         cardToAdd: {fileID: 0}
         overridePresentation: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
         maxActionValue: 8
         targetRestriction: 0
         targetSlot: 0
-        applyLightMultiplier: 1
+        applyLightMultiplier: 0
         statusType: 0
         cardToAdd: {fileID: 0}
         overridePresentation: 0

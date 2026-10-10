@@ -58,6 +58,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
                 BuildReward(RewardType.Card);
                 BuildMetabolismReward();
                 BuildEliteBossProficiencyReward();
+                BuildEliteInsightReward();
                 return;
             }
             
@@ -81,6 +82,7 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
 
             BuildMetabolismReward();
             BuildEliteBossProficiencyReward();
+            BuildEliteInsightReward();
         }
 
         public bool OpenCardReward(string poolName, Action onSelected)
@@ -247,6 +249,9 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
 
                     BuildMetabolismReward(rewardClone);
                     break;
+                case RewardType.Insight:
+                    BuildInsightReward(rewardClone);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(rewardType), rewardType, null);
             }
@@ -325,6 +330,20 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
             _currentRewardsList.Add(rewardClone);
             rewardClone.BuildReward(proficiencyRewardIcon, "Gain <color=#FFD700>1 Proficiency</color>");
             rewardClone.RewardButton.onClick.AddListener(() => GetEliteBossProficiencyReward(rewardClone));
+        }
+
+        private void BuildEliteInsightReward()
+        {
+            if (GameManager.PersistentGameplayData.CurrentEncounterTypeIndex != 1)
+                return;
+
+            BuildReward(RewardType.Insight);
+        }
+
+        private void BuildInsightReward(RewardContainer rewardContainer)
+        {
+            rewardContainer.BuildReward(proficiencyRewardIcon, "Gain <color=#62E2FF>1 Insight</color>");
+            rewardContainer.RewardButton.onClick.AddListener(() => GetInsightReward(rewardContainer));
         }
 
         private static string ColorGoldWord(string description)
@@ -423,6 +442,17 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
             gameplayData.Proficiency += 1;
             UIManager.InformationCanvas?.SetProficiencyText(gameplayData.Proficiency);
             UIManager.InformationCanvas?.SetStatsProficiencyText(gameplayData.Proficiency);
+
+            _currentRewardsList.Remove(rewardContainer);
+            Destroy(rewardContainer.gameObject);
+        }
+
+        private void GetInsightReward(RewardContainer rewardContainer)
+        {
+            var gameplayData = GameManager.PersistentGameplayData;
+            gameplayData.Insight += 1;
+            UIManager.InformationCanvas?.SetInsightText(gameplayData.Insight);
+            UIManager.InformationCanvas?.RefreshStatsText();
 
             _currentRewardsList.Remove(rewardContainer);
             Destroy(rewardContainer.gameObject);

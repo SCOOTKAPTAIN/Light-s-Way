@@ -21,32 +21,12 @@ MonoBehaviour:
       encounterId: 
       enemyList: []
       battleMusicOverride: {fileID: 0}
-      enemySpawnEntries:
-      - enemy: {fileID: 11400000, guid: 23b06b08841a8694a9687aec2cd115b7, type: 2}
-        positionNumber: 1
-      startingCards: []
-      customGoldRewards: []
-      customCardRewards: []
-    eliteEncounterList:
-    - targetBackgroundType: 0
-      encounterId: 
-      enemyList:
-      - {fileID: 11400000, guid: 20fed9e9b8f77b64086164ed5868e6dd, type: 2}
-      battleMusicOverride: {fileID: 0}
       enemySpawnEntries: []
       startingCards: []
       customGoldRewards: []
       customCardRewards: []
-    bossEncounterList:
-    - targetBackgroundType: 0
-      encounterId: 
-      enemyList:
-      - {fileID: 11400000, guid: ab4b1aaf78f9c8747a5708430c68f051, type: 2}
-      battleMusicOverride: {fileID: 0}
-      enemySpawnEntries: []
-      startingCards: []
-      customGoldRewards: []
-      customCardRewards: []
+    eliteEncounterList: []
+    bossEncounterList: []
     specialEncounterList: []
   - name: Act 5
     stageId: 5
@@ -63,18 +43,6 @@ MonoBehaviour:
       startingCards: []
       customGoldRewards: []
       customCardRewards: []
-    eliteEncounterList: []
-    bossEncounterList: []
-    specialEncounterList: []
-  - name: Chapter 2 Enemies
-    stageId: 3
-    normalEncounterList: []
-    eliteEncounterList: []
-    bossEncounterList: []
-    specialEncounterList: []
-  - name: Chapter 2 Boss
-    stageId: 4
-    normalEncounterList: []
     eliteEncounterList: []
     bossEncounterList: []
     specialEncounterList: []

@@ -180,7 +180,14 @@ namespace NueGames.NueDeck.Scripts.Enums
         Engulf,
         Ravage,
         FeralMadness,
-        HeartDive
+        HeartDive,
+        Lament,
+        Absolution,
+        SlowButPrecise,
+        TakeAim,
+        CorrosiveSpit,
+        Meltdown,
+        JellyCarapace
         
 
 

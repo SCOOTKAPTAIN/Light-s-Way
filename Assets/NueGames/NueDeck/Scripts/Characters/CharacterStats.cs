@@ -246,6 +246,9 @@ namespace NueGames.NueDeck.Scripts.Characters
             StatusDict[StatusType.GlamouringScenery].IsPermanent = true;
             StatusDict[StatusType.Might].DecreaseOverTurn = true;
             StatusDict[StatusType.Might].TriggerAtTurnEnd = true;
+            // Marksman: temporary precision buff that decays at turn end.
+            StatusDict[StatusType.Marksman].DecreaseOverTurn = true;
+            StatusDict[StatusType.Marksman].TriggerAtTurnEnd = true;
             StatusDict[StatusType.Resilience].DecreaseOverTurn = true;
 
             StatusDict[StatusType.TargetA].IsPermanent = true;
@@ -907,6 +910,14 @@ namespace NueGames.NueDeck.Scripts.Characters
             {
                 value = Mathf.RoundToInt(value * 2f);
                 attacker.CharacterStats.ClearStatus(StatusType.Ambush);
+            }
+
+            if (attacker != null && attacker.CharacterStats != null &&
+                attacker.CharacterStats.StatusDict[StatusType.Marksman].IsActive &&
+                attacker.CharacterStats.StatusDict[StatusType.Marksman].StatusValue > 0)
+            {
+                value = Mathf.RoundToInt(value * 0.5f);
+                canPierceArmor = true;
             }
 
             if (attacker != null && StatusDict[StatusType.Flying].IsActive && !attacker.CharacterStats._currentAttackIsAreaOfEffect)

@@ -19,7 +19,7 @@ MonoBehaviour:
     They''re more
     scared of you than anything.'
   maxHealth: 70
-  enemyPrefab: {fileID: 243822687015991123, guid: 5d9c27c397f4ba442a38545a06118c36, type: 3}
+  enemyPrefab: {fileID: 243822687015991123, guid: c5fc9dca937deac4a9326cc876acc831, type: 3}
   mutatedVersion: {fileID: 11400000, guid: cc4ef9762a201174b82b4376b81d927f, type: 2}
   chaosificationStatus:
     modifierName: 
@@ -28,56 +28,712 @@ MonoBehaviour:
   useActBasedScaling: 1
   actConfigurations:
   - actNumber: 1
-    maxHealth: 60
+    maxHealth: 80
     startingStatuses: []
     enemyAbilityList:
     - name: Lament
       intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
-      description: Apply <color=#FFB430>{value} Necrosis</color> to self.
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
       keywords: 40000000
-      hideActionValue: 0
+      hideActionValue: 1
       actionList:
-      - actionType: 12
-        minActionValue: 14
-        maxActionValue: 16
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
         targetRestriction: 0
         targetSlot: 0
-        applyLightMultiplier: 1
+        applyLightMultiplier: 0
         statusType: 0
         cardToAdd: {fileID: 0}
-        overridePresentation: 0
+        overridePresentation: 1
         suppressPresentation: 0
-        customFxType: 0
-        customAudioType: 0
+        customFxType: 2
+        customAudioType: 39
       repeatCount: 0
       conditions: []
-      weight: 7
-      maxConsecutiveUses: 3
-    - name: Goo Spit
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Absolution
       intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
-      description: 'Deal <color=#FFB430>{value}</color> damage. \nApply <color=#FFB430>
-        1 Slimed</color>. '
-      keywords: 20000000
-      hideActionValue: 0
+      description: Transfers all <color=#FFB430>Necrosis</color> to you.
+      keywords: 40000000
+      hideActionValue: 1
       actionList:
-      - actionType: 5
-        minActionValue: 9
-        maxActionValue: 12
+      - actionType: 37
+        minActionValue: 0
+        maxActionValue: 0
         targetRestriction: 0
         targetSlot: 0
-        applyLightMultiplier: 1
+        applyLightMultiplier: 0
         statusType: 0
         cardToAdd: {fileID: 0}
-        overridePresentation: 0
+        overridePresentation: 1
         suppressPresentation: 0
-        customFxType: 0
-        customAudioType: 0
+        customFxType: 72
+        customAudioType: 75
       repeatCount: 0
       conditions: []
-      weight: 3
-      maxConsecutiveUses: 2
-  followAbilityPattern: 0
-  useWeightedSelection: 1
+      weight: 1000
+      maxConsecutiveUses: 10
+  - actNumber: 2
+    maxHealth: 110
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Absolution
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Transfers all <color=#FFB430>Necrosis</color> to you.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 37
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 72
+        customAudioType: 75
+      repeatCount: 0
+      conditions: []
+      weight: 1000
+      maxConsecutiveUses: 10
+  - actNumber: 3
+    maxHealth: 245
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Absolution
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Transfers all <color=#FFB430>Necrosis</color> to you.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 37
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 72
+        customAudioType: 75
+      repeatCount: 0
+      conditions: []
+      weight: 1000
+      maxConsecutiveUses: 10
+  - actNumber: 4
+    maxHealth: 361
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Absolution
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Transfers all <color=#FFB430>Necrosis</color> to you.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 37
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 72
+        customAudioType: 75
+      repeatCount: 0
+      conditions: []
+      weight: 1000
+      maxConsecutiveUses: 10
+  - actNumber: 5
+    maxHealth: 600
+    startingStatuses: []
+    enemyAbilityList:
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Lament
+      intention: {fileID: 11400000, guid: eecc6882d35f9934685f994e4d81867b, type: 2}
+      description: Apply <color=#FFB430>Necrosis</color> equal to <color=#FFB430>10%
+        Max HP</color> to self.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 36
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 2
+        customAudioType: 39
+      repeatCount: 0
+      conditions: []
+      weight: 10
+      maxConsecutiveUses: 0
+    - name: Absolution
+      intention: {fileID: 11400000, guid: e7deaaa3f01f8f54ab8c29a0ce3c8f31, type: 2}
+      description: Transfers all <color=#FFB430>Necrosis</color> to you.
+      keywords: 40000000
+      hideActionValue: 1
+      actionList:
+      - actionType: 37
+        minActionValue: 0
+        maxActionValue: 0
+        targetRestriction: 0
+        targetSlot: 0
+        applyLightMultiplier: 0
+        statusType: 0
+        cardToAdd: {fileID: 0}
+        overridePresentation: 1
+        suppressPresentation: 0
+        customFxType: 72
+        customAudioType: 75
+      repeatCount: 0
+      conditions: []
+      weight: 1000
+      maxConsecutiveUses: 10
+  followAbilityPattern: 1
+  useWeightedSelection: 0
   preventRepeatAbility: 0
   startingStatuses: []
   enemyAbilityList:

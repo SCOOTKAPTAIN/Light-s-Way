@@ -5,6 +5,7 @@
         Gold,
         Card,
         Relic,
-        MetabolismHeal
+        MetabolismHeal,
+        Insight
     }
 }
