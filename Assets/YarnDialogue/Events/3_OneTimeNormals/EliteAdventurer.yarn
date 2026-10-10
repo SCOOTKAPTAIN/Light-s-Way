@@ -20,8 +20,8 @@ Veteran: "Whatever the case, fancy learning a thing or two? I've picked up a few
     You train together, learning how to put your whole body behind every strike to make every of them count.
     By the end, you feel exhausted, yet proud of the new profound skills you have acquired.
     <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
--> Chat with him #paneldetails=Gain_1_Proficiency
-    <<change_proficiency 1>>
+-> Chat with him #paneldetails=Gain_3_Proficiency
+    <<change_proficiency 3>>
     You sit down beside the veteran and exchange stories about your travels.
     Amidst the conversation, he shares some practical lessons learned from his years of hard-fought adventures.
     It's a surprisingly fruitful conversation. You leave with a better understanding of your own abilities.

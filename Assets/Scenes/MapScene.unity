@@ -5974,7 +5974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2038588483
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6513,11 +6513,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b857227af4ffee84e8288e9ae6f8fdd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageIdChanger: 0
-  EncounterIdChanger: 0
-  ActChanger: 0
-  ProficiencyChanger: 0
-  LightChanger: 0
+  proficiencyChanger: 0
+  lightChanger: 0
+  wisdomChanger: 0
+  potencyChanger: 0
+  affinityChanger: 0
+  metabolismChanger: 0
+  vigorChanger: 0
+  insightChanger: 0
+  abundanceChanger: 0
+  capacityChanger: 0
+  radianceChanger: 0
 --- !u!114 &2110522713
 MonoBehaviour:
   m_ObjectHideFlags: 0

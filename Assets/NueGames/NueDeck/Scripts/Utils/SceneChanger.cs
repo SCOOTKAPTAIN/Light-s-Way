@@ -129,4 +129,3 @@ namespace NueGames.NueDeck.Scripts.Utils
         }
     }
 }
-

@@ -10,8 +10,8 @@ They feast merrily, passing around skewered rats, bowls of writhing insects, and
 One of the bugmen notices you standing nearby. Its antennae twitch, and it raises a skewer in greeting.
 Bugmen: "Oi! Miss! Don't be shy! There's plenty to go around!"
 He offers you a skewer. Something on it squirms...
--> Partake in the feast(?) #paneldetails=Gain_3_Metabolism._-10%_Health._-5_Light.
-    <<change_metabolism 3>>
+-> Partake in the feast(?) #paneldetails=Gain_5_Metabolism._-10%_Health._-5_Light.
+    <<change_metabolism 5>>
     <<change_light -5>>
     <<change_health_percent -10>>
     Forgoing your rationality, you took up the offer and find an empty seat.

@@ -690,7 +690,11 @@ namespace NueGames.NueDeck.Scripts.Managers
             CollectionManager.ClearPiles();
 
 
-            if (GameManager.PersistentGameplayData.ActNumber == 11)
+            bool defeatedActFiveVessel = GameManager.PersistentGameplayData.ActNumber == 5 &&
+                                         CurrentEncounter != null &&
+                                         CurrentEncounter.EncounterId == "Vessel_Boss5";
+
+            if (GameManager.PersistentGameplayData.ActNumber == 11 || defeatedActFiveVessel)
             {
                 UIManager.CombatCanvas.CombatWinPanel.SetActive(true);
             }

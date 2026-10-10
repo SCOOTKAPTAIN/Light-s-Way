@@ -63,6 +63,7 @@ public class DialogueAudioManager : MonoBehaviour
                     PlayMusic(encounter.BattleMusicOverride);
                     return;
                 }
+
             }
 
             switch(GameManager.Instance.PersistentGameplayData.light)

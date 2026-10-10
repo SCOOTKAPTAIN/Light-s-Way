@@ -232,11 +232,9 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
                     break;
                 case RewardType.Card:
                     var rewardCardList = rewardContainerData.GetRandomCardRewardList(out var cardRewardData);
-                    _cardRewardList.Clear();
-                    foreach (var cardData in rewardCardList)
-                        _cardRewardList.Add(cardData);
+                    var selectedCardRewards = new List<CardData>(rewardCardList);
                     rewardClone.BuildReward(cardRewardData.RewardSprite,cardRewardData.RewardDescription);
-                    rewardClone.RewardButton.onClick.AddListener(()=>GetCardReward(rewardClone,3));
+                    rewardClone.RewardButton.onClick.AddListener(() => GetCardReward(rewardClone, selectedCardRewards, 3));
                     break;
                 case RewardType.Relic:
                     break;
@@ -363,13 +361,11 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
             _currentRewardsList.Add(rewardClone);
             
             // Use weighted random selection for card rewards
-            _cardRewardList.Clear();
             var selectedCards = cardRewardData.GetWeightedRandomCards(3);
-            foreach (var cardData in selectedCards)
-                _cardRewardList.Add(cardData);
+            var selectedCardRewards = new List<CardData>(selectedCards);
             
             rewardClone.BuildReward(cardRewardData.RewardSprite, cardRewardData.RewardDescription);
-            rewardClone.RewardButton.onClick.AddListener(() => GetCardReward(rewardClone, 3));
+            rewardClone.RewardButton.onClick.AddListener(() => GetCardReward(rewardClone, selectedCardRewards, 3));
         }
         
         private void GetGoldReward(RewardContainer rewardContainer,int amount)
@@ -380,8 +376,10 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
             Destroy(rewardContainer.gameObject);
         }
 
-        private void GetCardReward(RewardContainer rewardContainer,int amount = 3)
+        private void GetCardReward(RewardContainer rewardContainer, List<CardData> cardRewards, int amount = 3)
         {
+            _cardRewardList.Clear();
+            _cardRewardList.AddRange(cardRewards);
             ShowCardChoices(Mathf.Min(amount, _cardRewardList.Count), null);
             _currentRewardsList.Remove(rewardContainer);
             Destroy(rewardContainer.gameObject);

@@ -114,11 +114,11 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             CurrentEncounterId = 0;
             SelectedEncounter = null;
             CurrentStageId = 0;
-            CurrentGold = 0;
+            CurrentGold = 100;
             CurrentCardsList = new List<CardData>();
             IsFinalEncounter = false;
             allyHealthDataDataList = new List<AllyHealthData>();
-            proficiency = 1000;
+            proficiency = 1;
             light = 100;
             actnumber = 0;
             lightLoss = 2;
@@ -126,7 +126,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             potency = 0;
             affinity = 0;
             metabolism = 0;
-            vigor = 100;
+            vigor = 150;
             insight = 0;
             abundance = 0;
             capacity = 0;

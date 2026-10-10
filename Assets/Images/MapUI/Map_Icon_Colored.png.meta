@@ -190,9 +190,9 @@ TextureImporter:
       name: Map_Icon_Colored_4
       rect:
         serializedVersion: 2
-        x: 1191
+        x: 1165
         y: 774
-        width: 83
+        width: 141
         height: 231
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

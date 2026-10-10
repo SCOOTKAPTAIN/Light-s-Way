@@ -8,8 +8,8 @@ title: gold_pouch
 As you walk along the road, something catches your eye in the distance.
 A small pouch lies abandoned in the middle of the path.
 Upon closer look, it seems to be valuable and whoever it belongs to... doesn’t seem to be around.
--> Reach for the pouch #paneldetails=Gain_400_Gold
-    <<change_gold 400>>
+-> Reach for the pouch #paneldetails=Gain_800_Gold
+    <<change_gold 800>>
     You open the pouch and find a collection of coins inside.
     You decide to keep the pouch and pocket its contents.
     <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
@@ -26,8 +26,8 @@ title: gold_pouch_insight_safe
 ---
 You pause and carefully observe the foliage around you.
 [pause=0.5/].[pause=0.5/].[pause=0.5/].[pause=0.5/]  [br/][green]Nothing is out of the ordinary![/green]
--> Finders keepers! #paneldetails=Gain_400_Gold
-    <<change_gold 400>>
+-> Finders keepers! #paneldetails=Gain_800_Gold
+    <<change_gold 800>>
     You gleefully pocket the gold you found inside the pouch.
     <<hide_speaker_frame YarnCommands>><<wait 1>><<fade_out YarnCommands 2>><<load_map_scene>>
 -> Better to leave it alone, after all... #paneldetails=Gain_5_Light
@@ -77,8 +77,8 @@ title: gold_pouch_insight_ominous
 ---
 You pause and carefully observe the foliage around you.
 [pause=0.5/].[pause=0.5/].[pause=0.5/].[pause=0.5/]  [br/][red]Your hear some rustling in the bushes![/red]
--> You only live once... #paneldetails=Gain_400_Gold._Lose_10%_Health.
-    <<change_gold 400>>
+-> You only live once... #paneldetails=Gain_800_Gold._Lose_10%_Health.
+    <<change_gold 800>>
     Despite the danger, you hastily try and reach for the pouch!
     A madwoman suddenly charges out from the bushes, screaming at the top of her lungs!
     Madwoman: "DO NOT TOUCH THAT! MINE! MINE!"

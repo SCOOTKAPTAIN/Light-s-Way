@@ -387,7 +387,7 @@ namespace Map
                 GameManager.Instance.PersistentGameplayData.actalreadyplayed = false;
                 
                 DialogueAudioManager.instance.PlaySFX("enterbattle");
-                DialogueAudioManager.instance.BossMusic();
+                DialogueAudioManager.instance.DynamicMusic("battle");
                 MapPlayerTracker.Instance.OpenCombatScene();
                     break;
                 case NodeType.Mystery:

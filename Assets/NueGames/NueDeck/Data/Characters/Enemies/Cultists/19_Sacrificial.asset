@@ -20,7 +20,7 @@ MonoBehaviour:
     scared of you than anything.'
   maxHealth: 70
   enemyPrefab: {fileID: 243822687015991123, guid: c5fc9dca937deac4a9326cc876acc831, type: 3}
-  mutatedVersion: {fileID: 11400000, guid: cc4ef9762a201174b82b4376b81d927f, type: 2}
+  mutatedVersion: {fileID: 0}
   chaosificationStatus:
     modifierName: 
     icon: {fileID: 0}
