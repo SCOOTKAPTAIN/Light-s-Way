@@ -25,8 +25,8 @@ title: merchant_heal
 
 title: merchant_vigor
 ---
-<<if gold() >= 150>>
-	<<change_gold -150>>
+<<if gold() >= 200>>
+	<<change_gold -200>>
 	<<change_vigor 25>>
 	<<merchant_purchase_success>>
 	Merchant: "A little more fortitude for that fragile frame."
@@ -37,8 +37,8 @@ title: merchant_vigor
 
 title: merchant_metabolism
 ---
-<<if gold() >= 150>>
-	<<change_gold -150>>
+<<if gold() >= 200>>
+	<<change_gold -200>>
 	<<change_metabolism 1>>
 	<<merchant_purchase_success>>
 	Merchant: "Such a lively body! Better keep that stomach full."
@@ -81,8 +81,8 @@ Merchant: "You're already the very picture of health. Don't waste your Gold, you
 
 title: merchant_proficiency
 ---
-<<if gold() >= 250>>
-	<<change_gold -250>>
+<<if gold() >= 300>>
+	<<change_gold -300>>
 	<<change_proficiency 1>>
 	<<merchant_purchase_success>>
 	Merchant: "Here are some books you can read and learn from. Been tryin' to get rid of 'em, they're too heavy, y'know?"
@@ -93,8 +93,8 @@ title: merchant_proficiency
 
 title: merchant_insight
 ---
-<<if gold() >= 250>>
-	<<change_gold -250>>
+<<if gold() >= 400>>
+	<<change_gold -400>>
 	<<change_insight 1>>
 	<<merchant_purchase_success>>
 	Merchant: "Open your eyes, and the world shall reveal more of itself."
@@ -105,8 +105,8 @@ title: merchant_insight
 
 title: merchant_affinity
 ---
-<<if gold() >= 200>>
-	<<change_gold -200>>
+<<if gold() >= 250>>
+	<<change_gold -250>>
 	<<change_affinity 2>>
 	<<merchant_purchase_success>>
 	Merchant: "You'll get a little more mileage out of those fancy tricks now."
@@ -180,8 +180,8 @@ Merchant: "Try not to die out there. Kihihi... "
 
 title: merchant_potency
 ---
-<<if gold() >= 300>>
-	<<change_gold -300>>
+<<if gold() >= 500>>
+	<<change_gold -500>>
 	<<change_potency 1>>
 	<<merchant_purchase_success>>
 	Merchant: "A little more ‘sting’ for that edge of yours. They're gonna feel that, alright."
@@ -192,8 +192,8 @@ title: merchant_potency
 
 title: merchant_arcana
 ---
-<<if gold() >= 600>>
-	<<change_gold -600>>
+<<if gold() >= 1000>>
+	<<change_gold -1000>>
 	<<change_arcana 1>>
 	<<merchant_purchase_success>>
 	Merchant: "Just chant whatever this scroll says and yer magic circuits will improve. Can't guarantee no side effects, though. Kihihi..."
@@ -237,4 +237,3 @@ title: merchant_abundance
 	<<jump merchant_broke>>
 <<endif>>
 ===
-

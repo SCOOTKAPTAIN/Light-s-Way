@@ -59,7 +59,6 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
                 BuildReward(RewardType.Card);
                 BuildMetabolismReward();
                 BuildEliteBossProficiencyReward();
-                BuildEliteBossInsightReward();
                 return;
             }
             
@@ -83,7 +82,6 @@ namespace NueGames.NueDeck.Scripts.UI.Reward
 
             BuildMetabolismReward();
             BuildEliteBossProficiencyReward();
-            BuildEliteBossInsightReward();
         }
 
         public bool OpenCardReward(string poolName, Action onSelected)
