@@ -16,18 +16,13 @@ namespace NueGames.NueDeck.Scripts.Card.CardActions
             
             if (!targetCharacter) return;
 
-            // Use TryGetActionContext (not Consume) so value persists for all enemies
-            int debuffvalue = 0;
-            if (CombatManager.Instance.TryGetActionContext<int>("LostStrength", out var strengthlostAmount))
-            {
-                debuffvalue = strengthlostAmount;
-            }
-            else
-            {
-                debuffvalue = Mathf.RoundToInt(actionParameters.Value);
-            }
+            // Potency scales the Strength that was actually converted, but cannot
+            // create debuffs when there was no Strength to convert.
+            if (!CombatManager.Instance.TryGetActionContext<int>("LostStrength", out var strengthlostAmount) ||
+                strengthlostAmount <= 0)
+                return;
 
-            debuffvalue = Mathf.RoundToInt(CardScaling.AddPotency(debuffvalue));
+            var debuffvalue = Mathf.RoundToInt(CardScaling.AddPotency(strengthlostAmount));
 
             if (debuffvalue > 0)
             {

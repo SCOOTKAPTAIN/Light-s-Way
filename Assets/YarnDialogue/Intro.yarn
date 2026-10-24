@@ -101,8 +101,10 @@ But you never did any of those things, because you…
     <<change_abundance 1>>
     <<change_capacity 2>>
     You kept finding things far more interesting, and in the end, that dream of yours became nothing more than a distant memory.
--> Were too afraid to take a single step #paneldetails=Remove_1_copy_of_Slash_and_Guard_from_the_starting_deck
+-> Were too afraid to take a single step #paneldetails=Remove_2_copies_of_Slash_and_Guard_from_the_starting_deck
     <<remove_initial_card Slash>>
+    <<remove_initial_card Slash>>
+    <<remove_initial_card Guard>>
     <<remove_initial_card Guard>>
     Paralyzed by the fear of failure and the uncertainty, you let every opportunity slip away untouched.
 -> Had to stay with your family #paneldetails=Choose_3_random_cards_and_add_them_into_your_deck

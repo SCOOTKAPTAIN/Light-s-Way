@@ -547,15 +547,24 @@ public sealed class YarnGameplayCommands : ReplacementMarkupHandler
             return;
         }
 
-        if (gameplayData.AllyHealthDataList.Count > 0)
+        if (gameplayData.AllyList.Count > 0)
         {
-            var healthData = gameplayData.AllyHealthDataList[0];
-            healthData.MaxHealth = newMaxHealth;
-            healthData.CurrentHealth = Mathf.Clamp(
-                healthData.CurrentHealth + Mathf.Max(0, vigorDelta),
+            var allyData = gameplayData.AllyList[0].AllyCharacterData;
+            var healthData = gameplayData.AllyHealthDataList.Find(data =>
+                data.CharacterId == allyData.CharacterID);
+            var currentHealth = healthData != null
+                ? healthData.CurrentHealth
+                : newMaxHealth - Mathf.Max(0, vigorDelta);
+            var newCurrentHealth = Mathf.Clamp(
+                currentHealth + Mathf.Max(0, vigorDelta),
                 1,
                 newMaxHealth);
-            UIManager.Instance?.InformationCanvas?.SetHealthText(healthData.CurrentHealth, healthData.MaxHealth);
+
+            gameplayData.SetAllyHealthData(
+                allyData.CharacterID,
+                newCurrentHealth,
+                newMaxHealth);
+            UIManager.Instance?.InformationCanvas?.SetHealthText(newCurrentHealth, newMaxHealth);
             return;
         }
 
