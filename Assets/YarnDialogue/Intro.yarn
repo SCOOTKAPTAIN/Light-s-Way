@@ -46,7 +46,7 @@ What drove you to pursue such a life?
     <<enable_elite_boss_proficiency>>
     You welcomed every challenge as an opportunity to prove yourself. The greater the obstacle, the greater the satisfaction of overcoming it.
     <<jump reason>>
--> To forge both your body and mind #paneldetails=Gain_5_Affinity
+-> To forge both body and mind #paneldetails=Gain_5_Affinity
     <<change_affinity 5>>
     You sought to become someone who could endure anything the world threw at you. Through hardship, you would sharpen both body and mind into something stronger.
     <<jump reason>>

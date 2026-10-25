@@ -98,12 +98,13 @@ namespace NueGames.NueDeck.Scripts.UI
             UpdateCounterText();
             UIManager.SetCanvas(this, true, true);
 
+            _previousCanUseCards = GameManager.PersistentGameplayData.CanUseCards;
+            _previousCanSelectCards = GameManager.PersistentGameplayData.CanSelectCards;
+            GameManager.PersistentGameplayData.CanUseCards = false;
+            GameManager.PersistentGameplayData.CanSelectCards = true;
+
             if (CollectionManager != null && CollectionManager.HandController != null)
             {
-                _previousCanUseCards = GameManager.PersistentGameplayData.CanUseCards;
-                _previousCanSelectCards = GameManager.PersistentGameplayData.CanSelectCards;
-                GameManager.PersistentGameplayData.CanUseCards = false;
-                GameManager.PersistentGameplayData.CanSelectCards = true;
                 CollectionManager.HandController.SetActiveCardDropTarget(this);
             }
         }
@@ -143,14 +144,24 @@ namespace NueGames.NueDeck.Scripts.UI
 
         public override void CloseCanvas()
         {
+            if (!_selectionIsOpen)
+            {
+                base.CloseCanvas();
+                return;
+            }
+
             _selectionIsOpen = false;
             _draggedStagedCard = null;
+
+            if (GameManager != null && GameManager.PersistentGameplayData != null)
+            {
+                GameManager.PersistentGameplayData.CanUseCards = _previousCanUseCards;
+                GameManager.PersistentGameplayData.CanSelectCards = _previousCanSelectCards;
+            }
 
             if (CollectionManager != null && CollectionManager.HandController != null)
             {
                 CollectionManager.HandController.SetActiveCardDropTarget(null);
-                GameManager.PersistentGameplayData.CanUseCards = _previousCanUseCards;
-                GameManager.PersistentGameplayData.CanSelectCards = _previousCanSelectCards;
             }
 
             var callback = _onSelectionComplete;
