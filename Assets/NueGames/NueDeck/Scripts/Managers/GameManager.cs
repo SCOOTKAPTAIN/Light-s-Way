@@ -5,6 +5,7 @@ using NueGames.NueDeck.Scripts.Data.Settings;
 using NueGames.NueDeck.Scripts.EnemyBehaviour;
 using NueGames.NueDeck.Scripts.Enums;
 using NueGames.NueDeck.Scripts.NueExtentions;
+using NueGames.NueDeck.Scripts.Tutorial;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -44,6 +45,8 @@ namespace NueGames.NueDeck.Scripts.Managers
                 transform.parent = null;
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+                if (GetComponent<TutorialManager>() == null)
+                    gameObject.AddComponent<TutorialManager>();
                 CardActionProcessor.Initialize();
                 EnemyActionProcessor.Initialize();
                 InitGameplayData();
@@ -57,6 +60,7 @@ namespace NueGames.NueDeck.Scripts.Managers
         { 
             PersistentGameplayData = new PersistentGameplayData(gameplayData);
             EncounterEventContext.ResetRun();
+            TutorialManager.Instance?.ResetRunTutorials();
             if (UIManager)
                 UIManager.InformationCanvas.ResetCanvas();
            

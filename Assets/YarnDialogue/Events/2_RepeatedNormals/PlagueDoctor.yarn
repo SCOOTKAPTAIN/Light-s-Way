@@ -6,8 +6,8 @@ He appears lost in thought, muttering to himself as he examines a collection of 
 Doctor: "...Remarkable. The musculature is quite different from what I had expected..."
 He lets out a delighted chuckle.
 He doesn't seem to have noticed you yet.
--> Ask for a lecture #paneldetails=Gain_1_Potency._-15_Light
-    <<change_potency 1>><<change_light -15>>
+-> Ask for a lecture #paneldetails=Gain_1_Potency._-10_Light
+    <<change_potency 1>><<change_light -10>>
     You approach the doctor, intrigued by his observations.
     He launches into an impassioned lecture on demonic anatomy, comparing it to that of ordinary monsters..
     You listen intently. His knowledge is extraordinary, and his explanations are surprisingly enlightening.
