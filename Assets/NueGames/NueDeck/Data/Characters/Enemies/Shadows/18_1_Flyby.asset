@@ -41,8 +41,8 @@ MonoBehaviour:
       hideActionValue: 0
       actionList:
       - actionType: 14
-        minActionValue: 2
-        maxActionValue: 2
+        minActionValue: 5
+        maxActionValue: 5
         targetRestriction: 0
         targetSlot: 0
         applyLightMultiplier: 1
@@ -64,8 +64,8 @@ MonoBehaviour:
       hideActionValue: 0
       actionList:
       - actionType: 33
-        minActionValue: 11
-        maxActionValue: 13
+        minActionValue: 14
+        maxActionValue: 16
         targetRestriction: 0
         targetSlot: 0
         applyLightMultiplier: 1
@@ -119,8 +119,8 @@ MonoBehaviour:
       hideActionValue: 0
       actionList:
       - actionType: 14
-        minActionValue: 4
-        maxActionValue: 4
+        minActionValue: 8
+        maxActionValue: 8
         targetRestriction: 0
         targetSlot: 0
         applyLightMultiplier: 1
@@ -142,8 +142,8 @@ MonoBehaviour:
       hideActionValue: 0
       actionList:
       - actionType: 33
-        minActionValue: 13
-        maxActionValue: 15
+        minActionValue: 23
+        maxActionValue: 25
         targetRestriction: 0
         targetSlot: 0
         applyLightMultiplier: 1
@@ -197,8 +197,8 @@ MonoBehaviour:
       hideActionValue: 0
       actionList:
       - actionType: 14
-        minActionValue: 6
-        maxActionValue: 6
+        minActionValue: 12
+        maxActionValue: 12
         targetRestriction: 0
         targetSlot: 0
         applyLightMultiplier: 1
@@ -220,8 +220,8 @@ MonoBehaviour:
       hideActionValue: 0
       actionList:
       - actionType: 33
-        minActionValue: 20
-        maxActionValue: 22
+        minActionValue: 35
+        maxActionValue: 37
         targetRestriction: 0
         targetSlot: 0
         applyLightMultiplier: 1

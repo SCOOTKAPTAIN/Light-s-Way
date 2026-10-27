@@ -23,6 +23,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9686a87dacea8254c959c4f1aec9941f, type: 2}
   - {fileID: 11400000, guid: 3cd24b2e276b6dc48a3c3842ff38a96c, type: 2}
   randomNodes: 04000000060000000100000002000000
+  randomNodeRules:
+  - nodeType: 4
+    weight: 2
+    cooldown: 4
+  - nodeType: 6
+    weight: 4
+    cooldown: 0
+  - nodeType: 1
+    weight: 3
+    cooldown: 1
+  - nodeType: 2
+    weight: 2
+    cooldown: 3
   numOfPreBossNodes:
     min: 4
     max: 5
@@ -72,28 +85,14 @@ MonoBehaviour:
       max: 3
     nodesApartDistance: 2
     randomizePosition: 0
-    randomizeNodes: 0.452
+    randomizeNodes: 0.645
   - nodeType: 1
     distanceFromPreviousLayer:
       min: 2
       max: 3
     nodesApartDistance: 2
     randomizePosition: 0
-    randomizeNodes: 0.728
-  - nodeType: 0
-    distanceFromPreviousLayer:
-      min: 2
-      max: 3
-    nodesApartDistance: 2
-    randomizePosition: 0
-    randomizeNodes: 0.5
-  - nodeType: 0
-    distanceFromPreviousLayer:
-      min: 2
-      max: 3
-    nodesApartDistance: 2
-    randomizePosition: 0
-    randomizeNodes: 0.5
+    randomizeNodes: 0.853
   - nodeType: 0
     distanceFromPreviousLayer:
       min: 2

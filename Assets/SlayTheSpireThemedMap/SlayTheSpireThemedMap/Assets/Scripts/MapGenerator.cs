@@ -11,6 +11,7 @@ namespace Map
         private static List<float> layerDistances;
         // ALL nodes by layer:
         private static readonly List<List<Node>> nodes = new List<List<Node>>();
+        private static readonly List<NodeType> randomNodeHistory = new List<NodeType>();
 
         public static Map GetMap(MapConfig conf)
         {
@@ -22,6 +23,7 @@ namespace Map
 
             config = conf;
             nodes.Clear();
+            randomNodeHistory.Clear();
 
             GenerateLayerDistances();
 
@@ -68,11 +70,13 @@ namespace Map
 
             for (int i = 0; i < config.GridWidth; i++)
             {
-                var supportedRandomNodeTypes =
-                    config.randomNodes.Where(t => config.nodeBlueprints.Any(b => b.nodeType == t)).ToList();
-                NodeType nodeType = Random.Range(0f, 1f) < layer.randomizeNodes && supportedRandomNodeTypes.Count > 0
-                    ? supportedRandomNodeTypes.Random()
+                var supportedRandomNodeRules = GetSupportedRandomNodeRules();
+                bool useRandomNode = Random.Range(0f, 1f) < layer.randomizeNodes &&
+                                     supportedRandomNodeRules.Count > 0;
+                NodeType nodeType = useRandomNode
+                    ? SelectRandomNodeType(supportedRandomNodeRules)
                     : layer.nodeType;
+                randomNodeHistory.Add(nodeType);
                 string blueprintName = config.nodeBlueprints.Where(b => b.nodeType == nodeType).ToList().Random().name;
                 Node node = new Node(nodeType, blueprintName, new Vector2Int(i, layerIndex))
                 {
@@ -82,6 +86,82 @@ namespace Map
             }
 
             nodes.Add(nodesOnThisLayer);
+        }
+
+        private static List<RandomNodeRule> GetSupportedRandomNodeRules()
+        {
+            List<RandomNodeRule> configuredRules = config.randomNodeRules != null &&
+                config.randomNodeRules.Count > 0
+                ? config.randomNodeRules
+                : config.randomNodes.Select(nodeType => new RandomNodeRule
+                {
+                    nodeType = nodeType,
+                    weight = 1f,
+                    cooldown = 0
+                }).ToList();
+
+            return configuredRules
+                .Where(rule => rule != null && rule.weight > 0f &&
+                               config.nodeBlueprints.Any(blueprint => blueprint.nodeType == rule.nodeType))
+                .ToList();
+        }
+
+        private static NodeType SelectRandomNodeType(List<RandomNodeRule> rules)
+        {
+            List<RandomNodeRule> eligibleRules = rules
+                .Where(rule => !IsOnCooldown(rule))
+                .ToList();
+
+            if (eligibleRules.Count == 0)
+            {
+                int oldestIndex = -1;
+                int oldestDistance = -1;
+                for (int i = 0; i < rules.Count; i++)
+                {
+                    int distance = DistanceSinceLastNodeType(rules[i].nodeType);
+                    if (distance > oldestDistance)
+                    {
+                        oldestDistance = distance;
+                        oldestIndex = i;
+                    }
+                }
+
+                if (oldestIndex >= 0)
+                    eligibleRules.Add(rules[oldestIndex]);
+            }
+
+            return WeightedRandom(eligibleRules).nodeType;
+        }
+
+        private static bool IsOnCooldown(RandomNodeRule rule)
+        {
+            return rule.cooldown > 0 &&
+                   DistanceSinceLastNodeType(rule.nodeType) <= rule.cooldown;
+        }
+
+        private static int DistanceSinceLastNodeType(NodeType nodeType)
+        {
+            for (int i = randomNodeHistory.Count - 1; i >= 0; i--)
+            {
+                if (randomNodeHistory[i] == nodeType)
+                    return randomNodeHistory.Count - i;
+            }
+
+            return int.MaxValue;
+        }
+
+        private static RandomNodeRule WeightedRandom(List<RandomNodeRule> rules)
+        {
+            float totalWeight = rules.Sum(rule => rule.weight);
+            float roll = Random.Range(0f, totalWeight);
+            foreach (RandomNodeRule rule in rules)
+            {
+                roll -= rule.weight;
+                if (roll <= 0f)
+                    return rule;
+            }
+
+            return rules[rules.Count - 1];
         }
 
         private static void RandomizeNodePositions()

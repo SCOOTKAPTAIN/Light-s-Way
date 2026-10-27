@@ -46,6 +46,8 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
                 return null;
             }
 
+            List<EnemyEncounter> encounterPool = targetList;
+
             // Filter out defeated bosses (only for boss encounters)
             if (encounterType == Map.EncounterType.Boss)
             {
@@ -69,11 +71,79 @@ namespace NueGames.NueDeck.Scripts.Data.Containers
             // Return specific encounter if index is valid
             if (specificIndex >= 0 && specificIndex < targetList.Count)
             {
-                return targetList[specificIndex];
+                EnemyEncounter specificEncounter = targetList[specificIndex];
+                RememberBattleEncounter(encounterType, specificEncounter, encounterPool, stageId);
+                return specificEncounter;
+            }
+
+            string previousEncounterId = GetPreviousBattleEncounterId(encounterType);
+            if (!string.IsNullOrEmpty(previousEncounterId) && targetList.Count > 1)
+            {
+                List<EnemyEncounter> withoutPrevious = targetList
+                    .Where(encounter => !string.Equals(GetEncounterKey(encounter, encounterPool, stageId),
+                        previousEncounterId, StringComparison.Ordinal))
+                    .ToList();
+
+                if (withoutPrevious.Count > 0)
+                    targetList = withoutPrevious;
             }
 
             // Otherwise return random
-            return targetList.RandomItem();
+            EnemyEncounter selectedEncounter = targetList.RandomItem();
+            RememberBattleEncounter(encounterType, selectedEncounter, encounterPool, stageId);
+            return selectedEncounter;
+        }
+
+        private string GetPreviousBattleEncounterId(Map.EncounterType encounterType)
+        {
+            var gameplayData = GameManager.Instance != null
+                ? GameManager.Instance.PersistentGameplayData
+                : null;
+            if (gameplayData == null)
+                return string.Empty;
+
+            return encounterType == Map.EncounterType.Normal
+                ? gameplayData.LastNormalEncounterId
+                : encounterType == Map.EncounterType.Elite
+                    ? gameplayData.LastEliteEncounterId
+                    : string.Empty;
+        }
+
+        private void RememberBattleEncounter(Map.EncounterType encounterType, EnemyEncounter encounter,
+            List<EnemyEncounter> encounterPool, int stageId)
+        {
+            if (encounter == null || (encounterType != Map.EncounterType.Normal &&
+                                      encounterType != Map.EncounterType.Elite))
+                return;
+
+            var gameplayData = GameManager.Instance != null
+                ? GameManager.Instance.PersistentGameplayData
+                : null;
+            if (gameplayData == null)
+                return;
+
+            string encounterKey = GetEncounterKey(encounter, encounterPool, stageId);
+            if (encounterType == Map.EncounterType.Normal)
+                gameplayData.LastNormalEncounterId = encounterKey;
+            else
+                gameplayData.LastEliteEncounterId = encounterKey;
+        }
+
+        private static string GetEncounterKey(EnemyEncounter encounter, List<EnemyEncounter> encounterPool,
+            int stageId)
+        {
+            string encounterIdentity;
+            if (!string.IsNullOrEmpty(encounter.EncounterId))
+                encounterIdentity = encounter.EncounterId;
+            else
+            {
+                int index = encounterPool.IndexOf(encounter);
+                encounterIdentity = index >= 0 ? $"index:{index}" : string.Empty;
+            }
+
+            return string.IsNullOrEmpty(encounterIdentity)
+                ? string.Empty
+                : $"stage:{stageId}|{encounterIdentity}";
         }
         
         // Legacy method for backwards compatibility

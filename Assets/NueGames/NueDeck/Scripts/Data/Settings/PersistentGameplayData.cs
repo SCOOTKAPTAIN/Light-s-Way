@@ -28,6 +28,8 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         [SerializeField] private int currentEncounterId;
         [SerializeField] private bool isFinalEncounter;
         [SerializeField] private int currentEncounterTypeIndex; // 0=Normal, 1=Elite, 2=Boss, 3=Special
+        [SerializeField] private string lastNormalEncounterId;
+        [SerializeField] private string lastEliteEncounterId;
         [SerializeField] private List<CardData> currentCardsList;
         [SerializeField] private List<AllyHealthData> allyHealthDataDataList;
         private EnemyEncounter selectedEncounter;
@@ -117,6 +119,8 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
             CurrentGold = 100;
             CurrentCardsList = new List<CardData>();
             IsFinalEncounter = false;
+            lastNormalEncounterId = string.Empty;
+            lastEliteEncounterId = string.Empty;
             allyHealthDataDataList = new List<AllyHealthData>();
             proficiency = 1;
             light = 100;
@@ -229,6 +233,18 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
         {
             get => selectedEncounter;
             set => selectedEncounter = value;
+        }
+
+        public string LastNormalEncounterId
+        {
+            get => lastNormalEncounterId;
+            set => lastNormalEncounterId = value ?? string.Empty;
+        }
+
+        public string LastEliteEncounterId
+        {
+            get => lastEliteEncounterId;
+            set => lastEliteEncounterId = value ?? string.Empty;
         }
 
         public List<CardData> CurrentCardsList
