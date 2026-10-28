@@ -11,7 +11,6 @@ namespace Map
         private static List<float> layerDistances;
         // ALL nodes by layer:
         private static readonly List<List<Node>> nodes = new List<List<Node>>();
-        private static readonly List<NodeType> randomNodeHistory = new List<NodeType>();
 
         public static Map GetMap(MapConfig conf)
         {
@@ -23,14 +22,13 @@ namespace Map
 
             config = conf;
             nodes.Clear();
-            randomNodeHistory.Clear();
 
             GenerateLayerDistances();
 
-            for (int i = 0; i < conf.layers.Count; i++)
-                PlaceLayer(i);
-
             List<List<Vector2Int>> paths = GeneratePaths();
+
+            for (int i = 0; i < conf.layers.Count; i++)
+                PlaceLayer(i, paths);
 
             RandomizeNodePositions();
 
@@ -60,7 +58,7 @@ namespace Map
             return layerDistances.Take(layerIndex + 1).Sum();
         }
 
-        private static void PlaceLayer(int layerIndex)
+        private static void PlaceLayer(int layerIndex, List<List<Vector2Int>> paths)
         {
             MapLayer layer = config.layers[layerIndex];
             List<Node> nodesOnThisLayer = new List<Node>();
@@ -74,9 +72,8 @@ namespace Map
                 bool useRandomNode = Random.Range(0f, 1f) < layer.randomizeNodes &&
                                      supportedRandomNodeRules.Count > 0;
                 NodeType nodeType = useRandomNode
-                    ? SelectRandomNodeType(supportedRandomNodeRules)
+                    ? SelectRandomNodeType(supportedRandomNodeRules, new Vector2Int(i, layerIndex), paths)
                     : layer.nodeType;
-                randomNodeHistory.Add(nodeType);
                 string blueprintName = config.nodeBlueprints.Where(b => b.nodeType == nodeType).ToList().Random().name;
                 Node node = new Node(nodeType, blueprintName, new Vector2Int(i, layerIndex))
                 {
@@ -106,10 +103,11 @@ namespace Map
                 .ToList();
         }
 
-        private static NodeType SelectRandomNodeType(List<RandomNodeRule> rules)
+        private static NodeType SelectRandomNodeType(List<RandomNodeRule> rules, Vector2Int point,
+            List<List<Vector2Int>> paths)
         {
             List<RandomNodeRule> eligibleRules = rules
-                .Where(rule => !IsOnCooldown(rule))
+                .Where(rule => !IsOnCooldown(rule, point, paths))
                 .ToList();
 
             if (eligibleRules.Count == 0)
@@ -118,7 +116,7 @@ namespace Map
                 int oldestDistance = -1;
                 for (int i = 0; i < rules.Count; i++)
                 {
-                    int distance = DistanceSinceLastNodeType(rules[i].nodeType);
+                    int distance = DistanceSinceLastNodeType(rules[i].nodeType, point, paths);
                     if (distance > oldestDistance)
                     {
                         oldestDistance = distance;
@@ -133,21 +131,47 @@ namespace Map
             return WeightedRandom(eligibleRules).nodeType;
         }
 
-        private static bool IsOnCooldown(RandomNodeRule rule)
+        private static bool IsOnCooldown(RandomNodeRule rule, Vector2Int point, List<List<Vector2Int>> paths)
         {
             return rule.cooldown > 0 &&
-                   DistanceSinceLastNodeType(rule.nodeType) <= rule.cooldown;
+                   DistanceSinceLastNodeType(rule.nodeType, point, paths) <= rule.cooldown;
         }
 
-        private static int DistanceSinceLastNodeType(NodeType nodeType)
+        private static int DistanceSinceLastNodeType(NodeType nodeType, Vector2Int point,
+            List<List<Vector2Int>> paths)
         {
-            for (int i = randomNodeHistory.Count - 1; i >= 0; i--)
+            int minimumDistance = int.MaxValue;
+            foreach (List<Vector2Int> path in paths)
             {
-                if (randomNodeHistory[i] == nodeType)
-                    return randomNodeHistory.Count - i;
+                int pointIndex = path.IndexOf(point);
+                if (pointIndex < 0)
+                    continue;
+
+                int searchStart = Mathf.Max(0, pointIndex - GetMaximumCooldown(paths, point));
+                for (int i = pointIndex - 1; i >= searchStart; i--)
+                {
+                    Node previousNode = GetNode(path[i]);
+                    if (previousNode != null && previousNode.nodeType == nodeType)
+                    {
+                        minimumDistance = Mathf.Min(minimumDistance, pointIndex - i);
+                        break;
+                    }
+                }
             }
 
-            return int.MaxValue;
+            return minimumDistance;
+        }
+
+        private static int GetMaximumCooldown(List<List<Vector2Int>> paths, Vector2Int point)
+        {
+            int maximumCooldown = 0;
+            foreach (RandomNodeRule rule in GetSupportedRandomNodeRules())
+            {
+                if (paths.Any(path => path.Contains(point)))
+                    maximumCooldown = Mathf.Max(maximumCooldown, rule.cooldown);
+            }
+
+            return maximumCooldown;
         }
 
         private static RandomNodeRule WeightedRandom(List<RandomNodeRule> rules)

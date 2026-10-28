@@ -406,7 +406,7 @@ namespace NueGames.NueDeck.Scripts.Data.Settings
 
         public void QueueInitialCardRemoval(string cardName)
         {
-            if (!string.IsNullOrWhiteSpace(cardName) && !initialCardsToRemove.Contains(cardName))
+            if (!string.IsNullOrWhiteSpace(cardName))
                 initialCardsToRemove.Add(cardName);
         }
 

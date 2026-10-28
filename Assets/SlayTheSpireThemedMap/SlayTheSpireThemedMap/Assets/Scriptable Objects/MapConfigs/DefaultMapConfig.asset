@@ -29,7 +29,7 @@ MonoBehaviour:
     cooldown: 4
   - nodeType: 6
     weight: 4
-    cooldown: 0
+    cooldown: 1
   - nodeType: 1
     weight: 3
     cooldown: 1
@@ -40,7 +40,7 @@ MonoBehaviour:
     min: 4
     max: 5
   numOfStartingNodes:
-    min: 3
+    min: 4
     max: 4
   extraPaths: 0
   layers:
